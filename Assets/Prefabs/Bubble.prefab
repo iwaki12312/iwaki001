@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 804f753c639d3744d8c4ee4ac9e2730d, type: 3}
+  m_Sprite: {fileID: -4639489869002361503, guid: 1606ea697a39c6a4a8b4d07f64c2a217, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   minSpeed: 0.3
   maxSpeed: 2
   maxMoveSpeed: 2
-  gravity: 5
+  gravity: 0.1
   bouncePower: 0.5
   swayPower: 0.1
   collisionForce: 1
