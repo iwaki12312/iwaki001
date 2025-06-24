@@ -1,0 +1,20 @@
+# Unity用
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Visual Studio
+.vscode/
+*.csproj
+*.sln
+*.user
+*.suo
+
+# OSごとの不要ファイル
+.DS_Store
+Thumbs.db
