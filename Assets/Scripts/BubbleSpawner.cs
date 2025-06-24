@@ -41,6 +41,9 @@ public class BubbleSpawner : MonoBehaviour
             if (boy != null)
             {
                 // タップ位置が少年に近すぎる場合は処理をスキップ
+                return;
+            }
+            
             // プレハブの確認
             if (bubblePrefab == null)
             {
@@ -59,13 +62,13 @@ public class BubbleSpawner : MonoBehaviour
     {
         // ランダムなサイズを決定
         float size = Random.Range(minBubbleSize, maxBubbleSize);
-        
+
         // シャボン玉を生成
         GameObject bubble = Instantiate(bubblePrefab, position, Quaternion.identity);
-        
+
         // ランダムなサイズを適用
         bubble.transform.localScale = new Vector3(size, size, 1f);
-        
+
         // ランダムな色を設定（オプション）
         Color randomColor = new Color(
             Random.Range(0.7f, 1f),
