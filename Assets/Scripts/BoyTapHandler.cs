@@ -26,7 +26,7 @@ public class BoyTapHandler : MonoBehaviour
         Vector2 boyPosition = transform.position;
         
         // 画面中央方向へのベクトルを計算
-        Vector2 screenCenter = Camera.main.ViewportToWorldPoint(new Vector2(0.5f, 0.5f));
+        Vector2 screenCenter = Camera.main.ViewportToWorldPoint(new Vector2(0.5f, 1.5f));
         Vector2 direction = (screenCenter - boyPosition).normalized;
         
         // 少年から少し離れた位置を計算
@@ -34,6 +34,22 @@ public class BoyTapHandler : MonoBehaviour
         
         // シャボン玉を生成
         GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
+        
+        // ランダムなサイズを設定 (0.5～1.5)
+        float size = Random.Range(0.5f, 1.5f);
+        bubble.transform.localScale = new Vector3(size, size, 1f);
+        
+        // ランダムな色を設定
+        SpriteRenderer renderer = bubble.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.color = new Color(
+                Random.Range(0.7f, 1f),
+                Random.Range(0.7f, 1f),
+                Random.Range(0.7f, 1f),
+                0.8f
+            );
+        }
         
         // シャボン玉に速度を設定
         Rigidbody2D rb = bubble.GetComponent<Rigidbody2D>();
