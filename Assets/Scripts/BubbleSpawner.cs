@@ -25,14 +25,22 @@ public class BubbleSpawner : MonoBehaviour
             Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log($"タップ位置: {touchPos}");
 
-            // タップ位置にシャボン玉があるか確認
+            // タップ位置にあるオブジェクトを確認
             RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
-            if (hit.collider != null && hit.collider.CompareTag("Bubble"))
+            if (hit.collider != null)
             {
-                Debug.Log("シャボン玉上でのクリックのため、新しい生成をスキップします");
-                return;
+                if (hit.collider.CompareTag("Bubble") || hit.collider.CompareTag("Boy"))
+                {
+                    Debug.Log("シャボン玉または少年オブジェクト上でのクリックのため、新しい生成をスキップします");
+                    return;
+                }
             }
             
+            // 少年オブジェクトの位置を取得
+            GameObject boy = GameObject.FindGameObjectWithTag("Boy");
+            if (boy != null)
+            {
+                // タップ位置が少年に近すぎる場合は処理をスキップ
             // プレハブの確認
             if (bubblePrefab == null)
             {

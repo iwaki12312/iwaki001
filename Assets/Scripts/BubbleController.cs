@@ -1,4 +1,4 @@
-using UnityEngine;
+ばぶるがusing UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -44,14 +44,17 @@ public class BubbleController : MonoBehaviour
             spriteRenderer.material.SetFloat("_HighlightIntensity", highlightIntensity);
         }
 
-        // 初期の動きを設定
-        rb.linearVelocity = new Vector2(
-            Random.Range(-swayPower, swayPower),
-            -Random.Range(minSpeed, maxSpeed)
-        );
-        
-        if(bouncePower > 0) {
-            rb.AddForce(Vector2.up * bouncePower * 2f, ForceMode2D.Impulse);
+        // 初期速度が設定されていない場合のみランダムな動きを設定
+        if (rb.linearVelocity == Vector2.zero)
+        {
+            rb.linearVelocity = new Vector2(
+                Random.Range(-swayPower, swayPower),
+                -Random.Range(minSpeed, maxSpeed)
+            );
+            
+            if(bouncePower > 0) {
+                rb.AddForce(Vector2.up * bouncePower * 2f, ForceMode2D.Impulse);
+            }
         }
     }
 
