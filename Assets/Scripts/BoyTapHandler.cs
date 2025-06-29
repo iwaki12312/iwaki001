@@ -25,12 +25,14 @@ public class BoyTapHandler : MonoBehaviour
         // 少年の位置を取得
         Vector2 boyPosition = transform.position;
         
-        // 画面中央方向へのベクトルを計算
-        Vector2 screenCenter = Camera.main.ViewportToWorldPoint(new Vector2(0.5f, 1.5f));
-        Vector2 direction = (screenCenter - boyPosition).normalized;
+        // 少年の左側の位置を計算
+        Vector2 leftSidePosition = new Vector2(boyPosition.x + -1.5f, boyPosition.y);
         
-        // 少年から少し離れた位置を計算
-        Vector2 spawnPosition = boyPosition + direction * spawnOffset;
+        // 左上方向へのベクトルを設定
+        Vector2 direction = new Vector2(-0.7f, 0.7f).normalized;
+        
+        // 少年の右側から少し離れた位置を計算
+        Vector2 spawnPosition = leftSidePosition + direction * spawnOffset;
         
         // シャボン玉を生成
         GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
