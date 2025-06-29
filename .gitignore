@@ -10,6 +10,9 @@
 [Ll]ibrary/PackageManager/
 [Ll]ibrary/ScriptAssemblies/
 [Ll]ibrary/BurstCache/
+[Ll]ibrary/UndoStack.bin
+[Ll]ibrary/UndoData.bin
+[Ll]ibrary/Search/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
