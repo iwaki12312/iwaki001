@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 818578909374493751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff972fcbf01137a4fa191c1eabbddc83, type: 3}
+  m_Script: {fileID: 11500000, guid: 6513f784cd0d8f44c839978c204c8d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyDelay: 0.1

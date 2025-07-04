@@ -3,61 +3,77 @@ using UnityEngine;
 public class BoyTapHandler : MonoBehaviour
 {
     [SerializeField] private GameObject bubblePrefab;
-    [SerializeField] private float spawnOffset = 1f; // 少年から少し離れた位置に生成
-    [SerializeField] private float bubbleSpeed = 5f; // 発射速度
+    [SerializeField] private float spawnOffset = -1f;
+    [SerializeField] private float bubbleSpeed = 5f;
 
-    private void OnMouseDown()
+    private void Start()
     {
-        // メインカメラの確認
-        if (Camera.main == null)
-        {
-            Debug.LogError("メインカメラが見つかりません");
-            return;
-        }
-
-        // プレハブの確認
+        // Prefabの参照が設定されていない場合は、Resources.Loadを試みる
         if (bubblePrefab == null)
         {
-            Debug.LogError("シャボン玉プレハブが設定されていません");
-            return;
+            bubblePrefab = Resources.Load<GameObject>("Prefabs/Bubble");
+            if (bubblePrefab == null)
+            {
+                Debug.LogError("バブルプレハブが見つかりません。インスペクターで設定してください。");
+            }
+            else
+            {
+                Debug.Log("バブルプレハブをResourcesから読み込みました。");
+            }
         }
+    }
 
-        // 少年の位置を取得
-        Vector2 boyPosition = transform.position;
-        
-        // 少年の左側の位置を計算
-        Vector2 leftSidePosition = new Vector2(boyPosition.x + -1.5f, boyPosition.y);
-        
-        // 左上方向へのベクトルを設定
-        Vector2 direction = new Vector2(-0.7f, 0.7f).normalized;
-        
-        // 少年の右側から少し離れた位置を計算
-        Vector2 spawnPosition = leftSidePosition + direction * spawnOffset;
-        
-        // シャボン玉を生成
-        GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
-        
-        // ランダムなサイズを設定 (0.5～1.5)
-        float size = Random.Range(0.5f, 1.5f);
-        bubble.transform.localScale = new Vector3(size, size, 1f);
-        
-        // ランダムな色を設定
-        SpriteRenderer renderer = bubble.GetComponent<SpriteRenderer>();
-        if (renderer != null)
+    private void Update()
+    {
+        // マウスクリックまたはタッチ入力を検出
+        if (Input.GetMouseButtonDown(0))
         {
-            renderer.color = new Color(
+            // マウス位置をワールド座標に変換
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+
+            // クリックがこのオブジェクトのコライダー内かどうかを確認
+            Collider2D collider = GetComponent<Collider2D>();
+            if (collider != null && collider.OverlapPoint(mousePos))
+            {
+                SpawnBubble();
+                Debug.Log("少年をタップしました！シャボン玉を生成します。");
+            }
+        }
+    }
+
+    // シャボン玉を生成するメソッド
+    private void SpawnBubble()
+    {
+        if (bubblePrefab != null)
+        {
+            // 少年の位置から少し離れた位置にシャボン玉を生成
+            Vector3 spawnPosition = transform.position + new Vector3(spawnOffset, 0, 0);
+            GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
+            
+            // ランダムなサイズを設定
+            float size = Random.Range(0.5f, 1.5f);
+            bubble.transform.localScale = new Vector3(size, size, 1f);
+            
+            // ランダムな色を設定
+            Color randomColor = new Color(
                 Random.Range(0.7f, 1f),
                 Random.Range(0.7f, 1f),
                 Random.Range(0.7f, 1f),
                 0.8f
             );
+            SpriteRenderer renderer = bubble.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.color = randomColor;
+            }
+            
+            // シャボン玉の速度は設定せず、BubbleControllerに任せる
+            Debug.Log("シャボン玉を生成しました。BubbleControllerの初期設定が適用されます。");
         }
-        
-        // シャボン玉に速度を設定
-        Rigidbody2D rb = bubble.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        else
         {
-            rb.linearVelocity = direction * bubbleSpeed;
+            Debug.LogError("バブルプレハブが設定されていません。");
         }
     }
 }

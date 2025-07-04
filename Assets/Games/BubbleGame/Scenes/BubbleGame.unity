@@ -677,6 +677,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuSceneName: Menu
   backToMenuKey: 27
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ee9e0999a85864286b171be6cd4c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubblePrefab: {fileID: 818578909374493751, guid: 2dc927be833c4f7409bb4b761142f8f0, type: 3}
+  minBubbleSize: 0.5
+  maxBubbleSize: 1.5
 --- !u!1 &560654929
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,8 +918,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4397655750998748422, guid: 7e5d0fdedf9992945ba61412d99f781e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1775777540}
   m_SourcePrefab: {fileID: 100100000, guid: 7e5d0fdedf9992945ba61412d99f781e, type: 3}
+--- !u!1 &1775777540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4397655750998748422, guid: 7e5d0fdedf9992945ba61412d99f781e, type: 3}
+  m_PrefabInstance: {fileID: 1775777539}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1775777541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775777540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9356296e29136d4cbe05682d58b15df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubblePrefab: {fileID: 818578909374493751, guid: 2dc927be833c4f7409bb4b761142f8f0, type: 3}
+  spawnOffset: -1
+  bubbleSpeed: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
