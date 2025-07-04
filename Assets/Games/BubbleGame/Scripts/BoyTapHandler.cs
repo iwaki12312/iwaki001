@@ -47,8 +47,8 @@ public class BoyTapHandler : MonoBehaviour
     {
         if (bubblePrefab != null)
         {
-            // 少年の位置から少し離れた位置にシャボン玉を生成
-            Vector3 spawnPosition = transform.position + new Vector3(spawnOffset, 0, 0);
+            // 少年の左上から少し離れた位置にシャボン玉を生成
+            Vector3 spawnPosition = transform.position + new Vector3(spawnOffset, 1.5f, 0);
             GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
             
             // ランダムなサイズを設定
@@ -68,7 +68,14 @@ public class BoyTapHandler : MonoBehaviour
                 renderer.color = randomColor;
             }
             
-            // シャボン玉の速度は設定せず、BubbleControllerに任せる
+            // シャボン玉に左上方向への初速度を設定
+            Rigidbody2D rb = bubble.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(-1.5f, 1f) * bubbleSpeed;
+            }
+            
+            // BubbleControllerの処理も適用される
             Debug.Log("シャボン玉を生成しました。BubbleControllerの初期設定が適用されます。");
         }
         else
