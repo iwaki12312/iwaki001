@@ -423,8 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd2d0259542fcf449899d5d0180b4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleGameButton: {fileID: 22}
-  simpleGameButton: {fileID: 25}
+  bubbleGameButton: {fileID: 24}
+  simpleGameButton: {fileID: 34}
   bubbleGameSceneName: BubbleGame
   simpleGameSceneName: SimpleGame
 --- !u!224 &17
