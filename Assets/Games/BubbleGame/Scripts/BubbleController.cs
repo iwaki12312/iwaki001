@@ -90,6 +90,31 @@ public class BubbleController : MonoBehaviour
 
     void OnMouseDown()
     {
+        // シャボン玉がはじけるエフェクトを生成
+        // 直接スプライトシートのフレームを使用
+        Sprite[] frames = Resources.LoadAll<Sprite>("BubbleSplash/BubbleSplash");
+        if (frames != null && frames.Length > 0)
+        {
+            GameObject splash = new GameObject("BubbleSplashEffect");
+            splash.transform.position = transform.position + new Vector3(-0.5f, 0f, 0f);
+            splash.transform.localScale = transform.localScale * 1.5f;
+            
+            // SpriteRendererを追加
+            SpriteRenderer sr = splash.AddComponent<SpriteRenderer>();
+            sr.sprite = frames[0];
+            sr.sortingOrder = 10;
+            
+            // アニメーション用スクリプトを追加
+            var animator = splash.AddComponent<BubbleSplashEffect>();
+            animator.lifetime = 1.0f;
+            
+            Debug.Log("シャボン玉がはじけるエフェクトを生成しました: " + splash.name + ", フレーム数: " + frames.Length);
+        }
+        else
+        {
+            Debug.LogWarning("BubbleSplashスプライトが見つかりません");
+        }
+        
         Destroy(gameObject, destroyDelay);
     }
 
