@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -921,7 +922,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4397655750998748422, guid: 7e5d0fdedf9992945ba61412d99f781e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1775777540}
+      addedObject: {fileID: 1775777541}
   m_SourcePrefab: {fileID: 100100000, guid: 7e5d0fdedf9992945ba61412d99f781e, type: 3}
 --- !u!1 &1775777540 stripped
 GameObject:
