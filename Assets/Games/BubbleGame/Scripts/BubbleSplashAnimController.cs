@@ -24,6 +24,9 @@ public class BubbleSplashAnimController : MonoBehaviour
         
         // フェードアウト処理を開始
         StartCoroutine(FadeOut());
+        
+        // 現在のスケールをログ出力
+        Debug.Log("BubbleSplashAnimController Start時のスケール: " + transform.localScale);
     }
     
     // フェードアウト処理
@@ -54,6 +57,8 @@ public class BubbleSplashAnimController : MonoBehaviour
     // シャボン玉の色とサイズを設定するメソッド
     public void SetBubbleProperties(Color bubbleColor, Vector3 bubbleScale)
     {
+        Debug.Log("SetBubbleProperties呼び出し - 現在のスケール: " + transform.localScale + ", 設定するスケール: " + bubbleScale);
+        
         if (spriteRenderer != null)
         {
             // 色を設定（アルファ値は維持）
@@ -61,9 +66,24 @@ public class BubbleSplashAnimController : MonoBehaviour
             newColor.a = spriteRenderer.color.a;
             spriteRenderer.color = newColor;
             originalColor = newColor;
-            
-            // スケールを設定
-            transform.localScale = bubbleScale;
+        }
+        
+        // シャボン玉のサイズに合わせてエフェクトのサイズを調整
+        // エフェクトのサイズをシャボン玉のサイズに比例させる
+        // シャボン玉が大きければエフェクトも大きく、小さければエフェクトも小さく
+        transform.localScale = bubbleScale;
+        
+        // スケール設定後に強制的に更新
+        transform.hasChanged = true;
+        
+        // デバッグログ
+        Debug.Log("エフェクトのサイズを設定完了: " + transform.localScale);
+        
+        // Animatorがある場合は、アニメーションがスケールを上書きしないように注意
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            Debug.Log("Animatorが見つかりました。アニメーションがスケールを上書きしないか確認してください。");
         }
     }
 }

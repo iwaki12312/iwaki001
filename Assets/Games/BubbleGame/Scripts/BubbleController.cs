@@ -145,7 +145,15 @@ public class BubbleController : MonoBehaviour
         {
             // シャボン玉の左側にエフェクトを生成
             Vector3 spawnPosition = transform.position + new Vector3(-0.5f, 0f, 0f);
+            
+            // プレハブのスケールを保存
+            Vector3 originalScale = bubbleSplashAnimPrefab.transform.localScale;
+            
+            // インスタンス化
             GameObject splashEffect = Instantiate(bubbleSplashAnimPrefab, spawnPosition, Quaternion.identity);
+            
+            // インスタンス化直後のスケールをログ出力
+            Debug.Log("インスタンス化直後のエフェクトスケール: " + splashEffect.transform.localScale);
             
             // シャボン玉の色とサイズを反映
             BubbleSplashAnimController controller = splashEffect.GetComponent<BubbleSplashAnimController>();
@@ -154,9 +162,32 @@ public class BubbleController : MonoBehaviour
                 controller = splashEffect.AddComponent<BubbleSplashAnimController>();
             }
             
+            // アニメーターによるスケール変更を無効化するコンポーネントを追加
+            DisableAnimatorScale scaleController = splashEffect.GetComponent<DisableAnimatorScale>();
+            if (scaleController == null)
+            {
+                scaleController = splashEffect.AddComponent<DisableAnimatorScale>();
+            }
+            
             if (controller != null)
             {
-                controller.SetBubbleProperties(spriteRenderer.color, transform.localScale);
+                // シャボン玉のサイズに合わせてエフェクトのサイズを調整
+                Vector3 bubbleScale = transform.localScale;
+                Debug.Log("シャボン玉のサイズ: " + bubbleScale);
+                
+                // エフェクトのサイズを明示的に設定
+                splashEffect.transform.localScale = bubbleScale;
+                Debug.Log("エフェクトのスケールを直接設定: " + splashEffect.transform.localScale);
+                
+                // スケールコントローラーを更新
+                if (scaleController != null)
+                {
+                    scaleController.UpdateScale(bubbleScale);
+                }
+                
+                // コントローラーにも設定
+                controller.SetBubbleProperties(spriteRenderer.color, bubbleScale);
+                Debug.Log("SetBubbleProperties呼び出し後のエフェクトスケール: " + splashEffect.transform.localScale);
             }
             
             Debug.Log("シャボン玉がはじけるエフェクトを生成しました: " + splashEffect.name);
@@ -175,9 +206,28 @@ public class BubbleController : MonoBehaviour
                 
                 // シャボン玉の色とサイズを反映
                 BubbleSplashAnimController controller = splashEffect.AddComponent<BubbleSplashAnimController>();
+                
+                // アニメーターによるスケール変更を無効化するコンポーネントを追加
+                DisableAnimatorScale scaleController = splashEffect.AddComponent<DisableAnimatorScale>();
+                
                 if (controller != null)
                 {
-                    controller.SetBubbleProperties(spriteRenderer.color, transform.localScale);
+                    // シャボン玉のサイズに合わせてエフェクトのサイズを調整
+                    Vector3 bubbleScale = transform.localScale;
+                    
+                    // エフェクトのサイズを明示的に設定
+                    splashEffect.transform.localScale = bubbleScale;
+                    Debug.Log("エフェクトのスケールを直接設定: " + splashEffect.transform.localScale);
+                    
+                    // スケールコントローラーを更新
+                    if (scaleController != null)
+                    {
+                        scaleController.UpdateScale(bubbleScale);
+                    }
+                    
+                    // コントローラーにも設定
+                    controller.SetBubbleProperties(spriteRenderer.color, bubbleScale);
+                    Debug.Log("SetBubbleProperties呼び出し後のエフェクトスケール: " + splashEffect.transform.localScale);
                 }
             }
             else
