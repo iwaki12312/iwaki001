@@ -31,3 +31,13 @@ UserSettings/
 # OSごとの不要ファイル
 .DS_Store
 Thumbs.db
+Library/Search/transactions.db
+Library/ArtifactDB
+Library/EditorInstance.json
+Library/ilpp.pid
+Library/PreviousActionData.bin
+Library/PreviousActionStack.bin
+Library/SceneVisibilityState.asset
+Library/SourceAssetDB
+Library/UndoData.bin
+Library/UndoStack.bin
