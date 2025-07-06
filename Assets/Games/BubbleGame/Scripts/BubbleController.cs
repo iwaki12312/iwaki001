@@ -6,6 +6,7 @@ public class BubbleController : MonoBehaviour
 {
     [Header("基本設定")]
     [SerializeField] private float destroyDelay = 0.1f;
+    [SerializeField] private GameObject bubbleSplashAnimPrefab;
     
     [Header("移動設定")]
     [SerializeField] private float minSpeed = 0.3f;
@@ -91,31 +92,99 @@ public class BubbleController : MonoBehaviour
     void OnMouseDown()
     {
         // シャボン玉がはじけるエフェクトを生成
-        // 直接スプライトシートのフレームを使用
-        Sprite[] frames = Resources.LoadAll<Sprite>("BubbleSplash/BubbleSplash");
-        if (frames != null && frames.Length > 0)
+        CreateBubbleSplashEffect();
+        
+        // シャボン玉を破棄
+        Destroy(gameObject, destroyDelay);
+    }
+    
+    // シャボン玉がはじけるエフェクトを生成するメソッド
+    private void CreateBubbleSplashEffect()
+    {
+        // プレハブが設定されていない場合は、Resources.Loadを試みる
+        if (bubbleSplashAnimPrefab == null)
         {
-            GameObject splash = new GameObject("BubbleSplashEffect");
-            splash.transform.position = transform.position + new Vector3(-0.5f, 0f, 0f);
-            splash.transform.localScale = transform.localScale * 1.5f;
+            // 新しいプレハブを読み込む
+            bubbleSplashAnimPrefab = Resources.Load<GameObject>("BubbleSplashAnim");
             
-            // SpriteRendererを追加
-            SpriteRenderer sr = splash.AddComponent<SpriteRenderer>();
-            sr.sprite = frames[0];
-            sr.sortingOrder = 10;
+            // 見つかった場合はログ出力
+            if (bubbleSplashAnimPrefab != null)
+            {
+                Debug.Log("BubbleSplashAnimプレハブを見つけました: " + bubbleSplashAnimPrefab.name);
+            }
+            else
+            {
+                // 直接パスを指定して読み込み
+                bubbleSplashAnimPrefab = Resources.Load<GameObject>("Games/BubbleGame/Prefabs/BubbleSplashAnim");
+                
+                // それでも見つからない場合はプロジェクト内を検索
+                if (bubbleSplashAnimPrefab == null)
+                {
+                    // 最後の手段として、プレハブを直接検索
+                    GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                    foreach (GameObject obj in allObjects)
+                    {
+                        if (obj.name == "BubbleSplashAnim")
+                        {
+                            bubbleSplashAnimPrefab = obj;
+                            Debug.Log("シーン内でBubbleSplashAnimプレハブを見つけました");
+                            break;
+                        }
+                    }
+                    
+                    if (bubbleSplashAnimPrefab == null)
+                    {
+                        Debug.LogWarning("BubbleSplashAnimプレハブが見つかりません。アニメーションが再生されない可能性があります。");
+                    }
+                }
+            }
+        }
+        
+        // プレハブが見つかった場合
+        if (bubbleSplashAnimPrefab != null)
+        {
+            // シャボン玉の左側にエフェクトを生成
+            Vector3 spawnPosition = transform.position + new Vector3(-0.5f, 0f, 0f);
+            GameObject splashEffect = Instantiate(bubbleSplashAnimPrefab, spawnPosition, Quaternion.identity);
             
-            // アニメーション用スクリプトを追加
-            var animator = splash.AddComponent<BubbleSplashEffect>();
-            animator.lifetime = 1.0f;
+            // シャボン玉の色とサイズを反映
+            BubbleSplashAnimController controller = splashEffect.GetComponent<BubbleSplashAnimController>();
+            if (controller == null)
+            {
+                controller = splashEffect.AddComponent<BubbleSplashAnimController>();
+            }
             
-            Debug.Log("シャボン玉がはじけるエフェクトを生成しました: " + splash.name + ", フレーム数: " + frames.Length);
+            if (controller != null)
+            {
+                controller.SetBubbleProperties(spriteRenderer.color, transform.localScale);
+            }
+            
+            Debug.Log("シャボン玉がはじけるエフェクトを生成しました: " + splashEffect.name);
         }
         else
         {
-            Debug.LogWarning("BubbleSplashスプライトが見つかりません");
+            // プレハブが見つからない場合は直接インスタンス化
+            GameObject splashEffect = new GameObject("BubbleSplashEffect");
+            splashEffect.transform.position = transform.position + new Vector3(-0.5f, 0f, 0f);
+            
+            // BubbleSplashAnimプレハブを直接参照
+            GameObject prefab = Resources.Load<GameObject>("Assets/Games/BubbleGame/Prefabs/BubbleSplashAnim");
+            if (prefab != null)
+            {
+                splashEffect = Instantiate(prefab, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity);
+                
+                // シャボン玉の色とサイズを反映
+                BubbleSplashAnimController controller = splashEffect.AddComponent<BubbleSplashAnimController>();
+                if (controller != null)
+                {
+                    controller.SetBubbleProperties(spriteRenderer.color, transform.localScale);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("BubbleSplashAnimプレハブが見つかりません");
+            }
         }
-        
-        Destroy(gameObject, destroyDelay);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
