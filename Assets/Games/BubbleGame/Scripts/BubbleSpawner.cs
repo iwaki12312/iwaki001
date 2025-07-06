@@ -77,5 +77,8 @@ public class BubbleSpawner : MonoBehaviour
             0.8f
         );
         bubble.GetComponent<SpriteRenderer>().color = randomColor;
+        
+        // 効果音を再生
+        AudioManager.Instance.PlayShotSound();
     }
 }

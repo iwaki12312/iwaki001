@@ -94,6 +94,9 @@ public class BubbleController : MonoBehaviour
         // シャボン玉がはじけるエフェクトを生成
         CreateBubbleSplashEffect();
         
+        // 効果音を再生
+        AudioManager.Instance.PlaySplashSound();
+        
         // シャボン玉を破棄
         Destroy(gameObject, destroyDelay);
     }
