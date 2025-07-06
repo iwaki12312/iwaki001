@@ -47,8 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotSound: {fileID: 0}
   splashSound: {fileID: 0}
+  bgmSound: {fileID: 0}
   shotVolume: 0.5
   splashVolume: 0.5
+  bgmVolume: 0.3
 --- !u!82 &4567890123456789012
 AudioSource:
   m_ObjectHideFlags: 0
