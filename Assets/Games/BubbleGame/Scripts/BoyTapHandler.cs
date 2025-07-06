@@ -36,8 +36,32 @@ public class BoyTapHandler : MonoBehaviour
             Collider2D collider = GetComponent<Collider2D>();
             if (collider != null && collider.OverlapPoint(mousePos))
             {
+                // シャボン玉を生成
                 SpawnBubble();
                 Debug.Log("少年をタップしました！シャボン玉を生成します。");
+                
+                // 矢印を非表示にする
+                HideArrow();
+            }
+        }
+    }
+    
+    // 矢印を非表示にするメソッド
+    private void HideArrow()
+    {
+        // ArrowManagerを検索
+        ArrowManager arrowManager = FindObjectOfType<ArrowManager>();
+        if (arrowManager != null)
+        {
+            arrowManager.HideArrow();
+        }
+        else
+        {
+            // ArrowControllerを直接検索
+            ArrowController[] arrows = FindObjectsOfType<ArrowController>();
+            foreach (ArrowController arrow in arrows)
+            {
+                arrow.HideArrow();
             }
         }
     }
