@@ -1,43 +1,46 @@
-# Unity用
-[Ll]ibrary/APIUpdater/
-[Ll]ibrary/Artifacts/
-[Ll]ibrary/PackageCache/
-[Ll]ibrary/Bee/
-[Ll]ibrary/ShaderCache/
-[Ll]ibrary/StateCache/
-[Ll]ibrary/TempArtifacts/
-[Ll]ibrary/UIElements/
-[Ll]ibrary/PackageManager/
-[Ll]ibrary/ScriptAssemblies/
-[Ll]ibrary/BurstCache/
-[Ll]ibrary/UndoStack.bin
-[Ll]ibrary/UndoData.bin
-[Ll]ibrary/Search/
+# Unityが生成するキャッシュ系
+[Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
-[Mm]emoryCaptures/
 UserSettings/
 
-# Visual Studio
-.vscode/
-*.csproj
-*.sln
-*.user
-*.suo
+# Unityのビルド成果物（APKなど）
+*.apk
+*.aab
 
-# OSごとの不要ファイル
+# Unity Cloudや他のビルドサービスのキャッシュ
+sysinfo.txt
+
+# Visual Studio / JetBrains Rider
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+.idea/
+.vscode/
+
+# OSやエディタが生成するゴミファイル
 .DS_Store
 Thumbs.db
-Library/Search/transactions.db
-Library/ArtifactDB
-Library/EditorInstance.json
-Library/ilpp.pid
-Library/PreviousActionData.bin
-Library/PreviousActionStack.bin
-Library/SceneVisibilityState.asset
-Library/SourceAssetDB
-Library/UndoData.bin
-Library/UndoStack.bin
+
+# Crashレポートなど
+*.stacktrace
+
+# Mac向けビルドで使われる一時ファイル
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+
+# Android向け設定一時ファイル
+.gradle/
+local.properties
