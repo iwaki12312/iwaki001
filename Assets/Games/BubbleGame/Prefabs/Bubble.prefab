@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyDelay: 0.1
-  bubbleSplashAnimPrefab: {fileID: 987074928486871365, guid: 94c02540a220a7742a4dee1a61ba3b08, type: 3}
+  bubbleSplashAnimPrefab: {fileID: 987074928486871365, guid: 7aaee283ea089d2488e639928e759a2d, type: 3}
   minSpeed: 0.3
   maxSpeed: 0.8
   maxMoveSpeed: 2
