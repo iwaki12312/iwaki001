@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7740817780109409140}
   - component: {fileID: 3727835106023265998}
   - component: {fileID: 3163261660783360931}
+  - component: {fileID: -7549062140812261186}
   m_Layer: 0
   m_Name: Boy
   m_TagString: Boy
@@ -78,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 473947219574349775, guid: ff921fe1195ff814fa21150bc6cea4eb, type: 3}
+  m_Sprite: {fileID: -394591486901757920, guid: 2d017226168d65a4986cea5511155e3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.98, y: 6.41}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -128,7 +129,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.98, y: 6.41}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 3.98, y: 6.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -144,9 +145,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4397655750998748422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e5fd8fdc93c9140abe7ec350143be7, type: 3}
+  m_Script: {fileID: 11500000, guid: e9356296e29136d4cbe05682d58b15df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubblePrefab: {fileID: 818578909374493751, guid: 2dc927be833c4f7409bb4b761142f8f0, type: 3}
-  spawnOffset: 1
+  bubblePrefab: {fileID: 2669154042050861876, guid: 60a08bec11d012e47b4fab9548f5c814, type: 3}
+  spawnOffset: -1
   bubbleSpeed: 5
+--- !u!114 &-7549062140812261186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4397655750998748422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ee9e0999a85864286b171be6cd4c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubblePrefab: {fileID: 0}
+  minBubbleSize: 0.5
+  maxBubbleSize: 1.5

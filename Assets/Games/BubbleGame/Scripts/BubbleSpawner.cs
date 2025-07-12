@@ -7,6 +7,31 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private float minBubbleSize = 0.5f; // 最小サイズ
     [SerializeField] private float maxBubbleSize = 1.5f; // 最大サイズ
 
+    void Start()
+    {
+        // Prefabの参照が設定されていない場合は、GameInitializerから取得
+        if (bubblePrefab == null)
+        {
+            GameInitializer gameInitializer = FindObjectOfType<GameInitializer>();
+            if (gameInitializer != null)
+            {
+                bubblePrefab = gameInitializer.GetBubblePrefab();
+                if (bubblePrefab != null)
+                {
+                    Debug.Log("GameInitializerからバブルプレハブを取得しました");
+                }
+                else
+                {
+                    Debug.LogError("GameInitializerからバブルプレハブを取得できませんでした");
+                }
+            }
+            else
+            {
+                Debug.LogError("GameInitializerが見つかりません");
+            }
+        }
+    }
+
     void Update()
     {
         // タップ（クリック）された時

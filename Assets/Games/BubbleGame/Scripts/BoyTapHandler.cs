@@ -8,17 +8,39 @@ public class BoyTapHandler : MonoBehaviour
 
     private void Start()
     {
-        // Prefabの参照が設定されていない場合は、Resources.Loadを試みる
+        // Prefabの参照が設定されていない場合は、シーン内から検索
         if (bubblePrefab == null)
         {
-            bubblePrefab = Resources.Load<GameObject>("Prefabs/Bubble");
+            // シーン内のBubbleプレハブを検索
+            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name == "Bubble" && obj.CompareTag("Bubble"))
+                {
+                    bubblePrefab = obj;
+                    Debug.Log("シーン内でバブルプレハブを見つけました: " + obj.name);
+                    break;
+                }
+            }
+            
+            // 見つからない場合は、GameInitializerに依頼
             if (bubblePrefab == null)
             {
-                Debug.LogError("バブルプレハブが見つかりません。インスペクターで設定してください。");
+                GameInitializer gameInitializer = FindObjectOfType<GameInitializer>();
+                if (gameInitializer != null)
+                {
+                    // GameInitializerにバブルプレハブを要求
+                    bubblePrefab = gameInitializer.GetBubblePrefab();
+                    if (bubblePrefab != null)
+                    {
+                        Debug.Log("GameInitializerからバブルプレハブを取得しました");
+                    }
+                }
             }
-            else
+            
+            if (bubblePrefab == null)
             {
-                Debug.Log("バブルプレハブをResourcesから読み込みました。");
+                Debug.LogError("バブルプレハブが見つかりません");
             }
         }
     }

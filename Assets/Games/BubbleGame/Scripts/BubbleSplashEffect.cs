@@ -19,8 +19,26 @@ public class BubbleSplashEffect : MonoBehaviour
         // 指定した時間後に自動的に破棄
         Destroy(gameObject, lifetime);
         
-        // スプライトシートのフレームを取得
-        frames = Resources.LoadAll<Sprite>("BubbleSplash/BubbleSplash");
+        // プロジェクト内のスプライトを直接検索
+        Debug.Log("BubbleSplashスプライトの読み込みを開始します。プロジェクト内から検索します。");
+        
+        Sprite[] allSprites = Resources.FindObjectsOfTypeAll<Sprite>();
+        System.Collections.Generic.List<Sprite> splashSprites = new System.Collections.Generic.List<Sprite>();
+        
+        foreach (Sprite sprite in allSprites)
+        {
+            if (sprite.name.Contains("BubbleSplashResources"))
+            {
+                splashSprites.Add(sprite);
+                Debug.Log("BubbleSplashスプライト候補を見つけました: " + sprite.name);
+            }
+        }
+        
+        if (splashSprites.Count > 0)
+        {
+            frames = splashSprites.ToArray();
+            Debug.Log("BubbleSplashスプライトを見つけました: " + frames.Length + "フレーム");
+        }
         
         // フレームを並び替え（名前でソート）
         System.Array.Sort(frames, (a, b) => a.name.CompareTo(b.name));

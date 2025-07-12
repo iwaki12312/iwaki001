@@ -98,6 +98,7 @@ public class AudioManager : MonoBehaviour
     {
         // 複数のパスを試す
         string[] possiblePaths = new string[] {
+            "_Common/Audio/BGM",
             "Audio/BGM",
             "BGM",
             "BubbleGame/Audio/BGM"
@@ -221,8 +222,11 @@ public class AudioManager : MonoBehaviour
             {
                 // 直接ファイルパスを指定して読み込み
                 string[] possiblePaths = new string[] {
+                    "Assets/Resources/_Common/Audio/BGM",
                     "Assets/Resources/Audio/BGM",
+                    "Assets/_Common/Audio/BGM",
                     "Assets/Audio/BGM",
+                    "_Common/Audio/BGM",
                     "Audio/BGM",
                     "BGM"
                 };

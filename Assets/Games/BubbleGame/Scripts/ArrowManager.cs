@@ -14,18 +14,55 @@ public class ArrowManager : MonoBehaviour
         // 矢印プレハブが設定されていない場合は検索
         if (arrowPrefab == null)
         {
-            arrowPrefab = Resources.Load<GameObject>("Games/BubbleGame/Prefabs/Arrow");
+            Debug.Log("矢印プレハブが設定されていません。プロジェクト内から検索します。");
             
+            // シーン内の矢印プレハブを検索
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name.Contains("Arrow") && obj.GetComponent<ArrowController>() != null)
+                {
+                    arrowPrefab = obj;
+                    Debug.Log("矢印プレハブを見つけました: " + obj.name);
+                    break;
+                }
+            }
+            
+            // それでも見つからない場合は新しく作成
             if (arrowPrefab == null)
             {
-                // 直接パスを指定して検索
-                arrowPrefab = Resources.Load<GameObject>("Arrow");
+                Debug.Log("矢印プレハブが見つからないため、新しく作成します。");
                 
-                if (arrowPrefab == null)
+                arrowPrefab = new GameObject("Arrow");
+                arrowPrefab.AddComponent<ArrowController>();
+                
+                // スプライトを設定
+                SpriteRenderer renderer = arrowPrefab.AddComponent<SpriteRenderer>();
+                
+                // 矢印用のスプライトを検索
+                Sprite arrowSprite = null;
+                Sprite[] allSprites = Resources.FindObjectsOfTypeAll<Sprite>();
+                foreach (Sprite sprite in allSprites)
                 {
-                    Debug.LogError("矢印プレハブが見つかりません");
-                    return;
+                    if (sprite.name.Contains("Arrow"))
+                    {
+                        arrowSprite = sprite;
+                        Debug.Log("矢印用スプライトを見つけました: " + sprite.name);
+                        break;
+                    }
                 }
+                
+                if (arrowSprite != null)
+                {
+                    renderer.sprite = arrowSprite;
+                }
+                else
+                {
+                    Debug.LogWarning("矢印用スプライトが見つかりません");
+                }
+                
+                // 非表示にして、プレハブとして使用
+                arrowPrefab.SetActive(false);
             }
         }
         
