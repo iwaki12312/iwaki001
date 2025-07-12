@@ -468,6 +468,8 @@ GameObject:
   - component: {fileID: 201}
   - component: {fileID: 202}
   - component: {fileID: 203}
+  - component: {fileID: 204}
+  - component: {fileID: 205}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -525,6 +527,37 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1e911ffdc8b4644b27c6d4558ab5d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 4291351715013594816, guid: 29438abb74f34bb4c97236f244d12dac, type: 3}
+--- !u!114 &205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be12d7609d84d804e9e1fa985b1a2b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotSound: {fileID: 8300000, guid: 1fd7b089988a79b4999d843b3af2356f, type: 3}
+  splashSound: {fileID: 8300000, guid: ceb78ba751e09de4aae473e1827671a8, type: 3}
+  bgmSound: {fileID: 0}
+  shotVolume: 0.5
+  splashVolume: 0.5
+  bgmVolume: 0.3
 --- !u!1001 &365434734
 PrefabInstance:
   m_ObjectHideFlags: 0
