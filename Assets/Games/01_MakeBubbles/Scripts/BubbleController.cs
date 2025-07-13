@@ -1,0 +1,234 @@
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+public class BubbleController : MonoBehaviour
+{
+    [Header("基本設定")]
+    [SerializeField] private float destroyDelay = 0.1f;
+    [SerializeField] private GameObject bubbleSplashAnimPrefab;
+    
+    [Header("移動設定")]
+    [SerializeField] private float minSpeed = 0.3f;
+    [SerializeField] private float maxSpeed = 0.8f;
+    [SerializeField] private float maxMoveSpeed = 2f;
+    
+    [Header("物理設定")]
+    [SerializeField] private float gravity = 0.05f; // 効かない　インスペクタから設定する
+    [SerializeField] [Range(0f, 1f)] private float bouncePower = 0.8f;
+    [SerializeField] private float swayPower = 0.15f;
+    [SerializeField] private float collisionForce = 1.0f;
+    [SerializeField] private float airResistance = 1.0f;
+    [SerializeField] private float collisionDrag = 1.5f;
+
+    [Header("視覚効果")]
+    [SerializeField] private Material bubbleMaterial;
+    [SerializeField] private float highlightIntensity = 1.5f;
+    [SerializeField] private float colorChangeSpeed = 0.5f;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private float swayTimer;
+    private float colorTimer;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        rb.gravityScale = gravity;
+        rb.linearDamping = airResistance;
+        
+        // マテリアル設定
+        if(bubbleMaterial != null) {
+            spriteRenderer.material = new Material(bubbleMaterial);
+            spriteRenderer.material.SetFloat("_HighlightIntensity", highlightIntensity);
+        }
+
+        // 初期速度が設定されていない場合のみランダムな動きを設定
+        if (rb.linearVelocity == Vector2.zero)
+        {
+            rb.linearVelocity = new Vector2(
+                Random.Range(-swayPower, swayPower),
+                -Random.Range(minSpeed, maxSpeed)
+            );
+            
+            if(bouncePower > 0) {
+                rb.AddForce(Vector2.up * bouncePower * 2f, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    void Update()
+    {
+        // 虹色効果
+        colorTimer += Time.deltaTime * colorChangeSpeed;
+        float hue = Mathf.PingPong(colorTimer, 1f);
+        Color highlightColor = Color.HSVToRGB(hue, 0.3f, 1f);
+        spriteRenderer.material.SetColor("_HighlightColor", highlightColor);
+    }
+
+    void FixedUpdate()
+    {
+        // 速度制限
+        if (Mathf.Abs(rb.linearVelocity.x) > maxMoveSpeed) {
+            rb.linearVelocity = new Vector2(
+                Mathf.Sign(rb.linearVelocity.x) * maxMoveSpeed,
+                rb.linearVelocity.y
+            );
+        }
+        
+        // ランダムな横揺れ
+        swayTimer += Time.fixedDeltaTime;
+        if(swayTimer > 0.3f) {
+            rb.AddForce(new Vector2(
+                Random.Range(-swayPower, swayPower),
+                0
+            ), ForceMode2D.Impulse);
+            swayTimer = 0f;
+        }
+    }
+
+    void OnMouseDown()
+    {
+        // シャボン玉がはじけるエフェクトを生成
+        CreateBubbleSplashEffect();
+        
+        // 効果音を再生
+        if (BubbleSoundManager.Instance != null)
+        {
+            BubbleSoundManager.Instance.PlaySplashSound();
+        }
+        else
+        {
+            Debug.LogWarning("BubbleSoundManagerが見つかりません。効果音が再生されません。");
+        }
+        
+        // シャボン玉を破棄
+        Destroy(gameObject, destroyDelay);
+    }
+    
+    // シャボン玉がはじけるエフェクトを生成するメソッド
+    private void CreateBubbleSplashEffect()
+    {
+        // プレハブが設定されていない場合は、プロジェクト内から検索
+        if (bubbleSplashAnimPrefab == null)
+        {
+            Debug.Log("BubbleSplashAnimプレハブの読み込みを開始します。プロジェクト内から検索します。");
+            
+            // シーン内のBubbleSplashAnimプレハブを検索
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name.Contains("BubbleSplashAnim"))
+                {
+                    bubbleSplashAnimPrefab = obj;
+                    Debug.Log("BubbleSplashAnimプレハブを見つけました: " + obj.name);
+                    break;
+                }
+            }
+            
+            // それでも見つからない場合は新しく作成
+            if (bubbleSplashAnimPrefab == null)
+            {
+                Debug.Log("BubbleSplashAnimプレハブが見つからないため、新しく作成します。");
+                
+                bubbleSplashAnimPrefab = new GameObject("BubbleSplashAnim");
+                
+                // 必要なコンポーネントを追加
+                SpriteRenderer renderer = bubbleSplashAnimPrefab.AddComponent<SpriteRenderer>();
+                bubbleSplashAnimPrefab.AddComponent<BubbleSplashAnimController>();
+                
+                // スプライトを設定
+                Sprite[] allSprites = Resources.FindObjectsOfTypeAll<Sprite>();
+                foreach (Sprite sprite in allSprites)
+                {
+                    if (sprite.name.Contains("BubbleSplashResources"))
+                    {
+                        renderer.sprite = sprite;
+                        Debug.Log("BubbleSplashAnim用スプライトを見つけました: " + sprite.name);
+                        break;
+                    }
+                }
+                
+                // 非表示にして、プレハブとして使用
+                bubbleSplashAnimPrefab.SetActive(false);
+            }
+        }
+        
+        // プレハブが見つかった場合
+        if (bubbleSplashAnimPrefab != null)
+        {
+            // シャボン玉の左側にエフェクトを生成
+            Vector3 spawnPosition = transform.position + new Vector3(-0.5f, 0f, 0f);
+            
+            // プレハブのスケールを保存
+            Vector3 originalScale = bubbleSplashAnimPrefab.transform.localScale;
+            
+            // インスタンス化
+            GameObject splashEffect = Instantiate(bubbleSplashAnimPrefab, spawnPosition, Quaternion.identity);
+            
+            // インスタンス化直後のスケールをログ出力
+            Debug.Log("インスタンス化直後のエフェクトスケール: " + splashEffect.transform.localScale);
+            
+            // シャボン玉の色とサイズを反映
+            BubbleSplashAnimController controller = splashEffect.GetComponent<BubbleSplashAnimController>();
+            if (controller == null)
+            {
+                controller = splashEffect.AddComponent<BubbleSplashAnimController>();
+            }
+            
+            // アニメーターによるスケール変更を無効化するコンポーネントを追加
+            DisableAnimatorScale scaleController = splashEffect.GetComponent<DisableAnimatorScale>();
+            if (scaleController == null)
+            {
+                scaleController = splashEffect.AddComponent<DisableAnimatorScale>();
+            }
+            
+            if (controller != null)
+            {
+                // シャボン玉のサイズに合わせてエフェクトのサイズを調整
+                Vector3 bubbleScale = transform.localScale;
+                Debug.Log("シャボン玉のサイズ: " + bubbleScale);
+                
+                // エフェクトのサイズを明示的に設定
+                splashEffect.transform.localScale = bubbleScale;
+                Debug.Log("エフェクトのスケールを直接設定: " + splashEffect.transform.localScale);
+                
+                // スケールコントローラーを更新
+                if (scaleController != null)
+                {
+                    scaleController.UpdateScale(bubbleScale);
+                }
+                
+                // コントローラーにも設定
+                controller.SetBubbleProperties(spriteRenderer.color, bubbleScale);
+                Debug.Log("SetBubbleProperties呼び出し後のエフェクトスケール: " + splashEffect.transform.localScale);
+            }
+            
+            Debug.Log("シャボン玉がはじけるエフェクトを生成しました: " + splashEffect.name);
+        }
+        else
+        {
+            Debug.LogWarning("BubbleSplashAnimプレハブが見つかりません");
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bubble"))
+        {
+            Vector2 direction = (transform.position - collision.transform.position).normalized;
+            float force = collisionForce * rb.linearVelocity.magnitude;
+            
+            rb.AddForce(direction * force, ForceMode2D.Impulse);
+            rb.linearDamping = collisionDrag;
+            Invoke(nameof(ResetDrag), 0.5f);
+        }
+    }
+
+    private void ResetDrag()
+    {
+        rb.linearDamping = airResistance;
+    }
+}
