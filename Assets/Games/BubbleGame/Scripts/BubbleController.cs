@@ -95,7 +95,14 @@ public class BubbleController : MonoBehaviour
         CreateBubbleSplashEffect();
         
         // 効果音を再生
-        AudioManager.Instance.PlaySplashSound();
+        if (BubbleSoundManager.Instance != null)
+        {
+            BubbleSoundManager.Instance.PlaySplashSound();
+        }
+        else
+        {
+            Debug.LogWarning("BubbleSoundManagerが見つかりません。効果音が再生されません。");
+        }
         
         // シャボン玉を破棄
         Destroy(gameObject, destroyDelay);

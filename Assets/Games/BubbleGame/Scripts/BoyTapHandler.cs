@@ -94,7 +94,14 @@ public class BoyTapHandler : MonoBehaviour
         if (bubblePrefab != null)
         {
             // 効果音を再生
-            AudioManager.Instance.PlayShotSound();
+            if (BubbleSoundManager.Instance != null)
+            {
+                BubbleSoundManager.Instance.PlayShotSound();
+            }
+            else
+            {
+                Debug.LogWarning("BubbleSoundManagerが見つかりません。効果音が再生されません。");
+            }
             
             // 少年の左上から少し離れた位置にシャボン玉を生成
             Vector3 spawnPosition = transform.position + new Vector3(spawnOffset, 1.5f, 0);

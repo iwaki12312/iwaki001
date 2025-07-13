@@ -16,13 +16,13 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("MenuManager.Awake()が呼ばれました");
         
-        // AudioManagerが存在しない場合は作成
-        if (FindObjectOfType<AudioManager>() == null)
+        // BGMManagerが存在しない場合は作成
+        if (FindObjectOfType<BGMManager>() == null)
         {
-            Debug.Log("MenuManager: AudioManagerが見つからないため、新しく作成します");
-            GameObject audioManagerObj = new GameObject("AudioManager");
-            audioManagerObj.AddComponent<AudioManager>();
-            DontDestroyOnLoad(audioManagerObj);
+            Debug.Log("MenuManager: BGMManagerが見つからないため、新しく作成します");
+            GameObject bgmManagerObj = new GameObject("BGMManager");
+            bgmManagerObj.AddComponent<BGMManager>();
+            DontDestroyOnLoad(bgmManagerObj);
         }
         
         // ボタンの参照を取得（Inspector上で設定されていない場合）
@@ -44,7 +44,7 @@ public class MenuManager : MonoBehaviour
         Debug.Log("MenuManager.Start()が呼ばれました");
         
         // BGMを再生
-        AudioManager.Instance.PlayBGM();
+        BGMManager.Instance.PlayBGM();
         Debug.Log("MenuManager: BGMの再生を開始しました");
         
         // ボタンにリスナーを追加
@@ -81,9 +81,9 @@ public class MenuManager : MonoBehaviour
     
     private void PlayBGMDelayed()
     {
-        if (AudioManager.Instance != null)
+        if (BGMManager.Instance != null)
         {
-            AudioManager.Instance.PlayBGM();
+            BGMManager.Instance.PlayBGM();
             Debug.Log("MenuManager: BGMの再生を開始しました（PlayBGMDelayed）");
         }
     }

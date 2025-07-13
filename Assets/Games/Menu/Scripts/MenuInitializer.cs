@@ -11,13 +11,13 @@ public class MenuInitializer : MonoBehaviour
     {
         Debug.Log("MenuInitializer.Awake()が呼ばれました");
         
-        // AudioManagerが存在しない場合は作成
-        if (FindObjectOfType<AudioManager>() == null)
+        // BGMManagerが存在しない場合は作成
+        if (FindObjectOfType<BGMManager>() == null)
         {
-            Debug.Log("AudioManagerが見つからないため、新しく作成します");
-            GameObject audioManagerObj = new GameObject("AudioManager");
-            audioManagerObj.AddComponent<AudioManager>();
-            DontDestroyOnLoad(audioManagerObj);
+            Debug.Log("BGMManagerが見つからないため、新しく作成します");
+            GameObject bgmManagerObj = new GameObject("BGMManager");
+            bgmManagerObj.AddComponent<BGMManager>();
+            DontDestroyOnLoad(bgmManagerObj);
         }
         
         // BGMInitializerが存在しない場合は作成
@@ -41,6 +41,6 @@ public class MenuInitializer : MonoBehaviour
         Debug.Log("MenuInitializer.Start()が呼ばれました");
         
         // 直接BGMを再生
-        AudioManager.Instance.PlayBGM();
+        BGMManager.Instance.PlayBGM();
     }
 }

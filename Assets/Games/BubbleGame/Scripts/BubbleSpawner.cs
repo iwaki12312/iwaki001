@@ -104,6 +104,13 @@ public class BubbleSpawner : MonoBehaviour
         bubble.GetComponent<SpriteRenderer>().color = randomColor;
         
         // 効果音を再生
-        AudioManager.Instance.PlayShotSound();
+        if (BubbleSoundManager.Instance != null)
+        {
+            BubbleSoundManager.Instance.PlayShotSound();
+        }
+        else
+        {
+            Debug.LogWarning("BubbleSoundManagerが見つかりません。効果音が再生されません。");
+        }
     }
 }

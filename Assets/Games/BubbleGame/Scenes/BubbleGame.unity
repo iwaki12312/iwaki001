@@ -549,15 +549,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be12d7609d84d804e9e1fa985b1a2b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: a43e460681baf7d46ae47d64104b87fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shotSound: {fileID: 8300000, guid: 1fd7b089988a79b4999d843b3af2356f, type: 3}
   splashSound: {fileID: 8300000, guid: ceb78ba751e09de4aae473e1827671a8, type: 3}
-  bgmSound: {fileID: 0}
-  shotVolume: 0.5
-  splashVolume: 0.5
-  bgmVolume: 0.3
 --- !u!1001 &365434734
 PrefabInstance:
   m_ObjectHideFlags: 0

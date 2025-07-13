@@ -7,20 +7,20 @@ public class SimpleGameInitializer : MonoBehaviour
 {
     void Awake()
     {
-        // AudioManagerが存在しない場合は作成
-        if (FindObjectOfType<AudioManager>() == null)
+        // BGMManagerが存在しない場合は作成
+        if (FindObjectOfType<BGMManager>() == null)
         {
-            Debug.Log("AudioManagerが見つからないため、新しく作成します");
-            GameObject audioManagerObj = new GameObject("AudioManager");
-            audioManagerObj.AddComponent<AudioManager>();
-            DontDestroyOnLoad(audioManagerObj);
+            Debug.Log("BGMManagerが見つからないため、新しく作成します");
+            GameObject bgmManagerObj = new GameObject("BGMManager");
+            bgmManagerObj.AddComponent<BGMManager>();
+            DontDestroyOnLoad(bgmManagerObj);
         }
     }
     
     void Start()
     {
         // BGMを再生
-        AudioManager.Instance.PlayBGM();
+        BGMManager.Instance.PlayBGM();
         Debug.Log("シンプルゲーム開始時にBGMを初期化しました");
     }
 }
