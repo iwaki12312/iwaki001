@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ed104f217c027f44897f10e59d900def
+guid: 499330837bf771d4b805917878b10bfa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5760202260919997367
-    second: BackGround_0
+      213: -4639489869002361503
+    second: BubbleSpr2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackGround_0
+      name: BubbleSpr2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1536
-        height: 1024
+        y: 1
+        width: 254
+        height: 259
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b3d98cff6950ff40800000000000000
-      internalID: 5760202260919997367
+      spriteID: 16537139b883d9fb0800000000000000
+      internalID: -4639489869002361503
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BackGround_0: 5760202260919997367
+      BubbleSpr2_0: -4639489869002361503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
