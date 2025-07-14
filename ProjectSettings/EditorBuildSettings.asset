@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Games/Menu/Scenes/Menu.unity
+    path: Assets/Games/00_Menu/Scenes/Menu.unity
     guid: c88a90474e49df64899091317139c523
   - enabled: 1
     path: Assets/Games/01_MakeBubbles/Scenes/BubbleGame.unity
     guid: 292ce9be353692544bd18fd473288168
   - enabled: 1
-    path: Assets/Games/SimpleGame/Scenes/SimpleGame.unity
+    path: Assets/Games/XX_SimpleGame/Scenes/SimpleGame.unity
     guid: f9aeafa956e19f348969a2c39e0c9b63
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 29cfb4b30c94b9b4292ef9eff942c378, type: 2}
