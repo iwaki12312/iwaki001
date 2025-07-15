@@ -27,12 +27,6 @@ public class BGMInitializer : MonoBehaviour
         }
     }
     
-    void Start()
-    {
-        // 念のためStartでも再生を試みる
-        PlayBGMDelayed();
-    }
-    
     void PlayBGMDelayed()
     {
         // BGMManagerのインスタンスを取得し、BGMを再生
@@ -46,12 +40,5 @@ public class BGMInitializer : MonoBehaviour
             // デフォルトのBGMを再生
             BGMManager.Instance.PlayBGM();
         }
-        Debug.Log("メニュー画面でBGMを初期化しました（PlayBGMDelayed）");
-    }
-    
-    void OnEnable()
-    {
-        // シーンがアクティブになったときにも再生を試みる
-        Invoke("PlayBGMDelayed", 0.2f);
     }
 }

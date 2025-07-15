@@ -45,6 +45,9 @@ public class MoleGameManager : MonoBehaviour
             
             // 重み付きランダムでモグラを選択
             MoleData selectedMole = GetRandomMoleByWeight();
+
+            // モグラ出現音を再生
+            SfxPlayer.Instance.PlayOneShot(SfxPlayer.Instance.pop);
             
             // モグラを出現させる
             selectedHole.ShowMole(selectedMole, moleDuration);
