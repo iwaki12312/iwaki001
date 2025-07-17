@@ -89,18 +89,23 @@ public class HoleController : MonoBehaviour
         if (isActive) return;
 
         isActive = true;
-        moleController.gameObject.SetActive(true);
+        
+        // 出現音を再生
+        SfxPlayer.Instance.PlayOneShot(moleData.popSound);
+        
+        // ショック状態を初期化
+        isShocked = false;
+        
+        // モグラを設定
         moleController.SetMoleData(moleData);
-
+        
         // 汗エフェクトを非表示
         if (sweatEffect != null)
             sweatEffect.SetActive(false);
-
-        // 出現音を再生
-        SfxPlayer.Instance.PlayOneShot(moleData.popSound);
-
-        // ショック状態を初期化
-        isShocked = false;
+        
+        // モグラを表示して出現アニメーションを開始
+        moleController.gameObject.SetActive(true);
+        moleController.StartAppearAnimation();
 
         // 一定時間後に自動で戻る
         activeCoroutine = StartCoroutine(HideMoleAfterDelay(duration));
@@ -143,14 +148,26 @@ public class HoleController : MonoBehaviour
     // モグラを隠す
     private void HideMole()
     {
-        moleController.gameObject.SetActive(false);
-
-        // 汗エフェクトも非表示
+        // 汗エフェクトを非表示
         if (sweatEffect != null)
             sweatEffect.SetActive(false);
 
-        isActive = false;
-        activeCoroutine = null;
+        // モグラがアクティブかどうかを確認
+        if (moleController.gameObject.activeInHierarchy)
+        {
+            // 消失アニメーションを開始し、完了時にモグラを非アクティブにする
+            moleController.StartDisappearAnimation(() => {
+                moleController.gameObject.SetActive(false);
+                isActive = false;
+                activeCoroutine = null;
+            });
+        }
+        else
+        {
+            // モグラが既に非アクティブな場合は、アニメーションをスキップ
+            isActive = false;
+            activeCoroutine = null;
+        }
     }
 
     // アクティブ状態を取得
