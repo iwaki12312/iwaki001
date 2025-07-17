@@ -135,12 +135,12 @@ TextureImporter:
       name: mole_star_king_shock_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 47
+        x: 39
+        y: 43
         width: 182
-        height: 156
+        height: 183
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,55 +153,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: mole_star_king_shock_1
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 203
-        width: 40
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c371d85009effdab0800000000000000
-      internalID: -4980982768326600900
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mole_star_king_shock_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 175
-        width: 54
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 399836266cd982130800000000000000
-      internalID: 3542254582306670995
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d15fc427ca100634299c791acae38be9
     internalID: 0
     vertices: []
     indices: 

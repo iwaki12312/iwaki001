@@ -26,11 +26,11 @@ Transform:
   m_GameObject: {fileID: 2344210242673765361}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.16, y: -0.08, z: 0}
+  m_LocalScale: {x: 0.3506228, y: 0.35037473, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7150139540603589335}
+  m_Father: {fileID: 1508674817586699624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2275904729243642411
 SpriteRenderer:
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -183941536395068749, guid: bb52088844d7fa54390c17008ac88b2e, type: 3}
+  m_Sprite: {fileID: -183941536395068749, guid: 6a0b5fbfbbe87b041bed1771a6ffca6a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 1.15, y: 1.43}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2506094311732274386
@@ -120,6 +120,7 @@ Transform:
   m_Children:
   - {fileID: 7584754476895973779}
   - {fileID: 7150139540603589335}
+  - {fileID: 4782368381653828647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5688095234173180418
@@ -136,6 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moleController: {fileID: 2066870369022387854}
   holeEdge: {fileID: 4995393081824219908}
+  sweatEffect: {fileID: 2344210242673765361}
+  sweatOffset: {x: 1, y: 1}
 --- !u!61 &7090382211750786679
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -300,8 +303,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4782368381653828647}
+  m_Children: []
   m_Father: {fileID: 1508674817586699624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6747643244107316861
@@ -372,7 +374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moleRenderer: {fileID: 6747643244107316861}
-  sweatEffect: {fileID: 2344210242673765361}
 --- !u!61 &532342729788317325
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -16,6 +16,6 @@ MonoBehaviour:
   normalSprite: {fileID: -8269815193926674783, guid: c0f4cc594350aba45a1b766f17aa62f5, type: 3}
   shockSprite: {fileID: -5442789171542064630, guid: 209af31e6f6c91544bf6db9cc1c7ab08, type: 3}
   isSpecial: 1
-  spawnWeight: 4
+  spawnWeight: 3
   popSound: {fileID: 8300000, guid: eed87415fd192264daa6c6352fafaf12, type: 3}
   tintColor: {r: 1, g: 1, b: 1, a: 1}

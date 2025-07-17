@@ -4,7 +4,6 @@ using System.Collections;
 public class MoleController : MonoBehaviour
 {
     public SpriteRenderer moleRenderer;
-    public GameObject sweatEffect;
     
     private MoleData currentMoleData;
     private bool isShockState = false;
@@ -13,7 +12,6 @@ public class MoleController : MonoBehaviour
     {
         // 初期状態では非表示
         gameObject.SetActive(false);
-        sweatEffect.SetActive(false);
     }
     
     // モグラのデータを設定
@@ -25,23 +23,22 @@ public class MoleController : MonoBehaviour
         // スプライトと色を設定
         moleRenderer.sprite = moleData.normalSprite;
         moleRenderer.color = moleData.tintColor;
-        
-        // 汗エフェクトを非表示
-        sweatEffect.SetActive(false);
     }
     
     // ショック状態を表示
     public void ShowShockState()
     {
         if (currentMoleData == null) return;
-        
+
         isShockState = true;
         moleRenderer.sprite = currentMoleData.shockSprite;
-        
-        // 汗エフェクトを表示
-        sweatEffect.SetActive(true);
-        
-        // 叩いた効果音を再生
-        SfxPlayer.Instance.PlayOneShot(SfxPlayer.Instance.hit);
+
+        // ショック状態になったことを通知
+        if (OnShockStateChanged != null)
+            OnShockStateChanged(true);
     }
+    
+    // ショック状態変更イベント
+    public delegate void ShockStateChangedHandler(bool isShocked);
+    public event ShockStateChangedHandler OnShockStateChanged;
 }

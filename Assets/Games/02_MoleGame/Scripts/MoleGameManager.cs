@@ -10,7 +10,7 @@ public class MoleGameManager : MonoBehaviour
     
     private float minSpawnInterval = 0.5f;
     private float maxSpawnInterval = 1.4f;
-    private float moleDuration = 1.1f;
+    private float moleDuration = 2.0f;
     
     private void Start()
     {
@@ -47,8 +47,15 @@ public class MoleGameManager : MonoBehaviour
             MoleData selectedMole = GetRandomMoleByWeight();
 
             // モグラ出現音を再生
-            SfxPlayer.Instance.PlayOneShot(SfxPlayer.Instance.pop);
-            
+            if (selectedMole.isSpecial)
+            {
+                SfxPlayer.Instance.PlayOneShot(SfxPlayer.Instance.starPop);
+            }
+            else
+            {
+                SfxPlayer.Instance.PlayOneShot(SfxPlayer.Instance.pop);
+            }
+
             // モグラを出現させる
             selectedHole.ShowMole(selectedMole, moleDuration);
         }
