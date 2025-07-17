@@ -44,3 +44,4 @@ Thumbs.db
 # Android向け設定一時ファイル
 .gradle/
 local.properties
+output/
