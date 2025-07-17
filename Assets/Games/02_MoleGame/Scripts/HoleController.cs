@@ -7,11 +7,16 @@ public class HoleController : MonoBehaviour
     public SpriteRenderer holeEdge;
     public GameObject sweatEffect;
     public Vector2 sweatOffset = new Vector2(0.3f, 0.3f); // 汗エフェクトのオフセット位置
+    public Sprite customMaskSprite; // カスタムマスク用のスプライト
+    public Vector2 maskSize = new Vector2(0.8f, 0.8f); // マスクのサイズ
+    public Vector2 maskOffset = new Vector2(0, 0); // マスクのオフセット位置
 
     private bool isActive = false;
     private bool isShocked = false;
 
     private Coroutine activeCoroutine;
+    private SpriteMask holeMask; // 穴のマスク
+    private GameObject maskObject; // マスク用のゲームオブジェクト
 
     // マウスクリック（タップ）イベント
     private void OnMouseDown()
@@ -24,6 +29,145 @@ public class HoleController : MonoBehaviour
         // 初期状態では汗エフェクトを非表示
         if (sweatEffect != null)
             sweatEffect.SetActive(false);
+        
+        // エディタモードで作成したマスクオブジェクトを削除
+        Transform editorMask = transform.Find("HoleMask");
+        if (editorMask != null && editorMask.CompareTag("EditorOnly"))
+        {
+            Destroy(editorMask.gameObject);
+        }
+        
+        // 既存のマスクを削除（もし存在すれば）
+        SpriteMask existingMask = GetComponentInChildren<SpriteMask>();
+        if (existingMask != null && existingMask.gameObject != editorMask)
+        {
+            Destroy(existingMask.gameObject);
+        }
+        
+        // カスタムマスク用のゲームオブジェクトを作成
+        CreateCustomMask();
+    }
+    
+#if UNITY_EDITOR
+    // Inspectorで値が変更されたときや、スクリプトがロードされたときに呼ばれる
+    private void OnValidate()
+    {
+        // エディタモードでマスクを作成・更新
+        if (!Application.isPlaying)
+        {
+            // 既存のマスクオブジェクトを削除
+            Transform existingMask = transform.Find("HoleMask");
+            if (existingMask != null)
+            {
+                DestroyImmediate(existingMask.gameObject);
+            }
+            
+            // マスクオブジェクトを作成
+            GameObject editorMaskObj = new GameObject("HoleMask");
+            editorMaskObj.transform.SetParent(transform);
+            editorMaskObj.transform.localPosition = new Vector3(maskOffset.x, maskOffset.y, 0);
+            editorMaskObj.transform.localScale = new Vector3(maskSize.x, maskSize.y, 1);
+            
+            // マスクの視覚化用にSpriteRendererを追加
+            SpriteRenderer visualizer = editorMaskObj.AddComponent<SpriteRenderer>();
+            
+            // カスタムマスクスプライトが設定されている場合は使用
+            if (customMaskSprite != null)
+            {
+                visualizer.sprite = customMaskSprite;
+            }
+            else
+            {
+                // デフォルトの円形スプライトを使用（実際のマスクと同じものは作れないので近似値）
+                visualizer.sprite = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+            }
+            
+            // 半透明の緑色で表示
+            visualizer.color = new Color(0, 1, 0, 0.3f);
+            
+            // エディタ用のタグを付ける（実行時に削除するため）
+            editorMaskObj.tag = "EditorOnly";
+        }
+    }
+    
+    // シーンビューにマスク範囲を描画
+    private void OnDrawGizmos()
+    {
+        // マスクの中心位置
+        Vector3 maskPos = transform.position + new Vector3(maskOffset.x, maskOffset.y, 0);
+        
+        // マスクの範囲を示す円を描画
+        Gizmos.color = new Color(0, 1, 0, 0.5f);
+        float radius = Mathf.Min(maskSize.x, maskSize.y) * 0.5f;
+        Gizmos.DrawWireSphere(maskPos, radius);
+        
+        // マスクの中心を示す十字を描画
+        Gizmos.color = Color.yellow;
+        float crossSize = 0.1f;
+        Gizmos.DrawLine(maskPos + new Vector3(-crossSize, 0, 0), maskPos + new Vector3(crossSize, 0, 0));
+        Gizmos.DrawLine(maskPos + new Vector3(0, -crossSize, 0), maskPos + new Vector3(0, crossSize, 0));
+        
+        // マスクの範囲を示すテキストを描画
+        UnityEditor.Handles.Label(maskPos + Vector3.up * (radius + 0.1f), "Mask Area");
+    }
+#endif
+    
+    // カスタムマスクを作成
+    private void CreateCustomMask()
+    {
+        // マスク用のゲームオブジェクトを作成
+        maskObject = new GameObject("HoleMask");
+        maskObject.transform.SetParent(transform);
+        maskObject.transform.localPosition = new Vector3(maskOffset.x, maskOffset.y, 0);
+        
+        // SpriteMaskコンポーネントを追加
+        holeMask = maskObject.AddComponent<SpriteMask>();
+        
+        // カスタムマスクスプライトが設定されている場合は使用
+        if (customMaskSprite != null)
+        {
+            holeMask.sprite = customMaskSprite;
+        }
+        // 設定されていない場合は円形のスプライトを作成
+        else
+        {
+            // 円形のスプライトを作成
+            Texture2D texture = new Texture2D(128, 128);
+            Color[] colors = new Color[128 * 128];
+            
+            for (int y = 0; y < 128; y++)
+            {
+                for (int x = 0; x < 128; x++)
+                {
+                    float dx = x - 64;
+                    float dy = y - 64;
+                    float distance = Mathf.Sqrt(dx * dx + dy * dy);
+                    
+                    // 円の内側は白（不透明）、外側は透明
+                    if (distance < 60)
+                    {
+                        colors[y * 128 + x] = Color.white;
+                    }
+                    else
+                    {
+                        colors[y * 128 + x] = Color.clear;
+                    }
+                }
+            }
+            
+            texture.SetPixels(colors);
+            texture.Apply();
+            
+            // スプライトを作成
+            Sprite circleSprite = Sprite.Create(texture, new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f));
+            holeMask.sprite = circleSprite;
+        }
+        
+        // マスクの設定
+        holeMask.alphaCutoff = 0.5f;
+        
+        // マスクのサイズを設定
+        maskObject.transform.localScale = new Vector3(maskSize.x, maskSize.y, 1);
     }
 
     private void OnEnable()
@@ -89,18 +233,23 @@ public class HoleController : MonoBehaviour
         if (isActive) return;
 
         isActive = true;
-        moleController.gameObject.SetActive(true);
+        
+        // 出現音を再生
+        SfxPlayer.Instance.PlayOneShot(moleData.popSound);
+        
+        // ショック状態を初期化
+        isShocked = false;
+        
+        // モグラを設定
         moleController.SetMoleData(moleData);
-
+        
         // 汗エフェクトを非表示
         if (sweatEffect != null)
             sweatEffect.SetActive(false);
-
-        // 出現音を再生
-        SfxPlayer.Instance.PlayOneShot(moleData.popSound);
-
-        // ショック状態を初期化
-        isShocked = false;
+        
+        // モグラを表示して出現アニメーションを開始
+        moleController.gameObject.SetActive(true);
+        moleController.StartAppearAnimation();
 
         // 一定時間後に自動で戻る
         activeCoroutine = StartCoroutine(HideMoleAfterDelay(duration));
@@ -143,14 +292,26 @@ public class HoleController : MonoBehaviour
     // モグラを隠す
     private void HideMole()
     {
-        moleController.gameObject.SetActive(false);
-
-        // 汗エフェクトも非表示
+        // 汗エフェクトを非表示
         if (sweatEffect != null)
             sweatEffect.SetActive(false);
 
-        isActive = false;
-        activeCoroutine = null;
+        // モグラがアクティブかどうかを確認
+        if (moleController.gameObject.activeInHierarchy)
+        {
+            // 消失アニメーションを開始し、完了時にモグラを非アクティブにする
+            moleController.StartDisappearAnimation(() => {
+                moleController.gameObject.SetActive(false);
+                isActive = false;
+                activeCoroutine = null;
+            });
+        }
+        else
+        {
+            // モグラが既に非アクティブな場合は、アニメーションをスキップ
+            isActive = false;
+            activeCoroutine = null;
+        }
     }
 
     // アクティブ状態を取得
