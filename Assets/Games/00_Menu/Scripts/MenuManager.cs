@@ -6,15 +6,15 @@ public class MenuManager : MonoBehaviour
 {
     [Header("ゲームボタン")]
     [SerializeField] private Button bubbleGameButton;
-    [SerializeField] private Button simpleGameButton;
+    [SerializeField] private Button moleGameButton; // シンプルゲームからモグラたたきゲームに変更
     
     [Header("設定")]
     [SerializeField] private string bubbleGameSceneName = "BubbleGame";
-    [SerializeField] private string simpleGameSceneName = "SimpleGame";
+    [SerializeField] private string moleGameSceneName = "MoleGame"; // ビルド設定に追加したシーン名に戻す
 
     private void Awake()
     {
-        Debug.Log("MenuManager.Awake()が呼ばれました");
+        Debug.LogWarning("MenuManager.Awake()が呼ばれました - バージョン2");
         
         // BGMManagerが存在しない場合は作成
         if (FindObjectOfType<BGMManager>() == null)
@@ -32,10 +32,21 @@ public class MenuManager : MonoBehaviour
             Debug.Log("BubbleGameButtonを検索: " + (bubbleGameButton != null ? "見つかりました" : "見つかりませんでした"));
         }
         
-        if (simpleGameButton == null)
+        if (moleGameButton == null)
         {
-            simpleGameButton = GameObject.Find("SimpleGameButton")?.GetComponent<Button>();
-            Debug.Log("SimpleGameButtonを検索: " + (simpleGameButton != null ? "見つかりました" : "見つかりませんでした"));
+            // SimpleGameButtonという名前のボタンを探す（既存のボタンを再利用）
+            moleGameButton = GameObject.Find("SimpleGameButton")?.GetComponent<Button>();
+            Debug.Log("MoleGameButton（SimpleGameButton）を検索: " + (moleGameButton != null ? "見つかりました" : "見つかりませんでした"));
+            
+            // ボタンのテキストを変更
+            if (moleGameButton != null)
+            {
+                Text buttonText = moleGameButton.GetComponentInChildren<Text>();
+                if (buttonText != null)
+                {
+                    buttonText.text = "モグラたたき";
+                }
+            }
         }
     }
 
@@ -60,16 +71,16 @@ public class MenuManager : MonoBehaviour
             Debug.LogError("バブルゲームボタンが見つかりません");
         }
         
-        if (simpleGameButton != null)
+        if (moleGameButton != null)
         {
             // 既存のリスナーをクリア
-            simpleGameButton.onClick.RemoveAllListeners();
-            simpleGameButton.onClick.AddListener(() => LoadGame(simpleGameSceneName));
-            Debug.Log("シンプルゲームボタンにリスナーを追加しました");
+            moleGameButton.onClick.RemoveAllListeners();
+            moleGameButton.onClick.AddListener(() => LoadGame(moleGameSceneName));
+            Debug.Log("モグラたたきゲームボタンにリスナーを追加しました");
         }
         else
         {
-            Debug.LogError("シンプルゲームボタンが見つかりません");
+            Debug.LogError("モグラたたきゲームボタンが見つかりません");
         }
     }
     
@@ -91,7 +102,28 @@ public class MenuManager : MonoBehaviour
     // ゲームシーンをロードする
     private void LoadGame(string sceneName)
     {
-        Debug.Log($"ゲームをロード: {sceneName}");
-        SceneManager.LoadScene(sceneName);
+        Debug.LogWarning($"ゲームをロード試行: {sceneName}");
+        
+        // EventSystemの存在を確認
+        if (FindObjectOfType<UnityEngine.EventSystems.EventSystem>() == null)
+        {
+            Debug.LogError("EventSystemが見つかりません。UIイベントが機能しない可能性があります。");
+            
+            // EventSystemを作成
+            GameObject eventSystemObj = new GameObject("EventSystem");
+            eventSystemObj.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            eventSystemObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+            Debug.LogWarning("EventSystemを新規作成しました");
+        }
+        
+        try
+        {
+            SceneManager.LoadScene(sceneName);
+            Debug.LogWarning($"シーン {sceneName} のロードを実行しました");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"シーンのロードに失敗しました: {e.Message}");
+        }
     }
 }
