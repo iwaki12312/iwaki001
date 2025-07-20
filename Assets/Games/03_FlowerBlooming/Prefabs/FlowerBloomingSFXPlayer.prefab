@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  normalFlowerSFX: {fileID: 8300000, guid: 1832fd317dd105b4f99e53407d27c691, type: 3}
+  normalFlowerSFX: {fileID: 8300000, guid: 77f35dc1e3b8f1d4596b4f10daf9723d, type: 3}
   specialFlowerSFX: {fileID: 8300000, guid: 27f55db55df511b489a5e3bac55c186a, type: 3}
   volume: 1
