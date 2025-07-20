@@ -92,9 +92,8 @@ namespace Minigames.FlowerBlooming
                     flowerRenderer.sortingOrder = 10;
                     Debug.Log($"花のSorting Orderを設定: {flowerRenderer.sortingOrder}");
                 }
-
-                // 花の種類に応じてSFXを再生
-                PlayFlowerSFX(flowerPrefab.name);
+                
+                // 効果音はフェードアウト処理内で再生するため、ここでは再生しない
 
                 // フェードアウト処理を開始
                 StartCoroutine(FadeOutFlower(flower, planter));
@@ -193,24 +192,43 @@ namespace Minigames.FlowerBlooming
         /// <returns>コルーチン</returns>
         private IEnumerator FadeOutFlower(GameObject flower, GameObject planter)
         {
-            // アニメーションが終了するまで待機
+            // アニメーション情報を取得
             Animator animator = flower.GetComponent<Animator>();
+            float animationLength = 1.0f; // デフォルト値
+            string flowerName = flower.name;
+            
             if (animator != null)
             {
                 // アニメーションの長さを取得
                 AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
                 if (clipInfo.Length > 0)
                 {
-                    yield return new WaitForSeconds(clipInfo[0].clip.length);
+                    animationLength = clipInfo[0].clip.length;
+                    Debug.Log($"アニメーション長: {animationLength}秒");
+                    
+                    // アニメーションの最終フレームまで待機（全体の90%程度で最終フレームと仮定）
+                    float waitTime = animationLength * 0.9f;
+                    yield return new WaitForSeconds(waitTime);
+                    
+                    // 花が咲く最終フレームで効果音を再生
+                    PlayFlowerSFX(flowerName);
+                    Debug.Log($"花が咲くタイミングで効果音を再生: {flowerName}");
+                    
+                    // 残りのアニメーション時間を待機
+                    yield return new WaitForSeconds(animationLength - waitTime);
                 }
                 else
                 {
                     yield return new WaitForSeconds(1.0f); // デフォルト待機時間
+                    // 効果音を再生
+                    PlayFlowerSFX(flowerName);
                 }
             }
             else
             {
                 yield return new WaitForSeconds(1.0f); // デフォルト待機時間
+                // 効果音を再生
+                PlayFlowerSFX(flowerName);
             }
 
             // フェードアウト処理
