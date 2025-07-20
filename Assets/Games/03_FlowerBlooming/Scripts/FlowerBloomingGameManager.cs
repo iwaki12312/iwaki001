@@ -83,6 +83,15 @@ namespace Minigames.FlowerBlooming
                 // 花を生成
                 GameObject flower = Instantiate(flowerPrefab, planter.transform.position, Quaternion.identity);
                 flower.transform.SetParent(planter.transform);
+                
+                // 花のSpriteRendererのSorting Orderを設定
+                SpriteRenderer flowerRenderer = flower.GetComponent<SpriteRenderer>();
+                if (flowerRenderer != null)
+                {
+                    // プランターよりも前面に表示されるようにSorting Orderを設定
+                    flowerRenderer.sortingOrder = 10;
+                    Debug.Log($"花のSorting Orderを設定: {flowerRenderer.sortingOrder}");
+                }
 
                 // 花の種類に応じてSFXを再生
                 PlayFlowerSFX(flowerPrefab.name);

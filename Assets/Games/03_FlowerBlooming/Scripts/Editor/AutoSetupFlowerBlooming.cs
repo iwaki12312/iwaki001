@@ -116,6 +116,9 @@ namespace Minigames.FlowerBlooming.Editor
             SpriteRenderer spriteRenderer = flowerObj.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{SpritesPath}/{flowerName}.png");
             
+            // 花がプランターよりも前面に表示されるようにSorting Orderを設定
+            spriteRenderer.sortingOrder = 10;
+            
             // Animatorを追加
             Animator animator = flowerObj.AddComponent<Animator>();
             animator.runtimeAnimatorController = CreateAnimatorController(flowerName);
@@ -152,6 +155,9 @@ namespace Minigames.FlowerBlooming.Editor
                 // パーティクルシステムのレンダラー設定
                 var renderer = particleSystem.GetComponent<ParticleSystemRenderer>();
                 renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
+                
+                // パーティクルが花よりも前面に表示されるようにSorting Orderを設定
+                renderer.sortingOrder = 20;
                 
                 // Flowerコンポーネントにパーティクルシステムを設定
                 flower.SetSpecial(true);

@@ -19,6 +19,15 @@ namespace Minigames.FlowerBlooming
             // 特殊な花の場合、パーティクルエフェクトを再生
             if (isSpecial && particleEffect != null)
             {
+                // パーティクルシステムのレンダラーのSorting Orderを設定
+                var renderer = particleEffect.GetComponent<ParticleSystemRenderer>();
+                if (renderer != null)
+                {
+                    // 花よりも前面に表示されるようにSorting Orderを設定
+                    renderer.sortingOrder = 20;
+                    Debug.Log($"パーティクルエフェクトのSorting Orderを設定: {renderer.sortingOrder}");
+                }
+                
                 particleEffect.Play();
             }
         }
@@ -53,10 +62,22 @@ namespace Minigames.FlowerBlooming
         {
             particleEffect = effect;
             
-            // 特殊な花の場合、パーティクルエフェクトを再生
-            if (isSpecial && particleEffect != null && !particleEffect.isPlaying)
+            if (particleEffect != null)
             {
-                particleEffect.Play();
+                // パーティクルシステムのレンダラーのSorting Orderを設定
+                var renderer = particleEffect.GetComponent<ParticleSystemRenderer>();
+                if (renderer != null)
+                {
+                    // 花よりも前面に表示されるようにSorting Orderを設定
+                    renderer.sortingOrder = 20;
+                    Debug.Log($"パーティクルエフェクトのSorting Orderを設定: {renderer.sortingOrder}");
+                }
+                
+                // 特殊な花の場合、パーティクルエフェクトを再生
+                if (isSpecial && !particleEffect.isPlaying)
+                {
+                    particleEffect.Play();
+                }
             }
         }
         #endregion
