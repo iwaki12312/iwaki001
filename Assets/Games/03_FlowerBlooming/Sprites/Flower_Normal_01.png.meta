@@ -126,37 +126,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Flower_Normal_01_0
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 47
-        width: 182
-        height: 156
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1db1220f3c40fdb40800000000000000
-      internalID: 5467093712244972497
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Flower_Normal_01_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 538
-        width: 197
-        height: 212
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 78
+        y: 617
+        width: 113
+        height: 110
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -173,12 +151,12 @@ TextureImporter:
       name: Flower_Normal_01_2
       rect:
         serializedVersion: 2
-        x: 274
-        y: 545
-        width: 224
-        height: 219
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 317
+        y: 602
+        width: 131
+        height: 113
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,13 +173,13 @@ TextureImporter:
       name: Flower_Normal_01_3
       rect:
         serializedVersion: 2
-        x: 514
-        y: 560
-        width: 223
-        height: 205
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 6, y: 0, z: 0, w: 0}
+        x: 550
+        y: 599
+        width: 146
+        height: 132
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -217,12 +195,12 @@ TextureImporter:
       name: Flower_Normal_01_4
       rect:
         serializedVersion: 2
-        x: 31
-        y: 327
-        width: 211
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 49
+        y: 354
+        width: 169
+        height: 166
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -239,12 +217,12 @@ TextureImporter:
       name: Flower_Normal_01_5
       rect:
         serializedVersion: 2
-        x: 274
-        y: 335
-        width: 220
-        height: 205
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 294
+        y: 354
+        width: 181
+        height: 176
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -261,12 +239,12 @@ TextureImporter:
       name: Flower_Normal_01_6
       rect:
         serializedVersion: 2
-        x: 512
-        y: 330
-        width: 220
-        height: 220
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 546
+        y: 355
+        width: 154
+        height: 186
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -283,12 +261,12 @@ TextureImporter:
       name: Flower_Normal_01_7
       rect:
         serializedVersion: 2
-        x: 7
-        y: 37
-        width: 254
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 278
+        y: 69
+        width: 210
+        height: 224
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -305,12 +283,12 @@ TextureImporter:
       name: Flower_Normal_01_8
       rect:
         serializedVersion: 2
-        x: 275
-        y: 43
-        width: 219
-        height: 274
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 42
+        y: 72
+        width: 186
+        height: 211
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -327,12 +305,12 @@ TextureImporter:
       name: Flower_Normal_01_9
       rect:
         serializedVersion: 2
-        x: 511
-        y: 49
+        x: 512
+        y: 68
         width: 224
-        height: 272
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 225
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

@@ -828,6 +828,7 @@ MonoBehaviour:
   - 6
   sfxPlayer: {fileID: 1648384532}
   fadeOutDuration: 0.7
+  flowerOffsetY: 0.2
 --- !u!4 &2034278454
 Transform:
   m_ObjectHideFlags: 0

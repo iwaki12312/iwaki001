@@ -237,6 +237,9 @@ namespace Minigames.FlowerBlooming
                 PlayFlowerSFX(flowerName);
             }
 
+            // 0.5秒待機
+            yield return new WaitForSeconds(0.5f);
+
             // フェードアウト処理
             SpriteRenderer spriteRenderer = flower.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
