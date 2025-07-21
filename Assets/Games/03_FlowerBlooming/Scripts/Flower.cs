@@ -28,12 +28,17 @@ namespace Minigames.FlowerBlooming
                     Debug.Log($"パーティクルエフェクトのSorting Orderを設定: {renderer.sortingOrder}");
                 }
 
-                // 1秒待機してから再生
-                Invoke(nameof(PlayParticleEffect), 1.0f);
-                particleEffect.Play();
+                // 1.2秒待機してからパーティクルエフェクトを再生
+                Invoke(nameof(PlayParticleEffect), 1.2f);
             }
         }
         #endregion
+
+        // 遅延再生用に切り出し
+        private void PlayParticleEffect()
+        {
+            particleEffect.Play();
+        }
 
         #region Public Methods
         /// <summary>
@@ -78,8 +83,6 @@ namespace Minigames.FlowerBlooming
                 // 特殊な花の場合、パーティクルエフェクトを再生
                 if (isSpecial && !particleEffect.isPlaying)
                 {
-                    // 1秒待機してから再生
-                    Invoke(nameof(PlayParticleEffect), 1.0f);
                     particleEffect.Play();
                 }
             }
