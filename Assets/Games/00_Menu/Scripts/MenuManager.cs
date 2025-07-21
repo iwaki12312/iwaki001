@@ -20,4 +20,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("MoleGame");
     }
+
+    // 03_FlowerBlooming
+    public void TransitionToFlowerBlooming()
+    {
+        SceneManager.LoadScene("FlowerBlooming");
+    }
 }
