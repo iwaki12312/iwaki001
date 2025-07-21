@@ -39,6 +39,9 @@ namespace Minigames.FlowerBlooming
 
         [Header("Animation Settings")]
         [SerializeField] private float fadeOutDuration = 0.7f;
+
+        // Flowerのplanterに対する初期位置のy軸のオフセット
+        [SerializeField] private float flowerOffsetY = 1.0f; // プ 
         #endregion
 
         #region Private Fields
@@ -83,6 +86,9 @@ namespace Minigames.FlowerBlooming
                 // 花を生成
                 GameObject flower = Instantiate(flowerPrefab, planter.transform.position, Quaternion.identity);
                 flower.transform.SetParent(planter.transform);
+                
+                // 花の位置をプランターより少し上に調整（ローカル座標でY軸方向に上に）
+                flower.transform.localPosition = new Vector3(0, flowerOffsetY, 0); 
                 
                 // 花のSpriteRendererのSorting Orderを設定
                 SpriteRenderer flowerRenderer = flower.GetComponent<SpriteRenderer>();
