@@ -23,7 +23,7 @@ public class MenuController : MonoBehaviour
                     collider.size = spriteRenderer.sprite.bounds.size;
                 }
             }
-            
+
             // GameButtonコンポーネントを追加
             GameButton bubbleButton = bubbleObj.AddComponent<GameButton>();
             bubbleButton.sceneName = "BubbleGame";
@@ -33,7 +33,7 @@ public class MenuController : MonoBehaviour
         {
             Debug.LogError("Bubbleオブジェクトが見つかりません");
         }
-        
+
         // Moleオブジェクトを検索
         GameObject moleObj = GameObject.Find("Mole");
         if (moleObj != null)
@@ -49,7 +49,7 @@ public class MenuController : MonoBehaviour
                     collider.size = spriteRenderer.sprite.bounds.size;
                 }
             }
-            
+
             // GameButtonコンポーネントを追加
             GameButton moleButton = moleObj.AddComponent<GameButton>();
             moleButton.sceneName = "MoleGame";
@@ -58,6 +58,31 @@ public class MenuController : MonoBehaviour
         else
         {
             Debug.LogError("Moleオブジェクトが見つかりません");
+        }
+
+        // 03_FlowerBloomingオブジェクトを検索
+        GameObject flowerObj = GameObject.Find("03_FlowerBlooming");
+        if (flowerObj != null)
+        {
+            // BoxCollider2Dがなければ追加
+            if (flowerObj.GetComponent<BoxCollider2D>() == null)
+            {
+                BoxCollider2D collider = flowerObj.AddComponent<BoxCollider2D>();
+                // スプライトのサイズに合わせる
+                SpriteRenderer spriteRenderer = flowerObj.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    collider.size = spriteRenderer.sprite.bounds.size;
+                }
+            }
+            // GameButtonコンポーネントを追加
+            GameButton flowerButton = flowerObj.AddComponent<GameButton>();
+            flowerButton.sceneName = "FlowerBlooming";
+            flowerButton.Initialize();
+        }
+        else
+        {
+            Debug.LogError("03_FlowerBloomingオブジェクトが見つかりません");
         }
     }
 }

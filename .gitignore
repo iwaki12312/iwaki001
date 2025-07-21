@@ -6,10 +6,12 @@
 [Bb]uilds/
 [Ll]ogs/
 UserSettings/
+.utmp/
 
 # Unityのビルド成果物（APKなど）
 *.apk
 *.aab
+
 
 # Unity Cloudや他のビルドサービスのキャッシュ
 sysinfo.txt
