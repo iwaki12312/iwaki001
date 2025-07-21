@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpecial: 1
-  particleEffect: {fileID: 1005377906355987074, guid: 300c97a570de19641bd4492df26f7827, type: 3}
+  particleEffect: {fileID: 5265431308598754227}
 --- !u!1001 &4963318640588904753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,5 +194,10 @@ PrefabInstance:
 --- !u!4 &4797814337002537006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 464999657403078943, guid: 300c97a570de19641bd4492df26f7827, type: 3}
+  m_PrefabInstance: {fileID: 4963318640588904753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5265431308598754227 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1005377906355987074, guid: 300c97a570de19641bd4492df26f7827, type: 3}
   m_PrefabInstance: {fileID: 4963318640588904753}
   m_PrefabAsset: {fileID: 0}
