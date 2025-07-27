@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7740817780109409140}
   - component: {fileID: 3727835106023265998}
   - component: {fileID: 3163261660783360931}
-  - component: {fileID: -7549062140812261186}
   m_Layer: 0
   m_Name: Boy
   m_TagString: Boy
@@ -151,18 +150,3 @@ MonoBehaviour:
   bubblePrefab: {fileID: 2669154042050861876, guid: 60a08bec11d012e47b4fab9548f5c814, type: 3}
   spawnOffset: -1
   bubbleSpeed: 5
---- !u!114 &-7549062140812261186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4397655750998748422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ee9e0999a85864286b171be6cd4c59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bubblePrefab: {fileID: 0}
-  minBubbleSize: 0.5
-  maxBubbleSize: 1.5
