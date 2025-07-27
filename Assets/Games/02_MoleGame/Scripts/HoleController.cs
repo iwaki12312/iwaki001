@@ -13,11 +13,36 @@ public class HoleController : MonoBehaviour
 
     private Coroutine activeCoroutine;
 
-    // マウスクリック（タップ）イベント
-    private void OnMouseDown()
+    /// <summary>複数指タップ対応。タッチ開始時にこの Hole のコライダに当たったら叩く</summary>
+    void Update()
     {
-        TapMole();
+        /* ❶ スマホ実機：すべての指をチェック */
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            Touch t = Input.GetTouch(i);
+            if (t.phase != TouchPhase.Began) continue;          // 押した瞬間だけ処理
+
+            if (HitThisHole(t.position)) TapMole();
+        }
+
+#if UNITY_EDITOR   // ❷ エディタ用：マウスでも動くようにしておく
+        if (Input.GetMouseButtonDown(0))
+            if (HitThisHole(Input.mousePosition)) TapMole();
+#endif
     }
+
+    /// <summary>スクリーン座標 pos がこの Hole のコライダをヒットしたか？</summary>
+    bool HitThisHole(Vector2 pos)
+    {
+        // 2D 物理レイキャスト（3D の場合は Physics.Raycast に置き換える）
+        var worldPoint = Camera.main.ScreenToWorldPoint(pos);
+        var hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+
+        return hit && hit.collider != null && hit.collider.gameObject == gameObject;
+    }
+
+    // 既存の OnMouseDown はマウス操作のフォールバックとして残す
+    private void OnMouseDown() => TapMole();
 
     private void Awake()
     {
@@ -89,20 +114,20 @@ public class HoleController : MonoBehaviour
         if (isActive) return;
 
         isActive = true;
-        
+
         // 出現音を再生
         SfxPlayer.Instance.PlayOneShot(moleData.popSound);
-        
+
         // ショック状態を初期化
         isShocked = false;
-        
+
         // モグラを設定
         moleController.SetMoleData(moleData);
-        
+
         // 汗エフェクトを非表示
         if (sweatEffect != null)
             sweatEffect.SetActive(false);
-        
+
         // モグラを表示して出現アニメーションを開始
         moleController.gameObject.SetActive(true);
         moleController.StartAppearAnimation();
@@ -156,7 +181,8 @@ public class HoleController : MonoBehaviour
         if (moleController.gameObject.activeInHierarchy)
         {
             // 消失アニメーションを開始し、完了時にモグラを非アクティブにする
-            moleController.StartDisappearAnimation(() => {
+            moleController.StartDisappearAnimation(() =>
+            {
                 moleController.gameObject.SetActive(false);
                 isActive = false;
                 activeCoroutine = null;

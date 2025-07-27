@@ -5,6 +5,8 @@ public class BoyTapHandler : MonoBehaviour
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private float spawnOffset = -1f;
     [SerializeField] private float bubbleSpeed = 5f;
+    Camera mainCam;             // 毎フレーム Camera.main を探さないようにキャッシュ
+    Collider2D myCollider;
 
     private void Start()
     {
@@ -22,7 +24,7 @@ public class BoyTapHandler : MonoBehaviour
                     break;
                 }
             }
-            
+
             // 見つからない場合は、GameInitializerに依頼
             if (bubblePrefab == null)
             {
@@ -37,37 +39,64 @@ public class BoyTapHandler : MonoBehaviour
                     }
                 }
             }
-            
+
             if (bubblePrefab == null)
             {
                 Debug.LogError("バブルプレハブが見つかりません");
             }
+
         }
+
+        mainCam = Camera.main;
+        myCollider = GetComponent<Collider2D>();
+
     }
 
-    private void Update()
+    void Update()
     {
-        // マウスクリックまたはタッチ入力を検出
-        if (Input.GetMouseButtonDown(0))
+        /* ❶ すべてのタッチをチェック（実機用） */
+        for (int i = 0; i < Input.touchCount; i++)
         {
-            // マウス位置をワールド座標に変換
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-
-            // クリックがこのオブジェクトのコライダー内かどうかを確認
-            Collider2D collider = GetComponent<Collider2D>();
-            if (collider != null && collider.OverlapPoint(mousePos))
+            Touch t = Input.GetTouch(i);
+            if (t.phase == TouchPhase.Began && HitBoy(t.position))
             {
-                // シャボン玉を生成
                 SpawnBubble();
-                Debug.Log("少年をタップしました！シャボン玉を生成します。");
-                
-                // 矢印を非表示にする
                 HideArrow();
             }
         }
+
+        /* ❷ エディタ / PC での確認用フォールバック */
+#if UNITY_EDITOR
+        if (Input.GetMouseButtonDown(0) && HitBoy(Input.mousePosition))
+        {
+            SpawnBubble();
+            HideArrow();
+        }
+#endif
     }
-    
+
+    /* 画面座標 pos がこの Boy のコライダー上か？ */
+    bool HitBoy(Vector2 screenPos)
+    {
+        if (!mainCam)
+        {
+            mainCam = Camera.main;
+            Debug.LogWarning("[BoyTapHandler] mainCam が null だったので再取得");
+            if (!mainCam) return false;
+        }
+        if (!myCollider)
+        {
+            Debug.LogError("[BoyTapHandler] myCollider が null");
+            return false;
+        }
+
+        Vector2 world = mainCam.ScreenToWorldPoint(screenPos);
+        bool hit = myCollider.OverlapPoint(world);
+
+        Debug.Log($"[BoyTapHandler] HitBoy(): worldPos={world}  result={hit}");
+        return hit;
+    }
+
     // 矢印を非表示にするメソッド
     private void HideArrow()
     {
@@ -102,15 +131,15 @@ public class BoyTapHandler : MonoBehaviour
             {
                 Debug.LogWarning("BubbleSoundManagerが見つかりません。効果音が再生されません。");
             }
-            
+
             // 少年の左上から少し離れた位置にシャボン玉を生成
             Vector3 spawnPosition = transform.position + new Vector3(spawnOffset, 1.5f, 0);
             GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
-            
+
             // ランダムなサイズを設定
             float size = Random.Range(0.5f, 1.5f);
             bubble.transform.localScale = new Vector3(size, size, 1f);
-            
+
             // ランダムな色を設定
             Color randomColor = new Color(
                 Random.Range(0.7f, 1f),
@@ -123,14 +152,14 @@ public class BoyTapHandler : MonoBehaviour
             {
                 renderer.color = randomColor;
             }
-            
+
             // シャボン玉に左上方向への初速度を設定
             Rigidbody2D rb = bubble.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 rb.linearVelocity = new Vector2(-1.5f, 1f) * bubbleSpeed;
             }
-            
+
             // BubbleControllerの処理も適用される
             Debug.Log("シャボン玉を生成しました。BubbleControllerの初期設定が適用されます。");
         }

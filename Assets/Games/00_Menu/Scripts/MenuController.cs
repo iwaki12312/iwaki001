@@ -94,28 +94,31 @@ public class GameButton : MonoBehaviour
 {
     public string sceneName; // 遷移先のシーン名
     private bool isInitialized = false;
-    
+
     // ハイライト表示用の元の色と強調色
     private Color originalColor;
     private Color highlightColor;
-    
+
     // SpriteRendererコンポーネント
     private SpriteRenderer spriteRenderer;
-    
+
+    Camera mainCam;
+    Collider2D myCol;
+
     /// <summary>
     /// 初期化処理
     /// </summary>
     public void Initialize()
     {
         if (isInitialized) return;
-        
+
         // SpriteRendererを取得
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             // 元の色を保存
             originalColor = spriteRenderer.color;
-            
+
             // 強調色を設定（元の色より明るく）
             highlightColor = new Color(
                 Mathf.Min(originalColor.r * 1.2f, 1f),
@@ -124,10 +127,31 @@ public class GameButton : MonoBehaviour
                 originalColor.a
             );
         }
-        
+
+        mainCam = Camera.main;
+        myCol = GetComponent<Collider2D>();
+
         isInitialized = true;
     }
-    
+
+    void Update()
+    {
+        if (!mainCam || !myCol) return;
+
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            Touch t = Input.GetTouch(i);
+            if (t.phase != TouchPhase.Began) continue;
+
+            Vector2 world = mainCam.ScreenToWorldPoint(t.position);
+            if (myCol.OverlapPoint(world))
+            {
+                LoadGame();
+                break;                       // 複数回呼ばれないように
+            }
+        }
+    }
+
     void OnMouseEnter()
     {
         // マウスが重なったら色を変える
@@ -135,11 +159,11 @@ public class GameButton : MonoBehaviour
         {
             spriteRenderer.color = highlightColor;
         }
-        
+
         // カーソルを変更
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
-    
+
     void OnMouseExit()
     {
         // マウスが離れたら元の色に戻す
@@ -147,17 +171,17 @@ public class GameButton : MonoBehaviour
         {
             spriteRenderer.color = originalColor;
         }
-        
+
         // カーソルを元に戻す
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
-    
+
     void OnMouseDown()
     {
         // クリック時にシーン遷移
         LoadGame();
     }
-    
+
     /// <summary>
     /// ゲームシーンをロードする
     /// </summary>
@@ -168,9 +192,9 @@ public class GameButton : MonoBehaviour
             Debug.LogError("シーン名が設定されていません");
             return;
         }
-        
+
         Debug.Log($"ゲームをロード: {sceneName}");
-        
+
         // シーン遷移
         SceneManager.LoadScene(sceneName);
     }
