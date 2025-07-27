@@ -2,64 +2,78 @@ using UnityEngine;
 
 namespace Minigames.FlowerBlooming
 {
-    /// <summary>
-    /// プランターの機能を提供するクラス
-    /// </summary>
+    /// <summary>プランター（鉢）のタップ検出</summary>
+    [RequireComponent(typeof(SpriteRenderer))]
     public class Planter : MonoBehaviour
     {
-        #region SerializeFields
+        /* ------------ Serialized ------------- */
         [Header("Settings")]
         [SerializeField] private bool isInteractable = true;
-        #endregion
 
-        #region Unity Lifecycle
-        private void Start()
+        /* ------------ キャッシュ ------------- */
+        Collider2D  myCol;
+        Camera      mainCam;
+
+        /* ============================================= */
+
+        void Start()
         {
-            // BoxCollider2Dがなければ追加
-            if (GetComponent<BoxCollider2D>() == null)
+            /* ―― Collider が無ければ自動追加 ――――――――――――――― */
+            myCol = GetComponent<BoxCollider2D>();
+            if (!myCol)
             {
-                BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
-                
-                // スプライトのサイズに合わせる
-                SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null && spriteRenderer.sprite != null)
-                {
-                    collider.size = spriteRenderer.sprite.bounds.size;
-                }
+                var col = gameObject.AddComponent<BoxCollider2D>();
+                // Sprite サイズに合わせる
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                if (sr && sr.sprite)
+                    col.size = sr.sprite.bounds.size;
+                myCol = col;
             }
 
-            // GameManagerに登録
-            if (FlowerBloomingGameManager.Instance != null)
-            {
+            /* ―― GameManager へ登録 ――――――――――――――― */
+            if (FlowerBloomingGameManager.Instance)
                 FlowerBloomingGameManager.Instance.RegisterPlanter(gameObject);
-            }
             else
-            {
-                Debug.LogError("FlowerBloomingGameManagerが見つかりません");
-            }
+                Debug.LogError("[Planter] FlowerBloomingGameManager が見つかりません");
+
+            mainCam = Camera.main;
+            if (!mainCam) Debug.LogWarning("[Planter] MainCamera が見つかりません。タグを確認してください");
         }
 
-        private void OnMouseDown()
+        /* ===============  多指対応  =============== */
+        void Update()
         {
-            if (!isInteractable) return;
+            if (!isInteractable || !mainCam || !myCol) return;
 
-            // GameManagerに通知
-            if (FlowerBloomingGameManager.Instance != null)
+            /* ❶ すべてのタッチを調べる（実機） */
+            for (int i = 0; i < Input.touchCount; i++)
             {
+                Touch t = Input.GetTouch(i);
+                if (t.phase == TouchPhase.Began && HitPlanter(t.position))
+                    NotifyTapped();
+            }
+
+#if UNITY_EDITOR      // ❷ エディタ用：左クリックでテスト
+            if (Input.GetMouseButtonDown(0) && HitPlanter(Input.mousePosition))
+                NotifyTapped();
+#endif
+        }
+
+        /* ===============  判定 & 通知  =============== */
+        bool HitPlanter(Vector2 screenPos)
+        {
+            Vector2 world = mainCam.ScreenToWorldPoint(screenPos);
+            return myCol.OverlapPoint(world);
+        }
+
+        void NotifyTapped()
+        {
+            if (FlowerBloomingGameManager.Instance)
                 FlowerBloomingGameManager.Instance.OnPlanterTapped(gameObject);
-            }
         }
-        #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// プランターの操作可能状態を設定する
-        /// </summary>
-        /// <param name="interactable">操作可能かどうか</param>
-        public void SetInteractable(bool interactable)
-        {
-            isInteractable = interactable;
-        }
-        #endregion
+        /* ===============  Public  =============== */
+        /// <summary>外部から操作可否を切り替え</summary>
+        public void SetInteractable(bool interactable) => isInteractable = interactable;
     }
 }
