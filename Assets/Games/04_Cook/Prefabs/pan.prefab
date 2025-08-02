@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burst: {fileID: 3755862572429960636}
+  cookwareType: 1
 --- !u!1001 &5105132158080693348
 PrefabInstance:
   m_ObjectHideFlags: 0

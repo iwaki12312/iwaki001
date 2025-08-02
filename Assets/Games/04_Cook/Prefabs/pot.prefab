@@ -170,3 +170,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaad6b37fc0476345861900f74619e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  burst: {fileID: 0}
+  cookwareType: 0
