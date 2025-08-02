@@ -133,6 +133,15 @@ public class CookSFXPlayer : MonoBehaviour
         }
     }
     
+    // 調理中の効果音を停止
+    public void StopCookingSound()
+    {
+        if (effectAudioSource.isPlaying)
+        {
+            effectAudioSource.Stop();
+        }
+    }
+    
     // 指定した効果音を再生
     public void PlaySound(AudioClip clip, float volume = 1.0f)
     {

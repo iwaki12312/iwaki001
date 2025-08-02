@@ -50,9 +50,10 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
     {
         burst.Play();
         
-        // 調理完了時の効果音を再生
+        // 調理中の効果音を停止してから調理完了時の効果音を再生
         if (CookSFXPlayer.Instance != null)
         {
+            CookSFXPlayer.Instance.StopCookingSound();
             CookSFXPlayer.Instance.PlayCookCompletedSound();
         }
     }
