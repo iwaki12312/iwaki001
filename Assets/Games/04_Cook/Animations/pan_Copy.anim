@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pan
+  m_Name: pan_Copy
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,6 +22,8 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 4775674515876023055, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - time: 0.6666667
+      value: {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - time: 1
       value: {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - time: 1.3333334
@@ -53,6 +55,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 4775674515876023055, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
@@ -238,69 +241,6 @@ AnimationClip:
     messageOptions: 0
   - time: 0
     functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: PlayBurst
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 2
-    functionName: PlayBurst
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

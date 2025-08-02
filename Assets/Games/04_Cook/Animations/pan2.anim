@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pot
+  m_Name: pan2
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -5710704731138002207, guid: fb01959a240378144a8ff510645dda3c, type: 3}
-    - time: 0.6666667
-      value: {fileID: 8000725438922261941, guid: fb01959a240378144a8ff510645dda3c, type: 3}
+      value: {fileID: 4775674515876023055, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - time: 0.68333334
+      value: {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - time: 1
-      value: {fileID: -2305230742642177244, guid: fb01959a240378144a8ff510645dda3c, type: 3}
+      value: {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - time: 1.3333334
-      value: {fileID: 8000725438922261941, guid: fb01959a240378144a8ff510645dda3c, type: 3}
+      value: {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - time: 1.6666666
-      value: {fileID: -2305230742642177244, guid: fb01959a240378144a8ff510645dda3c, type: 3}
+      value: {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     - time: 2
-      value: {fileID: -8982115817227694886, guid: fb01959a240378144a8ff510645dda3c, type: 3}
+      value: {fileID: -6571879999762560961, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -54,12 +54,12 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -5710704731138002207, guid: fb01959a240378144a8ff510645dda3c, type: 3}
-    - {fileID: 8000725438922261941, guid: fb01959a240378144a8ff510645dda3c, type: 3}
-    - {fileID: -2305230742642177244, guid: fb01959a240378144a8ff510645dda3c, type: 3}
-    - {fileID: 8000725438922261941, guid: fb01959a240378144a8ff510645dda3c, type: 3}
-    - {fileID: -2305230742642177244, guid: fb01959a240378144a8ff510645dda3c, type: 3}
-    - {fileID: -8982115817227694886, guid: fb01959a240378144a8ff510645dda3c, type: 3}
+    - {fileID: 4775674515876023055, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - {fileID: -3106377814178722963, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - {fileID: -8608986839286728206, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
+    - {fileID: -6571879999762560961, guid: 613b1e6529340ce4791c653b912696d0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -84,4 +84,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 2
+    functionName: PlayBurst
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
