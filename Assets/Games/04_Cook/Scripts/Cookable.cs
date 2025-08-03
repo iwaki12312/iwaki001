@@ -38,6 +38,7 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData e)
     {
+        Debug.Log($"{cookwareType}: OnPointerDown called. isCooking: {isCooking}");
         if (isCooking) return;       // 連打防止
         isCooking = true;
         anim.SetTrigger("Play");
@@ -189,8 +190,18 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
     // 調理器具の状態をリセットするメソッド
     private void ResetCookware()
     {
+        Debug.Log($"{cookwareType}: ResetCookware called. Current animator state: {anim.GetCurrentAnimatorStateInfo(0).fullPathHash}, isCooking: {isCooking}");
+        
         // アニメーションをリセット
         anim.Rebind();  // アニメーションを完全に初期状態に戻す
+        
+        // パーティクルシステムをリセット
+        if (burst != null)
+        {
+            burst.Stop();
+            burst.Clear();
+            Debug.Log($"{cookwareType}: Particle system reset in ResetCookware");
+        }
         
         // 調理器具の種類に応じたアイドル状態に戻す
         if (cookwareType == CookwareType.Pot)
@@ -231,7 +242,35 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
     // パーティクルを再生（アニメーションイベントから呼び出し）
     public void PlayBurst()
     {
+        Debug.Log($"{cookwareType}: PlayBurst called. Particle active: {burst.isPlaying}, Particle enabled: {burst.gameObject.activeInHierarchy}");
+        
+        // パーティクルシステムの詳細情報をログ出力
+        if (burst == null)
+        {
+            Debug.LogError($"{cookwareType}: Particle system is null!");
+            return;
+        }
+        else
+        {
+            var main = burst.main;
+            Debug.Log($"{cookwareType}: Particle settings - Duration: {main.duration}, Loop: {main.loop}, StartDelay: {main.startDelay.constant}");
+        }
+        
+        // パーティクルシステムを完全に再初期化
+        burst.Stop();
+        burst.Clear();
+        
+        // パーティクルシステムの設定を確認・調整
+        var mainModule = burst.main;
+        mainModule.loop = false;  // ループしないように設定
+        
+        // 明示的にゲームオブジェクトをアクティブにする
+        burst.gameObject.SetActive(true);
+        
+        // パーティクルを再生
         burst.Play();
+        
+        Debug.Log($"{cookwareType}: Particle reinitialized and played. Now active: {burst.isPlaying}");
         
         // 調理中の効果音を停止
         if (CookSFXPlayer.Instance != null)
