@@ -14,7 +14,7 @@ public class CookedDish : MonoBehaviour
     private SpriteRenderer dishRenderer;
     [SerializeField] private float displayDuration = 2.0f; // 表示時間
     [SerializeField] private float fadeInSpeed = 5.0f;     // フェードイン速度
-    [SerializeField] private Vector3 specialScale = new Vector3(1.2f, 1.2f, 1.2f); // 特別料理のスケール
+    [SerializeField] private Vector3 specialScale = new Vector3(0.6f, 0.6f, 0.6f); // 特別料理のスケール
     
     private DishType currentDishType;
     
@@ -54,7 +54,7 @@ public class CookedDish : MonoBehaviour
         }
         else
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
         }
         
         // フェードインと自動消去のコルーチンを開始
