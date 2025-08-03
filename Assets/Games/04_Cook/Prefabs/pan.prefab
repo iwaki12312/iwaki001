@@ -179,6 +179,11 @@ MonoBehaviour:
   failChance: 0.15
   normalDishes:
   - {fileID: -368396836572338220, guid: 4993f8a5c13d9bd44820481de87f4c4b, type: 3}
+  - {fileID: -5663518135556305177, guid: 4fe0937808848ec48aa33df5c7608bfc, type: 3}
+  - {fileID: -2733220410703719924, guid: 452ba89aef2b7a940aeb7f0890555f42, type: 3}
+  - {fileID: 2255580716522117994, guid: 1598e23517fc4074b9a18f18e193b146, type: 3}
+  - {fileID: -7117399357115846896, guid: 075e55aba5194144e977e0bc4aed148d, type: 3}
+  - {fileID: 2313043236011815425, guid: 99b3ce8650a9a624aa72b4a2ea8ecd60, type: 3}
   specialDish: {fileID: -8139095053426180132, guid: 2de83cb36470de944bde20cd6b8c4274, type: 3}
   failDish: {fileID: -7397480106237928140, guid: 91fa642cba692f445b6a338dfccf16d1, type: 3}
 --- !u!1001 &5105132158080693348
