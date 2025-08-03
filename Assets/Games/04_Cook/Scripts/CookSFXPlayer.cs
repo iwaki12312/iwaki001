@@ -10,6 +10,10 @@ public class CookSFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip panCookingSound;    // フライパン調理中の音
     [SerializeField] private AudioClip cookCompletedSound; // 調理完了時の音
     
+    [Header("追加効果音")]
+    [SerializeField] private AudioClip cookCompletedSpecialSound; // 特別料理完了時の音
+    [SerializeField] private AudioClip cookCompletedFailSound;    // 失敗料理完了時の音
+    
     [Header("音量設定")]
     [SerializeField] [Range(0f, 1f)] private float cookingVolume = 0.5f;
     [SerializeField] [Range(0f, 1f)] private float completedVolume = 0.5f;
@@ -57,41 +61,7 @@ public class CookSFXPlayer : MonoBehaviour
             effectAudioSource = gameObject.AddComponent<AudioSource>();
         }
         
-        // 効果音の読み込み
-        LoadSoundEffects();
-        
         Debug.Log("CookSFXPlayer初期化完了");
-    }
-    
-    // 効果音の読み込み
-    private void LoadSoundEffects()
-    {
-        if (potCookingSound == null)
-        {
-            potCookingSound = Resources.Load<AudioClip>("Games/04_Cook/Audios/pot_cooking");
-            if (potCookingSound == null)
-            {
-                Debug.LogWarning("鍋調理中の効果音が見つかりません。インスペクタで直接設定してください。");
-            }
-        }
-        
-        if (panCookingSound == null)
-        {
-            panCookingSound = Resources.Load<AudioClip>("Games/04_Cook/Audios/pan_cooking");
-            if (panCookingSound == null)
-            {
-                Debug.LogWarning("フライパン調理中の効果音が見つかりません。インスペクタで直接設定してください。");
-            }
-        }
-        
-        if (cookCompletedSound == null)
-        {
-            cookCompletedSound = Resources.Load<AudioClip>("Games/04_Cook/Audios/cook_completed");
-            if (cookCompletedSound == null)
-            {
-                Debug.LogWarning("調理完了時の効果音が見つかりません。インスペクタで直接設定してください。");
-            }
-        }
     }
     
     // 鍋調理中の効果音を再生
@@ -130,6 +100,36 @@ public class CookSFXPlayer : MonoBehaviour
         else
         {
             Debug.LogWarning("調理完了時の効果音が設定されていません");
+        }
+    }
+    
+    // 特別料理完了時の効果音を再生
+    public void PlaySpecialCompletedSound()
+    {
+        if (cookCompletedSpecialSound != null)
+        {
+            effectAudioSource.PlayOneShot(cookCompletedSpecialSound, completedVolume);
+        }
+        else
+        {
+            Debug.LogWarning("特別料理完了時の効果音が設定されていません");
+            // フォールバックとして通常の完了音を再生
+            PlayCookCompletedSound();
+        }
+    }
+    
+    // 失敗料理完了時の効果音を再生
+    public void PlayFailCompletedSound()
+    {
+        if (cookCompletedFailSound != null)
+        {
+            effectAudioSource.PlayOneShot(cookCompletedFailSound, completedVolume);
+        }
+        else
+        {
+            Debug.LogWarning("失敗料理完了時の効果音が設定されていません");
+            // フォールバックとして通常の完了音を再生
+            PlayCookCompletedSound();
         }
     }
     

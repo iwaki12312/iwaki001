@@ -172,3 +172,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   burst: {fileID: 0}
   cookwareType: 0
+  dishOffsetY: 1.5
+  specialChance: 0.15
+  failChance: 0.15
+  normalDishes:
+  - {fileID: 3118272409633883210, guid: a16435b6034ee1f4b822dbb8b3a2bdfe, type: 3}
+  - {fileID: 4931237713233955079, guid: 5b35a9a4ca4166f4baf0e1c80d4cb16c, type: 3}
+  specialDish: {fileID: 1322191638378853680, guid: bdaae48ade9d0ae4a86e91151f06fb61, type: 3}
+  failDish: {fileID: 1908878160145392619, guid: 86056b65f3b661145b913f5efc9503df, type: 3}

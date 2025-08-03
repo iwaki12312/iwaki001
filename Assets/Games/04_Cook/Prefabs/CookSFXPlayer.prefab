@@ -48,6 +48,8 @@ MonoBehaviour:
   potCookingSound: {fileID: 8300000, guid: 7437b71a4dcf182458155a05c7d112cc, type: 3}
   panCookingSound: {fileID: 8300000, guid: 516286ce20d2ebe44a11742598672373, type: 3}
   cookCompletedSound: {fileID: 8300000, guid: 810dba94f6530f44dae973b3b6b7ecc8, type: 3}
+  cookCompletedSpecialSound: {fileID: 8300000, guid: 643fa42d62bc16a46bd62a6d8015754f, type: 3}
+  cookCompletedFailSound: {fileID: 8300000, guid: 55ac43fa0c5914b41b299def8d327e82, type: 3}
   cookingVolume: 0.5
   completedVolume: 0.5
 --- !u!82 &1234567890123456792
