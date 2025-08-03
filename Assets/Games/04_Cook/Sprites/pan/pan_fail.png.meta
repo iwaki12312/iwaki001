@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: -7397480106237928140
     second: pan_fail_0
+  - first:
+      213: 2771433672468643061
+    second: pan_fail_1
+  - first:
+      213: -2937874497480507450
+    second: pan_fail_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,12 +135,12 @@ TextureImporter:
       name: pan_fail_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 88
-        width: 982
-        height: 819
+        x: 32
+        y: 112
+        width: 975
+        height: 901
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,11 +153,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: pan_fail_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 627
+        width: 59
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fcbc0ecd3c167620800000000000000
+      internalID: 2771433672468643061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c034a6042a78e1f4ab9e2008a3530561
     internalID: 0
     vertices: []
     indices: 
@@ -162,6 +190,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       pan_fail_0: -7397480106237928140
+      pan_fail_1: 2771433672468643061
+      pan_fail_2: -2937874497480507450
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

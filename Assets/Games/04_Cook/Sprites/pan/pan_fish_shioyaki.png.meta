@@ -129,12 +129,12 @@ TextureImporter:
       name: fish_shioyaki_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
+        x: 23
+        y: 151
+        width: 995
+        height: 713
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ba68d29b1e45d0b468d4e9bd5b26fae7
     internalID: 0
     vertices: []
     indices: 
