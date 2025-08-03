@@ -824,11 +824,11 @@ PrefabInstance:
     - target: {fileID: 1234567890123456791, guid: 9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d, type: 3}
       propertyPath: cookCompletedFailSound
       value: 
-      objectReference: {fileID: 8300000, guid: 55ac43fa0c5914b41b299def8d327e82, type: 3}
+      objectReference: {fileID: 8300000, guid: 810dba94f6530f44dae973b3b6b7ecc8, type: 3}
     - target: {fileID: 1234567890123456791, guid: 9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d, type: 3}
       propertyPath: cookCompletedSpecialSound
       value: 
-      objectReference: {fileID: 8300000, guid: 643fa42d62bc16a46bd62a6d8015754f, type: 3}
+      objectReference: {fileID: 8300000, guid: 810dba94f6530f44dae973b3b6b7ecc8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -11,6 +11,10 @@ public class CookedDish : MonoBehaviour
         Fail     // 失敗料理
     }
     
+    // コールバックデリゲートを定義
+    public delegate void DishDestroyedCallback();
+    private DishDestroyedCallback onDishDestroyed;
+    
     private SpriteRenderer dishRenderer;
     [SerializeField] private float displayDuration = 2.0f; // 表示時間
     [SerializeField] private float fadeInSpeed = 5.0f;     // フェードイン速度
@@ -34,6 +38,12 @@ public class CookedDish : MonoBehaviour
         
         // レイヤーとソート順を設定（調理器具の上に表示されるように）
         dishRenderer.sortingOrder = 10;
+    }
+    
+    // コールバックを設定するメソッドを追加
+    public void SetDestroyCallback(DishDestroyedCallback callback)
+    {
+        onDishDestroyed = callback;
     }
     
     // 料理を表示
@@ -88,6 +98,9 @@ public class CookedDish : MonoBehaviour
             dishRenderer.color = c;
             yield return null;
         }
+        
+        // 破棄前にコールバックを呼び出し
+        onDishDestroyed?.Invoke();
         
         // 使用後は破棄
         Destroy(gameObject);

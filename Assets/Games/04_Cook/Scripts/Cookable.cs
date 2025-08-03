@@ -172,17 +172,18 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
         // CookedDishコンポーネントを追加
         CookedDish cookedDish = dishObj.AddComponent<CookedDish>();
         
+        // 料理が消えた時のコールバックを設定
+        cookedDish.SetDestroyCallback(ResetCookware);
+        
         // 料理を表示
         cookedDish.ShowDish(dishSprite, dishType);
         
         // 料理の種類に応じたファンファーレを再生
         PlayFanfareSound(dishType);
         
-        // 料理表示後、少し待機してから状態をリセット（ファンファーレ効果音が再生された後）
-        yield return new WaitForSeconds(0.5f);
-        
-        // 調理器具の状態をリセット
-        ResetCookware();
+        // 直接的なリセット処理を削除（料理が消えた時にコールバックで呼び出される）
+        // yield return new WaitForSeconds(0.5f);
+        // ResetCookware();
     }
     
     // 調理器具の状態をリセットするメソッド
