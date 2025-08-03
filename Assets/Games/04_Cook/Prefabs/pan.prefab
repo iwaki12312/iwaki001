@@ -174,6 +174,7 @@ MonoBehaviour:
   burst: {fileID: 3755862572429960636}
   cookwareType: 1
   dishOffsetY: 1.5
+  dishAppearDelay: 1
   specialChance: 0.15
   failChance: 0.15
   normalDishes:

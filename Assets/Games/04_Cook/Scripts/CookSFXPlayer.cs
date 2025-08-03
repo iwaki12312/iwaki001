@@ -14,6 +14,11 @@ public class CookSFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip cookCompletedSpecialSound; // 特別料理完了時の音
     [SerializeField] private AudioClip cookCompletedFailSound;    // 失敗料理完了時の音
     
+    [Header("ファンファーレ効果音")]
+    [SerializeField] private AudioClip fanfareSound;           // 通常料理のファンファーレ
+    [SerializeField] private AudioClip fanfareSpecialSound;    // 特別料理のファンファーレ
+    [SerializeField] private AudioClip fanfareFailSound;       // 失敗料理のファンファーレ
+    
     [Header("音量設定")]
     [SerializeField] [Range(0f, 1f)] private float cookingVolume = 0.5f;
     [SerializeField] [Range(0f, 1f)] private float completedVolume = 0.5f;
@@ -130,6 +135,49 @@ public class CookSFXPlayer : MonoBehaviour
             Debug.LogWarning("失敗料理完了時の効果音が設定されていません");
             // フォールバックとして通常の完了音を再生
             PlayCookCompletedSound();
+        }
+    }
+    
+    // 通常料理のファンファーレを再生
+    public void PlayFanfareSound()
+    {
+        if (fanfareSound != null)
+        {
+            effectAudioSource.PlayOneShot(fanfareSound, completedVolume);
+        }
+        else
+        {
+            Debug.LogWarning("通常料理のファンファーレ効果音が設定されていません");
+        }
+    }
+    
+    // 特別料理のファンファーレを再生
+    public void PlayFanfareSpecialSound()
+    {
+        if (fanfareSpecialSound != null)
+        {
+            effectAudioSource.PlayOneShot(fanfareSpecialSound, completedVolume);
+        }
+        else
+        {
+            Debug.LogWarning("特別料理のファンファーレ効果音が設定されていません");
+            // フォールバックとして通常のファンファーレを再生
+            PlayFanfareSound();
+        }
+    }
+    
+    // 失敗料理のファンファーレを再生
+    public void PlayFanfareFailSound()
+    {
+        if (fanfareFailSound != null)
+        {
+            effectAudioSource.PlayOneShot(fanfareFailSound, completedVolume);
+        }
+        else
+        {
+            Debug.LogWarning("失敗料理のファンファーレ効果音が設定されていません");
+            // フォールバックとして通常のファンファーレを再生
+            PlayFanfareSound();
         }
     }
     

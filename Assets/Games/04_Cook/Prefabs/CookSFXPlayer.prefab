@@ -50,6 +50,9 @@ MonoBehaviour:
   cookCompletedSound: {fileID: 8300000, guid: 810dba94f6530f44dae973b3b6b7ecc8, type: 3}
   cookCompletedSpecialSound: {fileID: 8300000, guid: 643fa42d62bc16a46bd62a6d8015754f, type: 3}
   cookCompletedFailSound: {fileID: 8300000, guid: 55ac43fa0c5914b41b299def8d327e82, type: 3}
+  fanfareSound: {fileID: 8300000, guid: 0605510d71593b046bc52b672cb4e727, type: 3}
+  fanfareSpecialSound: {fileID: 8300000, guid: 6dc7b6a9808b48c44bdd0f1a01b74318, type: 3}
+  fanfareFailSound: {fileID: 8300000, guid: 4936d9bdf38f80a47ab6c8c4bd4ccb17, type: 3}
   cookingVolume: 0.5
   completedVolume: 0.5
 --- !u!82 &1234567890123456792

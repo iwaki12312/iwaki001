@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,7 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
     
     [Header("料理表示設定")]
     [SerializeField] private float dishOffsetY = 1.5f;      // 料理表示の高さオフセット
+    [SerializeField] private float dishAppearDelay = 1.0f;  // 料理が出現するまでの待機時間（秒）
     [SerializeField] private float specialChance = 0.15f;   // 特別料理の確率
     [SerializeField] private float failChance = 0.15f;      // 失敗料理の確率
     
@@ -150,6 +152,53 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
         }
     }
     
+    // 待機時間後に料理を表示するコルーチン
+    private IEnumerator ShowCookedDishWithDelay(CookedDish.DishType dishType, float delay)
+    {
+        // 指定した時間だけ待機
+        yield return new WaitForSeconds(delay);
+        
+        // 料理のスプライトを取得
+        Sprite dishSprite = GetDishSprite(dishType);
+        if (dishSprite == null) yield break;
+        
+        // 料理表示位置を計算（調理器具の上部）
+        Vector3 dishPosition = transform.position + new Vector3(0, dishOffsetY, 0);
+        
+        // 料理表示用オブジェクトを生成
+        GameObject dishObj = new GameObject($"CookedDish_{cookwareType}");
+        dishObj.transform.position = dishPosition;
+        
+        // CookedDishコンポーネントを追加
+        CookedDish cookedDish = dishObj.AddComponent<CookedDish>();
+        
+        // 料理を表示
+        cookedDish.ShowDish(dishSprite, dishType);
+        
+        // 料理の種類に応じたファンファーレを再生
+        PlayFanfareSound(dishType);
+    }
+    
+    // 料理の種類に応じたファンファーレを再生
+    private void PlayFanfareSound(CookedDish.DishType dishType)
+    {
+        if (CookSFXPlayer.Instance == null) return;
+        
+        switch (dishType)
+        {
+            case CookedDish.DishType.Special:
+                CookSFXPlayer.Instance.PlayFanfareSpecialSound();
+                break;
+            case CookedDish.DishType.Fail:
+                CookSFXPlayer.Instance.PlayFanfareFailSound();
+                break;
+            case CookedDish.DishType.Normal:
+            default:
+                CookSFXPlayer.Instance.PlayFanfareSound();
+                break;
+        }
+    }
+    
     // パーティクルを再生（アニメーションイベントから呼び出し）
     public void PlayBurst()
     {
@@ -161,8 +210,14 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
             CookSFXPlayer.Instance.StopCookingSound();
         }
         
-        // 料理を表示
-        ShowCookedDish();
+        // 料理の種類を決定（ここで決定しておく）
+        CookedDish.DishType dishType = DetermineDishType();
+        
+        // 料理完了時の効果音を再生
+        PlayCompletionSound(dishType);
+        
+        // 1秒後に料理を表示
+        StartCoroutine(ShowCookedDishWithDelay(dishType, dishAppearDelay));
     }
 
     // Animation の最後にイベントを置くと呼ばれる
