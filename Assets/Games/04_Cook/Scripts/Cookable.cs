@@ -177,6 +177,34 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
         
         // 料理の種類に応じたファンファーレを再生
         PlayFanfareSound(dishType);
+        
+        // 料理表示後、少し待機してから状態をリセット（ファンファーレ効果音が再生された後）
+        yield return new WaitForSeconds(0.5f);
+        
+        // 調理器具の状態をリセット
+        ResetCookware();
+    }
+    
+    // 調理器具の状態をリセットするメソッド
+    private void ResetCookware()
+    {
+        // アニメーションをリセット
+        anim.Rebind();  // アニメーションを完全に初期状態に戻す
+        
+        // 調理器具の種類に応じたアイドル状態に戻す
+        if (cookwareType == CookwareType.Pot)
+        {
+            anim.Play("pot_idle");
+        }
+        else
+        {
+            anim.Play("pan_idle");
+        }
+        
+        // 調理中フラグをリセット
+        isCooking = false;
+        
+        Debug.Log($"{cookwareType}の状態をリセットしました");
     }
     
     // 料理の種類に応じたファンファーレを再生
