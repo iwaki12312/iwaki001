@@ -1,28 +1,10 @@
 fileFormatVersion: 2
-guid: 613b1e6529340ce4791c653b912696d0
+guid: 9a2cca56d88dd97449e9aaec918085aa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8041774921739049974
-    second: pan_0
-  - first:
-      213: -3106377814178722963
-    second: pan_1
-  - first:
-      213: 2244896320652952654
-    second: pan_2
-  - first:
-      213: 4775674515876023055
-    second: pan_3
-  - first:
-      213: -6571879999762560961
-    second: pan_4
-  - first:
-      213: -8608986839286728206
-    second: pan_5
-  - first:
-      213: 6202806144937035273
-    second: pan_6
+      213: 1809562208954038553
+    second: bg 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -144,111 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pan_0
+      name: bg 1_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 759
-        width: 436
-        height: 191
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 0
+        width: 1536
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6fb96e52faf1a9f60800000000000000
-      internalID: 8041774921739049974
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pan_1
-      rect:
-        serializedVersion: 2
-        x: 572
-        y: 621
-        width: 413
-        height: 288
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d6b09b716dde3e4d0800000000000000
-      internalID: -3106377814178722963
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pan_3
-      rect:
-        serializedVersion: 2
-        x: 220
-        y: 390
-        width: 434
-        height: 198
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f0b0da96baa964240800000000000000
-      internalID: 4775674515876023055
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pan_4
-      rect:
-        serializedVersion: 2
-        x: 551
-        y: 47
-        width: 444
-        height: 318
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3888a3a5fdfbc4a0800000000000000
-      internalID: -6571879999762560961
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pan_5
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 61
-        width: 403
-        height: 301
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2f93d40051cb68880800000000000000
-      internalID: -8608986839286728206
+      spriteID: 9193da7dd3bdc1910800000000000000
+      internalID: 1809562208954038553
       vertices: []
       indices: 
       edges: []
@@ -257,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d808b315265bcb747bf93681480e358e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -267,13 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pan_0: 8041774921739049974
-      pan_1: -3106377814178722963
-      pan_2: 2244896320652952654
-      pan_3: 4775674515876023055
-      pan_4: -6571879999762560961
-      pan_5: -8608986839286728206
-      pan_6: 6202806144937035273
+      bg 1_0: 1809562208954038553
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

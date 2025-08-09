@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 613b1e6529340ce4791c653b912696d0
+guid: bb46388ba3a79764c84a8db23b6c703f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8041774921739049974
-    second: pan_0
+      213: 8618069364680977552
+    second: 04_Cook_0
   - first:
-      213: -3106377814178722963
-    second: pan_1
+      213: 2431952655922943594
+    second: 04_Cook_1
   - first:
-      213: 2244896320652952654
-    second: pan_2
+      213: 6794761371766964305
+    second: 04_Cook_2
   - first:
-      213: 4775674515876023055
-    second: pan_3
+      213: -5045330834686398195
+    second: 04_Cook_3
   - first:
-      213: -6571879999762560961
-    second: pan_4
+      213: -8920195508948166589
+    second: 04_Cook_4
   - first:
-      213: -8608986839286728206
-    second: pan_5
+      213: 3099923997563857519
+    second: 04_Cook_5
   - first:
-      213: 6202806144937035273
-    second: pan_6
+      213: -4723032149597387433
+    second: 04_Cook_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -144,111 +144,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pan_0
+      name: 04_Cook_0
       rect:
         serializedVersion: 2
-        x: 21
+        x: 73
         y: 759
-        width: 436
+        width: 383
         height: 191
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6fb96e52faf1a9f60800000000000000
-      internalID: 8041774921739049974
+      spriteID: 09c6c7b3d68899770800000000000000
+      internalID: 8618069364680977552
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pan_1
+      name: 04_Cook_1
       rect:
         serializedVersion: 2
-        x: 572
+        x: 625
         y: 621
-        width: 413
-        height: 288
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 360
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d6b09b716dde3e4d0800000000000000
-      internalID: -3106377814178722963
+      spriteID: a66dad63e0800c120800000000000000
+      internalID: 2431952655922943594
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pan_3
+      name: 04_Cook_2
       rect:
         serializedVersion: 2
-        x: 220
-        y: 390
-        width: 434
+        x: 751
+        y: 794
+        width: 130
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15047b9a777db4e50800000000000000
+      internalID: 6794761371766964305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 04_Cook_3
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 389
+        width: 375
         height: 198
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0b0da96baa964240800000000000000
-      internalID: 4775674515876023055
+      spriteID: d01313056526bf9b0800000000000000
+      internalID: -5045330834686398195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pan_4
+      name: 04_Cook_4
       rect:
         serializedVersion: 2
-        x: 551
+        x: 607
         y: 47
-        width: 444
-        height: 318
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 389
+        height: 344
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f3888a3a5fdfbc4a0800000000000000
-      internalID: -6571879999762560961
+      spriteID: 3481c122279153480800000000000000
+      internalID: -8920195508948166589
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pan_5
+      name: 04_Cook_5
       rect:
         serializedVersion: 2
-        x: 42
-        y: 61
-        width: 403
-        height: 301
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 91
+        y: 60
+        width: 358
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2f93d40051cb68880800000000000000
-      internalID: -8608986839286728206
+      spriteID: f6aa081a374250b20800000000000000
+      internalID: 3099923997563857519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 04_Cook_6
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 229
+        width: 122
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7558f7c984b647eb0800000000000000
+      internalID: -4723032149597387433
       vertices: []
       indices: 
       edges: []
@@ -257,7 +301,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d808b315265bcb747bf93681480e358e
+    spriteID: 832dae89903d8784891da0f4b79996f6
     internalID: 0
     vertices: []
     indices: 
@@ -267,13 +311,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pan_0: 8041774921739049974
-      pan_1: -3106377814178722963
-      pan_2: 2244896320652952654
-      pan_3: 4775674515876023055
-      pan_4: -6571879999762560961
-      pan_5: -8608986839286728206
-      pan_6: 6202806144937035273
+      04_Cook_0: 8618069364680977552
+      04_Cook_1: 2431952655922943594
+      04_Cook_2: 6794761371766964305
+      04_Cook_3: -5045330834686398195
+      04_Cook_4: -8920195508948166589
+      04_Cook_5: 3099923997563857519
+      04_Cook_6: -4723032149597387433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

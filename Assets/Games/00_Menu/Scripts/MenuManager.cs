@@ -26,4 +26,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("FlowerBlooming");
     }
+
+    // 04_Cook
+    public void TransitionToCook()
+    {
+        SceneManager.LoadScene("Cook");
+    }
 }
