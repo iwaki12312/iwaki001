@@ -147,9 +147,9 @@ TextureImporter:
       name: pan_0
       rect:
         serializedVersion: 2
-        x: 73
+        x: 21
         y: 759
-        width: 383
+        width: 436
         height: 191
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -169,9 +169,9 @@ TextureImporter:
       name: pan_1
       rect:
         serializedVersion: 2
-        x: 625
-        y: 620
-        width: 360
+        x: 572
+        y: 621
+        width: 413
         height: 288
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -191,9 +191,9 @@ TextureImporter:
       name: pan_3
       rect:
         serializedVersion: 2
-        x: 279
-        y: 389
-        width: 375
+        x: 220
+        y: 390
+        width: 434
         height: 198
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -213,9 +213,9 @@ TextureImporter:
       name: pan_4
       rect:
         serializedVersion: 2
-        x: 609
+        x: 551
         y: 47
-        width: 386
+        width: 444
         height: 318
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -235,9 +235,9 @@ TextureImporter:
       name: pan_5
       rect:
         serializedVersion: 2
-        x: 92
+        x: 42
         y: 61
-        width: 355
+        width: 403
         height: 301
       alignment: 7
       pivot: {x: 0.5, y: 0}

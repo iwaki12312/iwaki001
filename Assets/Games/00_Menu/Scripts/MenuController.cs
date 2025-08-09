@@ -84,6 +84,32 @@ public class MenuController : MonoBehaviour
         {
             Debug.LogError("03_FlowerBloomingオブジェクトが見つかりません");
         }
+
+        // 04_Cookオブジェクトを検索
+        GameObject cookObj = GameObject.Find("04_Cook");
+        if (cookObj != null)
+        {
+            // BoxCollider2Dがなければ追加
+            if (cookObj.GetComponent<BoxCollider2D>() == null)
+            {
+                BoxCollider2D collider = cookObj.AddComponent<BoxCollider2D>();
+                // スプライトのサイズに合わせる
+                SpriteRenderer spriteRenderer = cookObj.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    collider.size = spriteRenderer.sprite.bounds.size;
+                }
+            }
+
+            // GameButtonコンポーネントを追加
+            GameButton cookButton = cookObj.AddComponent<GameButton>();
+            cookButton.sceneName = "Cook";
+            cookButton.Initialize();
+        }
+        else
+        {
+            Debug.LogError("04_Cookオブジェクトが見つかりません");
+        }
     }
 }
 

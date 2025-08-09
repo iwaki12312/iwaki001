@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Games/03_FlowerBlooming/Scenes/FlowerBlooming.unity
     guid: 6e7b781b728387a40a1cfa54fd091860
+  - enabled: 1
+    path: Assets/Games/04_Cook/Scenes/Cook.unity
+    guid: 850b4031ca20c8949bb0454043af371a
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 29cfb4b30c94b9b4292ef9eff942c378, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: b47bbedba24f5714da64247cf4522885, type: 2}
