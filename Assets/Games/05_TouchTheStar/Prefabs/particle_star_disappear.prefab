@@ -185,6 +185,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955258683721189727, guid: e05875e1c2e842843a233da3102d88b0, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955258683721189727, guid: e05875e1c2e842843a233da3102d88b0, type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955258683721189727, guid: e05875e1c2e842843a233da3102d88b0, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.98828644
       objectReference: {fileID: 0}
