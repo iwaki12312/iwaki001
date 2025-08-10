@@ -323,6 +323,7 @@ MonoBehaviour:
   - {fileID: -7635506848463661964, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
   - {fileID: 2727262029204247388, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
   starDisappearParticle: {fileID: 1927625640709057509, guid: 693b6defeaac970499787cdcd67f758c, type: 3}
+  starOrbitParticle: {fileID: 1798741142334856731, guid: bc7673d6332a6df4883c1a7805dbddf2, type: 3}
 --- !u!4 &1665021186
 Transform:
   m_ObjectHideFlags: 0

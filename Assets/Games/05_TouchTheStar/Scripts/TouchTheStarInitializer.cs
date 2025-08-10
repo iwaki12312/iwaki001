@@ -15,6 +15,7 @@ public class TouchTheStarInitializer : MonoBehaviour
     
     [Header("パーティクルエフェクト（必須）")]
     [SerializeField] private GameObject starDisappearParticle;
+    [SerializeField] private GameObject starOrbitParticle;
     
     void Awake()
     {
@@ -88,6 +89,12 @@ public class TouchTheStarInitializer : MonoBehaviour
             isValid = false;
         }
         
+        if (starOrbitParticle == null)
+        {
+            Debug.LogError("Star Orbit Particleが設定されていません。");
+            isValid = false;
+        }
+        
         return isValid;
     }
     
@@ -151,6 +158,7 @@ public class TouchTheStarInitializer : MonoBehaviour
         
         // パーティクルプレファブを設定
         starManager.SetStarDisappearParticle(starDisappearParticle);
+        starManager.SetStarOrbitParticle(starOrbitParticle);
         Debug.Log("StarManagerを作成し、星のスプライト配列とパーティクルプレファブを設定しました。");
     }
     

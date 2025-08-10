@@ -32,6 +32,8 @@ public class Star : MonoBehaviour, IPointerDownHandler
     private float collisionCooldown = 0f; // 衝突クールダウン時間
     private const float COLLISION_COOLDOWN_TIME = 0.5f; // 0.5秒間は再衝突を無視
     private GameObject disappearParticlePrefab; // 消滅時のパーティクルプレファブ
+    private GameObject orbitParticlePrefab; // 軌道パーティクルプレファブ
+    private GameObject orbitParticleInstance; // 軌道パーティクルのインスタンス
     
     void Awake()
     {
@@ -68,6 +70,7 @@ public class Star : MonoBehaviour, IPointerDownHandler
         CheckBounds();
         CheckMouseClick();
         CheckOverlap(); // 重なりチェックを追加
+        UpdateOrbitParticle(); // 軌道パーティクルの位置を更新
         
         // 衝突クールダウンタイマーを更新
         if (collisionCooldown > 0f)
@@ -282,6 +285,33 @@ public class Star : MonoBehaviour, IPointerDownHandler
     /// <param name="playSound">効果音を再生するかどうか</param>
     private void DestroyStar(bool playSound)
     {
+        // 軌道パーティクルの処理
+        if (orbitParticleInstance != null)
+        {
+            // 軌道パーティクルの親子関係を解除
+            orbitParticleInstance.transform.SetParent(null);
+            
+            // パーティクルシステムの新規パーティクル生成を停止
+            ParticleSystem orbitParticleSystem = orbitParticleInstance.GetComponent<ParticleSystem>();
+            if (orbitParticleSystem != null)
+            {
+                orbitParticleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+                
+                // パーティクルの再生時間後に自動削除
+                float orbitParticleDuration = orbitParticleSystem.main.duration + orbitParticleSystem.main.startLifetime.constantMax;
+                StartCoroutine(DestroyOrbitParticleAfterDelay(orbitParticleInstance, orbitParticleDuration));
+                
+                Debug.Log($"軌道パーティクルの生成を停止しました。{orbitParticleDuration}秒後に自然に消えます。");
+            }
+            else
+            {
+                // ParticleSystemがない場合は5秒後に削除
+                Destroy(orbitParticleInstance, 5f);
+            }
+            
+            orbitParticleInstance = null; // 参照をクリア
+        }
+        
         // パーティクルエフェクトを生成（タップされた場合のみ）
         if (playSound && disappearParticlePrefab != null)
         {
@@ -297,13 +327,13 @@ public class Star : MonoBehaviour, IPointerDownHandler
                 float particleDuration = particleSystem.main.duration + particleSystem.main.startLifetime.constantMax;
                 Destroy(particleInstance, particleDuration);
                 
-                Debug.Log($"パーティクルエフェクトを再生しました。{particleDuration}秒後に削除されます。");
+                Debug.Log($"消滅パーティクルエフェクトを再生しました。{particleDuration}秒後に削除されます。");
             }
             else
             {
                 // ParticleSystemがない場合は5秒後に削除
                 Destroy(particleInstance, 5f);
-                Debug.LogWarning("パーティクルプレファブにParticleSystemコンポーネントが見つかりません。");
+                Debug.LogWarning("消滅パーティクルプレファブにParticleSystemコンポーネントが見つかりません。");
             }
         }
         
@@ -320,6 +350,20 @@ public class Star : MonoBehaviour, IPointerDownHandler
         }
         
         Destroy(gameObject);
+    }
+    
+    /// <summary>
+    /// 軌道パーティクルを遅延削除するコルーチン
+    /// </summary>
+    private IEnumerator DestroyOrbitParticleAfterDelay(GameObject particleObject, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        if (particleObject != null)
+        {
+            Destroy(particleObject);
+            Debug.Log("軌道パーティクルが自然に消えて削除されました。");
+        }
     }
     
     /// <summary>
@@ -436,6 +480,65 @@ public class Star : MonoBehaviour, IPointerDownHandler
     public void SetDisappearParticle(GameObject particlePrefab)
     {
         disappearParticlePrefab = particlePrefab;
+    }
+    
+    /// <summary>
+    /// 軌道パーティクルプレファブを設定
+    /// </summary>
+    public void SetOrbitParticle(GameObject particlePrefab)
+    {
+        orbitParticlePrefab = particlePrefab;
+        CreateOrbitParticle(); // 軌道パーティクルを生成
+    }
+    
+    /// <summary>
+    /// 軌道パーティクルを生成
+    /// </summary>
+    private void CreateOrbitParticle()
+    {
+        if (orbitParticlePrefab != null)
+        {
+            // 軌道パーティクルを星の位置に生成
+            orbitParticleInstance = Instantiate(orbitParticlePrefab, transform.position, Quaternion.identity);
+            
+            // パーティクルを星より背面に配置
+            Vector3 particlePosition = transform.position;
+            particlePosition.z = transform.position.z + 0.1f; // 星より後ろに配置
+            orbitParticleInstance.transform.position = particlePosition;
+            
+            // パーティクルのSortingOrderを星より小さく設定
+            ParticleSystem particleSystem = orbitParticleInstance.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                var renderer = particleSystem.GetComponent<ParticleSystemRenderer>();
+                if (renderer != null)
+                {
+                    renderer.sortingOrder = spriteRenderer.sortingOrder - 1; // 星より背面
+                }
+                
+                // パーティクルシステムを再生
+                particleSystem.Play();
+                Debug.Log("軌道パーティクルを生成し、再生を開始しました。");
+            }
+            else
+            {
+                Debug.LogWarning("軌道パーティクルプレファブにParticleSystemコンポーネントが見つかりません。");
+            }
+        }
+    }
+    
+    /// <summary>
+    /// 軌道パーティクルの位置を更新
+    /// </summary>
+    private void UpdateOrbitParticle()
+    {
+        if (orbitParticleInstance != null)
+        {
+            // 軌道パーティクルの位置を星の位置に合わせて更新
+            Vector3 particlePosition = transform.position;
+            particlePosition.z = transform.position.z + 0.1f; // 星より後ろに配置
+            orbitParticleInstance.transform.position = particlePosition;
+        }
     }
     
     /// <summary>

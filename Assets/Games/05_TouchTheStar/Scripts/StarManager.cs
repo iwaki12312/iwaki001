@@ -18,6 +18,7 @@ public class StarManager : MonoBehaviour
     
     [Header("エフェクト設定")]
     [SerializeField] private GameObject starDisappearParticle;
+    [SerializeField] private GameObject starOrbitParticle;
     
     private List<GameObject> activeStars = new List<GameObject>();
     private Camera mainCamera;
@@ -142,7 +143,8 @@ public class StarManager : MonoBehaviour
         // Starコンポーネントを追加
         Star starComponent = starObject.AddComponent<Star>();
         starComponent.SetAvailableSprites(starSprites); // 利用可能なスプライトを設定
-        starComponent.SetDisappearParticle(starDisappearParticle); // パーティクルプレファブを設定
+        starComponent.SetDisappearParticle(starDisappearParticle); // 消滅パーティクルプレファブを設定
+        starComponent.SetOrbitParticle(starOrbitParticle); // 軌道パーティクルプレファブを設定
         
         // アクティブな星のリストに追加
         activeStars.Add(starObject);
@@ -288,6 +290,14 @@ public class StarManager : MonoBehaviour
     public void SetStarDisappearParticle(GameObject particlePrefab)
     {
         starDisappearParticle = particlePrefab;
+    }
+    
+    /// <summary>
+    /// 星の軌道パーティクルプレファブを手動で設定（Inspector用）
+    /// </summary>
+    public void SetStarOrbitParticle(GameObject particlePrefab)
+    {
+        starOrbitParticle = particlePrefab;
     }
     
     /// <summary>
