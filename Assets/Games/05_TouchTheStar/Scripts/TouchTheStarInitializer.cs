@@ -61,6 +61,9 @@ public class TouchTheStarInitializer : MonoBehaviour
         // UFOManagerの作成
         CreateUFOManager();
         
+        // TouchManagerの作成
+        CreateTouchManager();
+        
         Debug.Log("TouchTheStarゲームの初期化が完了しました！");
     }
     
@@ -269,6 +272,24 @@ public class TouchTheStarInitializer : MonoBehaviour
         // UFO消滅パーティクルプレファブを設定
         ufoManager.SetUFODisappearParticle(ufoDisappearParticle);
         Debug.Log("UFOManagerを作成し、UFOのスプライト配列とパーティクルプレファブを設定しました。");
+    }
+    
+    /// <summary>
+    /// TouchManagerオブジェクトを作成
+    /// </summary>
+    private void CreateTouchManager()
+    {
+        // 既に存在するかチェック
+        if (FindObjectOfType<TouchManager>() != null)
+        {
+            Debug.Log("TouchManagerは既に存在します。");
+            return;
+        }
+        
+        // TouchManagerオブジェクトを作成
+        GameObject touchManagerObj = new GameObject("TouchManager");
+        touchManagerObj.AddComponent<TouchManager>();
+        Debug.Log("TouchManagerを作成しました。タップイベントの階層化処理が有効になりました。");
     }
     
     /// <summary>

@@ -151,7 +151,7 @@ public class StarManager : MonoBehaviour
         }
         
         spriteRenderer.sprite = selectedSprite;
-        spriteRenderer.sortingOrder = 1; // 背景より前に表示
+        spriteRenderer.sortingOrder = 2; // 星はUFOより前面に表示（UFOは1）
         
         // CircleCollider2Dを追加（Triggerに設定）
         CircleCollider2D collider = starObject.AddComponent<CircleCollider2D>();

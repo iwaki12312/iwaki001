@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
-public class UFO : MonoBehaviour, IPointerDownHandler
+public class UFO : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection;
@@ -82,33 +82,27 @@ public class UFO : MonoBehaviour, IPointerDownHandler
     }
     
     /// <summary>
-    /// マウスクリック検出（PC用）
+    /// マウスクリック検出（PC用）- TouchManagerに移管したため無効化
     /// </summary>
     private void CheckMouseClick()
     {
-        if (Input.GetMouseButtonDown(0)) // 左クリック
-        {
-            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPos.z = 0; // Z座標を0に設定
-            
-            // マウス位置とUFOの位置の距離を計算
-            float distance = Vector3.Distance(mouseWorldPos, transform.position);
-            
-            // コライダーの半径内にマウスがあるかチェック
-            CircleCollider2D collider = GetComponent<CircleCollider2D>();
-            if (collider != null && distance <= collider.radius)
-            {
-                Debug.Log("マウスクリックでUFOがタップされました！");
-                DestroyUFO(true);
-            }
-        }
+        // TouchManagerがタップ処理を行うため、この処理は無効化
     }
     
     /// <summary>
-    /// タップ検出処理
+    /// タップ検出処理 - TouchManagerに移管したため無効化
     /// </summary>
     public void OnPointerDown(PointerEventData eventData)
     {
+        // TouchManagerがタップ処理を行うため、この処理は無効化
+    }
+    
+    /// <summary>
+    /// TouchManagerからのタップ処理
+    /// </summary>
+    public void HandleTouchManagerTap()
+    {
+        Debug.Log("UFO: TouchManagerからタップされました！");
         DestroyUFO(true); // タップされた場合は効果音あり
     }
     

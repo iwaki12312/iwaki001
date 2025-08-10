@@ -148,7 +148,7 @@ public class UFOManager : MonoBehaviour
         // ランダムなスプライトを選択
         Sprite randomSprite = GetRandomUFOSprite();
         spriteRenderer.sprite = randomSprite;
-        spriteRenderer.sortingOrder = 0; // 星より背面に表示（星のsortingOrderは1）
+        spriteRenderer.sortingOrder = 1; // UFOは背面に表示（星のsortingOrderは2）
         
         // UFOのサイズを小さくする（半分のサイズ）
         ufoObject.transform.localScale = Vector3.one * 0.5f;
