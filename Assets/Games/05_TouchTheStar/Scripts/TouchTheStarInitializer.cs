@@ -13,6 +13,9 @@ public class TouchTheStarInitializer : MonoBehaviour
     [Header("星のスプライト（必須）- 9つの表情")]
     [SerializeField] private Sprite[] starSprites = new Sprite[9];
     
+    [Header("パーティクルエフェクト（必須）")]
+    [SerializeField] private GameObject starDisappearParticle;
+    
     void Awake()
     {
         InitializeGame();
@@ -79,6 +82,12 @@ public class TouchTheStarInitializer : MonoBehaviour
             }
         }
         
+        if (starDisappearParticle == null)
+        {
+            Debug.LogError("Star Disappear Particleが設定されていません。");
+            isValid = false;
+        }
+        
         return isValid;
     }
     
@@ -139,7 +148,10 @@ public class TouchTheStarInitializer : MonoBehaviour
         
         // 星のスプライト配列を設定
         starManager.SetStarSprites(starSprites);
-        Debug.Log("StarManagerを作成し、星のスプライト配列を設定しました。");
+        
+        // パーティクルプレファブを設定
+        starManager.SetStarDisappearParticle(starDisappearParticle);
+        Debug.Log("StarManagerを作成し、星のスプライト配列とパーティクルプレファブを設定しました。");
     }
     
     /// <summary>

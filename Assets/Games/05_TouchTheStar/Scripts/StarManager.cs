@@ -16,6 +16,9 @@ public class StarManager : MonoBehaviour
     [Header("生成範囲設定")]
     [SerializeField] private float spawnMargin = 1.0f; // 画面端からのマージン
     
+    [Header("エフェクト設定")]
+    [SerializeField] private GameObject starDisappearParticle;
+    
     private List<GameObject> activeStars = new List<GameObject>();
     private Camera mainCamera;
     private Coroutine spawnCoroutine;
@@ -139,6 +142,7 @@ public class StarManager : MonoBehaviour
         // Starコンポーネントを追加
         Star starComponent = starObject.AddComponent<Star>();
         starComponent.SetAvailableSprites(starSprites); // 利用可能なスプライトを設定
+        starComponent.SetDisappearParticle(starDisappearParticle); // パーティクルプレファブを設定
         
         // アクティブな星のリストに追加
         activeStars.Add(starObject);
@@ -276,6 +280,14 @@ public class StarManager : MonoBehaviour
     public void SetStarSprites(Sprite[] sprites)
     {
         starSprites = sprites;
+    }
+    
+    /// <summary>
+    /// 星の消滅パーティクルプレファブを手動で設定（Inspector用）
+    /// </summary>
+    public void SetStarDisappearParticle(GameObject particlePrefab)
+    {
+        starDisappearParticle = particlePrefab;
     }
     
     /// <summary>

@@ -31,6 +31,7 @@ public class Star : MonoBehaviour, IPointerDownHandler
     private Sprite[] availableSprites;
     private float collisionCooldown = 0f; // 衝突クールダウン時間
     private const float COLLISION_COOLDOWN_TIME = 0.5f; // 0.5秒間は再衝突を無視
+    private GameObject disappearParticlePrefab; // 消滅時のパーティクルプレファブ
     
     void Awake()
     {
@@ -281,6 +282,31 @@ public class Star : MonoBehaviour, IPointerDownHandler
     /// <param name="playSound">効果音を再生するかどうか</param>
     private void DestroyStar(bool playSound)
     {
+        // パーティクルエフェクトを生成（タップされた場合のみ）
+        if (playSound && disappearParticlePrefab != null)
+        {
+            GameObject particleInstance = Instantiate(disappearParticlePrefab, transform.position, Quaternion.identity);
+            
+            // パーティクルシステムを取得して再生
+            ParticleSystem particleSystem = particleInstance.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                particleSystem.Play();
+                
+                // パーティクルの再生時間後に自動削除
+                float particleDuration = particleSystem.main.duration + particleSystem.main.startLifetime.constantMax;
+                Destroy(particleInstance, particleDuration);
+                
+                Debug.Log($"パーティクルエフェクトを再生しました。{particleDuration}秒後に削除されます。");
+            }
+            else
+            {
+                // ParticleSystemがない場合は5秒後に削除
+                Destroy(particleInstance, 5f);
+                Debug.LogWarning("パーティクルプレファブにParticleSystemコンポーネントが見つかりません。");
+            }
+        }
+        
         if (playSound && TouchTheStarSFXPlayer.Instance != null)
         {
             TouchTheStarSFXPlayer.Instance.PlayStarDisappearSound();
@@ -402,6 +428,14 @@ public class Star : MonoBehaviour, IPointerDownHandler
     public void SetAvailableSprites(Sprite[] sprites)
     {
         availableSprites = sprites;
+    }
+    
+    /// <summary>
+    /// 消滅時のパーティクルプレファブを設定
+    /// </summary>
+    public void SetDisappearParticle(GameObject particlePrefab)
+    {
+        disappearParticlePrefab = particlePrefab;
     }
     
     /// <summary>
