@@ -9,13 +9,19 @@ public class TouchTheStarInitializer : MonoBehaviour
     [Header("効果音ファイル（必須）")]
     [SerializeField] private AudioClip starAppearSound;
     [SerializeField] private AudioClip starDisappearSound;
+    [SerializeField] private AudioClip ufoAppearSound;
+    [SerializeField] private AudioClip ufoDisappearSound;
     
     [Header("星のスプライト（必須）- 9つの表情")]
     [SerializeField] private Sprite[] starSprites = new Sprite[9];
     
+    [Header("UFOのスプライト（必須）- 3つの色")]
+    [SerializeField] private Sprite[] ufoSprites = new Sprite[3];
+    
     [Header("パーティクルエフェクト（必須）")]
     [SerializeField] private GameObject starDisappearParticle;
     [SerializeField] private GameObject starOrbitParticle;
+    [SerializeField] private GameObject ufoDisappearParticle;
     
     void Awake()
     {
@@ -45,6 +51,9 @@ public class TouchTheStarInitializer : MonoBehaviour
         // StarManagerの作成
         CreateStarManager();
         
+        // UFOManagerの作成
+        CreateUFOManager();
+        
         Debug.Log("TouchTheStarゲームの初期化が完了しました！");
     }
     
@@ -67,6 +76,18 @@ public class TouchTheStarInitializer : MonoBehaviour
             isValid = false;
         }
         
+        if (ufoAppearSound == null)
+        {
+            Debug.LogError("UFO Appear Soundが設定されていません。");
+            isValid = false;
+        }
+        
+        if (ufoDisappearSound == null)
+        {
+            Debug.LogError("UFO Disappear Soundが設定されていません。");
+            isValid = false;
+        }
+        
         if (starSprites == null || starSprites.Length == 0)
         {
             Debug.LogError("Star Spritesが設定されていません。9つの星スプライトを設定してください。");
@@ -83,6 +104,22 @@ public class TouchTheStarInitializer : MonoBehaviour
             }
         }
         
+        if (ufoSprites == null || ufoSprites.Length == 0)
+        {
+            Debug.LogError("UFO Spritesが設定されていません。3つのUFOスプライトを設定してください。");
+            isValid = false;
+        }
+        else
+        {
+            for (int i = 0; i < ufoSprites.Length; i++)
+            {
+                if (ufoSprites[i] == null)
+                {
+                    Debug.LogWarning($"UFO Sprite[{i}]が設定されていません。");
+                }
+            }
+        }
+        
         if (starDisappearParticle == null)
         {
             Debug.LogError("Star Disappear Particleが設定されていません。");
@@ -92,6 +129,12 @@ public class TouchTheStarInitializer : MonoBehaviour
         if (starOrbitParticle == null)
         {
             Debug.LogError("Star Orbit Particleが設定されていません。");
+            isValid = false;
+        }
+        
+        if (ufoDisappearParticle == null)
+        {
+            Debug.LogError("UFO Disappear Particleが設定されていません。");
             isValid = false;
         }
         
@@ -133,7 +176,7 @@ public class TouchTheStarInitializer : MonoBehaviour
         TouchTheStarSFXPlayer sfxPlayer = sfxPlayerObj.AddComponent<TouchTheStarSFXPlayer>();
         
         // 効果音ファイルを設定
-        sfxPlayer.SetAudioClips(starAppearSound, starDisappearSound);
+        sfxPlayer.SetAudioClips(starAppearSound, starDisappearSound, ufoAppearSound, ufoDisappearSound);
         Debug.Log("TouchTheStarSFXPlayerを作成し、効果音を設定しました。");
     }
     
@@ -163,6 +206,30 @@ public class TouchTheStarInitializer : MonoBehaviour
     }
     
     /// <summary>
+    /// UFOManagerオブジェクトを作成
+    /// </summary>
+    private void CreateUFOManager()
+    {
+        // 既に存在するかチェック
+        if (FindObjectOfType<UFOManager>() != null)
+        {
+            Debug.Log("UFOManagerは既に存在します。");
+            return;
+        }
+        
+        // UFOManagerオブジェクトを作成
+        GameObject ufoManagerObj = new GameObject("UFOManager");
+        UFOManager ufoManager = ufoManagerObj.AddComponent<UFOManager>();
+        
+        // UFOのスプライト配列を設定
+        ufoManager.SetUFOSprites(ufoSprites);
+        
+        // UFO消滅パーティクルプレファブを設定
+        ufoManager.SetUFODisappearParticle(ufoDisappearParticle);
+        Debug.Log("UFOManagerを作成し、UFOのスプライト配列とパーティクルプレファブを設定しました。");
+    }
+    
+    /// <summary>
     /// 効果音ファイルを手動で設定（Inspector用）
     /// </summary>
     public void SetAudioClips(AudioClip appearSound, AudioClip disappearSound)
@@ -177,5 +244,13 @@ public class TouchTheStarInitializer : MonoBehaviour
     public void SetStarSprites(Sprite[] sprites)
     {
         starSprites = sprites;
+    }
+    
+    /// <summary>
+    /// UFOのスプライト配列を手動で設定（Inspector用）
+    /// </summary>
+    public void SetUFOSprites(Sprite[] sprites)
+    {
+        ufoSprites = sprites;
     }
 }

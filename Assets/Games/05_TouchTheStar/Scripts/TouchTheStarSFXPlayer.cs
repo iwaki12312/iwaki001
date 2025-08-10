@@ -11,6 +11,8 @@ public class TouchTheStarSFXPlayer : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip starAppearSound;
     [SerializeField] private AudioClip starDisappearSound;
+    [SerializeField] private AudioClip ufoAppearSound;
+    [SerializeField] private AudioClip ufoDisappearSound;
     
     void Awake()
     {
@@ -103,7 +105,40 @@ public class TouchTheStarSFXPlayer : MonoBehaviour
     }
     
     /// <summary>
+    /// UFO出現時の効果音を再生
+    /// </summary>
+    public void PlayUFOAppearSound()
+    {
+        if (audioSource != null && ufoAppearSound != null)
+        {
+            audioSource.PlayOneShot(ufoAppearSound);
+        }
+    }
+    
+    /// <summary>
+    /// UFO消滅時の効果音を再生
+    /// </summary>
+    public void PlayUFODisappearSound()
+    {
+        if (audioSource != null && ufoDisappearSound != null)
+        {
+            audioSource.PlayOneShot(ufoDisappearSound);
+        }
+    }
+    
+    /// <summary>
     /// 効果音ファイルを手動で設定（Inspector用）
+    /// </summary>
+    public void SetAudioClips(AudioClip starAppearSound, AudioClip starDisappearSound, AudioClip ufoAppearSound, AudioClip ufoDisappearSound)
+    {
+        this.starAppearSound = starAppearSound;
+        this.starDisappearSound = starDisappearSound;
+        this.ufoAppearSound = ufoAppearSound;
+        this.ufoDisappearSound = ufoDisappearSound;
+    }
+    
+    /// <summary>
+    /// 星の効果音ファイルを手動で設定（後方互換性のため）
     /// </summary>
     public void SetAudioClips(AudioClip appearSound, AudioClip disappearSound)
     {

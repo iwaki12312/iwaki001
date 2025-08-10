@@ -312,6 +312,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starAppearSound: {fileID: 8300000, guid: 08bb99a00a7527643b6d7ba517cff234, type: 3}
   starDisappearSound: {fileID: 8300000, guid: aa7d990ccd2903347bca217b3fdf962a, type: 3}
+  ufoAppearSound: {fileID: 8300000, guid: 7af057e015f0c03408298933387cd9b9, type: 3}
+  ufoDisappearSound: {fileID: 8300000, guid: 20bf9fb6041944b4caed8adf0b01ca29, type: 3}
   starSprites:
   - {fileID: 4815476061570213978, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
   - {fileID: 3999761062471549324, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
@@ -322,6 +324,10 @@ MonoBehaviour:
   - {fileID: 7502820030017634684, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
   - {fileID: -7635506848463661964, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
   - {fileID: 2727262029204247388, guid: 325ad66cd774fe1418cc507d8ca28db4, type: 3}
+  ufoSprites:
+  - {fileID: 2676159555221356526, guid: 1d5ce46f91bd22944ac4b06f277471b2, type: 3}
+  - {fileID: -2199306989489832512, guid: 1d5ce46f91bd22944ac4b06f277471b2, type: 3}
+  - {fileID: 2250811097118728341, guid: 1d5ce46f91bd22944ac4b06f277471b2, type: 3}
   starDisappearParticle: {fileID: 1927625640709057509, guid: 693b6defeaac970499787cdcd67f758c, type: 3}
   starOrbitParticle: {fileID: 1798741142334856731, guid: bc7673d6332a6df4883c1a7805dbddf2, type: 3}
 --- !u!4 &1665021186
