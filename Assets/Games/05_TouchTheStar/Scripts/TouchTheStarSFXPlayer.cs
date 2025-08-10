@@ -13,6 +13,8 @@ public class TouchTheStarSFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip starDisappearSound;
     [SerializeField] private AudioClip ufoAppearSound;
     [SerializeField] private AudioClip ufoDisappearSound;
+    [SerializeField] private AudioClip bigStarAppearSound;
+    [SerializeField] private AudioClip bigStarDisappearSound;
     
     void Awake()
     {
@@ -127,6 +129,28 @@ public class TouchTheStarSFXPlayer : MonoBehaviour
     }
     
     /// <summary>
+    /// 巨大スター出現時の効果音を再生
+    /// </summary>
+    public void PlayBigStarAppearSound()
+    {
+        if (audioSource != null && bigStarAppearSound != null)
+        {
+            audioSource.PlayOneShot(bigStarAppearSound);
+        }
+    }
+    
+    /// <summary>
+    /// 巨大スター消滅時の効果音を再生
+    /// </summary>
+    public void PlayBigStarDisappearSound()
+    {
+        if (audioSource != null && bigStarDisappearSound != null)
+        {
+            audioSource.PlayOneShot(bigStarDisappearSound);
+        }
+    }
+    
+    /// <summary>
     /// 効果音ファイルを手動で設定（Inspector用）
     /// </summary>
     public void SetAudioClips(AudioClip starAppearSound, AudioClip starDisappearSound, AudioClip ufoAppearSound, AudioClip ufoDisappearSound)
@@ -135,6 +159,19 @@ public class TouchTheStarSFXPlayer : MonoBehaviour
         this.starDisappearSound = starDisappearSound;
         this.ufoAppearSound = ufoAppearSound;
         this.ufoDisappearSound = ufoDisappearSound;
+    }
+    
+    /// <summary>
+    /// 全ての効果音ファイルを手動で設定（巨大スター対応版）
+    /// </summary>
+    public void SetAudioClips(AudioClip starAppearSound, AudioClip starDisappearSound, AudioClip ufoAppearSound, AudioClip ufoDisappearSound, AudioClip bigStarAppearSound, AudioClip bigStarDisappearSound)
+    {
+        this.starAppearSound = starAppearSound;
+        this.starDisappearSound = starDisappearSound;
+        this.ufoAppearSound = ufoAppearSound;
+        this.ufoDisappearSound = ufoDisappearSound;
+        this.bigStarAppearSound = bigStarAppearSound;
+        this.bigStarDisappearSound = bigStarDisappearSound;
     }
     
     /// <summary>

@@ -13,16 +13,23 @@ public class StarManager : MonoBehaviour
     [SerializeField] private float maxSpawnInterval = 2.0f;
     [SerializeField] private Sprite[] starSprites;
     
+    [Header("巨大スター設定")]
+    [SerializeField] private Sprite bigStarSprite;
+    [SerializeField] private float bigStarSpawnChance = 0.1f; // 10%の確率
+    
     [Header("生成範囲設定")]
     [SerializeField] private float spawnMargin = 1.0f; // 画面端からのマージン
     
     [Header("エフェクト設定")]
     [SerializeField] private GameObject starDisappearParticle;
     [SerializeField] private GameObject starOrbitParticle;
+    [SerializeField] private GameObject bigStarDisappearParticle;
+    [SerializeField] private GameObject bigStarOrbitParticle;
     
     private List<GameObject> activeStars = new List<GameObject>();
     private Camera mainCamera;
     private Coroutine spawnCoroutine;
+    private bool isBigStarActive = false; // 巨大スターが出現中かどうか
     
     void Start()
     {
@@ -96,8 +103,8 @@ public class StarManager : MonoBehaviour
     {
         while (true)
         {
-            // 最大数に達していない場合のみ生成
-            if (activeStars.Count < maxStars)
+            // 巨大スターが出現中でない場合のみ生成
+            if (!isBigStarActive && activeStars.Count < maxStars)
             {
                 SpawnStar();
             }
@@ -115,24 +122,47 @@ public class StarManager : MonoBehaviour
     {
         if (mainCamera == null || starSprites == null || starSprites.Length == 0) return;
         
+        // 巨大スターを生成するかどうかを判定
+        bool shouldSpawnBigStar = Random.Range(0f, 1f) < bigStarSpawnChance && bigStarSprite != null;
+        
         // 重なりを避けた位置を計算
         Vector3 spawnPosition = GetSafeSpawnPosition();
         
         // 星オブジェクトを作成
-        GameObject starObject = new GameObject("Star");
+        GameObject starObject = new GameObject(shouldSpawnBigStar ? "BigStar" : "Star");
         starObject.transform.position = spawnPosition;
         
         // SpriteRendererを追加
         SpriteRenderer spriteRenderer = starObject.AddComponent<SpriteRenderer>();
         
-        // ランダムなスプライトを選択
-        Sprite randomSprite = GetRandomStarSprite();
-        spriteRenderer.sprite = randomSprite;
+        // スプライトを選択
+        Sprite selectedSprite;
+        if (shouldSpawnBigStar)
+        {
+            selectedSprite = bigStarSprite;
+            // 巨大スターのサイズを0.5倍に設定（元のスプライトが通常の星より大きいため）
+            starObject.transform.localScale = Vector3.one * 0.5f;
+            // 巨大スターが出現中フラグを設定
+            isBigStarActive = true;
+        }
+        else
+        {
+            selectedSprite = GetRandomStarSprite();
+        }
+        
+        spriteRenderer.sprite = selectedSprite;
         spriteRenderer.sortingOrder = 1; // 背景より前に表示
         
         // CircleCollider2Dを追加（Triggerに設定）
         CircleCollider2D collider = starObject.AddComponent<CircleCollider2D>();
-        collider.radius = 1.3f; // 星のスプライトに合わせたサイズに調整
+        if (shouldSpawnBigStar)
+        {
+            collider.radius = 4.3f; // 巨大スター用のコライダーサイズ
+        }
+        else
+        {
+            collider.radius = 1.3f; // 通常の星のコライダーサイズ
+        }
         collider.isTrigger = true; // 衝突検出用にTriggerに設定
         
         // Rigidbody2Dを追加（衝突検出のため）
@@ -142,14 +172,26 @@ public class StarManager : MonoBehaviour
         
         // Starコンポーネントを追加
         Star starComponent = starObject.AddComponent<Star>();
-        starComponent.SetAvailableSprites(starSprites); // 利用可能なスプライトを設定
-        starComponent.SetDisappearParticle(starDisappearParticle); // 消滅パーティクルプレファブを設定
-        starComponent.SetOrbitParticle(starOrbitParticle); // 軌道パーティクルプレファブを設定
+        
+        if (shouldSpawnBigStar)
+        {
+            // 巨大スターとして初期化
+            starComponent.InitializeAsBigStar();
+            starComponent.SetDisappearParticle(bigStarDisappearParticle); // 巨大スター用消滅パーティクル
+            starComponent.SetOrbitParticle(bigStarOrbitParticle); // 巨大スター用軌道パーティクル
+        }
+        else
+        {
+            // 通常の星として初期化
+            starComponent.SetAvailableSprites(starSprites); // 利用可能なスプライトを設定
+            starComponent.SetDisappearParticle(starDisappearParticle); // 消滅パーティクルプレファブを設定
+            starComponent.SetOrbitParticle(starOrbitParticle); // 軌道パーティクルプレファブを設定
+        }
         
         // アクティブな星のリストに追加
         activeStars.Add(starObject);
         
-        Debug.Log($"星を生成しました。スプライト: {randomSprite.name}, 現在の星の数: {activeStars.Count}");
+        Debug.Log($"{(shouldSpawnBigStar ? "巨大スター" : "星")}を生成しました。スプライト: {selectedSprite.name}, 現在の星の数: {activeStars.Count}");
     }
     
     /// <summary>
@@ -250,6 +292,20 @@ public class StarManager : MonoBehaviour
     }
     
     /// <summary>
+    /// 巨大スターが破棄されたときに呼び出される
+    /// </summary>
+    public void OnBigStarDestroyed()
+    {
+        // 巨大スターが出現中フラグをリセット
+        isBigStarActive = false;
+        
+        // 破棄された星をリストから削除
+        activeStars.RemoveAll(star => star == null);
+        
+        Debug.Log($"巨大スターが破棄されました。通常の星の生成を再開します。現在の星の数: {activeStars.Count}");
+    }
+    
+    /// <summary>
     /// 現在の星の数を取得
     /// </summary>
     public int GetActiveStarCount()
@@ -298,6 +354,30 @@ public class StarManager : MonoBehaviour
     public void SetStarOrbitParticle(GameObject particlePrefab)
     {
         starOrbitParticle = particlePrefab;
+    }
+    
+    /// <summary>
+    /// 巨大スターのスプライトを手動で設定（Inspector用）
+    /// </summary>
+    public void SetBigStarSprite(Sprite sprite)
+    {
+        bigStarSprite = sprite;
+    }
+    
+    /// <summary>
+    /// 巨大スターの消滅パーティクルプレファブを手動で設定（Inspector用）
+    /// </summary>
+    public void SetBigStarDisappearParticle(GameObject particlePrefab)
+    {
+        bigStarDisappearParticle = particlePrefab;
+    }
+    
+    /// <summary>
+    /// 巨大スターの軌道パーティクルプレファブを手動で設定（Inspector用）
+    /// </summary>
+    public void SetBigStarOrbitParticle(GameObject particlePrefab)
+    {
+        bigStarOrbitParticle = particlePrefab;
     }
     
     /// <summary>

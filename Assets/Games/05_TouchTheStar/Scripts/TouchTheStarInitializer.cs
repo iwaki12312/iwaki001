@@ -11,9 +11,14 @@ public class TouchTheStarInitializer : MonoBehaviour
     [SerializeField] private AudioClip starDisappearSound;
     [SerializeField] private AudioClip ufoAppearSound;
     [SerializeField] private AudioClip ufoDisappearSound;
+    [SerializeField] private AudioClip bigStarAppearSound;
+    [SerializeField] private AudioClip bigStarDisappearSound;
     
     [Header("星のスプライト（必須）- 9つの表情")]
     [SerializeField] private Sprite[] starSprites = new Sprite[9];
+    
+    [Header("巨大スターのスプライト（必須）- 1つの表情")]
+    [SerializeField] private Sprite bigStarSprite;
     
     [Header("UFOのスプライト（必須）- 3つの色")]
     [SerializeField] private Sprite[] ufoSprites = new Sprite[3];
@@ -21,6 +26,8 @@ public class TouchTheStarInitializer : MonoBehaviour
     [Header("パーティクルエフェクト（必須）")]
     [SerializeField] private GameObject starDisappearParticle;
     [SerializeField] private GameObject starOrbitParticle;
+    [SerializeField] private GameObject bigStarDisappearParticle;
+    [SerializeField] private GameObject bigStarOrbitParticle;
     [SerializeField] private GameObject ufoDisappearParticle;
     
     void Awake()
@@ -88,6 +95,18 @@ public class TouchTheStarInitializer : MonoBehaviour
             isValid = false;
         }
         
+        if (bigStarAppearSound == null)
+        {
+            Debug.LogError("Big Star Appear Soundが設定されていません。");
+            isValid = false;
+        }
+        
+        if (bigStarDisappearSound == null)
+        {
+            Debug.LogError("Big Star Disappear Soundが設定されていません。");
+            isValid = false;
+        }
+        
         if (starSprites == null || starSprites.Length == 0)
         {
             Debug.LogError("Star Spritesが設定されていません。9つの星スプライトを設定してください。");
@@ -129,6 +148,24 @@ public class TouchTheStarInitializer : MonoBehaviour
         if (starOrbitParticle == null)
         {
             Debug.LogError("Star Orbit Particleが設定されていません。");
+            isValid = false;
+        }
+        
+        if (bigStarSprite == null)
+        {
+            Debug.LogError("Big Star Spriteが設定されていません。");
+            isValid = false;
+        }
+        
+        if (bigStarDisappearParticle == null)
+        {
+            Debug.LogError("Big Star Disappear Particleが設定されていません。");
+            isValid = false;
+        }
+        
+        if (bigStarOrbitParticle == null)
+        {
+            Debug.LogError("Big Star Orbit Particleが設定されていません。");
             isValid = false;
         }
         
@@ -175,8 +212,8 @@ public class TouchTheStarInitializer : MonoBehaviour
         GameObject sfxPlayerObj = new GameObject("TouchTheStarSFXPlayer");
         TouchTheStarSFXPlayer sfxPlayer = sfxPlayerObj.AddComponent<TouchTheStarSFXPlayer>();
         
-        // 効果音ファイルを設定
-        sfxPlayer.SetAudioClips(starAppearSound, starDisappearSound, ufoAppearSound, ufoDisappearSound);
+        // 効果音ファイルを設定（巨大スター対応版）
+        sfxPlayer.SetAudioClips(starAppearSound, starDisappearSound, ufoAppearSound, ufoDisappearSound, bigStarAppearSound, bigStarDisappearSound);
         Debug.Log("TouchTheStarSFXPlayerを作成し、効果音を設定しました。");
     }
     
@@ -202,7 +239,12 @@ public class TouchTheStarInitializer : MonoBehaviour
         // パーティクルプレファブを設定
         starManager.SetStarDisappearParticle(starDisappearParticle);
         starManager.SetStarOrbitParticle(starOrbitParticle);
-        Debug.Log("StarManagerを作成し、星のスプライト配列とパーティクルプレファブを設定しました。");
+        
+        // 巨大スター用のアセットを設定
+        starManager.SetBigStarSprite(bigStarSprite);
+        starManager.SetBigStarDisappearParticle(bigStarDisappearParticle);
+        starManager.SetBigStarOrbitParticle(bigStarOrbitParticle);
+        Debug.Log("StarManagerを作成し、星と巨大スターのスプライト配列とパーティクルプレファブを設定しました。");
     }
     
     /// <summary>

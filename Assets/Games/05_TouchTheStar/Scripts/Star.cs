@@ -34,6 +34,7 @@ public class Star : MonoBehaviour, IPointerDownHandler
     private GameObject disappearParticlePrefab; // 消滅時のパーティクルプレファブ
     private GameObject orbitParticlePrefab; // 軌道パーティクルプレファブ
     private GameObject orbitParticleInstance; // 軌道パーティクルのインスタンス
+    private bool isBigStar = false; // 巨大スターかどうか
     
     void Awake()
     {
@@ -47,15 +48,8 @@ public class Star : MonoBehaviour, IPointerDownHandler
             collider.radius = 1.3f; // 星のスプライトに合わせたサイズ
             collider.isTrigger = true; // Triggerに設定
         }
-        else
-        {
-            // 既存のコライダーの半径も調整
-            CircleCollider2D existingCollider = GetComponent<CircleCollider2D>();
-            if (existingCollider != null)
-            {
-                existingCollider.radius = 1.3f;
-            }
-        }
+        // 既存のコライダーがある場合は、StarManagerで設定された値をそのまま使用
+        // （巨大スターの場合は4.3f、通常の星の場合は1.3fが設定済み）
     }
     
     void Start()
@@ -158,6 +152,26 @@ public class Star : MonoBehaviour, IPointerDownHandler
         {
             TouchTheStarSFXPlayer.Instance.PlayStarAppearSound();
         }
+    }
+    
+    /// <summary>
+    /// 巨大スターとして初期化
+    /// </summary>
+    public void InitializeAsBigStar()
+    {
+        isBigStar = true;
+        
+        // 巨大スターは色変更なし（専用スプライトの色をそのまま使用）
+        SetRandomMovement();
+        SetRandomRotation();
+        
+        // 巨大スター専用の効果音を再生
+        if (TouchTheStarSFXPlayer.Instance != null)
+        {
+            TouchTheStarSFXPlayer.Instance.PlayBigStarAppearSound();
+        }
+        
+        Debug.Log("巨大スターとして初期化されました。");
     }
     
     /// <summary>
@@ -339,14 +353,28 @@ public class Star : MonoBehaviour, IPointerDownHandler
         
         if (playSound && TouchTheStarSFXPlayer.Instance != null)
         {
-            TouchTheStarSFXPlayer.Instance.PlayStarDisappearSound();
+            if (isBigStar)
+            {
+                TouchTheStarSFXPlayer.Instance.PlayBigStarDisappearSound();
+            }
+            else
+            {
+                TouchTheStarSFXPlayer.Instance.PlayStarDisappearSound();
+            }
         }
         
         // StarManagerに星が破棄されたことを通知
         StarManager starManager = FindObjectOfType<StarManager>();
         if (starManager != null)
         {
-            starManager.OnStarDestroyed();
+            if (isBigStar)
+            {
+                starManager.OnBigStarDestroyed();
+            }
+            else
+            {
+                starManager.OnStarDestroyed();
+            }
         }
         
         Destroy(gameObject);
