@@ -5,7 +5,8 @@ using UnityEngine;
 /// </summary>
 public class MenuInitializer : MonoBehaviour
 {
-    [SerializeField] private GameObject bgmInitializerPrefab;
+    [Header("BGM設定")]
+    [SerializeField] private AudioClip menuBGM; // メニュー画面用のBGM
     
     void Awake()
     {
@@ -20,19 +21,16 @@ public class MenuInitializer : MonoBehaviour
             DontDestroyOnLoad(bgmManagerObj);
         }
         
-        // BGMInitializerが存在しない場合は作成
-        if (FindObjectOfType<BGMInitializer>() == null)
+        // メニューBGMを設定して再生
+        if (menuBGM != null)
         {
-            Debug.Log("BGMInitializerが見つからないため、新しく作成します");
-            if (bgmInitializerPrefab != null)
-            {
-                Instantiate(bgmInitializerPrefab);
-            }
-            else
-            {
-                GameObject bgmInitializerObj = new GameObject("BGMInitializer");
-                bgmInitializerObj.AddComponent<BGMInitializer>();
-            }
+            Debug.Log("メニューBGMを設定して再生します");
+            BGMManager.Instance.PlayBGM(menuBGM);
+        }
+        else
+        {
+            Debug.Log("デフォルトBGMで再生します");
+            BGMManager.Instance.PlayBGM();
         }
     }
     
@@ -40,7 +38,12 @@ public class MenuInitializer : MonoBehaviour
     {
         Debug.Log("MenuInitializer.Start()が呼ばれました");
         
-        // 直接BGMを再生
-        BGMManager.Instance.PlayBGM();
+        // BGM再生処理を削除（Awakeで行うため）
+        // 念のため、BGMが再生されていない場合のみ再生
+        if (BGMManager.Instance != null && !BGMManager.Instance.GetComponent<AudioSource>().isPlaying)
+        {
+            Debug.Log("BGMが再生されていないため、Start()で再生を試行します");
+            BGMManager.Instance.PlayBGM();
+        }
     }
 }

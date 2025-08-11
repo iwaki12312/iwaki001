@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// BGMを管理するシングルトンクラス
@@ -61,6 +62,34 @@ public class BGMManager : MonoBehaviour
 
         // 初期化完了ログ
         Debug.Log("BGMManager初期化完了");
+    }
+    
+    void OnEnable()
+    {
+        // シーン遷移イベントを購読
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        // シーン遷移イベントの購読を解除
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"シーンが読み込まれました: {scene.name}");
+        
+        // メニューシーンに戻った場合、BGMを再生
+        if (scene.name == "Menu")
+        {
+            // 既に再生中でなければBGMを再生
+            if (bgmAudioSource != null && !bgmAudioSource.isPlaying)
+            {
+                Debug.Log("メニューシーンでBGMが停止していたため、再生を開始します");
+                PlayBGM();
+            }
+        }
     }
 
     /// <summary>
