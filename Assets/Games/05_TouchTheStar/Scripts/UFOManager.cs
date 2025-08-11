@@ -155,7 +155,7 @@ public class UFOManager : MonoBehaviour
         
         // CircleCollider2Dを追加（Triggerに設定）
         CircleCollider2D collider = ufoObject.AddComponent<CircleCollider2D>();
-        collider.radius = 1.0f; // スケールが0.5なので実際の半径は0.5f
+        collider.radius = 1.8f; // スケールが0.5なので実際の半径は0.9f
         collider.isTrigger = true; // 衝突検出用にTriggerに設定
         
         // Rigidbody2Dを追加（衝突検出のため）

@@ -32,4 +32,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Cook");
     }
+
+    // 05_TouchTheStar
+    public void TransitionToTouchTheStar()
+    {
+        SceneManager.LoadScene("TouchTheStar");
+    }
 }
