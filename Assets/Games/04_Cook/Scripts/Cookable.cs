@@ -9,6 +9,9 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
     bool     isCooking;
     [SerializeField] ParticleSystem burst;
     
+    // シーン読み込み時刻を記録（タップ遅延処理用）
+    private float sceneLoadTime;
+    
     // 調理器具の種類を指定するための列挙型
     public enum CookwareType
     {
@@ -35,9 +38,22 @@ public class Cookable : MonoBehaviour, IPointerDownHandler
     {
         anim = GetComponent<Animator>();
     }
+    
+    void Start()
+    {
+        // シーン読み込み時刻を記録
+        sceneLoadTime = Time.time;
+    }
 
     public void OnPointerDown(PointerEventData e)
     {
+        // シーン読み込み直後の0.5秒間はタップを無視
+        if (Time.time - sceneLoadTime < 0.5f)
+        {
+            Debug.Log($"{cookwareType}: シーン読み込み直後のタップを無視しました");
+            return;
+        }
+        
         Debug.Log($"{cookwareType}: OnPointerDown called. isCooking: {isCooking}");
         if (isCooking) return;       // 連打防止
         isCooking = true;
