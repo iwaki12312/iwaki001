@@ -110,6 +110,32 @@ public class MenuController : MonoBehaviour
         {
             Debug.LogError("04_Cookオブジェクトが見つかりません");
         }
+
+        // 05_TouchTheStarオブジェクトを検索
+        GameObject touchTheStarObj = GameObject.Find("05_TouchTheStar");
+        if (touchTheStarObj != null)
+        {
+            // BoxCollider2Dがなければ追加
+            if (touchTheStarObj.GetComponent<BoxCollider2D>() == null)
+            {
+                BoxCollider2D collider = touchTheStarObj.AddComponent<BoxCollider2D>();
+                // スプライトのサイズに合わせる
+                SpriteRenderer spriteRenderer = touchTheStarObj.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    collider.size = spriteRenderer.sprite.bounds.size;
+                }
+            }
+
+            // GameButtonコンポーネントを追加
+            GameButton touchTheStarButton = touchTheStarObj.AddComponent<GameButton>();
+            touchTheStarButton.sceneName = "TouchTheStar";
+            touchTheStarButton.Initialize();
+        }
+        else
+        {
+            Debug.LogError("05_TouchTheStarオブジェクトが見つかりません");
+        }
     }
 }
 
