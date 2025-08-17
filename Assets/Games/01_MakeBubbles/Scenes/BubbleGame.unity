@@ -716,6 +716,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'CatGirl '
       objectReference: {fileID: 0}
+    - target: {fileID: 7873448492447554652, guid: b40ac18e92e7d5f4497816e32d3ce504, type: 3}
+      propertyPath: bubbleSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873448492447554652, guid: b40ac18e92e7d5f4497816e32d3ce504, type: 3}
+      propertyPath: spawnOffset.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873448492447554652, guid: b40ac18e92e7d5f4497816e32d3ce504, type: 3}
+      propertyPath: spawnOffset.y
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -813,6 +825,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 557516994}
     m_Modifications:
+    - target: {fileID: 2657368964072705861, guid: 83f067b766555fe4499d462f5342f9bb, type: 3}
+      propertyPath: bubbleSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657368964072705861, guid: 83f067b766555fe4499d462f5342f9bb, type: 3}
+      propertyPath: spawnOffset.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657368964072705861, guid: 83f067b766555fe4499d462f5342f9bb, type: 3}
+      propertyPath: spawnOffset.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7894434307705119452, guid: 83f067b766555fe4499d462f5342f9bb, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.8873

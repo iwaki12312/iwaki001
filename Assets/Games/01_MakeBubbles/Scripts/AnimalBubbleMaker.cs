@@ -17,9 +17,9 @@ public class AnimalBubbleMaker : MonoBehaviour
 {
     [Header("シャボン玉生成設定")]
     [SerializeField] private float bubbleInterval = 3.0f; // シャボン玉を作る間隔（秒）
-    [SerializeField] private Vector2 spawnOffset = new Vector2(1.0f, 0.5f); // 生成位置のオフセット
+    [SerializeField] private Vector2 spawnOffset = new Vector2(1.0f, 2.5f); // 生成位置のオフセット
     [SerializeField] private BubbleDirectionType directionType = BubbleDirectionType.LeftUp; // シャボン玉の飛ぶ方向
-    [SerializeField] private float bubbleSpeed = 5.0f; // シャボン玉の初速
+    [SerializeField] private float bubbleSpeed = 0.1f; // シャボン玉の初速
     
     [Header("アニメーション設定")]
     [SerializeField] private string makeBubbleTrigger = "MakeBubble"; // アニメーショントリガー名
