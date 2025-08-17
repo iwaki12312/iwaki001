@@ -17,26 +17,10 @@ public static class AnimationStateManager
     // 最大アニメーション時間（秒）
     private static readonly float MAX_ANIMATION_DURATION = 5f;
     
-    // 強制交互生成フラグ
-    private static bool forceAlternation = true;
-    
     /// <summary>
     /// アニメーション再生中かどうか
     /// </summary>
     public static bool IsAnyCharacterAnimating => currentAnimatingCharacter != null;
-    
-    /// <summary>
-    /// 強制交互生成モードの設定
-    /// </summary>
-    public static bool ForceAlternation
-    {
-        get => forceAlternation;
-        set
-        {
-            forceAlternation = value;
-            Debug.Log($"強制交互生成モード: {(value ? "有効" : "無効")}");
-        }
-    }
     
     /// <summary>
     /// 現在アニメーション中のキャラクター名
@@ -67,17 +51,10 @@ public static class AnimationStateManager
             return false;
         }
         
-        // 強制交互生成モードの場合、直前と同じキャラクターは必ず拒否
-        if (forceAlternation && character == lastAnimatedCharacter && lastAnimatedCharacter != null)
+        // 単純化: 前回と同じキャラクターなら拒否（交互生成の強制）
+        if (character == lastAnimatedCharacter)
         {
-            Debug.Log($"{character.name}のアニメーション開始をスキップ: 強制交互生成モードのため（直前: {LastAnimatedCharacterName}）");
-            return false;
-        }
-        
-        // 直前のキャラクターと同じで、他のキャラクターが待機中なら拒否（交互生成の強制）
-        if (!forceAlternation && character == lastAnimatedCharacter && AreOtherCharactersWaiting(character))
-        {
-            Debug.Log($"{character.name}のアニメーション開始をスキップ: 他のキャラクターが待機中のため交互生成を優先");
+            Debug.Log($"{character.name}のアニメーション開始をスキップ: 前回と同じキャラクターのため交互生成を優先");
             return false;
         }
         
@@ -105,29 +82,6 @@ public static class AnimationStateManager
         {
             Debug.LogWarning($"{character.name}がアニメーション終了を試行しましたが、現在アニメーション中なのは{CurrentAnimatingCharacterName}です");
         }
-    }
-    
-    /// <summary>
-    /// 他のキャラクターが待機中かどうか
-    /// </summary>
-    /// <param name="character">チェック対象のキャラクター</param>
-    /// <returns>他のキャラクターが待機中かどうか</returns>
-    private static bool AreOtherCharactersWaiting(GameObject character)
-    {
-        // AnimalBubbleMakerを持つ全オブジェクトを取得
-        var allMakers = UnityEngine.Object.FindObjectsOfType<AnimalBubbleMaker>();
-        
-        // 自分以外のキャラクターで、タイマーが閾値を超えているものがあるか
-        foreach (var maker in allMakers)
-        {
-            if (maker.gameObject != character && maker.IsReadyToMakeBubble())
-            {
-                Debug.Log($"{maker.gameObject.name}が待機中のため、{character.name}の連続実行を制限");
-                return true;
-            }
-        }
-        
-        return false;
     }
     
     /// <summary>

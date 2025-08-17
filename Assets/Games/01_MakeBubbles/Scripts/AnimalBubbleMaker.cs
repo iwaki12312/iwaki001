@@ -13,6 +13,7 @@ public enum BubbleDirectionType
 /// <summary>
 /// 犬少年と猫少女の両方で使用するシャボン玉生成コンポーネント
 /// </summary>
+
 public class AnimalBubbleMaker : MonoBehaviour
 {
     [Header("シャボン玉生成設定")]
@@ -257,23 +258,6 @@ public class AnimalBubbleMaker : MonoBehaviour
     {
         Debug.Log($"{gameObject.name}: アニメーション終了イベントが呼び出されました");
         AnimationStateManager.EndAnimation(gameObject);
-    }
-    
-    /// <summary>
-    /// シャボン玉を作る準備ができているかどうか（AnimationStateManagerから呼び出される）
-    /// </summary>
-    /// <returns>準備ができているかどうか</returns>
-    public bool IsReadyToMakeBubble()
-    {
-        // 間隔の90%以上経過していれば準備完了とみなす
-        bool isReady = timer >= bubbleInterval * 0.9f;
-        
-        if (isReady)
-        {
-            Debug.Log($"{gameObject.name}: シャボン玉作成準備完了（タイマー: {timer:F2}/{bubbleInterval:F2}）");
-        }
-        
-        return isReady;
     }
     
     /// <summary>

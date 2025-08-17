@@ -149,49 +149,11 @@ public class BubbleMakerManager : MonoBehaviour
     }
     
     /// <summary>
-    /// シャボン玉生成時にカウントを増加
-    /// </summary>
-    public void IncrementBubbleCount()
-    {
-        activeBubbleCount++;
-        Debug.Log($"シャボン玉カウント増加: {activeBubbleCount}");
-    }
-    
-    /// <summary>
-    /// シャボン玉破壊時にカウントを減少
-    /// </summary>
-    public void DecrementBubbleCount()
-    {
-        activeBubbleCount = Mathf.Max(0, activeBubbleCount - 1);
-        Debug.Log($"シャボン玉カウント減少: {activeBubbleCount}");
-    }
-    
-    /// <summary>
-    /// 現在アクティブなシャボン玉数を取得
-    /// </summary>
-    public int GetActiveBubbleCount()
-    {
-        return activeBubbleCount;
-    }
-    
-    /// <summary>
     /// シャボン玉の数をカウント（外部からもアクセス可能）
-    /// 新しいカウント方式を優先し、フォールバックとしてタグ検索を使用
     /// </summary>
     public int CountBubbles()
     {
-        // 新しいカウント方式を使用
-        int tagBasedCount = GameObject.FindGameObjectsWithTag("Bubble").Length;
-        
-        // デバッグ用：両方の値を比較
-        if (activeBubbleCount != tagBasedCount)
-        {
-            Debug.LogWarning($"シャボン玉カウントの不一致: アクティブカウント={activeBubbleCount}, タグベース={tagBasedCount}");
-            // タグベースの値で補正
-            activeBubbleCount = tagBasedCount;
-        }
-        
-        return activeBubbleCount;
+        return GameObject.FindGameObjectsWithTag("Bubble").Length;
     }
     
     /// <summary>
@@ -220,9 +182,6 @@ public class BubbleMakerManager : MonoBehaviour
             // 生成位置を計算
             Vector3 spawnPosition = creator.position + new Vector3(spawnOffset.x, spawnOffset.y, 0);
             GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
-
-            // シャボン玉カウントを増加
-            IncrementBubbleCount();
 
             // ランダムなサイズを設定
             float size = Random.Range(0.5f, 1.5f);
