@@ -54,8 +54,22 @@ public class AnimalBubbleMaker : MonoBehaviour
         // 方向タイプに基づいて方向ベクトルを設定
         SetDirectionFromType();
         
-        // ランダムな初期タイマー値を設定（同時に動作開始しないように）
-        timer = Random.Range(0f, bubbleInterval);
+        // 犬少年と猫少女で初期タイマー値を調整（交互生成を促進）
+        if (gameObject.name.ToLower().Contains("dog"))
+        {
+            timer = Random.Range(0f, bubbleInterval * 0.4f); // 犬少年は前半
+            Debug.Log($"{gameObject.name}: 犬少年として初期化（前半開始）");
+        }
+        else if (gameObject.name.ToLower().Contains("cat"))
+        {
+            timer = Random.Range(bubbleInterval * 0.6f, bubbleInterval); // 猫少女は後半
+            Debug.Log($"{gameObject.name}: 猫少女として初期化（後半開始）");
+        }
+        else
+        {
+            timer = Random.Range(0f, bubbleInterval);
+            Debug.Log($"{gameObject.name}: 不明なキャラクターとして初期化");
+        }
         
         Debug.Log($"{gameObject.name}: AnimalBubbleMakerを初期化しました。方向={bubbleDirection}, 初期タイマー={timer:F2}秒, トリガー名={makeBubbleTrigger}");
     }
@@ -105,53 +119,88 @@ public class AnimalBubbleMaker : MonoBehaviour
                 return;
             }
             
-            // アニメーション再生（シャボン玉生成はアニメーションイベントから行われる）
-            if (animator != null)
+            // シャボン玉の上限チェック
+            int currentBubbles = BubbleMakerManager.Instance.CountBubbles();
+            bool canCreateBubbles = !BubbleMakerManager.Instance.IsCreatingBubble && 
+                                   currentBubbles <= BubbleMakerManager.Instance.MaxBubbles - 3;
+            
+            // 他のキャラクターがアニメーション中でないことを確認
+            bool canStartAnimation = AnimationStateManager.StartAnimation(gameObject);
+            
+            if (canCreateBubbles && canStartAnimation)
             {
-                Debug.Log($"{gameObject.name}: アニメーション切り替えを開始します。現在の状態: {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
-                
-                // トリガーパラメータが存在するか確認
-                bool hasParameter = false;
-                foreach (var param in animator.parameters)
+                // アニメーション再生（シャボン玉生成はアニメーションイベントから行われる）
+                if (animator != null)
                 {
-                    if (param.name == makeBubbleTrigger && param.type == AnimatorControllerParameterType.Trigger)
-                    {
-                        hasParameter = true;
-                        break;
-                    }
-                }
-                
-                if (hasParameter)
-                {
-                    animator.SetTrigger(makeBubbleTrigger);
-                    Debug.Log($"{gameObject.name}: トリガー '{makeBubbleTrigger}' を実行しました（シャボン玉はアニメーションイベントから生成されます）");
+                    Debug.Log($"{gameObject.name}: アニメーション切り替えを開始します。現在の状態: {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
                     
-                    // 少し待ってから状態を確認
-                    StartCoroutine(CheckAnimationState());
-                }
-                else
-                {
-                    Debug.LogError($"{gameObject.name}: トリガーパラメータ '{makeBubbleTrigger}' が見つかりません！");
-                    
-                    // 代替案として、利用可能なトリガーを試す
+                    // トリガーパラメータが存在するか確認
+                    bool hasParameter = false;
                     foreach (var param in animator.parameters)
                     {
-                        if (param.type == AnimatorControllerParameterType.Trigger)
+                        if (param.name == makeBubbleTrigger && param.type == AnimatorControllerParameterType.Trigger)
                         {
-                            Debug.Log($"{gameObject.name}: 利用可能なトリガー: {param.name}");
-                            if (param.name.ToLower().Contains("bubble") || param.name.ToLower().Contains("make"))
+                            hasParameter = true;
+                            break;
+                        }
+                    }
+                    
+                    if (hasParameter)
+                    {
+                        animator.SetTrigger(makeBubbleTrigger);
+                        Debug.Log($"{gameObject.name}: トリガー '{makeBubbleTrigger}' を実行しました（シャボン玉はアニメーションイベントから生成されます）");
+                        
+                        // 少し待ってから状態を確認
+                        StartCoroutine(CheckAnimationState());
+                    }
+                    else
+                    {
+                        Debug.LogError($"{gameObject.name}: トリガーパラメータ '{makeBubbleTrigger}' が見つかりません！");
+                        
+                        // パラメータが見つからない場合はアニメーション状態をリセット
+                        AnimationStateManager.EndAnimation(gameObject);
+                        
+                        // 代替案として、利用可能なトリガーを試す
+                        foreach (var param in animator.parameters)
+                        {
+                            if (param.type == AnimatorControllerParameterType.Trigger)
                             {
-                                Debug.Log($"{gameObject.name}: 代替トリガー '{param.name}' を試行します");
-                                animator.SetTrigger(param.name);
-                                break;
+                                Debug.Log($"{gameObject.name}: 利用可能なトリガー: {param.name}");
+                                if (param.name.ToLower().Contains("bubble") || param.name.ToLower().Contains("make"))
+                                {
+                                    Debug.Log($"{gameObject.name}: 代替トリガー '{param.name}' を試行します");
+                                    animator.SetTrigger(param.name);
+                                    break;
+                                }
                             }
                         }
                     }
                 }
+                else
+                {
+                    Debug.LogError($"{gameObject.name}: Animatorが見つかりません！");
+                    // Animatorが見つからない場合はアニメーション状態をリセット
+                    AnimationStateManager.EndAnimation(gameObject);
+                }
             }
             else
             {
-                Debug.LogError($"{gameObject.name}: Animatorが見つかりません！");
+                // アニメーション開始条件を満たさない場合の詳細ログ
+                if (!canCreateBubbles)
+                {
+                    Debug.Log($"{gameObject.name}: シャボン玉の数が上限に達しているため、アニメーションをスキップします（現在: {currentBubbles}/{BubbleMakerManager.Instance.MaxBubbles}）");
+                }
+                
+                if (!canStartAnimation)
+                {
+                    Debug.Log($"{gameObject.name}: 他のキャラクター（{AnimationStateManager.CurrentAnimatingCharacterName}）がアニメーション中のため、アニメーションをスキップします");
+                }
+                
+                // アニメーション状態をリセット（スキップした場合）
+                if (canStartAnimation)
+                {
+                    AnimationStateManager.EndAnimation(gameObject);
+                }
             }
             
             // タイマーリセット
@@ -197,8 +246,34 @@ public class AnimalBubbleMaker : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{gameObject.name}: シャボン玉生成リクエストが拒否されました");
+            Debug.LogWarning($"{gameObject.name}: シャボン玉生成リクエストが拒否されました（上限に達している可能性があります）");
         }
+    }
+    
+    /// <summary>
+    /// アニメーション終了時に呼び出されるメソッド（アニメーションイベントから呼び出される）
+    /// </summary>
+    public void OnAnimationEnd()
+    {
+        Debug.Log($"{gameObject.name}: アニメーション終了イベントが呼び出されました");
+        AnimationStateManager.EndAnimation(gameObject);
+    }
+    
+    /// <summary>
+    /// シャボン玉を作る準備ができているかどうか（AnimationStateManagerから呼び出される）
+    /// </summary>
+    /// <returns>準備ができているかどうか</returns>
+    public bool IsReadyToMakeBubble()
+    {
+        // 間隔の90%以上経過していれば準備完了とみなす
+        bool isReady = timer >= bubbleInterval * 0.9f;
+        
+        if (isReady)
+        {
+            Debug.Log($"{gameObject.name}: シャボン玉作成準備完了（タイマー: {timer:F2}/{bubbleInterval:F2}）");
+        }
+        
+        return isReady;
     }
     
     /// <summary>

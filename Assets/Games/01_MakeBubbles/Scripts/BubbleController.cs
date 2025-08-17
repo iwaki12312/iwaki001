@@ -87,6 +87,13 @@ public class BubbleController : MonoBehaviour
         if (IsOutOfScreen())
         {
             Debug.Log($"シャボン玉 {gameObject.name} が画面外に出たため削除します");
+            
+            // シャボン玉カウントを減少
+            if (BubbleMakerManager.Instance != null)
+            {
+                BubbleMakerManager.Instance.DecrementBubbleCount();
+            }
+            
             Destroy(gameObject);
         }
     }
@@ -100,6 +107,12 @@ public class BubbleController : MonoBehaviour
             BubbleSoundManager.Instance.PlaySplashSound();
         else
             Debug.LogWarning("BubbleSoundManager が見つかりません。効果音が再生されません。");
+
+        // シャボン玉カウントを減少
+        if (BubbleMakerManager.Instance != null)
+        {
+            BubbleMakerManager.Instance.DecrementBubbleCount();
+        }
 
         Destroy(gameObject, destroyDelay);
     }
