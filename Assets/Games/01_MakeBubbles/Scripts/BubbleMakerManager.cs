@@ -114,7 +114,6 @@ public class BubbleMakerManager : MonoBehaviour
         int currentBubbles = CountBubbles();
         if (isCreatingBubble || currentBubbles > maxBubbles - 3)
         {
-            Debug.Log($"シャボン玉作成リクエストを拒否: 作成中={isCreatingBubble}, 現在のシャボン玉数={currentBubbles}");
             return false;
         }
         
