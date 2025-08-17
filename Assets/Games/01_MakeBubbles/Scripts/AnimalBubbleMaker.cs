@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// シャボン玉の飛ぶ方向を指定する列挙型
@@ -34,6 +35,21 @@ public class AnimalBubbleMaker : MonoBehaviour
         {
             Debug.LogError($"{gameObject.name}: Animatorコンポーネントが見つかりません");
         }
+        else
+        {
+            Debug.Log($"{gameObject.name}: Animatorコンポーネントを取得しました。コントローラー: {animator.runtimeAnimatorController?.name}");
+            
+            // アニメーターのパラメータを確認
+            if (animator.runtimeAnimatorController != null)
+            {
+                var parameters = animator.parameters;
+                Debug.Log($"{gameObject.name}: アニメーターパラメータ数: {parameters.Length}");
+                foreach (var param in parameters)
+                {
+                    Debug.Log($"  パラメータ: {param.name} (タイプ: {param.type})");
+                }
+            }
+        }
         
         // 方向タイプに基づいて方向ベクトルを設定
         SetDirectionFromType();
@@ -41,7 +57,7 @@ public class AnimalBubbleMaker : MonoBehaviour
         // ランダムな初期タイマー値を設定（同時に動作開始しないように）
         timer = Random.Range(0f, bubbleInterval);
         
-        Debug.Log($"{gameObject.name}: AnimalBubbleMakerを初期化しました。方向={bubbleDirection}, 初期タイマー={timer:F2}秒");
+        Debug.Log($"{gameObject.name}: AnimalBubbleMakerを初期化しました。方向={bubbleDirection}, 初期タイマー={timer:F2}秒, トリガー名={makeBubbleTrigger}");
     }
     
     /// <summary>
@@ -102,8 +118,50 @@ public class AnimalBubbleMaker : MonoBehaviour
                 // シャボン玉作成アニメーション再生
                 if (animator != null)
                 {
-                    animator.SetTrigger(makeBubbleTrigger);
-                    Debug.Log($"{gameObject.name}: シャボン玉作成アニメーションを再生しました");
+                    Debug.Log($"{gameObject.name}: アニメーション切り替えを開始します。現在の状態: {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
+                    
+                    // トリガーパラメータが存在するか確認
+                    bool hasParameter = false;
+                    foreach (var param in animator.parameters)
+                    {
+                        if (param.name == makeBubbleTrigger && param.type == AnimatorControllerParameterType.Trigger)
+                        {
+                            hasParameter = true;
+                            break;
+                        }
+                    }
+                    
+                    if (hasParameter)
+                    {
+                        animator.SetTrigger(makeBubbleTrigger);
+                        Debug.Log($"{gameObject.name}: トリガー '{makeBubbleTrigger}' を実行しました");
+                        
+                        // 少し待ってから状態を確認
+                        StartCoroutine(CheckAnimationState());
+                    }
+                    else
+                    {
+                        Debug.LogError($"{gameObject.name}: トリガーパラメータ '{makeBubbleTrigger}' が見つかりません！");
+                        
+                        // 代替案として、利用可能なトリガーを試す
+                        foreach (var param in animator.parameters)
+                        {
+                            if (param.type == AnimatorControllerParameterType.Trigger)
+                            {
+                                Debug.Log($"{gameObject.name}: 利用可能なトリガー: {param.name}");
+                                if (param.name.ToLower().Contains("bubble") || param.name.ToLower().Contains("make"))
+                                {
+                                    Debug.Log($"{gameObject.name}: 代替トリガー '{param.name}' を試行します");
+                                    animator.SetTrigger(param.name);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"{gameObject.name}: Animatorが見つかりません！");
                 }
                 
                 // タイマーリセット
@@ -153,6 +211,33 @@ public class AnimalBubbleMaker : MonoBehaviour
     }
     
     /// <summary>
+    /// アニメーション状態を確認するコルーチン
+    /// </summary>
+    private IEnumerator CheckAnimationState()
+    {
+        yield return new WaitForSeconds(0.1f); // 少し待つ
+        
+        if (animator != null)
+        {
+            var currentState = animator.GetCurrentAnimatorStateInfo(0);
+            Debug.Log($"{gameObject.name}: アニメーション状態確認 - ハッシュ: {currentState.shortNameHash}, 正規化時間: {currentState.normalizedTime}");
+            
+            // 状態名を取得（可能であれば）
+            if (animator.runtimeAnimatorController != null)
+            {
+                foreach (var clip in animator.runtimeAnimatorController.animationClips)
+                {
+                    if (Animator.StringToHash(clip.name) == currentState.shortNameHash)
+                    {
+                        Debug.Log($"{gameObject.name}: 現在のアニメーション: {clip.name}");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// 設定値をログ出力（デバッグ用）
     /// </summary>
     [ContextMenu("設定値をログ出力")]
@@ -164,5 +249,31 @@ public class AnimalBubbleMaker : MonoBehaviour
         Debug.Log($"  飛ぶ方向: {bubbleDirection}");
         Debug.Log($"  初速: {bubbleSpeed}");
         Debug.Log($"  アニメーショントリガー: {makeBubbleTrigger}");
+    }
+    
+    /// <summary>
+    /// 手動でアニメーションをテストするメソッド（デバッグ用）
+    /// </summary>
+    [ContextMenu("アニメーションテスト")]
+    public void TestAnimation()
+    {
+        if (animator != null)
+        {
+            Debug.Log($"{gameObject.name}: 手動でアニメーションをテストします");
+            animator.SetTrigger(makeBubbleTrigger);
+            StartCoroutine(CheckAnimationState());
+        }
+        else
+        {
+            Debug.LogError($"{gameObject.name}: Animatorが見つかりません");
+        }
+    }
+    
+    /// <summary>
+    /// Inspectorから直接呼び出せるアニメーションテストメソッド
+    /// </summary>
+    public void TestAnimationFromInspector()
+    {
+        TestAnimation();
     }
 }
