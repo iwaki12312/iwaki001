@@ -75,12 +75,36 @@ public class ArrowManager : MonoBehaviour
     {
         if (arrowPrefab != null)
         {
-            // 少年オブジェクトを検索
-            GameObject boy = GameObject.FindGameObjectWithTag("Boy");
-            if (boy != null)
+            // 犬少年または猫少女のオブジェクトを検索
+            GameObject targetObject = null;
+            
+            // AnimalBubbleMakerコンポーネントを持つオブジェクトを検索
+            AnimalBubbleMaker[] animalMakers = FindObjectsOfType<AnimalBubbleMaker>();
+            if (animalMakers.Length > 0)
             {
-                // 少年の左上に矢印を生成
-                Vector3 arrowPosition = boy.transform.position + new Vector3(-1.0f, 1.5f, 0);
+                targetObject = animalMakers[0].gameObject;
+                Debug.Log("AnimalBubbleMakerを持つオブジェクトを見つけました: " + targetObject.name);
+            }
+            else
+            {
+                // 犬少年オブジェクトを名前で検索
+                targetObject = GameObject.Find("DogBoy");
+                if (targetObject == null)
+                {
+                    // 猫少女オブジェクトを名前で検索
+                    targetObject = GameObject.Find("CatGirl");
+                }
+                
+                if (targetObject != null)
+                {
+                    Debug.Log("動物オブジェクトを名前で見つけました: " + targetObject.name);
+                }
+            }
+            
+            if (targetObject != null)
+            {
+                // 対象オブジェクトの上に矢印を生成
+                Vector3 arrowPosition = targetObject.transform.position + new Vector3(0f, 1.5f, 0);
                 arrowInstance = Instantiate(arrowPrefab, arrowPosition, Quaternion.identity);
                 
                 // ArrowControllerコンポーネントがない場合は追加
@@ -89,11 +113,11 @@ public class ArrowManager : MonoBehaviour
                     arrowInstance.AddComponent<ArrowController>();
                 }
                 
-                Debug.Log("矢印を生成しました");
+                Debug.Log("矢印を生成しました: " + targetObject.name + "の上");
             }
             else
             {
-                Debug.LogError("少年オブジェクトが見つかりません");
+                Debug.LogWarning("犬少年または猫少女のオブジェクトが見つかりません。矢印は生成されません。");
             }
         }
     }

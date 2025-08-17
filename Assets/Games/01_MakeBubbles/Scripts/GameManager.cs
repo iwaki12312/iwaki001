@@ -29,7 +29,7 @@ private void CreateArrowManager()
     if (FindObjectOfType<ArrowManager>() == null)
     {
         // プレハブを検索
-        GameObject arrowManagerPrefab = Resources.Load<GameObject>("Games/BubbleGame/Prefabs/ArrowManager");
+        GameObject arrowManagerPrefab = Resources.Load<GameObject>("Games/01_MakeBubbles/Prefabs/ArrowManager");
         
         if (arrowManagerPrefab == null)
         {

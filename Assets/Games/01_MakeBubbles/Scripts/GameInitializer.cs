@@ -9,6 +9,21 @@ public class GameInitializer : MonoBehaviour
     
     void Awake()
     {
+        Debug.Log("GameInitializer.Awake()が開始されました");
+        
+        // BubbleMakerManagerを最初に作成（他のコンポーネントが依存する可能性があるため）
+        if (FindObjectOfType<BubbleMakerManager>() == null)
+        {
+            Debug.Log("BubbleMakerManagerが見つからないため、新しく作成します");
+            GameObject bubbleMakerManagerObj = new GameObject("BubbleMakerManager");
+            BubbleMakerManager manager = bubbleMakerManagerObj.AddComponent<BubbleMakerManager>();
+            Debug.Log("BubbleMakerManagerを作成しました: " + manager.GetInstanceID());
+        }
+        else
+        {
+            Debug.Log("BubbleMakerManagerは既に存在します");
+        }
+        
         // BGMManagerが存在しない場合は作成
         if (FindObjectOfType<BGMManager>() == null)
         {
@@ -33,56 +48,116 @@ public class GameInitializer : MonoBehaviour
             GameObject backgroundInitializerObj = new GameObject("BackgroundInitializer");
             backgroundInitializerObj.AddComponent<BackgroundInitializer>();
         }
+        
+        Debug.Log("GameInitializer.Awake()が完了しました");
     }
     
     void Start()
     {
         // BGMを再生
-        BGMManager.Instance.PlayBGM();
-        Debug.Log("バブルゲーム開始時にBGMを初期化しました");
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.PlayBGM();
+            Debug.Log("バブルゲーム開始時にBGMを初期化しました");
+        }
         
-        // バブルプレハブが設定されていない場合は、シーンに配置されているか確認
+        // バブルプレハブが設定されていない場合は、プレハブフォルダから読み込み
         if (bubblePrefab == null)
         {
-            // シーン内のBubbleプレハブを検索
-            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-            foreach (GameObject obj in allObjects)
-            {
-                if (obj.name == "Bubble" && obj.CompareTag("Bubble"))
-                {
-                    bubblePrefab = obj;
-                    Debug.Log("シーン内でバブルプレハブを見つけました: " + obj.name);
-                    break;
-                }
-            }
+            Debug.Log("バブルプレハブが設定されていないため、プレハブフォルダから読み込みを試行します");
             
-            // 見つからない場合は、プレハブを直接インスタンス化
-            if (bubblePrefab == null)
+            // プレハブフォルダから直接読み込み
+            bubblePrefab = Resources.Load<GameObject>("Games/01_MakeBubbles/Prefabs/Bubble");
+            if (bubblePrefab != null)
             {
-                // バブルゲーム内のプレハブをインスタンス化
-                GameObject tempBubble = Instantiate(Resources.Load<GameObject>("Games/BubbleGame/Prefabs/Bubble"));
-                if (tempBubble != null)
+                Debug.Log("プレハブフォルダからバブルプレハブを読み込みました");
+            }
+            else
+            {
+                // Resourcesフォルダにない場合は、シーン内のBubbleオブジェクトを検索
+                GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+                foreach (GameObject obj in allObjects)
                 {
-                    bubblePrefab = tempBubble;
-                    bubblePrefab.SetActive(false); // 非表示にしておく
-                    Debug.Log("バブルプレハブをResourcesから読み込みました");
+                    if (obj.name.Contains("Bubble") && obj.CompareTag("Bubble"))
+                    {
+                        bubblePrefab = obj;
+                        Debug.Log("シーン内でバブルプレハブを見つけました: " + obj.name);
+                        break;
+                    }
                 }
-                else
+                
+                // それでも見つからない場合は、BubbleControllerを持つオブジェクトを検索
+                if (bubblePrefab == null)
                 {
-                    Debug.LogError("バブルプレハブがResourcesフォルダに見つかりません");
-                    
-                    // 最終手段として新しく作成
-                    bubblePrefab = new GameObject("Bubble");
-                    bubblePrefab.AddComponent<SpriteRenderer>();
-                    bubblePrefab.AddComponent<CircleCollider2D>();
-                    bubblePrefab.AddComponent<Rigidbody2D>();
-                    bubblePrefab.AddComponent<BubbleController>();
-                    bubblePrefab.tag = "Bubble";
-                    bubblePrefab.SetActive(false);
-                    Debug.Log("バブルプレハブを新規作成しました");
+                    BubbleController[] bubbleControllers = FindObjectsOfType<BubbleController>();
+                    if (bubbleControllers.Length > 0)
+                    {
+                        bubblePrefab = bubbleControllers[0].gameObject;
+                        Debug.Log("BubbleControllerを持つオブジェクトをバブルプレハブとして使用: " + bubblePrefab.name);
+                    }
+                }
+                
+                // 最終手段として新しく作成
+                if (bubblePrefab == null)
+                {
+                    Debug.LogWarning("バブルプレハブが見つからないため、新規作成します");
+                    CreateDefaultBubblePrefab();
                 }
             }
         }
+        else
+        {
+            Debug.Log("バブルプレハブは既に設定されています: " + bubblePrefab.name);
+        }
+        
+        // BubbleMakerManagerにバブルプレハブを設定
+        if (BubbleMakerManager.Instance != null && bubblePrefab != null)
+        {
+            BubbleMakerManager.Instance.SetBubblePrefab(bubblePrefab);
+            Debug.Log("BubbleMakerManagerにバブルプレハブを設定しました");
+        }
+    }
+    
+    /// <summary>
+    /// デフォルトのバブルプレハブを作成
+    /// </summary>
+    private void CreateDefaultBubblePrefab()
+    {
+        bubblePrefab = new GameObject("Bubble");
+        
+        // SpriteRendererを追加
+        SpriteRenderer spriteRenderer = bubblePrefab.AddComponent<SpriteRenderer>();
+        
+        // Circle.pngスプライトを検索して設定
+        Sprite[] allSprites = Resources.FindObjectsOfTypeAll<Sprite>();
+        foreach (Sprite sprite in allSprites)
+        {
+            if (sprite.name == "Circle" || sprite.name.Contains("Bubble"))
+            {
+                spriteRenderer.sprite = sprite;
+                Debug.Log("バブル用スプライトを設定しました: " + sprite.name);
+                break;
+            }
+        }
+        
+        // 物理コンポーネントを追加
+        CircleCollider2D collider = bubblePrefab.AddComponent<CircleCollider2D>();
+        collider.isTrigger = false;
+        
+        Rigidbody2D rb = bubblePrefab.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0.1f;
+        rb.linearDamping = 0.5f;
+        
+        // BubbleControllerを追加
+        bubblePrefab.AddComponent<BubbleController>();
+        
+        // タグを設定
+        bubblePrefab.tag = "Bubble";
+        
+        // 非表示にしておく
+        bubblePrefab.SetActive(false);
+        
+        Debug.Log("デフォルトのバブルプレハブを作成しました");
     }
     
     /// <summary>
