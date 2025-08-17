@@ -82,7 +82,7 @@ public class AnimalBubbleMaker : MonoBehaviour
     {
         timer += Time.deltaTime;
         
-        // 一定時間経過したらシャボン玉作成をリクエスト
+        // 一定時間経過したらアニメーション開始（シャボン玉生成はアニメーションイベントから行う）
         if (timer >= bubbleInterval)
         {
             // BubbleMakerManagerが存在しない場合は作成を試行
@@ -105,73 +105,57 @@ public class AnimalBubbleMaker : MonoBehaviour
                 return;
             }
             
-            // マネージャーにシャボン玉作成をリクエスト
-            bool success = BubbleMakerManager.Instance.RequestBubbleCreation(
-                transform, 
-                spawnOffset, 
-                bubbleDirection, 
-                bubbleSpeed
-            );
-            
-            if (success)
+            // アニメーション再生（シャボン玉生成はアニメーションイベントから行われる）
+            if (animator != null)
             {
-                // シャボン玉作成アニメーション再生
-                if (animator != null)
+                Debug.Log($"{gameObject.name}: アニメーション切り替えを開始します。現在の状態: {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
+                
+                // トリガーパラメータが存在するか確認
+                bool hasParameter = false;
+                foreach (var param in animator.parameters)
                 {
-                    Debug.Log($"{gameObject.name}: アニメーション切り替えを開始します。現在の状態: {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
+                    if (param.name == makeBubbleTrigger && param.type == AnimatorControllerParameterType.Trigger)
+                    {
+                        hasParameter = true;
+                        break;
+                    }
+                }
+                
+                if (hasParameter)
+                {
+                    animator.SetTrigger(makeBubbleTrigger);
+                    Debug.Log($"{gameObject.name}: トリガー '{makeBubbleTrigger}' を実行しました（シャボン玉はアニメーションイベントから生成されます）");
                     
-                    // トリガーパラメータが存在するか確認
-                    bool hasParameter = false;
+                    // 少し待ってから状態を確認
+                    StartCoroutine(CheckAnimationState());
+                }
+                else
+                {
+                    Debug.LogError($"{gameObject.name}: トリガーパラメータ '{makeBubbleTrigger}' が見つかりません！");
+                    
+                    // 代替案として、利用可能なトリガーを試す
                     foreach (var param in animator.parameters)
                     {
-                        if (param.name == makeBubbleTrigger && param.type == AnimatorControllerParameterType.Trigger)
+                        if (param.type == AnimatorControllerParameterType.Trigger)
                         {
-                            hasParameter = true;
-                            break;
-                        }
-                    }
-                    
-                    if (hasParameter)
-                    {
-                        animator.SetTrigger(makeBubbleTrigger);
-                        Debug.Log($"{gameObject.name}: トリガー '{makeBubbleTrigger}' を実行しました");
-                        
-                        // 少し待ってから状態を確認
-                        StartCoroutine(CheckAnimationState());
-                    }
-                    else
-                    {
-                        Debug.LogError($"{gameObject.name}: トリガーパラメータ '{makeBubbleTrigger}' が見つかりません！");
-                        
-                        // 代替案として、利用可能なトリガーを試す
-                        foreach (var param in animator.parameters)
-                        {
-                            if (param.type == AnimatorControllerParameterType.Trigger)
+                            Debug.Log($"{gameObject.name}: 利用可能なトリガー: {param.name}");
+                            if (param.name.ToLower().Contains("bubble") || param.name.ToLower().Contains("make"))
                             {
-                                Debug.Log($"{gameObject.name}: 利用可能なトリガー: {param.name}");
-                                if (param.name.ToLower().Contains("bubble") || param.name.ToLower().Contains("make"))
-                                {
-                                    Debug.Log($"{gameObject.name}: 代替トリガー '{param.name}' を試行します");
-                                    animator.SetTrigger(param.name);
-                                    break;
-                                }
+                                Debug.Log($"{gameObject.name}: 代替トリガー '{param.name}' を試行します");
+                                animator.SetTrigger(param.name);
+                                break;
                             }
                         }
                     }
                 }
-                else
-                {
-                    Debug.LogError($"{gameObject.name}: Animatorが見つかりません！");
-                }
-                
-                // タイマーリセット
-                timer = 0;
             }
             else
             {
-                // リクエストが拒否された場合は少し待ってから再試行
-                timer = bubbleInterval - 0.5f;
+                Debug.LogError($"{gameObject.name}: Animatorが見つかりません！");
             }
+            
+            // タイマーリセット
+            timer = 0;
         }
     }
     
@@ -183,6 +167,38 @@ public class AnimalBubbleMaker : MonoBehaviour
         GameObject managerObj = new GameObject("BubbleMakerManager");
         managerObj.AddComponent<BubbleMakerManager>();
         Debug.Log($"{gameObject.name}: BubbleMakerManagerを作成しました");
+    }
+    
+    /// <summary>
+    /// アニメーションイベントから呼び出されるシャボン玉生成メソッド
+    /// </summary>
+    public void CreateBubbleFromAnimationEvent()
+    {
+        Debug.Log($"{gameObject.name}: アニメーションイベントからシャボン玉生成を開始します");
+        
+        // BubbleMakerManagerが存在するか確認
+        if (BubbleMakerManager.Instance == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: シャボン玉生成時にBubbleMakerManagerが見つかりません");
+            return;
+        }
+        
+        // シャボン玉生成をリクエスト
+        bool success = BubbleMakerManager.Instance.RequestBubbleCreation(
+            transform, 
+            spawnOffset, 
+            bubbleDirection, 
+            bubbleSpeed
+        );
+        
+        if (success)
+        {
+            Debug.Log($"{gameObject.name}: アニメーションイベントからシャボン玉を生成しました");
+        }
+        else
+        {
+            Debug.LogWarning($"{gameObject.name}: シャボン玉生成リクエストが拒否されました");
+        }
     }
     
     /// <summary>
