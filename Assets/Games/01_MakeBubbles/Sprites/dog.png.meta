@@ -153,10 +153,10 @@ TextureImporter:
       name: dog_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 662
-        width: 247
-        height: 321
+        x: 42
+        y: 521
+        width: 383
+        height: 451
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +175,10 @@ TextureImporter:
       name: dog_1
       rect:
         serializedVersion: 2
-        x: 379
-        y: 667
-        width: 242
-        height: 321
+        x: 12
+        y: 46
+        width: 375
+        height: 446
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: dog_2
       rect:
         serializedVersion: 2
-        x: 711
-        y: 661
-        width: 268
-        height: 332
+        x: 614
+        y: 528
+        width: 357
+        height: 454
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +219,10 @@ TextureImporter:
       name: dog_3
       rect:
         serializedVersion: 2
-        x: 39
-        y: 319
-        width: 258
-        height: 337
+        x: 540
+        y: 45
+        width: 421
+        height: 458
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,116 +233,6 @@ TextureImporter:
       bones: []
       spriteID: 4bf9c950e384dba30800000000000000
       internalID: 4232618656017457076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dog_4
-      rect:
-        serializedVersion: 2
-        x: 375
-        y: 320
-        width: 267
-        height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bedb8886acfc9a770800000000000000
-      internalID: 8622651429821660651
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dog_5
-      rect:
-        serializedVersion: 2
-        x: 694
-        y: 317
-        width: 282
-        height: 324
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba892c730f5a35550800000000000000
-      internalID: 6148440367437093035
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dog_6
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 7
-        width: 291
-        height: 298
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 611e39443d8fac960800000000000000
-      internalID: 7623178905550315798
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dog_7
-      rect:
-        serializedVersion: 2
-        x: 367
-        y: 7
-        width: 282
-        height: 298
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0bb484c64a7c44010800000000000000
-      internalID: 1172281312028412848
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dog_8
-      rect:
-        serializedVersion: 2
-        x: 701
-        y: 7
-        width: 300
-        height: 310
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cc61c2041c19170b0800000000000000
-      internalID: -5732640591474583860
       vertices: []
       indices: 
       edges: []

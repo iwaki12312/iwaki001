@@ -153,10 +153,10 @@ TextureImporter:
       name: cat_0
       rect:
         serializedVersion: 2
-        x: 731
-        y: 631
-        width: 263
-        height: 365
+        x: 740
+        y: 614
+        width: 268
+        height: 380
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +175,10 @@ TextureImporter:
       name: cat_1
       rect:
         serializedVersion: 2
-        x: 604
-        y: 171
-        width: 255
-        height: 380
+        x: 605
+        y: 141
+        width: 268
+        height: 388
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: cat_2
       rect:
         serializedVersion: 2
-        x: 41
-        y: 634
-        width: 277
-        height: 370
+        x: 28
+        y: 620
+        width: 285
+        height: 384
       alignment: 9
       pivot: {x: 0.46190768, y: 0.47433406}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +219,10 @@ TextureImporter:
       name: cat_3
       rect:
         serializedVersion: 2
-        x: 48
-        y: 268
-        width: 327
-        height: 350
+        x: 30
+        y: 243
+        width: 338
+        height: 359
       alignment: 9
       pivot: {x: 0.44514474, y: 0.5030147}
       border: {x: 0, y: 0, z: 0, w: 0}
