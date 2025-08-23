@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MenuController : MonoBehaviour
 {
-    void Start()
+    void OnEnable()
     {
+        // デバッグログ
+        Debug.Log("MenuControllerが開始されました");
+
         // Bubbleオブジェクトを検索
         GameObject bubbleObj = GameObject.Find("Bubble");
         if (bubbleObj != null)
