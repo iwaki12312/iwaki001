@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8151594452182817564}
   - component: {fileID: 6883739244603154464}
   m_Layer: 0
-  m_Name: Mole
+  m_Name: 02_WhackAMole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

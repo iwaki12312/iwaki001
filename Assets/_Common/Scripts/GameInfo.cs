@@ -7,6 +7,7 @@ public class GameInfo : MonoBehaviour
 {
 
     // すべてのゲーム情報を格納するリスト
+    // ゲームを追加する場合はここに追加して一元管理する
     public static List<GameData> allGames = new List<GameData>
     {
         new GameData("MakeBubbles", 1, 1),       // 01_MakeBubbles

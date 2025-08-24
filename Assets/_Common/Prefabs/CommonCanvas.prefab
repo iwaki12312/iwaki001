@@ -307,6 +307,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'changeButton '
       objectReference: {fileID: 0}
+    - target: {fileID: 7800593828512363488, guid: 7e158072802958148986dea1877ceee3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779762664179637169}
+    - target: {fileID: 7800593828512363488, guid: 7e158072802958148986dea1877ceee3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800593828512363488, guid: 7e158072802958148986dea1877ceee3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChangeGameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7850363817720863859, guid: 7e158072802958148986dea1877ceee3, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -411,16 +423,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2897651096370828899, guid: 7e158072802958148986dea1877ceee3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4358947531282067602, guid: 7e158072802958148986dea1877ceee3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 779762664179637169}
   m_SourcePrefab: {fileID: 100100000, guid: 7e158072802958148986dea1877ceee3, type: 3}
 --- !u!224 &2531346545566828653 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8295323273764518616, guid: 7e158072802958148986dea1877ceee3, type: 3}
   m_PrefabInstance: {fileID: 5782567859283554997}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7800755156090208807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4358947531282067602, guid: 7e158072802958148986dea1877ceee3, type: 3}
+  m_PrefabInstance: {fileID: 5782567859283554997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &779762664179637169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7800755156090208807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a697fbc20d2801f4b865173ae7f19c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6516164872347448653
 PrefabInstance:
   m_ObjectHideFlags: 0
