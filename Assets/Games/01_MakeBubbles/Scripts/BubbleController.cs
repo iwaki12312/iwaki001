@@ -25,6 +25,9 @@ public class BubbleController : MonoBehaviour
     [SerializeField] private Material bubbleMaterial;
     [SerializeField] private float highlightIntensity = 1.5f;
     [SerializeField] private float colorChangeSpeed = 0.5f;
+    
+    [Header("画面外削除設定")]
+    [SerializeField] private float screenMargin = 0.1f; // 画面外判定のマージン
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -74,11 +77,18 @@ public class BubbleController : MonoBehaviour
                 Burst();                       // ← 元の OnMouseDown 相当
         }
 
-        /* ❷ エディタ／マウス操作用フォールバック */
+        /* ❂ エディタ／マウス操作用フォールバック */
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0) && HitThisBubble(Input.mousePosition))
             Burst();
 #endif
+
+        /* ❸ 画面外判定 */
+        if (IsOutOfScreen())
+        {
+            Debug.Log($"シャボン玉 {gameObject.name} が画面外に出たため削除します");
+            Destroy(gameObject);
+        }
     }
 
     /* -------- Bubble を割る本処理（旧 OnMouseDown の中身） -------- */
@@ -103,7 +113,23 @@ public class BubbleController : MonoBehaviour
         return hit && hit.collider != null && hit.collider.gameObject == gameObject;
     }
 
-       private void OnMouseDown() => Burst(); // マウス操作のフォールバック
+    /* -------- シャボン玉が画面外に出たかどうかを判定 -------- */
+    private bool IsOutOfScreen()
+    {
+        if (mainCam == null) return false;
+        
+        // カメラのビューポート座標に変換（0〜1の範囲）
+        Vector3 viewportPosition = mainCam.WorldToViewportPoint(transform.position);
+        
+        // ビューポート座標が0〜1の範囲外なら画面外と判定
+        // マージンを設けて、完全に見えなくなってから削除
+        return viewportPosition.x < -screenMargin || 
+               viewportPosition.x > 1 + screenMargin || 
+               viewportPosition.y < -screenMargin || 
+               viewportPosition.y > 1 + screenMargin;
+    }
+
+    private void OnMouseDown() => Burst(); // マウス操作のフォールバック
 
 
     void FixedUpdate()
