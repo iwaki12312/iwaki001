@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class MoleGameManager : MonoBehaviour
+public class WhackAMoleManager : MonoBehaviour
 {
     public HoleController[] holes;
     public List<MoleData> moleDataList;

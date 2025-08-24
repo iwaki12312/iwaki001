@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MoleData", menuName = "MoleGame/Mole Data")]
+[CreateAssetMenu(fileName = "MoleData", menuName = "WhackAMole/Mole Data")]
 public class MoleData : ScriptableObject
 {
     public string moleName;           // モグラの名前

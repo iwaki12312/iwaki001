@@ -194,8 +194,8 @@ public class MenuSetupWindow : EditorWindow
     {
         // 必要なシーンパス
         string menuScenePath = "Assets/Games/00_Menu/Scenes/Menu.unity";
-        string bubbleScenePath = "Assets/Games/01_MakeBubbles/Scenes/BubbleGame.unity";
-        string moleScenePath = "Assets/Games/02_MoleGame/Scenes/MoleGame.unity";
+        string bubbleScenePath = "Assets/Games/01_MakeBubbles/Scenes/MakeBubbles.unity";
+        string moleScenePath = "Assets/Games/02_WhackAMole/Scenes/WhackAMole.unity";
         
         // 現在のビルド設定を取得
         List<EditorBuildSettingsScene> scenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);

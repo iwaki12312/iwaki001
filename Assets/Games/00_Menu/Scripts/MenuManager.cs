@@ -12,13 +12,13 @@ public class MenuManager : MonoBehaviour
     // 01_MakeBubbles
     public void TransitionToMakeBubble()
     {
-        SceneManager.LoadScene("BubbleGame");
+        SceneManager.LoadScene("MakeBubbles");
     }
 
-    // 02_MoleGame
-    public void TransitionToMoleGame()
+    // 02_WhackAMole
+    public void TransitionToWhackAMole()
     {
-        SceneManager.LoadScene("MoleGame");
+        SceneManager.LoadScene("WhackAMole");
     }
 
     // 03_FlowerBlooming

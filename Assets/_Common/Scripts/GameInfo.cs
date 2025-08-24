@@ -9,8 +9,8 @@ public class GameInfo : MonoBehaviour
     // すべてのゲーム情報を格納するリスト
     public static List<GameData> allGames = new List<GameData>
     {
-        new GameData("BubbleGame", 1, 1),       // 01_MakeBubbles
-        new GameData("MoleGame", 2, 1),         // 02_MoleGame
+        new GameData("MakeBubbles", 1, 1),       // 01_MakeBubbles
+        new GameData("WhackAMole", 2, 1),         // 02_WhackAMole
         new GameData("FlowerBlooming", 3, 1),   // 03_FlowerBlooming
         new GameData("Cook", 4, 1),              // 04_Cook
         new GameData("TouchTheStar", 5, 1)      // 05_TouchTheStar

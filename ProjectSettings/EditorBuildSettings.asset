@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Games/00_Menu/Scenes/Menu.unity
     guid: c88a90474e49df64899091317139c523
   - enabled: 1
-    path: Assets/Games/01_MakeBubbles/Scenes/BubbleGame.unity
+    path: Assets/Games/01_MakeBubbles/Scenes/MakeBubbles.unity
     guid: 292ce9be353692544bd18fd473288168
   - enabled: 1
-    path: Assets/Games/02_MoleGame/Scenes/MoleGame.unity
+    path: Assets/Games/02_WhackAMole/Scenes/WhackAMole.unity
     guid: 5a5eda963c9a8574298a59d6e681505a
   - enabled: 1
     path: Assets/Games/03_FlowerBlooming/Scenes/FlowerBlooming.unity

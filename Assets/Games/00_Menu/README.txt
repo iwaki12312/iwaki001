@@ -39,7 +39,7 @@
 
 - BubbleとMoleオブジェクトには、SpriteRendererコンポーネントが必要です
 - MenuControllerスクリプトは、自動的にBubbleとMoleオブジェクトにBoxCollider2DとGameButtonコンポーネントを追加します
-- ゲームシーン（BubbleGame.unityとMoleGame.unity）はビルド設定に含まれている必要があります
+- ゲームシーン（MakeBubbles.unityとWhackAMole.unity）はビルド設定に含まれている必要があります
 
 ## カスタマイズ
 

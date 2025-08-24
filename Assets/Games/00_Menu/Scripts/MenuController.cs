@@ -29,7 +29,7 @@ public class MenuController : MonoBehaviour
 
             // GameButtonコンポーネントを追加
             GameButton bubbleButton = bubbleObj.AddComponent<GameButton>();
-            bubbleButton.sceneName = "BubbleGame";
+            bubbleButton.sceneName = "MakeBubbles";
             bubbleButton.Initialize();
         }
         else
@@ -55,7 +55,7 @@ public class MenuController : MonoBehaviour
 
             // GameButtonコンポーネントを追加
             GameButton moleButton = moleObj.AddComponent<GameButton>();
-            moleButton.sceneName = "MoleGame";
+            moleButton.sceneName = "WhackAMole";
             moleButton.Initialize();
         }
         else
