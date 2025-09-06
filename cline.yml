@@ -7,6 +7,7 @@ project:
       • MoleGame : 地面から出てくるモグラをタップして叩くゲーム
       • FlowerBlooming : プランターをタップすると花が咲くゲーム
       • Cook : 鍋とフライパンをタップすると料理が飛び出すゲーム
+      • TouchTheStar : 星をタッチすると弾けるゲーム
     今後は他のミニゲームも順次追加する予定です。
     主にclineには新しいゲームの実装を担当してもらいます。
     
@@ -25,4 +26,5 @@ project:
     - MakeBubbles
     - FlowerBlooming
     - Cook
+    - TouchTheStar
     
