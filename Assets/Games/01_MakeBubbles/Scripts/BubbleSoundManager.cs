@@ -73,7 +73,7 @@ public class BubbleSoundManager : MonoBehaviour
         if (shotSound == null)
         {
             // 直接アセットフォルダから読み込む
-            shotSound = Resources.Load<AudioClip>("Games/BubbleGame/Audio/Shot");
+            shotSound = Resources.Load<AudioClip>("Games/MakeBubbles/Audio/Shot");
             
             if (shotSound == null)
             {
@@ -89,7 +89,7 @@ public class BubbleSoundManager : MonoBehaviour
         if (splashSound == null)
         {
             // 直接アセットフォルダから読み込む
-            splashSound = Resources.Load<AudioClip>("Games/BubbleGame/Audio/Splash");
+            splashSound = Resources.Load<AudioClip>("Games/MakeBubbles/Audio/Splash");
             
             if (splashSound == null)
             {

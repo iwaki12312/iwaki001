@@ -11,133 +11,35 @@ public class MenuController : MonoBehaviour
         // デバッグログ
         Debug.Log("MenuControllerが開始されました");
 
-        // Bubbleオブジェクトを検索
-        GameObject bubbleObj = GameObject.Find("Bubble");
-        if (bubbleObj != null)
+        // 各オブジェクトを検索してGameButtonコンポーネントを追加し、初期化する
+        // GameInfoクラスのallGamesリストを使用して動的に処理
+        foreach (var game in GameInfo.allGames)
         {
-            // BoxCollider2Dがなければ追加
-            if (bubbleObj.GetComponent<BoxCollider2D>() == null)
+            // ゲームオブジェクトを検索（オブジェクト名は00_【シーン名】）※00の部分はゲーム番号を2桁でゼロ埋め
+            GameObject gameObj = GameObject.Find($"{game.gameID:D2}_{game.sceneName}");
+            if (gameObj != null)
             {
-                BoxCollider2D collider = bubbleObj.AddComponent<BoxCollider2D>();
-                // スプライトのサイズに合わせる
-                SpriteRenderer spriteRenderer = bubbleObj.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
+                // BoxCollider2Dがなければ追加
+                if (gameObj.GetComponent<BoxCollider2D>() == null)
                 {
-                    collider.size = spriteRenderer.sprite.bounds.size;
+                    BoxCollider2D collider = gameObj.AddComponent<BoxCollider2D>();
+                    // スプライトのサイズに合わせる
+                    SpriteRenderer spriteRenderer = gameObj.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        collider.size = spriteRenderer.sprite.bounds.size;
+                    }
                 }
+
+                // GameButtonコンポーネントを追加
+                GameButton gameButton = gameObj.AddComponent<GameButton>();
+                gameButton.sceneName = game.sceneName;
+                gameButton.Initialize();
             }
-
-            // GameButtonコンポーネントを追加
-            GameButton bubbleButton = bubbleObj.AddComponent<GameButton>();
-            bubbleButton.sceneName = "BubbleGame";
-            bubbleButton.Initialize();
-        }
-        else
-        {
-            Debug.LogError("Bubbleオブジェクトが見つかりません");
-        }
-
-        // Moleオブジェクトを検索
-        GameObject moleObj = GameObject.Find("Mole");
-        if (moleObj != null)
-        {
-            // BoxCollider2Dがなければ追加
-            if (moleObj.GetComponent<BoxCollider2D>() == null)
+            else
             {
-                BoxCollider2D collider = moleObj.AddComponent<BoxCollider2D>();
-                // スプライトのサイズに合わせる
-                SpriteRenderer spriteRenderer = moleObj.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    collider.size = spriteRenderer.sprite.bounds.size;
-                }
+                Debug.LogError($"{game.sceneName}オブジェクトが見つかりません");
             }
-
-            // GameButtonコンポーネントを追加
-            GameButton moleButton = moleObj.AddComponent<GameButton>();
-            moleButton.sceneName = "MoleGame";
-            moleButton.Initialize();
-        }
-        else
-        {
-            Debug.LogError("Moleオブジェクトが見つかりません");
-        }
-
-        // 03_FlowerBloomingオブジェクトを検索
-        GameObject flowerObj = GameObject.Find("03_FlowerBlooming");
-        if (flowerObj != null)
-        {
-            // BoxCollider2Dがなければ追加
-            if (flowerObj.GetComponent<BoxCollider2D>() == null)
-            {
-                BoxCollider2D collider = flowerObj.AddComponent<BoxCollider2D>();
-                // スプライトのサイズに合わせる
-                SpriteRenderer spriteRenderer = flowerObj.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    collider.size = spriteRenderer.sprite.bounds.size;
-                }
-            }
-            // GameButtonコンポーネントを追加
-            GameButton flowerButton = flowerObj.AddComponent<GameButton>();
-            flowerButton.sceneName = "FlowerBlooming";
-            flowerButton.Initialize();
-        }
-        else
-        {
-            Debug.LogError("03_FlowerBloomingオブジェクトが見つかりません");
-        }
-
-        // 04_Cookオブジェクトを検索
-        GameObject cookObj = GameObject.Find("04_Cook");
-        if (cookObj != null)
-        {
-            // BoxCollider2Dがなければ追加
-            if (cookObj.GetComponent<BoxCollider2D>() == null)
-            {
-                BoxCollider2D collider = cookObj.AddComponent<BoxCollider2D>();
-                // スプライトのサイズに合わせる
-                SpriteRenderer spriteRenderer = cookObj.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    collider.size = spriteRenderer.sprite.bounds.size;
-                }
-            }
-
-            // GameButtonコンポーネントを追加
-            GameButton cookButton = cookObj.AddComponent<GameButton>();
-            cookButton.sceneName = "Cook";
-            cookButton.Initialize();
-        }
-        else
-        {
-            Debug.LogError("04_Cookオブジェクトが見つかりません");
-        }
-
-        // 05_TouchTheStarオブジェクトを検索
-        GameObject touchTheStarObj = GameObject.Find("05_TouchTheStar");
-        if (touchTheStarObj != null)
-        {
-            // BoxCollider2Dがなければ追加
-            if (touchTheStarObj.GetComponent<BoxCollider2D>() == null)
-            {
-                BoxCollider2D collider = touchTheStarObj.AddComponent<BoxCollider2D>();
-                // スプライトのサイズに合わせる
-                SpriteRenderer spriteRenderer = touchTheStarObj.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    collider.size = spriteRenderer.sprite.bounds.size;
-                }
-            }
-
-            // GameButtonコンポーネントを追加
-            GameButton touchTheStarButton = touchTheStarObj.AddComponent<GameButton>();
-            touchTheStarButton.sceneName = "TouchTheStar";
-            touchTheStarButton.Initialize();
-        }
-        else
-        {
-            Debug.LogError("05_TouchTheStarオブジェクトが見つかりません");
         }
     }
 }
@@ -249,6 +151,10 @@ public class GameButton : MonoBehaviour
         }
 
         Debug.Log($"ゲームをロード: {sceneName}");
+
+
+        // UpdateGameHistoryを呼び出して履歴を更新
+        ChangeGameManager.UpdateGameHistory(sceneName);
 
         // シーン遷移
         SceneManager.LoadScene(sceneName);
