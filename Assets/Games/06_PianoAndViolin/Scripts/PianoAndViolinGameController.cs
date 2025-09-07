@@ -191,8 +191,15 @@ public class PianoAndViolinGameController : MonoBehaviour
         lastPianoIndex = idx;
         sfxPlayer.PlayPiano(pianoClips[idx]);
         currentPlayType = PlayType.Piano;
+        // トリガー競合防止
+        pianoAnimator.ResetTrigger("Idle");
+        pianoAnimator.ResetTrigger("Play");
         pianoAnimator.SetTrigger("Play");
+        violinAnimator.ResetTrigger("Play");
+        violinAnimator.ResetTrigger("Idle");
         violinAnimator.SetTrigger("Idle");
+        noteAnimator.ResetTrigger("Play");
+        noteAnimator.ResetTrigger("Idle");
         noteAnimator.SetTrigger("Idle");
         Invoke("ResetAnimation", sfxPlayer.pianoSource.clip.length);
     }
@@ -208,8 +215,14 @@ public class PianoAndViolinGameController : MonoBehaviour
         lastViolinIndex = idx;
         sfxPlayer.PlayViolin(violinClips[idx]);
         currentPlayType = PlayType.Violin;
+        pianoAnimator.ResetTrigger("Play");
+        pianoAnimator.ResetTrigger("Idle");
         pianoAnimator.SetTrigger("Idle");
+        violinAnimator.ResetTrigger("Idle");
+        violinAnimator.ResetTrigger("Play");
         violinAnimator.SetTrigger("Play");
+        noteAnimator.ResetTrigger("Play");
+        noteAnimator.ResetTrigger("Idle");
         noteAnimator.SetTrigger("Idle");
         Invoke("ResetAnimation", sfxPlayer.violinSource.clip.length);
     }
@@ -226,8 +239,14 @@ public class PianoAndViolinGameController : MonoBehaviour
         lastPianoViolinIndex = idx;
         sfxPlayer.PlayPianoViolin(pianoViolinClips[idx]);
         currentPlayType = PlayType.PianoViolin;
+        pianoAnimator.ResetTrigger("Idle");
+        pianoAnimator.ResetTrigger("Play");
         pianoAnimator.SetTrigger("Play");
+        violinAnimator.ResetTrigger("Idle");
+        violinAnimator.ResetTrigger("Play");
         violinAnimator.SetTrigger("Play");
+        noteAnimator.ResetTrigger("Idle");
+        noteAnimator.ResetTrigger("Play");
         noteAnimator.SetTrigger("Play");
         Invoke("ResetAnimation", sfxPlayer.pianoViolinSource.clip.length);
     }
@@ -248,8 +267,15 @@ public class PianoAndViolinGameController : MonoBehaviour
     /// </summary>
     void ResetAnimation()
     {
+        // トリガー競合防止
+        pianoAnimator.ResetTrigger("Play");
+        pianoAnimator.ResetTrigger("Idle");
         pianoAnimator.SetTrigger("Idle");
+        violinAnimator.ResetTrigger("Play");
+        violinAnimator.ResetTrigger("Idle");
         violinAnimator.SetTrigger("Idle");
+        noteAnimator.ResetTrigger("Play");
+        noteAnimator.ResetTrigger("Idle");
         noteAnimator.SetTrigger("Idle");
         currentPlayType = PlayType.None;
     }
