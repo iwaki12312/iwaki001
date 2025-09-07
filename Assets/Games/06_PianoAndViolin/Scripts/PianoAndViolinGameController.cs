@@ -56,6 +56,13 @@ public class PianoAndViolinGameController : MonoBehaviour
         pianoCollider = pianoObject.GetComponent<Collider2D>();
         violinCollider = violinObject.GetComponent<Collider2D>();
         noteCollider = noteObject.GetComponent<Collider2D>();
+
+        // BGMが再生されている場合はフェードアウトして停止
+        if (BGMManager.Instance != null && BGMManager.Instance.GetComponent<AudioSource>().isPlaying)
+        {
+            BGMManager.Instance.FadeOutBGM(1.0f); // 1秒かけてフェードアウト
+        }
+        
     }
 
     /// <summary>
