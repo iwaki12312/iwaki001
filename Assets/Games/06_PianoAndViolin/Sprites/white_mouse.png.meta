@@ -1,0 +1,425 @@
+fileFormatVersion: 2
+guid: 359c4a9afc228dc4688d95cfa5b7603e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4676446127045723701
+    second: white_mouse_0
+  - first:
+      213: 9160306397648080195
+    second: white_mouse_1
+  - first:
+      213: 4657594559042115350
+    second: white_mouse_2
+  - first:
+      213: 3378946519246651400
+    second: white_mouse_3
+  - first:
+      213: -7996665640516846568
+    second: white_mouse_4
+  - first:
+      213: -1552454393347784707
+    second: white_mouse_5
+  - first:
+      213: 1702092119511236997
+    second: white_mouse_6
+  - first:
+      213: 3030425917736926494
+    second: white_mouse_7
+  - first:
+      213: 2427067877141590485
+    second: white_mouse_8
+  - first:
+      213: -8137432497897615644
+    second: white_mouse_9
+  - first:
+      213: 4376147008459202578
+    second: white_mouse_10
+  - first:
+      213: -3889034549869539904
+    second: white_mouse_11
+  - first:
+      213: 8007267029493438973
+    second: white_mouse_12
+  - first:
+      213: 8334437545685279339
+    second: white_mouse_13
+  - first:
+      213: -8684149307513236408
+    second: white_mouse_14
+  - first:
+      213: 8903771273271087725
+    second: white_mouse_15
+  - first:
+      213: 5003753977664775005
+    second: white_mouse_16
+  - first:
+      213: -5095700944455972564
+    second: white_mouse_17
+  - first:
+      213: -7555804189657790933
+    second: white_mouse_18
+  - first:
+      213: 3242900143469669048
+    second: white_mouse_19
+  - first:
+      213: 7762773590781021509
+    second: white_mouse_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: white_mouse_3
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 755
+        width: 248
+        height: 223
+      alignment: 9
+      pivot: {x: 0.49506697, y: 0.55486184}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8004db2f4fd64ee20800000000000000
+      internalID: 3378946519246651400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_4
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 758
+        width: 244
+        height: 232
+      alignment: 9
+      pivot: {x: 0.5050141, y: 0.5210937}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81cfb65d7f2260190800000000000000
+      internalID: -7996665640516846568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_5
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 740
+        width: 267
+        height: 237
+      alignment: 9
+      pivot: {x: 0.53207475, y: 0.5361346}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dffb28a54f2947ae0800000000000000
+      internalID: -1552454393347784707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_8
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 454
+        width: 180
+        height: 181
+      alignment: 9
+      pivot: {x: 0.56117094, y: 0.55407375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d139c6006daea120800000000000000
+      internalID: 2427067877141590485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_9
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 472
+        width: 180
+        height: 210
+      alignment: 9
+      pivot: {x: 0.5543747, y: 0.4883484}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eec713d148021f80800000000000000
+      internalID: -8137432497897615644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_11
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 459
+        width: 205
+        height: 193
+      alignment: 9
+      pivot: {x: 0.60145444, y: 0.5633896}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cd0ecf8eaf570ac0800000000000000
+      internalID: -3889034549869539904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_16
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 62
+        width: 206
+        height: 277
+      alignment: 9
+      pivot: {x: 0.48165604, y: 0.4556636}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d53282e4bb7e07540800000000000000
+      internalID: 5003753977664775005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_18
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 76
+        width: 265
+        height: 328
+      alignment: 9
+      pivot: {x: 0.5677331, y: 0.36463097}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b260a033f14642790800000000000000
+      internalID: -7555804189657790933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_19
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 87
+        width: 288
+        height: 332
+      alignment: 9
+      pivot: {x: 0.40487352, y: 0.32927045}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8baa295bf78110d20800000000000000
+      internalID: 3242900143469669048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ae66e2374fd407343b1b54f3ced08166
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      white_mouse_0: 4676446127045723701
+      white_mouse_1: 9160306397648080195
+      white_mouse_10: 4376147008459202578
+      white_mouse_11: -3889034549869539904
+      white_mouse_12: 8007267029493438973
+      white_mouse_13: 8334437545685279339
+      white_mouse_14: -8684149307513236408
+      white_mouse_15: 8903771273271087725
+      white_mouse_16: 5003753977664775005
+      white_mouse_17: -5095700944455972564
+      white_mouse_18: -7555804189657790933
+      white_mouse_19: 3242900143469669048
+      white_mouse_2: 4657594559042115350
+      white_mouse_20: 7762773590781021509
+      white_mouse_3: 3378946519246651400
+      white_mouse_4: -7996665640516846568
+      white_mouse_5: -1552454393347784707
+      white_mouse_6: 1702092119511236997
+      white_mouse_7: 3030425917736926494
+      white_mouse_8: 2427067877141590485
+      white_mouse_9: -8137432497897615644
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

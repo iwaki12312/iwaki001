@@ -1,0 +1,1443 @@
+fileFormatVersion: 2
+guid: a66dcd1129e6d4b42913ea5bdce6693a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -910804242334068889
+    second: white_mouse_org_0
+  - first:
+      213: -737586498092105186
+    second: white_mouse_org_1
+  - first:
+      213: -2022052859002369927
+    second: white_mouse_org_2
+  - first:
+      213: -4487022730724937661
+    second: white_mouse_org_3
+  - first:
+      213: -8993113670272326215
+    second: white_mouse_org_4
+  - first:
+      213: -7102224676908567545
+    second: white_mouse_org_5
+  - first:
+      213: 4939480704838028502
+    second: white_mouse_org_6
+  - first:
+      213: 3450486256816352379
+    second: white_mouse_org_7
+  - first:
+      213: -4190006691000426458
+    second: white_mouse_org_8
+  - first:
+      213: -3804429756796855812
+    second: white_mouse_org_9
+  - first:
+      213: 4491791705850140067
+    second: white_mouse_org_10
+  - first:
+      213: 9144721176333396565
+    second: white_mouse_org_11
+  - first:
+      213: 3850337358063551696
+    second: white_mouse_org_12
+  - first:
+      213: -2246755874742131340
+    second: white_mouse_org_13
+  - first:
+      213: -5018980657084145136
+    second: white_mouse_org_14
+  - first:
+      213: -6379529744559132567
+    second: white_mouse_org_15
+  - first:
+      213: -5103182397283697303
+    second: white_mouse_org_16
+  - first:
+      213: -5557353464062157624
+    second: white_mouse_org_17
+  - first:
+      213: 7461385364174672330
+    second: white_mouse_org_18
+  - first:
+      213: -3838321974723568185
+    second: white_mouse_org_19
+  - first:
+      213: -8835813016368957607
+    second: white_mouse_org_20
+  - first:
+      213: -59836500496001534
+    second: white_mouse_org_21
+  - first:
+      213: -2825683748690619395
+    second: white_mouse_org_22
+  - first:
+      213: -4740873874567762309
+    second: white_mouse_org_23
+  - first:
+      213: 6050355397642320352
+    second: white_mouse_org_24
+  - first:
+      213: 433162556330777454
+    second: white_mouse_org_25
+  - first:
+      213: -206024448983725304
+    second: white_mouse_org_26
+  - first:
+      213: 3573284915301863863
+    second: white_mouse_org_27
+  - first:
+      213: -7306822369663005361
+    second: white_mouse_org_28
+  - first:
+      213: 5933717380402762640
+    second: white_mouse_org_29
+  - first:
+      213: -7994999038462036217
+    second: white_mouse_org_30
+  - first:
+      213: -213771003349917953
+    second: white_mouse_org_31
+  - first:
+      213: -2733073965585668223
+    second: white_mouse_org_32
+  - first:
+      213: 5303296828894492356
+    second: white_mouse_org_33
+  - first:
+      213: 5441020623878953645
+    second: white_mouse_org_34
+  - first:
+      213: -3399641609584257971
+    second: white_mouse_org_35
+  - first:
+      213: 6687121518972351308
+    second: white_mouse_org_36
+  - first:
+      213: 311816384405407649
+    second: white_mouse_org_37
+  - first:
+      213: 7787627448562132623
+    second: white_mouse_org_38
+  - first:
+      213: -4878005040567403110
+    second: white_mouse_org_39
+  - first:
+      213: -6243963623813511397
+    second: white_mouse_org_40
+  - first:
+      213: 6539563476866851745
+    second: white_mouse_org_41
+  - first:
+      213: -5331950961926789998
+    second: white_mouse_org_42
+  - first:
+      213: -2611323968682253937
+    second: white_mouse_org_43
+  - first:
+      213: -2890332803132160809
+    second: white_mouse_org_44
+  - first:
+      213: 1199914467174521211
+    second: white_mouse_org_45
+  - first:
+      213: -2175101860274987581
+    second: white_mouse_org_46
+  - first:
+      213: 7095648123442760531
+    second: white_mouse_org_47
+  - first:
+      213: 1736081396968693496
+    second: white_mouse_org_48
+  - first:
+      213: 2136220010419457349
+    second: white_mouse_org_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: white_mouse_org_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1001
+        width: 77
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76f42c30e5c2c53f0800000000000000
+      internalID: -910804242334068889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_1
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 1149
+        width: 39
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e128816ecf093c5f0800000000000000
+      internalID: -737586498092105186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 1167
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 978c91653a930f3e0800000000000000
+      internalID: -2022052859002369927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_3
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 971
+        width: 255
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34079048994eab1c0800000000000000
+      internalID: -4487022730724937661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_4
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 972
+        width: 169
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b565b2b3ca023380800000000000000
+      internalID: -8993113670272326215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_5
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 976
+        width: 158
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704f9d91944df6d90800000000000000
+      internalID: -7102224676908567545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_6
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 962
+        width: 170
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dc44c2d78f8c8440800000000000000
+      internalID: 4939480704838028502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_7
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 1143
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7ce7e718f692ef20800000000000000
+      internalID: 3450486256816352379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_8
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 1094
+        width: 39
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 620e8683d1b1ad5c0800000000000000
+      internalID: -4190006691000426458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_9
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 974
+        width: 231
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf9923dfa43f33bc0800000000000000
+      internalID: -3804429756796855812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_10
+      rect:
+        serializedVersion: 2
+        x: 1294
+        y: 1068
+        width: 34
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a55e3802cc065e30800000000000000
+      internalID: 4491791705850140067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_11
+      rect:
+        serializedVersion: 2
+        x: 1348
+        y: 1087
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55a2855857398ee70800000000000000
+      internalID: 9144721176333396565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_12
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 1094
+        width: 36
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d44bcc5d652f6530800000000000000
+      internalID: 3850337358063551696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_13
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 1043
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47529fc8f6be1d0e0800000000000000
+      internalID: -2246755874742131340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_14
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 969
+        width: 80
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01261ff1faff85ab0800000000000000
+      internalID: -5018980657084145136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_15
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 1037
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 960b38d5f7b5777a0800000000000000
+      internalID: -6379529744559132567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_16
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 979
+        width: 46
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96df0e1c5aadd29b0800000000000000
+      internalID: -5103182397283697303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_17
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 990
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ccd943f77050e2b0800000000000000
+      internalID: -5557353464062157624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_18
+      rect:
+        serializedVersion: 2
+        x: 1420
+        y: 1004
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac11ee3e47a2c8760800000000000000
+      internalID: 7461385364174672330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 721
+        width: 203
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cd9603108a8bbac0800000000000000
+      internalID: -3838321974723568185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_20
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 722
+        width: 137
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9573e8130e2e06580800000000000000
+      internalID: -8835813016368957607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_21
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 724
+        width: 137
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2065553150b6b2ff0800000000000000
+      internalID: -59836500496001534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_22
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 722
+        width: 137
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df393b70a9729c8d0800000000000000
+      internalID: -2825683748690619395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_23
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 722
+        width: 153
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7e657d4458053eb0800000000000000
+      internalID: -4740873874567762309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_24
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 722
+        width: 137
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e976519d2e27f350800000000000000
+      internalID: 6050355397642320352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_25
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 708
+        width: 138
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6b981ccc07e20600800000000000000
+      internalID: 433162556330777454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_26
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 708
+        width: 138
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b874feadd042df0800000000000000
+      internalID: -206024448983725304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_27
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 494
+        width: 135
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b154d9c2bbd69130800000000000000
+      internalID: 3573284915301863863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_28
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 499
+        width: 143
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4dcb5b94c3f89a90800000000000000
+      internalID: -7306822369663005361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_29
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 499
+        width: 176
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 093d770f48cc85250800000000000000
+      internalID: 5933717380402762640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_30
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 499
+        width: 150
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70771ecdbbe0c0190800000000000000
+      internalID: -7994999038462036217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_31
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 499
+        width: 134
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffe9c02b768880df0800000000000000
+      internalID: -213771003349917953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_32
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 501
+        width: 119
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 187e56075bb221ad0800000000000000
+      internalID: -2733073965585668223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_33
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 501
+        width: 141
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c636b82e58199940800000000000000
+      internalID: 5303296828894492356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_34
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 506
+        width: 145
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa11edfd63628b40800000000000000
+      internalID: 5441020623878953645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_35
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 278
+        width: 137
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d44d719d7fb02d0d0800000000000000
+      internalID: -3399641609584257971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_36
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 288
+        width: 150
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c43b734779d6dcc50800000000000000
+      internalID: 6687121518972351308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_37
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 288
+        width: 123
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a781ab795bc35400800000000000000
+      internalID: 311816384405407649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_38
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 288
+        width: 122
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f86a0a267e5331c60800000000000000
+      internalID: 7787627448562132623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_39
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 288
+        width: 122
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9d3a68a248dd4cb0800000000000000
+      internalID: -4878005040567403110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_40
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 288
+        width: 123
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1782248a2cf859a0800000000000000
+      internalID: -6243963623813511397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_41
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 290
+        width: 119
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a364c8855231ca50800000000000000
+      internalID: 6539563476866851745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_42
+      rect:
+        serializedVersion: 2
+        x: 1274
+        y: 295
+        width: 136
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2942d8a99da1106b0800000000000000
+      internalID: -5331950961926789998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_43
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 238
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f812b359fa6b2cbd0800000000000000
+      internalID: -2611323968682253937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_44
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 10
+        width: 178
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d406a211a973e7d0800000000000000
+      internalID: -2890332803132160809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_45
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 80
+        width: 196
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b791ac8b9d3f6a010800000000000000
+      internalID: 1199914467174521211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_46
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 7
+        width: 204
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cd940cd16c70d1e0800000000000000
+      internalID: -2175101860274987581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_47
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 85
+        width: 131
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35b09f8bf5ec87260800000000000000
+      internalID: 7095648123442760531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_48
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 0
+        width: 157
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fe9b7715dcc71810800000000000000
+      internalID: 1736081396968693496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white_mouse_org_49
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 17
+        width: 189
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54d022308c065ad10800000000000000
+      internalID: 2136220010419457349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      white_mouse_org_0: -910804242334068889
+      white_mouse_org_1: -737586498092105186
+      white_mouse_org_10: 4491791705850140067
+      white_mouse_org_11: 9144721176333396565
+      white_mouse_org_12: 3850337358063551696
+      white_mouse_org_13: -2246755874742131340
+      white_mouse_org_14: -5018980657084145136
+      white_mouse_org_15: -6379529744559132567
+      white_mouse_org_16: -5103182397283697303
+      white_mouse_org_17: -5557353464062157624
+      white_mouse_org_18: 7461385364174672330
+      white_mouse_org_19: -3838321974723568185
+      white_mouse_org_2: -2022052859002369927
+      white_mouse_org_20: -8835813016368957607
+      white_mouse_org_21: -59836500496001534
+      white_mouse_org_22: -2825683748690619395
+      white_mouse_org_23: -4740873874567762309
+      white_mouse_org_24: 6050355397642320352
+      white_mouse_org_25: 433162556330777454
+      white_mouse_org_26: -206024448983725304
+      white_mouse_org_27: 3573284915301863863
+      white_mouse_org_28: -7306822369663005361
+      white_mouse_org_29: 5933717380402762640
+      white_mouse_org_3: -4487022730724937661
+      white_mouse_org_30: -7994999038462036217
+      white_mouse_org_31: -213771003349917953
+      white_mouse_org_32: -2733073965585668223
+      white_mouse_org_33: 5303296828894492356
+      white_mouse_org_34: 5441020623878953645
+      white_mouse_org_35: -3399641609584257971
+      white_mouse_org_36: 6687121518972351308
+      white_mouse_org_37: 311816384405407649
+      white_mouse_org_38: 7787627448562132623
+      white_mouse_org_39: -4878005040567403110
+      white_mouse_org_4: -8993113670272326215
+      white_mouse_org_40: -6243963623813511397
+      white_mouse_org_41: 6539563476866851745
+      white_mouse_org_42: -5331950961926789998
+      white_mouse_org_43: -2611323968682253937
+      white_mouse_org_44: -2890332803132160809
+      white_mouse_org_45: 1199914467174521211
+      white_mouse_org_46: -2175101860274987581
+      white_mouse_org_47: 7095648123442760531
+      white_mouse_org_48: 1736081396968693496
+      white_mouse_org_49: 2136220010419457349
+      white_mouse_org_5: -7102224676908567545
+      white_mouse_org_6: 4939480704838028502
+      white_mouse_org_7: 3450486256816352379
+      white_mouse_org_8: -4190006691000426458
+      white_mouse_org_9: -3804429756796855812
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
