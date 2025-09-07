@@ -1,6 +1,5 @@
 using UnityEngine;
-
-using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// PianoAndViolinゲームのメインコントローラー。
@@ -48,6 +47,14 @@ public class PianoAndViolinGameController : MonoBehaviour
     /// <summary>音符のタップ判定用Collider</summary>
     private Collider2D noteCollider;
 
+    /// <summary>新しい入力システム用のInputAction</summary>
+    private InputAction pointerAction;
+    /// <summary>ポインター位置取得用のInputAction</summary>
+    private InputAction pointerPositionAction;
+
+    /// <summary>シーン読み込み時刻を記録（タップ遅延処理用）</summary>
+    private float sceneLoadTime;
+
     /// <summary>
     /// 初期化。各オブジェクトのCollider取得。
     /// </summary>
@@ -57,12 +64,33 @@ public class PianoAndViolinGameController : MonoBehaviour
         violinCollider = violinObject.GetComponent<Collider2D>();
         noteCollider = noteObject.GetComponent<Collider2D>();
 
+        // 新しい入力システムの初期化
+        pointerAction = new InputAction("pointer", binding: "<Pointer>/press");
+        pointerPositionAction = new InputAction("pointerPosition", binding: "<Pointer>/position");
+
         // BGMが再生されている場合はフェードアウトして停止
         if (BGMManager.Instance != null && BGMManager.Instance.GetComponent<AudioSource>().isPlaying)
         {
             BGMManager.Instance.FadeOutBGM(1.0f); // 1秒かけてフェードアウト
         }
-        
+    }
+
+    void Start()
+    {
+        // シーン読み込み時刻を記録
+        sceneLoadTime = Time.time;
+    }
+
+    void OnEnable()
+    {
+        pointerAction.Enable();
+        pointerPositionAction.Enable();
+    }
+
+    void OnDisable()
+    {
+        pointerAction.Disable();
+        pointerPositionAction.Disable();
     }
 
     /// <summary>
@@ -81,108 +109,73 @@ public class PianoAndViolinGameController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // タッチ入力（スマホ）
-        foreach (var touch in Input.touches)
+        // 新しい入力システムを使用したタップ・クリック判定
+        if (pointerAction.WasPressedThisFrame())
         {
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(touch.position);
-            if (touch.phase == TouchPhase.Began)
+            Vector2 screenPos = pointerPositionAction.ReadValue<Vector2>();
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+            
+            HandleInput(worldPos);
+        }
+    }
+
+    /// <summary>
+    /// 入力処理を統一的に処理するメソッド
+    /// </summary>
+    /// <param name="worldPos">ワールド座標での入力位置</param>
+    private void HandleInput(Vector2 worldPos)
+    {
+        // シーン読み込み直後の0.5秒間はタップを無視
+        if (Time.time - sceneLoadTime < 0.5f)
+        {
+            Debug.Log("PianoAndViolin: シーン読み込み直後のタップを無視しました");
+            return;
+        }
+
+        // ピアノオブジェクトの連続タップ判定
+        if (pianoCollider.OverlapPoint(worldPos))
+        {
+            // 直前もピアノかつ再生中なら停止
+            if (currentPlayType == PlayType.Piano && lastTapType == PlayType.Piano)
             {
-                // ピアノオブジェクトの連続タップ判定
-                if (pianoCollider.OverlapPoint(worldPos))
-                {
-                    // 直前もピアノかつ再生中なら停止
-                    if (currentPlayType == PlayType.Piano && lastTapType == PlayType.Piano)
-                    {
-                        sfxPlayer.StopAll(); // 音楽停止
-                        ResetAnimation();    // アニメーション初期化
-                        currentPlayType = PlayType.None;
-                    }
-                    else
-                    {
-                        PlayPiano();         // 新しい音楽再生
-                        lastTapType = PlayType.Piano;
-                    }
-                }
-                // バイオリンオブジェクトの連続タップ判定
-                else if (violinCollider.OverlapPoint(worldPos))
-                {
-                    if (currentPlayType == PlayType.Violin && lastTapType == PlayType.Violin)
-                    {
-                        sfxPlayer.StopAll();
-                        ResetAnimation();
-                        currentPlayType = PlayType.None;
-                    }
-                    else
-                    {
-                        PlayViolin();
-                        lastTapType = PlayType.Violin;
-                    }
-                }
-                // 音符オブジェクトの連続タップ判定
-                else if (noteCollider.OverlapPoint(worldPos))
-                {
-                    if (currentPlayType == PlayType.PianoViolin && lastTapType == PlayType.PianoViolin)
-                    {
-                        sfxPlayer.StopAll();
-                        ResetAnimation();
-                        currentPlayType = PlayType.None;
-                    }
-                    else
-                    {
-                        PlayPianoViolin();
-                        lastTapType = PlayType.PianoViolin;
-                    }
-                }
+                sfxPlayer.StopAll(); // 音楽停止
+                ResetAnimation();    // アニメーション初期化
+                currentPlayType = PlayType.None;
+            }
+            else
+            {
+                PlayPiano();         // 新しい音楽再生
+                lastTapType = PlayType.Piano;
             }
         }
-        // マウスクリック（PC）
-        if (Input.GetMouseButtonDown(0))
+        // バイオリンオブジェクトの連続タップ判定
+        else if (violinCollider.OverlapPoint(worldPos))
         {
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // ピアノオブジェクトの連続クリック判定
-            if (pianoCollider.OverlapPoint(worldPos))
+            if (currentPlayType == PlayType.Violin && lastTapType == PlayType.Violin)
             {
-                if (currentPlayType == PlayType.Piano && lastTapType == PlayType.Piano)
-                {
-                    sfxPlayer.StopAll();
-                    ResetAnimation();
-                    currentPlayType = PlayType.None;
-                }
-                else
-                {
-                    PlayPiano();
-                    lastTapType = PlayType.Piano;
-                }
+                sfxPlayer.StopAll();
+                ResetAnimation();
+                currentPlayType = PlayType.None;
             }
-            // バイオリンオブジェクトの連続クリック判定
-            else if (violinCollider.OverlapPoint(worldPos))
+            else
             {
-                if (currentPlayType == PlayType.Violin && lastTapType == PlayType.Violin)
-                {
-                    sfxPlayer.StopAll();
-                    ResetAnimation();
-                    currentPlayType = PlayType.None;
-                }
-                else
-                {
-                    PlayViolin();
-                    lastTapType = PlayType.Violin;
-                }
+                PlayViolin();
+                lastTapType = PlayType.Violin;
             }
-            // 音符オブジェクトの連続クリック判定
-            else if (noteCollider.OverlapPoint(worldPos))
+        }
+        // 音符オブジェクトの連続タップ判定
+        else if (noteCollider.OverlapPoint(worldPos))
+        {
+            if (currentPlayType == PlayType.PianoViolin && lastTapType == PlayType.PianoViolin)
             {
-                if (currentPlayType == PlayType.PianoViolin && lastTapType == PlayType.PianoViolin)
-                {
-                    sfxPlayer.StopAll();
-                    ResetAnimation();
-                    currentPlayType = PlayType.None;
-                }
-                else
-                {
-                    PlayPianoViolin();
-                    lastTapType = PlayType.PianoViolin;
-                }
+                sfxPlayer.StopAll();
+                ResetAnimation();
+                currentPlayType = PlayType.None;
+            }
+            else
+            {
+                PlayPianoViolin();
+                lastTapType = PlayType.PianoViolin;
             }
         }
     }
