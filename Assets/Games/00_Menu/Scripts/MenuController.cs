@@ -6,10 +6,19 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MenuController : MonoBehaviour
 {
+    [Header("ページネーション")]
+    [SerializeField] private MenuPaginationController paginationController;
+    
     void OnEnable()
     {
         // デバッグログ
         Debug.Log("MenuControllerが開始されました");
+
+        // ページネーションコントローラーを自動検索
+        if (paginationController == null)
+        {
+            paginationController = FindObjectOfType<MenuPaginationController>();
+        }
 
         // 各オブジェクトを検索してGameButtonコンポーネントを追加し、初期化する
         // GameInfoクラスのallGamesリストを使用して動的に処理
@@ -38,9 +47,19 @@ public class MenuController : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"{game.sceneName}オブジェクトが見つかりません");
+                Debug.LogWarning($"{game.sceneName}オブジェクトが見つかりません（ページネーション対応のため警告レベルに変更）");
             }
         }
+        
+        Debug.Log($"MenuController初期化完了: {GameInfo.allGames.Count}個のゲーム登録");
+    }
+    
+    /// <summary>
+    /// ページネーションコントローラーの参照を取得
+    /// </summary>
+    public MenuPaginationController GetPaginationController()
+    {
+        return paginationController;
     }
 }
 

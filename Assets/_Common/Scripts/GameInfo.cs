@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameInfo : MonoBehaviour
 {
 
+    // ページネーション設定
+    public static int gamesPerPage = 6;  // 1ページあたりのゲーム数
+    public static int currentPage = 0;   // 現在のページ（0から開始）
+    
     // すべてのゲーム情報を格納するリスト
     // ゲームを追加する場合はここに追加して一元管理する
     public static List<GameData> allGames = new List<GameData>
@@ -15,8 +19,27 @@ public class GameInfo : MonoBehaviour
         new GameData("FlowerBlooming", 3, 1),   // 03_FlowerBlooming
         new GameData("Cook", 4, 1),              // 04_Cook
         new GameData("TouchTheStar", 5, 1),      // 05_TouchTheStar
-        new GameData("PianoAndViolin", 6, 1)    // 06_PianoAndViolin
+        new GameData("PianoAndViolin", 6, 1),    // 06_PianoAndViolin
+        new GameData("NewGame", 7, 1)            // 07_NewGame (7つ目のゲーム)
     };
+    
+    // 総ページ数を取得
+    public static int GetTotalPages()
+    {
+        return Mathf.CeilToInt((float)allGames.Count / gamesPerPage);
+    }
+    
+    // 指定ページのゲームリストを取得
+    public static List<GameData> GetGamesForPage(int page)
+    {
+        int startIndex = page * gamesPerPage;
+        int count = Mathf.Min(gamesPerPage, allGames.Count - startIndex);
+        
+        if (startIndex >= allGames.Count || count <= 0)
+            return new List<GameData>();
+            
+        return allGames.GetRange(startIndex, count);
+    }
 
     // 各ゲームの情報を格納するクラス
     public class GameData
