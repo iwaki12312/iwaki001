@@ -172,7 +172,7 @@ public class BGMManager : MonoBehaviour
     /// <summary>
     /// BGMをフェードイン
     /// </summary>
-    public void FadeInBGM(float duration = 1.0f)
+    public void FadeInBGM(float duration)
     {
         if (bgmAudioSource != null && bgmSound != null)
         {
@@ -183,7 +183,7 @@ public class BGMManager : MonoBehaviour
     /// <summary>
     /// BGMをフェードアウト
     /// </summary>
-    public void FadeOutBGM(float duration = 1.0f)
+    public void FadeOutBGM(float duration)
     {
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {

@@ -1,10 +1,70 @@
 fileFormatVersion: 2
-guid: 4e5ce444ff99d7049a7a8a874533e9d1
+guid: 0abdb222494b6eb4daae9db936af19f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -242939261221526619
-    second: violin_0
+      213: -4932698034093735789
+    second: 06_PianoAndViolin_0
+  - first:
+      213: 2511361152288885567
+    second: 06_PianoAndViolin_1
+  - first:
+      213: -6051608993169876847
+    second: 06_PianoAndViolin_2
+  - first:
+      213: -5645389147975819983
+    second: 06_PianoAndViolin_3
+  - first:
+      213: 4888247448486007153
+    second: 06_PianoAndViolin_4
+  - first:
+      213: -7650524038748339881
+    second: 06_PianoAndViolin_5
+  - first:
+      213: 1516801918540572942
+    second: 06_PianoAndViolin_6
+  - first:
+      213: -1202804865451357334
+    second: 06_PianoAndViolin_7
+  - first:
+      213: 4958357204207180300
+    second: 06_PianoAndViolin_8
+  - first:
+      213: 3306661429609140465
+    second: 06_PianoAndViolin_9
+  - first:
+      213: -775835262232962038
+    second: 06_PianoAndViolin_10
+  - first:
+      213: 8653372105730272055
+    second: 06_PianoAndViolin_11
+  - first:
+      213: -4222321751645724067
+    second: 06_PianoAndViolin_12
+  - first:
+      213: 4592606368996704142
+    second: 06_PianoAndViolin_13
+  - first:
+      213: 2653165232659480375
+    second: 06_PianoAndViolin_14
+  - first:
+      213: -6445275414273909531
+    second: 06_PianoAndViolin_15
+  - first:
+      213: -8603828204878479072
+    second: 06_PianoAndViolin_16
+  - first:
+      213: -5689076676082922729
+    second: 06_PianoAndViolin_17
+  - first:
+      213: 8650377726908277262
+    second: 06_PianoAndViolin_18
+  - first:
+      213: 2868194109651265361
+    second: 06_PianoAndViolin_19
+  - first:
+      213: -8052648858171360851
+    second: 06_PianoAndViolin_20
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,67 +186,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: violin_0
+      name: 06_PianoAndViolin_0
       rect:
         serializedVersion: 2
-        x: 45
-        y: 129
-        width: 73
-        height: 81
+        x: 43
+        y: 442
+        width: 196
+        height: 196
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5a325e07708e0acf0800000000000000
-      internalID: -242939261221526619
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: violin_1
-      rect:
-        serializedVersion: 2
-        x: 159
-        y: 108
-        width: 43
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 724835217a79f03429e54a41e392af0c
-      internalID: -658164328
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: violin_2
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 72
-        width: 67
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66c529967d56cbb40bde9982eea09918
-      internalID: -656095745
+      spriteID: 3904395c5498b8bb0800000000000000
+      internalID: -4932698034093735789
       vertices: []
       indices: 
       edges: []
@@ -195,7 +211,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5fc21ab83c8a75d41bb2fdff3b00e70a
+    spriteID: 468555cc014ef2c4a8bdcd54b49acf74
     internalID: 0
     vertices: []
     indices: 
@@ -205,9 +221,27 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      violin_0: -242939261221526619
-      violin_1: -658164328
-      violin_2: -656095745
+      06_PianoAndViolin_0: -4932698034093735789
+      06_PianoAndViolin_1: 2511361152288885567
+      06_PianoAndViolin_10: -775835262232962038
+      06_PianoAndViolin_11: 8653372105730272055
+      06_PianoAndViolin_12: -4222321751645724067
+      06_PianoAndViolin_13: 4592606368996704142
+      06_PianoAndViolin_14: 2653165232659480375
+      06_PianoAndViolin_15: -6445275414273909531
+      06_PianoAndViolin_16: -8603828204878479072
+      06_PianoAndViolin_17: -5689076676082922729
+      06_PianoAndViolin_18: 8650377726908277262
+      06_PianoAndViolin_19: 2868194109651265361
+      06_PianoAndViolin_2: -6051608993169876847
+      06_PianoAndViolin_20: -8052648858171360851
+      06_PianoAndViolin_3: -5645389147975819983
+      06_PianoAndViolin_4: 4888247448486007153
+      06_PianoAndViolin_5: -7650524038748339881
+      06_PianoAndViolin_6: 1516801918540572942
+      06_PianoAndViolin_7: -1202804865451357334
+      06_PianoAndViolin_8: 4958357204207180300
+      06_PianoAndViolin_9: 3306661429609140465
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

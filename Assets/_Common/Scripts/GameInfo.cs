@@ -14,7 +14,8 @@ public class GameInfo : MonoBehaviour
         new GameData("WhackAMole", 2, 1),         // 02_WhackAMole
         new GameData("FlowerBlooming", 3, 1),   // 03_FlowerBlooming
         new GameData("Cook", 4, 1),              // 04_Cook
-        new GameData("TouchTheStar", 5, 1)      // 05_TouchTheStar
+        new GameData("TouchTheStar", 5, 1),      // 05_TouchTheStar
+        new GameData("PianoAndViolin", 6, 1)    // 06_PianoAndViolin
     };
 
     // 各ゲームの情報を格納するクラス

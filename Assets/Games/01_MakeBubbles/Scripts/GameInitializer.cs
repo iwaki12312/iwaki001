@@ -24,14 +24,14 @@ public class GameInitializer : MonoBehaviour
             Debug.Log("BubbleMakerManagerは既に存在します");
         }
         
-        // BGMManagerが存在しない場合は作成
-        if (FindObjectOfType<BGMManager>() == null)
-        {
-            Debug.Log("BGMManagerが見つからないため、新しく作成します");
-            GameObject bgmManagerObj = new GameObject("BGMManager");
-            bgmManagerObj.AddComponent<BGMManager>();
-            DontDestroyOnLoad(bgmManagerObj);
-        }
+        // // BGMManagerが存在しない場合は作成
+        // if (FindObjectOfType<BGMManager>() == null)
+        // {
+        //     Debug.Log("BGMManagerが見つからないため、新しく作成します");
+        //     GameObject bgmManagerObj = new GameObject("BGMManager");
+        //     bgmManagerObj.AddComponent<BGMManager>();
+        //     DontDestroyOnLoad(bgmManagerObj);
+        // }
         
         // BubbleSoundManagerが存在しない場合は作成
         if (FindObjectOfType<BubbleSoundManager>() == null)
@@ -54,12 +54,12 @@ public class GameInitializer : MonoBehaviour
     
     void Start()
     {
-        // BGMを再生
-        if (BGMManager.Instance != null)
-        {
-            BGMManager.Instance.PlayBGM();
-            Debug.Log("バブルゲーム開始時にBGMを初期化しました");
-        }
+        // // BGMを再生
+        // if (BGMManager.Instance != null)
+        // {
+        //     BGMManager.Instance.PlayBGM();
+        //     Debug.Log("バブルゲーム開始時にBGMを初期化しました");
+        // }
         
         // バブルプレハブが設定されていない場合は、プレハブフォルダから読み込み
         if (bubblePrefab == null)
