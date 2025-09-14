@@ -4,6 +4,9 @@ using UnityEngine.UI;
 /// <summary>
 /// メニューページネーション用のUI要素を自動生成するヘルパークラス
 /// </summary>
+/// 
+/// 使ってないけど一応残しておく
+/// メニューのオブジェクト（空でいい）にアタッチしてインスペクタで右クリック　setup pagination で使う
 public class MenuPaginationUISetup : MonoBehaviour
 {
     [Header("UI生成設定")]
