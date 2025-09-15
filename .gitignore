@@ -7,6 +7,8 @@
 [Ll]ogs/
 UserSettings/
 .utmp/
+aab/
+
 
 # Unityのビルド成果物（APKなど）
 *.apk

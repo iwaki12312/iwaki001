@@ -25,7 +25,7 @@ public class MenuController : MonoBehaviour
         foreach (var game in GameInfo.allGames)
         {
             // ゲームオブジェクトを検索（オブジェクト名は00_【シーン名】）※00の部分はゲーム番号を2桁でゼロ埋め
-            GameObject gameObj = GameObject.Find($"{game.gameID:D2}_{game.sceneName}");
+            GameObject gameObj = GameObject.Find($"{game.displayOrder:D2}_{game.sceneName}");
             if (gameObj != null)
             {
                 // BoxCollider2Dがなければ追加

@@ -14,13 +14,13 @@ public class GameInfo : MonoBehaviour
     // ゲームを追加する場合はここに追加して一元管理する
     public static List<GameData> allGames = new List<GameData>
     {
-        new GameData("MakeBubbles", 1, 1),       // 01_MakeBubbles
-        new GameData("WhackAMole", 2, 1),         // 02_WhackAMole
-        new GameData("FlowerBlooming", 3, 1),   // 03_FlowerBlooming
-        new GameData("Cook", 4, 1),              // 04_Cook
-        new GameData("TouchTheStar", 5, 1),      // 05_TouchTheStar
-        new GameData("PianoAndViolin", 6, 1),    // 06_PianoAndViolin
-        new GameData("NewGame", 7, 1)            // 07_NewGame (7つ目のゲーム)
+        new GameData("MakeBubbles", 1, "pack_free"),       // 01_MakeBubbles
+        new GameData("WhackAMole", 2, "pack_free"),         // 02_WhackAMole
+        new GameData("FlowerBlooming", 3, "pack_free"),   // 03_FlowerBlooming
+        new GameData("Cook", 4, "pack_free"),              // 04_Cook
+        new GameData("TouchTheStar", 5, "pack_free"),      // 05_TouchTheStar
+        new GameData("PianoAndViolin", 6, "pack_free"),    // 06_PianoAndViolin
+        new GameData("NewGame", 7, "pack_01")            // 07_NewGame (7つ目のゲーム)
     };
     
     // 総ページ数を取得
@@ -44,18 +44,18 @@ public class GameInfo : MonoBehaviour
     // 各ゲームの情報を格納するクラス
     public class GameData
     {
-        // シーン名
+        // シーン名（ゲームID的な意味でも使ってる）
         public string sceneName;
-        // ゲーム番号
-        public int gameID;
-        // パック番号
-        public int packID;
+        // 表示順（ゲーム番号的な意味でも使ってる）
+        public int displayOrder;
+        // パックID
+        public string packID;
 
         // コンストラクタ
-        public GameData(string sceneName, int gameID, int packID)
+        public GameData(string sceneName, int displayOrder, string packID)
         {
             this.sceneName = sceneName;
-            this.gameID = gameID;
+            this.displayOrder = displayOrder;
             this.packID = packID;
         }
     }

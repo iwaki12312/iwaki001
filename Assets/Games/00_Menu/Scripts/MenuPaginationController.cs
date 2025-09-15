@@ -35,6 +35,10 @@ public class MenuPaginationController : MonoBehaviour
         InitializePagination();
         SetupButtons();
         CreatePageIndicators();
+        
+        // UI要素を画面サイズに合わせて調整
+        AdjustUIForScreenSize();
+        
         ShowCurrentPage();
     }
     
@@ -64,7 +68,7 @@ public class MenuPaginationController : MonoBehaviour
         originalPositions.Clear();
         foreach (var game in GameInfo.allGames)
         {
-            string objectName = $"{game.gameID:D2}_{game.sceneName}";
+            string objectName = $"{game.displayOrder:D2}_{game.sceneName}";
             Transform gameTransform = gameContainer.Find(objectName);
             
             if (gameTransform != null)
@@ -276,7 +280,7 @@ public class MenuPaginationController : MonoBehaviour
         
         foreach (var game in currentGames)
         {
-            string objectName = $"{game.gameID:D2}_{game.sceneName}";
+            string objectName = $"{game.displayOrder:D2}_{game.sceneName}";
             Transform gameTransform = gameContainer.Find(objectName);
             
             if (gameTransform != null)
@@ -318,7 +322,7 @@ public class MenuPaginationController : MonoBehaviour
         int displayedCount = 0;
         foreach (var game in currentGames)
         {
-            string objectName = $"{game.gameID:D2}_{game.sceneName}";
+            string objectName = $"{game.displayOrder:D2}_{game.sceneName}";
             Transform gameTransform = gameContainer.Find(objectName);
             
             if (gameTransform != null)
@@ -474,5 +478,85 @@ public class MenuPaginationController : MonoBehaviour
                 }
             }
         }
+    }
+    
+    /// <summary>
+    /// UI要素を画面サイズに合わせて相対配置に調整
+    /// </summary>
+    private void AdjustUIForScreenSize()
+    {
+        Debug.Log("AdjustUIForScreenSize開始");
+        
+        // Safe Areaを考慮した配置計算
+        Rect safeArea = Screen.safeArea;
+        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        
+        // Safe Area内での配置計算
+        float leftSafeMargin = safeArea.xMin / screenSize.x;
+        float rightSafeMargin = (screenSize.x - safeArea.xMax) / screenSize.x;
+        float bottomSafeMargin = safeArea.yMin / screenSize.y;
+        
+        Debug.Log($"Screen: {screenSize}, SafeArea: {safeArea}");
+        Debug.Log($"SafeMargins - Left: {leftSafeMargin:F3}, Right: {rightSafeMargin:F3}, Bottom: {bottomSafeMargin:F3}");
+        
+        // 左矢印ボタンの相対配置
+        if (leftArrowButton != null)
+        {
+            RectTransform leftRect = leftArrowButton.GetComponent<RectTransform>();
+            if (leftRect != null)
+            {
+                // Safe Area + 8%マージンで左端から配置
+                float leftPosition = leftSafeMargin + 0.08f;
+                leftRect.anchorMin = new Vector2(leftPosition, 0.5f);
+                leftRect.anchorMax = new Vector2(leftPosition, 0.5f);
+                leftRect.anchoredPosition = Vector2.zero;
+
+                // 画面サイズに応じたボタンサイズ
+                // ここでボタンサイズを調整している　インスペクタから調整可能にしたい
+                float buttonSize = Mathf.Min(Screen.width, Screen.height) * 0.24f;
+                leftRect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                
+                Debug.Log($"左矢印ボタン調整: position={leftPosition:F3}, size={buttonSize:F1}");
+            }
+        }
+        
+        // 右矢印ボタンの相対配置
+        if (rightArrowButton != null)
+        {
+            RectTransform rightRect = rightArrowButton.GetComponent<RectTransform>();
+            if (rightRect != null)
+            {
+                // Safe Area + 8%マージンで右端から配置
+                float rightPosition = 1.0f - rightSafeMargin - 0.08f;
+                rightRect.anchorMin = new Vector2(rightPosition, 0.5f);
+                rightRect.anchorMax = new Vector2(rightPosition, 0.5f);
+                rightRect.anchoredPosition = Vector2.zero;
+
+                // 画面サイズに応じたボタンサイズ
+                // ここでボタンサイズを調整している　インスペクタから調整可能にしたい
+                float buttonSize = Mathf.Min(Screen.width, Screen.height) * 0.24f;
+                rightRect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                
+                Debug.Log($"右矢印ボタン調整: position={rightPosition:F3}, size={buttonSize:F1}");
+            }
+        }
+        
+        // ページインジケーターの相対配置
+        if (pageIndicatorContainer != null)
+        {
+            RectTransform indicatorRect = pageIndicatorContainer.GetComponent<RectTransform>();
+            if (indicatorRect != null)
+            {
+                // Safe Area + 5%マージンで下部中央に配置
+                float bottomPosition = bottomSafeMargin + 0.05f;
+                indicatorRect.anchorMin = new Vector2(0.5f, bottomPosition);
+                indicatorRect.anchorMax = new Vector2(0.5f, bottomPosition);
+                indicatorRect.anchoredPosition = Vector2.zero;
+                
+                Debug.Log($"インジケーター調整: bottomPosition={bottomPosition:F3}");
+            }
+        }
+        
+        Debug.Log("AdjustUIForScreenSize完了");
     }
 }
