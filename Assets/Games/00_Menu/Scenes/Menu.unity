@@ -1004,6 +1004,11 @@ MonoBehaviour:
   buttonScaleDuration: 0.1
   activeIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
   inactiveIndicatorColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  indicatorSize: {x: 20, y: 20}
+  indicatorSpacing: 30
+  activeIndicatorScale: 1.2
+  useScreenSizeBasedIndicator: 1
+  indicatorSizeScreenRatio: 0.08
 --- !u!4 &698513337
 Transform:
   m_ObjectHideFlags: 0

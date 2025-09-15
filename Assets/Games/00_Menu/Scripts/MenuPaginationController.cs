@@ -25,6 +25,13 @@ public class MenuPaginationController : MonoBehaviour
     [SerializeField] private Color activeIndicatorColor = Color.white;
     [SerializeField] private Color inactiveIndicatorColor = Color.gray;
     
+    [Header("インジケーター設定")]
+    [SerializeField] private Vector2 indicatorSize = new Vector2(20f, 20f);           // 基本サイズ
+    [SerializeField] private float indicatorSpacing = 30f;                           // 間隔
+    [SerializeField] private float activeIndicatorScale = 1.2f;                      // アクティブ時のスケール
+    [SerializeField] private bool useScreenSizeBasedIndicator = true;                // 画面サイズ基準
+    [SerializeField] private float indicatorSizeScreenRatio = 0.02f;                 // 画面サイズ比率（画面高さに対する割合）
+    
     private List<GameObject> allGameObjects = new List<GameObject>();
     private List<Image> pageIndicators = new List<Image>();
     private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
@@ -133,7 +140,7 @@ public class MenuPaginationController : MonoBehaviour
     }
     
     /// <summary>
-    /// ページインジケーターの作成
+    /// ページインジケーターの作成（サイズ調整対応）
     /// </summary>
     private void CreatePageIndicators()
     {
@@ -146,16 +153,44 @@ public class MenuPaginationController : MonoBehaviour
         }
         pageIndicators.Clear();
         
+        // インジケーターサイズの計算
+        Vector2 finalIndicatorSize = useScreenSizeBasedIndicator 
+            ? new Vector2(Screen.height * indicatorSizeScreenRatio, Screen.height * indicatorSizeScreenRatio)
+            : indicatorSize;
+        
+        Debug.Log($"インジケーターサイズ設定: useScreenBased={useScreenSizeBasedIndicator}, finalSize={finalIndicatorSize}");
+        
         // 新しいインジケーターを作成
         int totalPages = GameInfo.GetTotalPages();
         for (int i = 0; i < totalPages; i++)
         {
             GameObject indicator = Instantiate(pageIndicatorPrefab, pageIndicatorContainer);
+            
+            // サイズを設定
+            RectTransform indicatorRect = indicator.GetComponent<RectTransform>();
+            if (indicatorRect != null)
+            {
+                indicatorRect.sizeDelta = finalIndicatorSize;
+                Debug.Log($"インジケーター{i}のサイズ設定: {finalIndicatorSize}");
+            }
+            
             Image indicatorImage = indicator.GetComponent<Image>();
             if (indicatorImage != null)
             {
                 pageIndicators.Add(indicatorImage);
             }
+        }
+        
+        // 間隔の設定
+        HorizontalLayoutGroup layoutGroup = pageIndicatorContainer.GetComponent<HorizontalLayoutGroup>();
+        if (layoutGroup != null)
+        {
+            layoutGroup.spacing = indicatorSpacing;
+            Debug.Log($"インジケーター間隔設定: {indicatorSpacing}");
+        }
+        else
+        {
+            Debug.LogWarning("HorizontalLayoutGroupが見つかりません。インジケーターの間隔調整ができません。");
         }
         
         UpdatePageIndicators();
@@ -408,7 +443,7 @@ public class MenuPaginationController : MonoBehaviour
     }
     
     /// <summary>
-    /// ページインジケーターの更新
+    /// ページインジケーターの更新（インスペクター設定対応）
     /// </summary>
     private void UpdatePageIndicators()
     {
@@ -416,11 +451,14 @@ public class MenuPaginationController : MonoBehaviour
         {
             if (pageIndicators[i] != null)
             {
+                // 色の設定
                 pageIndicators[i].color = (i == GameInfo.currentPage) ? activeIndicatorColor : inactiveIndicatorColor;
                 
-                // アクティブなインジケーターを少し大きくする
-                float scale = (i == GameInfo.currentPage) ? 1.2f : 1f;
+                // アクティブなインジケーターのスケール設定（インスペクターから調整可能）
+                float scale = (i == GameInfo.currentPage) ? activeIndicatorScale : 1f;
                 pageIndicators[i].transform.DOScale(scale, 0.2f).SetEase(Ease.OutQuad);
+                
+                Debug.Log($"インジケーター{i}更新: active={i == GameInfo.currentPage}, scale={scale}, color={pageIndicators[i].color}");
             }
         }
     }
