@@ -154,8 +154,8 @@ namespace WakuWaku.IAP
         private void OnCancelClicked()
         {
             Debug.Log("[ParentalGate] キャンセルされました");
-            HideGate();
             onCancel?.Invoke();
+            HideGate();
         }
         
         /// <summary>
@@ -190,8 +190,8 @@ namespace WakuWaku.IAP
                 if (userAnswer == correctAnswer)
                 {
                     Debug.Log("[ParentalGate] 正解！親ゲート通過");
+                    onSuccess.Invoke();
                     HideGate();
-                    onSuccess?.Invoke();
                 }
                 else
                 {
