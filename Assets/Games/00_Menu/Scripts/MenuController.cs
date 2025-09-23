@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WakuWaku.IAP;
 
 /// <summary>
 /// メニュー画面の制御を行うクラス
@@ -171,11 +172,52 @@ public class GameButton : MonoBehaviour
 
         Debug.Log($"ゲームをロード: {sceneName}");
 
+        // アクセス制御チェック
+        if (!FeatureGate.CanStartGameBySceneName(sceneName))
+        {
+            Debug.Log($"[GameButton] ゲームがロックされています: {sceneName}");
+            ShowPaywall();
+            return;
+        }
 
         // UpdateGameHistoryを呼び出して履歴を更新
         ChangeGameManager.UpdateGameHistory(sceneName);
 
         // シーン遷移
         SceneManager.LoadScene(sceneName);
+    }
+    
+    /// <summary>
+    /// Paywallを表示
+    /// </summary>
+    private void ShowPaywall()
+    {
+        // GameInfo.allGamesからシーン名に対応するゲームを検索
+        var gameData = GameInfo.allGames.Find(g => g.sceneName == sceneName);
+        if (gameData == null)
+        {
+            Debug.LogError($"[GameButton] ゲーム情報が見つかりません: {sceneName}");
+            return;
+        }
+        
+        if (Paywall.Instance != null)
+        {
+            Paywall.Instance.ShowPaywall(
+                gameData.packID,
+                onSuccess: () => {
+                    Debug.Log($"[GameButton] 購入成功後にゲーム開始: {sceneName}");
+                    // 購入成功後にゲームを開始
+                    ChangeGameManager.UpdateGameHistory(sceneName);
+                    SceneManager.LoadScene(sceneName);
+                },
+                onClose: () => {
+                    Debug.Log($"[GameButton] Paywall閉じられました: {sceneName}");
+                }
+            );
+        }
+        else
+        {
+            Debug.LogError("[GameButton] Paywallが見つかりません");
+        }
     }
 }
