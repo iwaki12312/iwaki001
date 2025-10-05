@@ -295,8 +295,8 @@ namespace WakuWaku.IAP
         private void OnCloseClicked()
         {
             Debug.Log("[Paywall] 閉じるボタンクリック");
-            HidePaywall();
             onClose?.Invoke();
+            HidePaywall();
         }
         
         /// <summary>
@@ -321,8 +321,8 @@ namespace WakuWaku.IAP
         /// </summary>
         private void OnPurchaseSuccessDelayed()
         {
-            HidePaywall();
             onPurchaseSuccess?.Invoke();
+            HidePaywall();
         }
         
         /// <summary>

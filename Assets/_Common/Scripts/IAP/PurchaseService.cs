@@ -221,7 +221,14 @@ namespace WakuWaku.IAP
             {
                 Debug.Log($"[PurchaseService] 購入成功: {productInfo.packId}");
                 EntitlementStore.Instance.GrantPack(productInfo.packId);
-                OnPurchaseSuccess?.Invoke(productInfo.packId);
+
+                // OnPurchaseSuccessがnullだった場合はデバックログを出す
+                if (OnPurchaseSuccess == null)
+                {
+                    Debug.LogError("[PurchaseService] OnPurchaseSuccessにリスナーが登録されていません");
+                }
+
+                OnPurchaseSuccess.Invoke(productInfo.packId);
             }
             else
             {
