@@ -206,9 +206,9 @@ public class GameButton : MonoBehaviour
                 gameData.packID,
                 onSuccess: () => {
                     Debug.Log($"[GameButton] 購入成功後にゲーム開始: {sceneName}");
-                    // 購入成功後にゲームを開始
-                    ChangeGameManager.UpdateGameHistory(sceneName);
-                    SceneManager.LoadScene(sceneName);
+                    // // 購入成功後にゲームを開始
+                    // ChangeGameManager.UpdateGameHistory(sceneName);
+                    // SceneManager.LoadScene(sceneName);
                 },
                 onClose: () => {
                     Debug.Log($"[GameButton] Paywall閉じられました: {sceneName}");

@@ -251,7 +251,7 @@ namespace WakuWaku.IAP
                 if (productInfo != null)
                 {
                     EntitlementStore.Instance.GrantPack(productInfo.packId);
-                    OnPurchaseSuccess?.Invoke(productInfo.packId);
+                    OnPurchaseSuccess.Invoke(productInfo.packId);
                 }
             }
             else

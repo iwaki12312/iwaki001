@@ -28,6 +28,7 @@ namespace WakuWaku.IAP
         private string currentPackId;
         private Action onPurchaseSuccess;
         private Action onClose;
+        private bool isShowingSuccessResult = false;
         
         public static Paywall Instance { get; private set; }
         
@@ -108,8 +109,10 @@ namespace WakuWaku.IAP
             currentPackId = packId;
             this.onPurchaseSuccess = onSuccess;
             this.onClose = onClose;
+            isShowingSuccessResult = false;
             
             UpdateUI();
+            ShowPurchaseUI();
             
             if (paywallPanel != null)
             {
@@ -135,6 +138,7 @@ namespace WakuWaku.IAP
             currentPackId = null;
             onPurchaseSuccess = null;
             onClose = null;
+            isShowingSuccessResult = false;
             
             Debug.Log("[Paywall] Paywall非表示");
         }
@@ -296,6 +300,19 @@ namespace WakuWaku.IAP
         {
             Debug.Log("[Paywall] 閉じるボタンクリック");
             onClose?.Invoke();
+            
+            // if (isShowingSuccessResult)
+            // {
+            //     // 購入成功結果表示中の場合はメニューに戻る
+            //     Debug.Log("[Paywall] 購入成功後のメニューへ戻る");
+            //     onClose?.Invoke();
+            // }
+            // else
+            // {
+            //     // 通常の閉じる処理
+            //     onClose?.Invoke();
+            // }
+            
             HidePaywall();
         }
         
@@ -307,22 +324,99 @@ namespace WakuWaku.IAP
             if (packId == currentPackId)
             {
                 SetLoading(false);
-                ShowStatus("購入が完了しました！", false);
                 
                 Debug.Log($"[Paywall] 購入成功: {packId}");
                 
-                // 少し待ってからPaywallを閉じる
-                Invoke(nameof(OnPurchaseSuccessDelayed), 1.5f);
+                // 購入成功結果画面を表示
+                ShowSuccessResult();
+                
+                // コールバックを実行（ゲームのロック解除などの処理）
+                onPurchaseSuccess.Invoke();
             }
         }
         
         /// <summary>
-        /// 購入成功後の遅延処理
+        /// 購入成功結果画面を表示
         /// </summary>
-        private void OnPurchaseSuccessDelayed()
+        private void ShowSuccessResult()
         {
-            onPurchaseSuccess?.Invoke();
-            HidePaywall();
+            isShowingSuccessResult = true;
+            
+            // 購入UIを非表示
+            HidePurchaseUI();
+            
+            // 結果テキストを表示
+            if (titleText != null)
+            {
+                titleText.text = "購入完了";
+            }
+            
+            if (descriptionText != null)
+            {
+                descriptionText.text = "ゲームパックの購入が完了しました！";
+            }
+            
+            if (statusText != null)
+            {
+                statusText.text = "閉じるボタンを押してメニューに戻ります";
+                statusText.color = Color.white;
+                statusText.gameObject.SetActive(true);
+            }
+            
+            // 閉じるボタンのみ表示
+            if (closeButton != null)
+            {
+                closeButton.gameObject.SetActive(true);
+            }
+            
+            Debug.Log("[Paywall] 購入成功結果画面を表示");
+        }
+        
+        /// <summary>
+        /// 購入UIを表示
+        /// </summary>
+        private void ShowPurchaseUI()
+        {
+            if (priceText != null)
+            {
+                priceText.gameObject.SetActive(true);
+            }
+            
+            if (purchaseButton != null)
+            {
+                purchaseButton.gameObject.SetActive(true);
+            }
+            
+            if (restoreButton != null)
+            {
+                restoreButton.gameObject.SetActive(true);
+            }
+        }
+        
+        /// <summary>
+        /// 購入UIを非表示
+        /// </summary>
+        private void HidePurchaseUI()
+        {
+            if (priceText != null)
+            {
+                priceText.gameObject.SetActive(false);
+            }
+            
+            if (purchaseButton != null)
+            {
+                purchaseButton.gameObject.SetActive(false);
+            }
+            
+            if (restoreButton != null)
+            {
+                restoreButton.gameObject.SetActive(false);
+            }
+            
+            if (loadingIndicator != null)
+            {
+                loadingIndicator.SetActive(false);
+            }
         }
         
         /// <summary>
@@ -345,15 +439,19 @@ namespace WakuWaku.IAP
         private void OnRestoreCompleted()
         {
             SetLoading(false);
-            ShowStatus("復元が完了しました", false);
             
             Debug.Log("[Paywall] 復元完了");
             
             // 現在のパックが復元されたかチェック
             if (!string.IsNullOrEmpty(currentPackId) && FeatureGate.IsPackOwned(currentPackId))
             {
-                // 復元されていたらPaywallを閉じる
-                Invoke(nameof(OnPurchaseSuccessDelayed), 1.5f);
+                // 復元されていたら成功結果画面を表示
+                ShowSuccessResult();
+                onPurchaseSuccess.Invoke();
+            }
+            else
+            {
+                ShowStatus("復元が完了しました", false);
             }
         }
         
