@@ -172,7 +172,9 @@ namespace WakuWaku.IAP
                 }
                 else
                 {
-                    Debug.LogWarning("[IAPManager] ParentalGate Prefabが設定されていません");
+                    // Prefabが設定されていない場合は動的に作成
+                    GameObject parentalGateObj = new GameObject("ParentalGate");
+                    parentalGateObj.AddComponent<ParentalGate>();
                 }
             }
 
@@ -185,7 +187,9 @@ namespace WakuWaku.IAP
                 }
                 else
                 {
-                    Debug.LogWarning("[IAPManager] Paywall Prefabが設定されていません");
+                    // Prefabが設定されていない場合は動的に作成
+                    GameObject paywallObj = new GameObject("Paywall");
+                    paywallObj.AddComponent<Paywall>();
                 }
             }
 
