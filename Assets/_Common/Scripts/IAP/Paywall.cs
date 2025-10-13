@@ -366,6 +366,44 @@ namespace WakuWaku.IAP
         }
         
         /// <summary>
+        /// 復元成功結果画面を表示
+        /// </summary>
+        private void ShowRestoreSuccessResult()
+        {
+            isShowingSuccessResult = true;
+            
+            // 購入UIを非表示
+            HidePurchaseUI();
+            
+            // 結果テキストを表示
+            if (titleText != null)
+            {
+                titleText.text = "復元完了";
+            }
+            
+            if (descriptionText != null)
+            {
+                descriptionText.text = "ゲームパックが復元されました！";
+            }
+            
+            // statusTextを直接表示
+            if (statusText != null)
+            {
+                statusText.text = "閉じるボタンを押してメニューに戻ります";
+                statusText.color = Color.white;
+                statusText.gameObject.SetActive(true);
+            }
+            
+            // 閉じるボタンのみ表示
+            if (closeButton != null)
+            {
+                closeButton.gameObject.SetActive(true);
+            }
+            
+            Debug.Log("[Paywall] 復元成功結果画面を表示");
+        }
+        
+        /// <summary>
         /// 購入UIを表示
         /// </summary>
         private void ShowPurchaseUI()
@@ -438,8 +476,8 @@ namespace WakuWaku.IAP
             // 現在のパックが復元されたかチェック
             if (!string.IsNullOrEmpty(currentPackId) && FeatureGate.IsPackOwned(currentPackId))
             {
-                // 復元されていたら成功結果画面を表示
-                ShowSuccessResult();
+                // 復元されていたら復元成功結果画面を表示
+                ShowRestoreSuccessResult();
                 onPurchaseSuccess?.Invoke();
             }
             else
