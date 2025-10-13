@@ -115,6 +115,9 @@ public class GameButton : MonoBehaviour
     {
         if (!mainCam || !myCol) return;
 
+        // モーダル表示中は入力を無視
+        if (IsModalShowing()) return;
+
         for (int i = 0; i < Input.touchCount; i++)
         {
             Touch t = Input.GetTouch(i);
@@ -155,8 +158,31 @@ public class GameButton : MonoBehaviour
 
     void OnMouseDown()
     {
+        // モーダル表示中は入力を無視
+        if (IsModalShowing()) return;
+
         // クリック時にシーン遷移
         LoadGame();
+    }
+
+    /// <summary>
+    /// モーダルウィンドウが表示中かチェック
+    /// </summary>
+    private bool IsModalShowing()
+    {
+        // Paywall表示中
+        if (Paywall.Instance != null && Paywall.Instance.IsShowing())
+        {
+            return true;
+        }
+        
+        // ParentalGate表示中
+        if (ParentalGate.Instance != null && ParentalGate.Instance.IsShowing())
+        {
+            return true;
+        }
+        
+        return false;
     }
 
     /// <summary>
