@@ -206,13 +206,29 @@ namespace WakuWaku.IAP
             {
                 Debug.Log("[IAPManager] 購入状況同期開始");
 
+                bool isCompleted = false;
+                
                 // 復元処理を実行（既存の購入を確認）
-                PurchaseService.Instance.RestorePurchases();
+                PurchaseService.Instance.RestorePurchases(
+                    onCompleted: () => {
+                        isCompleted = true;
+                        Debug.Log("[IAPManager] 購入状況同期完了");
+                    }
+                );
 
-                // 復元完了を少し待つ
-                yield return new WaitForSeconds(1f);
-
-                Debug.Log("[IAPManager] 購入状況同期完了");
+                // 復元完了を待つ（タイムアウトあり）
+                float elapsed = 0f;
+                float timeout = 10f;
+                while (!isCompleted && elapsed < timeout)
+                {
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+                
+                if (!isCompleted)
+                {
+                    Debug.LogWarning("[IAPManager] 購入状況同期タイムアウト");
+                }
             }
             else
             {

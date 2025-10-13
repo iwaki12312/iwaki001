@@ -26,12 +26,13 @@ namespace WakuWaku.IAP
         public static PurchaseService Instance { get; private set; }
         
         public event Action OnIAPInitialized;
-        public event Action<string> OnPurchaseSuccess;
-        public event Action<string, string> OnIAPPurchaseFailed;
-        public event Action<string> OnPurchasePending;
-        public event Action OnRestoreCompleted;
         
         public bool IsInitialized => isInitialized;
+        
+        // コールバック保持用
+        private Action<string> currentOnSuccess;
+        private Action<string, string> currentOnFailed;
+        private Action currentOnRestoreCompleted;
         
         void Awake()
         {
@@ -72,12 +73,17 @@ namespace WakuWaku.IAP
         /// <summary>
         /// 商品を購入
         /// </summary>
-        public void PurchaseProduct(string packId)
+        public void PurchaseProduct(string packId, 
+            Action<string> onSuccess = null, 
+            Action<string, string> onFailed = null)
         {
+            currentOnSuccess = onSuccess;
+            currentOnFailed = onFailed;
+            
             if (!isInitialized)
             {
                 Debug.LogError("[PurchaseService] Unity IAPが初期化されていません");
-                OnIAPPurchaseFailed?.Invoke(packId, "Unity IAPが初期化されていません");
+                currentOnFailed?.Invoke(packId, "Unity IAPが初期化されていません");
                 return;
             }
             
@@ -85,7 +91,7 @@ namespace WakuWaku.IAP
             if (productInfo == null)
             {
                 Debug.LogError($"[PurchaseService] 不明なパックID: {packId}");
-                OnIAPPurchaseFailed?.Invoke(packId, "不明なパックID");
+                currentOnFailed?.Invoke(packId, "不明なパックID");
                 return;
             }
             
@@ -98,18 +104,21 @@ namespace WakuWaku.IAP
             else
             {
                 Debug.LogError($"[PurchaseService] 商品が購入できません: {packId}");
-                OnIAPPurchaseFailed?.Invoke(packId, "商品が購入できません");
+                currentOnFailed?.Invoke(packId, "商品が購入できません");
             }
         }
         
         /// <summary>
         /// 購入の復元
         /// </summary>
-        public void RestorePurchases()
+        public void RestorePurchases(Action onCompleted = null)
         {
+            currentOnRestoreCompleted = onCompleted;
+            
             if (!isInitialized)
             {
                 Debug.LogError("[PurchaseService] Unity IAPが初期化されていません");
+                currentOnRestoreCompleted?.Invoke();
                 return;
             }
             
@@ -132,7 +141,7 @@ namespace WakuWaku.IAP
             }
             
             Debug.Log($"[PurchaseService] 購入復元完了: {restoredCount}個の商品を復元");
-            OnRestoreCompleted?.Invoke();
+            currentOnRestoreCompleted?.Invoke();
         }
         
         /// <summary>
@@ -221,14 +230,8 @@ namespace WakuWaku.IAP
             {
                 Debug.Log($"[PurchaseService] 購入成功: {productInfo.packId}");
                 EntitlementStore.Instance.GrantPack(productInfo.packId);
-
-                // OnPurchaseSuccessがnullだった場合はデバックログを出す
-                if (OnPurchaseSuccess == null)
-                {
-                    Debug.LogError("[PurchaseService] OnPurchaseSuccessにリスナーが登録されていません");
-                }
-
-                OnPurchaseSuccess.Invoke(productInfo.packId);
+                
+                currentOnSuccess?.Invoke(productInfo.packId);
             }
             else
             {
@@ -251,12 +254,12 @@ namespace WakuWaku.IAP
                 if (productInfo != null)
                 {
                     EntitlementStore.Instance.GrantPack(productInfo.packId);
-                    OnPurchaseSuccess.Invoke(productInfo.packId);
+                    currentOnSuccess?.Invoke(productInfo.packId);
                 }
             }
             else
             {
-                OnIAPPurchaseFailed?.Invoke(packId, failureDescription.message);
+                currentOnFailed?.Invoke(packId, failureDescription.message);
             }
         }
         

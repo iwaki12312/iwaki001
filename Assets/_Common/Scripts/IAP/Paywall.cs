@@ -22,9 +22,6 @@ namespace WakuWaku.IAP
         [SerializeField] private TextMeshProUGUI statusText;
         [SerializeField] private GameObject loadingIndicator;
         
-        [Header("Settings")]
-        [SerializeField] private float statusMessageDuration = 3f;
-        
         private string currentPackId;
         private Action onPurchaseSuccess;
         private Action onClose;
@@ -39,7 +36,6 @@ namespace WakuWaku.IAP
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
                 InitializeUI();
-                SubscribeToEvents();
             }
             else
             {
@@ -85,18 +81,6 @@ namespace WakuWaku.IAP
             }
         }
         
-        /// <summary>
-        /// イベントの購読
-        /// </summary>
-        private void SubscribeToEvents()
-        {
-            if (PurchaseService.Instance != null)
-            {
-                PurchaseService.Instance.OnPurchaseSuccess += OnPurchaseSuccess;
-                PurchaseService.Instance.OnIAPPurchaseFailed += OnPurchaseFailed;
-                PurchaseService.Instance.OnRestoreCompleted += OnRestoreCompleted;
-            }
-        }
         
         /// <summary>
         /// Paywallを表示
@@ -271,7 +255,12 @@ namespace WakuWaku.IAP
             SetLoading(true);
             ShowStatus("購入処理中...", false);
             
-            PurchaseService.Instance.PurchaseProduct(currentPackId);
+            // コールバック方式で購入
+            PurchaseService.Instance.PurchaseProduct(
+                currentPackId,
+                onSuccess: OnPurchaseSuccess,
+                onFailed: OnPurchaseFailed
+            );
         }
         
         /// <summary>
@@ -290,7 +279,10 @@ namespace WakuWaku.IAP
             SetLoading(true);
             ShowStatus("購入を復元中...", false);
             
-            PurchaseService.Instance.RestorePurchases();
+            // コールバック方式で復元
+            PurchaseService.Instance.RestorePurchases(
+                onCompleted: OnRestoreCompleted
+            );
         }
         
         /// <summary>
@@ -356,6 +348,7 @@ namespace WakuWaku.IAP
                 descriptionText.text = "ゲームパックの購入が完了しました！";
             }
             
+            // statusTextを直接表示
             if (statusText != null)
             {
                 statusText.text = "閉じるボタンを押してメニューに戻ります";
@@ -447,7 +440,7 @@ namespace WakuWaku.IAP
             {
                 // 復元されていたら成功結果画面を表示
                 ShowSuccessResult();
-                onPurchaseSuccess.Invoke();
+                onPurchaseSuccess?.Invoke();
             }
             else
             {
@@ -465,10 +458,6 @@ namespace WakuWaku.IAP
                 statusText.text = message;
                 statusText.color = isError ? Color.red : Color.white;
                 statusText.gameObject.SetActive(true);
-                
-                // 一定時間後に自動で非表示
-                CancelInvoke(nameof(HideStatus));
-                Invoke(nameof(HideStatus), statusMessageDuration);
             }
         }
         
@@ -515,17 +504,5 @@ namespace WakuWaku.IAP
             return paywallPanel != null && paywallPanel.activeInHierarchy;
         }
         
-        void OnDestroy()
-        {
-            CancelInvoke();
-            
-            // イベントの購読解除
-            if (PurchaseService.Instance != null)
-            {
-                PurchaseService.Instance.OnPurchaseSuccess -= OnPurchaseSuccess;
-                PurchaseService.Instance.OnIAPPurchaseFailed -= OnPurchaseFailed;
-                PurchaseService.Instance.OnRestoreCompleted -= OnRestoreCompleted;
-            }
-        }
     }
 }
