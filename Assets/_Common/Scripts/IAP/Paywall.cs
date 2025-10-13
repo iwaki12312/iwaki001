@@ -20,7 +20,7 @@ namespace WakuWaku.IAP
         [SerializeField] private Button restoreButton;
         [SerializeField] private Button closeButton;
         [SerializeField] private TextMeshProUGUI statusText;
-        [SerializeField] private GameObject loadingIndicator;
+
         
         private string currentPackId;
         private Action onPurchaseSuccess;
@@ -75,10 +75,6 @@ namespace WakuWaku.IAP
                 statusText.gameObject.SetActive(false);
             }
             
-            if (loadingIndicator != null)
-            {
-                loadingIndicator.SetActive(false);
-            }
         }
         
         
@@ -444,10 +440,6 @@ namespace WakuWaku.IAP
                 restoreButton.gameObject.SetActive(false);
             }
             
-            if (loadingIndicator != null)
-            {
-                loadingIndicator.SetActive(false);
-            }
         }
         
         /// <summary>
@@ -514,12 +506,7 @@ namespace WakuWaku.IAP
         /// ローディング表示の切り替え
         /// </summary>
         private void SetLoading(bool isLoading)
-        {
-            if (loadingIndicator != null)
-            {
-                loadingIndicator.SetActive(isLoading);
-            }
-            
+        {            
             // ローディング中はボタンを無効化
             if (purchaseButton != null)
             {
