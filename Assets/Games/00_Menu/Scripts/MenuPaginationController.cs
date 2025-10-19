@@ -376,6 +376,13 @@ public class MenuPaginationController : MonoBehaviour
                     Debug.LogWarning($"元の位置が保存されていません: {objectName}");
                 }
                 
+                // GameButtonのロック状態を更新
+                GameButton gameButton = gameObj.GetComponent<GameButton>();
+                if (gameButton != null)
+                {
+                    gameButton.UpdateLockState();
+                }
+                
                 displayedCount++;
             }
             else
