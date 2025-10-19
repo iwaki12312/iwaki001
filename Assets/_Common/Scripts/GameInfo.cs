@@ -20,7 +20,7 @@ public class GameInfo : MonoBehaviour
         new GameData("Cook", 4, "pack_free"),              // 04_Cook
         new GameData("TouchTheStar", 5, "pack_free"),      // 05_TouchTheStar
         new GameData("PianoAndViolin", 6, "pack_free"),    // 06_PianoAndViolin
-        new GameData("NewGame", 7, "pack_01")            // 07_NewGame (7つ目のゲーム)
+        new GameData("NewGame1", 7, "pack_01")            // 07_NewGame (7つ目のゲーム)
     };
     
     // 総ページ数を取得
