@@ -18,6 +18,7 @@ namespace WakuWaku.IAP
         [SerializeField] private Button submitButton;
         [SerializeField] private Button cancelButton;
         [SerializeField] private TextMeshProUGUI errorText;
+        [SerializeField] private NumberPadController numberPad; // 数字パッド(オプション)
         
         [Header("Settings")]
         [SerializeField] private float autoHideErrorDelay = 3f;
@@ -96,8 +97,17 @@ namespace WakuWaku.IAP
             if (answerInput != null)
             {
                 answerInput.text = "";
-                answerInput.Select();
-                answerInput.ActivateInputField();
+                
+                // NumberPadがある場合はキーボードを無効化
+                if (numberPad != null)
+                {
+                    answerInput.readOnly = true; // 直接入力を無効化
+                }
+                else
+                {
+                    answerInput.Select();
+                    answerInput.ActivateInputField();
+                }
             }
             
             HideError();
