@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 613604584}
   - component: {fileID: 613604583}
   - component: {fileID: 613604582}
+  - component: {fileID: 613604585}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -258,6 +259,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613604585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613604581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &717475873
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,40 +723,40 @@ MonoBehaviour:
   insectTypes:
   - typeName: Type A
     spawnPosition: {x: -6, y: 3, z: 0}
-    normalSprite1: {fileID: -7490982025059118367, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite2: {fileID: 5585640628125059040, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite3: {fileID: -487110663633009735, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    rareSprite: {fileID: 8847052031824985251, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
+    normalSprite1: {fileID: 2355663680511095286, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: 2355663680511095286, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: 2355663680511095286, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    rareSprite: {fileID: 2355663680511095286, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
   - typeName: Type B
     spawnPosition: {x: 6, y: 3, z: 0}
-    normalSprite1: {fileID: 7897557742130149121, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite2: {fileID: -3535598116125336849, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite3: {fileID: -4822042242716555965, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    rareSprite: {fileID: -8102700722942258986, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
+    normalSprite1: {fileID: 7728247281432305064, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: 7728247281432305064, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: 7728247281432305064, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    rareSprite: {fileID: 7728247281432305064, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
   - typeName: Type C
     spawnPosition: {x: -6, y: 0, z: 0}
-    normalSprite1: {fileID: 4765854138168086968, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite2: {fileID: -1581239219812489917, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite3: {fileID: -6816931337457170660, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    rareSprite: {fileID: 6606031751056089854, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
+    normalSprite1: {fileID: 2963899233635294142, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: 2963899233635294142, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: 2963899233635294142, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    rareSprite: {fileID: 2963899233635294142, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
   - typeName: Type D
     spawnPosition: {x: 6, y: 0, z: 0}
-    normalSprite1: {fileID: -6948716679465342876, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite2: {fileID: -7981182988242316118, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    normalSprite3: {fileID: 1610081133119991808, guid: 80012a6c222ede846924f8caf2b227c5, type: 3}
-    rareSprite: {fileID: 3514221269559143653, guid: f63c5007b33189846a6a39d56315e937, type: 3}
+    normalSprite1: {fileID: -7484841928894453530, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: -7484841928894453530, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: -7484841928894453530, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    rareSprite: {fileID: -7484841928894453530, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
   - typeName: Type E
     spawnPosition: {x: -6, y: -3, z: 0}
-    normalSprite1: {fileID: 7558812865070109757, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-    normalSprite2: {fileID: 9078817585392498499, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-    normalSprite3: {fileID: 323896609995573044, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-    rareSprite: {fileID: -1612644255660440117, guid: f63c5007b33189846a6a39d56315e937, type: 3}
+    normalSprite1: {fileID: -2748416506681388007, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: -2748416506681388007, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: -2748416506681388007, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    rareSprite: {fileID: -2748416506681388007, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
   - typeName: Type F
     spawnPosition: {x: 6, y: -3, z: 0}
-    normalSprite1: {fileID: 9121617397728047430, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-    normalSprite2: {fileID: -13235031009036509, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-    normalSprite3: {fileID: 8583834230582784050, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-    rareSprite: {fileID: -5930009021610808501, guid: f63c5007b33189846a6a39d56315e937, type: 3}
+    normalSprite1: {fileID: -2895316885191420590, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: -2895316885191420590, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: -2895316885191420590, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    rareSprite: {fileID: -2895316885191420590, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
   insectPrefab: {fileID: 68088184879385727, guid: 6b42e28ff06102c41814cc81ce60f5cc, type: 3}
   spawnInterval: 3
   maxSimultaneousInsects: 4

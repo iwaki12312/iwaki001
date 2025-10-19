@@ -142,7 +142,7 @@ MonoBehaviour:
   lifetime: 10
   fadeInDuration: 0.5
   fadeOutDuration: 0.5
-  netSprite: {fileID: 3514221269559143653, guid: f63c5007b33189846a6a39d56315e937, type: 3}
-  netOffset: {x: 3, y: 3, z: 0}
-  netScale: 1.5
+  netSprite: {fileID: -3787186718068959810, guid: 89dc14bcd2194644a9235fb77a399644, type: 3}
+  netOffset: {x: 1, y: 1, z: 0}
+  netScale: 0.5
   netAnimDuration: 0.3
