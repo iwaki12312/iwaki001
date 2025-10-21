@@ -148,9 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac1f9db0c231054a9bfbc9aa1d9c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  netSwingSound: {fileID: 8300000, guid: 2d4fa1c5bfafede45a7ed75a3e9ce129, type: 3}
-  catchNormalSound: {fileID: 8300000, guid: 9c8d14d866339e74c8aad02ed951ced8, type: 3}
-  catchRareSound: {fileID: 8300000, guid: 3fdbde2357dd35244b0d174adb609f4a, type: 3}
+  netSwingSound: {fileID: 8300000, guid: f56d5488619368b4b83d80e816fbcba9, type: 3}
+  catchNormalSound: {fileID: 8300000, guid: da6b7d0ece3be494a940bf21526a5c04, type: 3}
+  catchRareSound: {fileID: 8300000, guid: 29d5033a7593900419f03598c23c40f8, type: 3}
+  netSwingVolume: 0.581
+  catchNormalVolume: 0.502
+  catchRareVolume: 1
 --- !u!4 &154875113
 Transform:
   m_ObjectHideFlags: 0
@@ -685,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 1594662939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0135, y: -0.0794, z: 0}
+  m_LocalPosition: {x: 0.0135, y: -0.0794, z: 10}
   m_LocalScale: {x: 1.1696266, y: 1.0612196, z: 0.9765625}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -727,12 +730,12 @@ MonoBehaviour:
     spawnScale: 0.7
     flipX: 0
     normalSprite1: {fileID: -7484841928894453530, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
-    normalSprite2: {fileID: 2355663680511095286, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: -4448268322296683601, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     normalSprite3: {fileID: 5002976476646093576, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     rareSprite: {fileID: 5516090797737823851, guid: 754db87f17f8d3f40b49d1bdeedfdb71, type: 3}
   - typeName: Type B
-    spawnPosition: {x: 6.9410534, y: -0.48731124, z: 0}
-    spawnRotation: 102.551476
+    spawnPosition: {x: 6.9117, y: -1.5519696, z: 0}
+    spawnRotation: 108.9928
     spawnScale: 0.7
     flipX: 1
     normalSprite1: {fileID: 7728247281432305064, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
@@ -745,11 +748,11 @@ MonoBehaviour:
     spawnScale: 0.7
     flipX: 0
     normalSprite1: {fileID: -2895316885191420590, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
-    normalSprite2: {fileID: -9069583092445751837, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: 6081181314559473682, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     normalSprite3: {fileID: -7771749711680801796, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     rareSprite: {fileID: 5516090797737823851, guid: 754db87f17f8d3f40b49d1bdeedfdb71, type: 3}
   - typeName: Type D
-    spawnPosition: {x: -6.0493345, y: -0.4840222, z: 0}
+    spawnPosition: {x: -5.6392922, y: 0.14310145, z: 0}
     spawnRotation: 0
     spawnScale: 0.7
     flipX: 0
@@ -763,17 +766,17 @@ MonoBehaviour:
     spawnScale: 0.7
     flipX: 0
     normalSprite1: {fileID: 2637705040331528294, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
-    normalSprite2: {fileID: -7456368444259552795, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite2: {fileID: -7242557522729974338, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     normalSprite3: {fileID: 4647762968741440204, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     rareSprite: {fileID: 5516090797737823851, guid: 754db87f17f8d3f40b49d1bdeedfdb71, type: 3}
   - typeName: Type F
-    spawnPosition: {x: 5.212268, y: 2.7174182, z: 0}
+    spawnPosition: {x: 6.273554, y: 1.9696937, z: 0}
     spawnRotation: 0
     spawnScale: 0.7
     flipX: 0
     normalSprite1: {fileID: -5684004673165718444, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     normalSprite2: {fileID: 5258739952822649473, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
-    normalSprite3: {fileID: 6081181314559473682, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
+    normalSprite3: {fileID: 2355663680511095286, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     rareSprite: {fileID: 5516090797737823851, guid: 754db87f17f8d3f40b49d1bdeedfdb71, type: 3}
   insectPrefab: {fileID: 68088184879385727, guid: 6b42e28ff06102c41814cc81ce60f5cc, type: 3}
   spawnInterval: 3
