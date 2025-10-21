@@ -10,6 +10,7 @@ public class InsectType
 {
     public string typeName = "Type A";           // 種類名(Inspector表示用)
     public Vector3 spawnPosition = Vector3.zero; // 固定出現位置(Inspector編集可能)
+    public float spawnRotation = 0f;             // 固定回転角度(Inspector編集可能)
     public Sprite normalSprite1;                 // 通常色1
     public Sprite normalSprite2;                 // 通常色2
     public Sprite normalSprite3;                 // 通常色3
@@ -116,8 +117,9 @@ public class InsectSpawner : MonoBehaviour
         // 固定位置にスポーン
         Vector3 spawnPos = selectedType.spawnPosition;
         
-        // プレハブからインスタンス化
-        GameObject insectObj = Instantiate(insectPrefab, spawnPos, Quaternion.identity);
+        // 固定回転角度でプレハブからインスタンス化
+        Quaternion spawnRot = Quaternion.Euler(0, 0, selectedType.spawnRotation);
+        GameObject insectObj = Instantiate(insectPrefab, spawnPos, spawnRot);
         insectObj.transform.SetParent(transform);
         insectObj.name = $"{selectedType.typeName}_{(isRare ? "Rare" : "Normal")}";
         
