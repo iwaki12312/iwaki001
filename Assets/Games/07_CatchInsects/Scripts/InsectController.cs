@@ -13,6 +13,7 @@ public class InsectController : MonoBehaviour
     [SerializeField] private float lifetime = 10f;     // 寿命(秒)
     [SerializeField] private float fadeInDuration = 0.5f;  // フェードイン時間
     [SerializeField] private float fadeOutDuration = 0.5f; // フェードアウト時間
+    [SerializeField] private float colliderRadius = 1.0f;  // タップ判定の範囲(Inspector調整可能)
     
     [Header("虫取り網")]
     [SerializeField] private Sprite netSprite;         // 虫取り網のスプライト
@@ -25,6 +26,10 @@ public class InsectController : MonoBehaviour
     private InsectState currentState = InsectState.Spawning;
     private float spawnTime;
     private Camera mainCamera;
+    private int positionIndex = -1; // このインセクトが使用しているポジションインデックス
+    
+    // 昆虫が削除された時のイベント
+    public System.Action OnDestroyed;
     
     private enum InsectState
     {
@@ -49,13 +54,16 @@ public class InsectController : MonoBehaviour
             circleCollider = gameObject.AddComponent<CircleCollider2D>();
         }
         
+        // タップ判定の範囲を設定
+        circleCollider.radius = colliderRadius;
+        
         mainCamera = Camera.main;
     }
     
     /// <summary>
     /// 昆虫を初期化してスポーン
     /// </summary>
-    public void Initialize(Sprite sprite, bool rare, Vector3 position)
+    public void Initialize(Sprite sprite, bool rare, Vector3 position, bool flipX = false)
     {
         insectSprite = sprite;
         isRare = rare;
@@ -65,13 +73,16 @@ public class InsectController : MonoBehaviour
         // スプライトを設定
         spriteRenderer.sprite = insectSprite;
         
+        // 左右反転を適用
+        spriteRenderer.flipX = flipX;
+        
         // シルエット表示(黒)
         spriteRenderer.color = new Color(0, 0, 0, 0); // 完全透明から開始
         
         // フェードイン開始
         FadeIn();
         
-        Debug.Log($"[InsectController] 昆虫スポーン: レア={isRare}, 位置={position}");
+        Debug.Log($"[InsectController] 昆虫スポーン: レア={isRare}, 位置={position}, 反転={flipX}");
     }
     
     /// <summary>
@@ -80,6 +91,22 @@ public class InsectController : MonoBehaviour
     public void SetNetSprite(Sprite net)
     {
         netSprite = net;
+    }
+    
+    /// <summary>
+    /// ポジションインデックスを設定
+    /// </summary>
+    public void SetPositionIndex(int index)
+    {
+        positionIndex = index;
+    }
+    
+    /// <summary>
+    /// 削除時にポジションを解放
+    /// </summary>
+    void OnDestroy()
+    {
+        OnDestroyed?.Invoke();
     }
     
     void Update()

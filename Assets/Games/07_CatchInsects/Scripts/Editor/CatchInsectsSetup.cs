@@ -267,6 +267,7 @@ public static class CatchInsectsSetup
             // デフォルトのオフセットとスケールを設定
             so.FindProperty("netOffset").vector3Value = new Vector3(0, 0.5f, 0); // 少し上に表示
             so.FindProperty("netScale").floatValue = 1.5f; // 1.5倍のサイズ
+            so.FindProperty("colliderRadius").floatValue = 1.0f; // タップ判定範囲を広めに設定
             
             so.ApplyModifiedProperties();
             Debug.Log("[CatchInsectsSetup] 虫取り網スプライトとデフォルト設定を適用しました");

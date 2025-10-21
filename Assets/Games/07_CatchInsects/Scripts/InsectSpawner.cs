@@ -11,6 +11,8 @@ public class InsectType
     public string typeName = "Type A";           // 種類名(Inspector表示用)
     public Vector3 spawnPosition = Vector3.zero; // 固定出現位置(Inspector編集可能)
     public float spawnRotation = 0f;             // 固定回転角度(Inspector編集可能)
+    public float spawnScale = 1f;                // 固定スケール(Inspector編集可能)
+    public bool flipX = false;                   // スプライトを左右反転(Inspector編集可能)
     public Sprite normalSprite1;                 // 通常色1
     public Sprite normalSprite2;                 // 通常色2
     public Sprite normalSprite3;                 // 通常色3
@@ -33,6 +35,7 @@ public class InsectSpawner : MonoBehaviour
     [SerializeField] private float rareSpawnChance = 0.2f;      // レア出現確率(20%)
     
     private List<GameObject> activeInsects = new List<GameObject>();
+    private HashSet<int> occupiedPositions = new HashSet<int>(); // 使用中のポジションインデックス
     private float lastSpawnTime;
     
     void Start()
@@ -75,8 +78,29 @@ public class InsectSpawner : MonoBehaviour
             return;
         }
         
-        // 6種類からランダムに1つ選択
-        InsectType selectedType = insectTypes[Random.Range(0, insectTypes.Length)];
+        // 利用可能なポジション(使用中でないもの)を取得
+        List<int> availablePositions = new List<int>();
+        for (int i = 0; i < insectTypes.Length; i++)
+        {
+            if (!occupiedPositions.Contains(i))
+            {
+                availablePositions.Add(i);
+            }
+        }
+        
+        // 利用可能なポジションがない場合
+        if (availablePositions.Count == 0)
+        {
+            Debug.LogWarning("[InsectSpawner] すべてのポジションが使用中です");
+            return;
+        }
+        
+        // 利用可能なポジションからランダムに1つ選択
+        int selectedIndex = availablePositions[Random.Range(0, availablePositions.Count)];
+        InsectType selectedType = insectTypes[selectedIndex];
+        
+        // ポジションを使用中としてマーク
+        occupiedPositions.Add(selectedIndex);
         
         // レア判定
         bool isRare = Random.value < rareSpawnChance;
@@ -123,11 +147,20 @@ public class InsectSpawner : MonoBehaviour
         insectObj.transform.SetParent(transform);
         insectObj.name = $"{selectedType.typeName}_{(isRare ? "Rare" : "Normal")}";
         
+        // 固定スケールを適用
+        insectObj.transform.localScale = Vector3.one * selectedType.spawnScale;
+        
         // InsectControllerを初期化
         InsectController controller = insectObj.GetComponent<InsectController>();
         if (controller != null)
         {
-            controller.Initialize(selectedSprite, isRare, spawnPos);
+            controller.Initialize(selectedSprite, isRare, spawnPos, selectedType.flipX);
+            
+            // ポジションインデックスを記録(削除時に解放するため)
+            controller.SetPositionIndex(selectedIndex);
+            
+            // 昆虫が削除された時のコールバックを設定
+            controller.OnDestroyed += () => OnInsectDestroyed(selectedIndex);
         }
         else
         {
@@ -136,7 +169,19 @@ public class InsectSpawner : MonoBehaviour
         
         activeInsects.Add(insectObj);
         
-        Debug.Log($"[InsectSpawner] 昆虫スポーン: 種類={selectedType.typeName}, レア={isRare}, 位置={spawnPos}, アクティブ数={activeInsects.Count}");
+        Debug.Log($"[InsectSpawner] 昆虫スポーン: 種類={selectedType.typeName}, レア={isRare}, 位置={spawnPos}, ポジション={selectedIndex}, アクティブ数={activeInsects.Count}");
+    }
+    
+    /// <summary>
+    /// 昆虫が削除された時にポジションを解放
+    /// </summary>
+    private void OnInsectDestroyed(int positionIndex)
+    {
+        if (occupiedPositions.Contains(positionIndex))
+        {
+            occupiedPositions.Remove(positionIndex);
+            Debug.Log($"[InsectSpawner] ポジション{positionIndex}を解放しました。使用中ポジション数: {occupiedPositions.Count}");
+        }
     }
     
     /// <summary>
