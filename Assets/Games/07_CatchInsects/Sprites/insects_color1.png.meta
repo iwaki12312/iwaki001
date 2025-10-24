@@ -1,0 +1,1027 @@
+fileFormatVersion: 2
+guid: 7120f77bac76e1b429d47f63b2936240
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2355663680511095286
+    second: insects_color1_0
+  - first:
+      213: -7932695529150215146
+    second: insects_color1_1
+  - first:
+      213: 5002976476646093576
+    second: insects_color1_2
+  - first:
+      213: 2637705040331528294
+    second: insects_color1_3
+  - first:
+      213: 7728247281432305064
+    second: insects_color1_4
+  - first:
+      213: -2130992477519375705
+    second: insects_color1_5
+  - first:
+      213: 2963899233635294142
+    second: insects_color1_6
+  - first:
+      213: -4959655938505464924
+    second: insects_color1_7
+  - first:
+      213: 7704697196422439738
+    second: insects_color1_8
+  - first:
+      213: -6007134810807952371
+    second: insects_color1_9
+  - first:
+      213: 7513833731197304678
+    second: insects_color1_10
+  - first:
+      213: -7484841928894453530
+    second: insects_color1_11
+  - first:
+      213: 6081181314559473682
+    second: insects_color1_12
+  - first:
+      213: -873964678340352139
+    second: insects_color1_13
+  - first:
+      213: 2046724925248146976
+    second: insects_color1_14
+  - first:
+      213: -4930595101413162071
+    second: insects_color1_15
+  - first:
+      213: -6792287328599189857
+    second: insects_color1_16
+  - first:
+      213: 2953206620744740898
+    second: insects_color1_17
+  - first:
+      213: -158422401386686800
+    second: insects_color1_18
+  - first:
+      213: 7110262527805810479
+    second: insects_color1_19
+  - first:
+      213: 4647762968741440204
+    second: insects_color1_20
+  - first:
+      213: -2748416506681388007
+    second: insects_color1_21
+  - first:
+      213: -7280189682310987276
+    second: insects_color1_22
+  - first:
+      213: -7477073775633591575
+    second: insects_color1_23
+  - first:
+      213: -2895316885191420590
+    second: insects_color1_24
+  - first:
+      213: 5258739952822649473
+    second: insects_color1_25
+  - first:
+      213: -8205245144997919243
+    second: insects_color1_26
+  - first:
+      213: 5502463021656429614
+    second: insects_color1_27
+  - first:
+      213: -7242557522729974338
+    second: insects_color1_28
+  - first:
+      213: -9069583092445751837
+    second: insects_color1_29
+  - first:
+      213: -7771749711680801796
+    second: insects_color1_30
+  - first:
+      213: -4448268322296683601
+    second: insects_color1_31
+  - first:
+      213: -7456368444259552795
+    second: insects_color1_32
+  - first:
+      213: -5684004673165718444
+    second: insects_color1_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: insects_color1_0
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 2086
+        width: 372
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f13727f2aff0b020800000000000000
+      internalID: 2355663680511095286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_1
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 2033
+        width: 413
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61c0ca9027769e190800000000000000
+      internalID: -7932695529150215146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_2
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 2041
+        width: 380
+        height: 353
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 803302e39942e6540800000000000000
+      internalID: 5002976476646093576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_3
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 2086
+        width: 468
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 668d73f42c20b9420800000000000000
+      internalID: 2637705040331528294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_4
+      rect:
+        serializedVersion: 2
+        x: 2046
+        y: 2026
+        width: 583
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ad962ad4ff304b60800000000000000
+      internalID: 7728247281432305064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_5
+      rect:
+        serializedVersion: 2
+        x: 2717
+        y: 2049
+        width: 527
+        height: 337
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a29d66d1a13d62e0800000000000000
+      internalID: -2130992477519375705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_6
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1514
+        width: 520
+        height: 398
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb52ea46a2e12920800000000000000
+      internalID: 2963899233635294142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_7
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 1523
+        width: 557
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a3a9398333cb2bb0800000000000000
+      internalID: -4959655938505464924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_8
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 1328
+        width: 463
+        height: 465
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3325b667459cea60800000000000000
+      internalID: 7704697196422439738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_9
+      rect:
+        serializedVersion: 2
+        x: 2047
+        y: 1529
+        width: 582
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0c98eb77be52aca0800000000000000
+      internalID: -6007134810807952371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_10
+      rect:
+        serializedVersion: 2
+        x: 2775
+        y: 1528
+        width: 465
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66ffc51f7ff764860800000000000000
+      internalID: 7513833731197304678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_11
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 1020
+        width: 436
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e8eb4c0cef702890800000000000000
+      internalID: -7484841928894453530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_12
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1046
+        width: 526
+        height: 345
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2187f05af22b46450800000000000000
+      internalID: 6081181314559473682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_13
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 1115
+        width: 24
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 577e84961cd0fd3f0800000000000000
+      internalID: -873964678340352139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_14
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 1115
+        width: 101
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02e8a5ab97d676c10800000000000000
+      internalID: 2046724925248146976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_15
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 1114
+        width: 99
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a3ccf0f0e1039bb0800000000000000
+      internalID: -4930595101413162071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_16
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 1114
+        width: 112
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f96557669a2fcb1a0800000000000000
+      internalID: -6792287328599189857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_17
+      rect:
+        serializedVersion: 2
+        x: 1712
+        y: 1114
+        width: 106
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22072d956c5ebf820800000000000000
+      internalID: 2953206620744740898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_18
+      rect:
+        serializedVersion: 2
+        x: 1826
+        y: 1115
+        width: 69
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b6d1e05aab2dcdf0800000000000000
+      internalID: -158422401386686800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_19
+      rect:
+        serializedVersion: 2
+        x: 1903
+        y: 1114
+        width: 99
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f27e2a5e81abca260800000000000000
+      internalID: 7110262527805810479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_20
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 1079
+        width: 498
+        height: 304
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca6c009bcb208040800000000000000
+      internalID: 4647762968741440204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_21
+      rect:
+        serializedVersion: 2
+        x: 2752
+        y: 1079
+        width: 483
+        height: 304
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9149f68bfb9abd9d0800000000000000
+      internalID: -2748416506681388007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_22
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 548
+        width: 420
+        height: 322
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f1c3685e0297fa90800000000000000
+      internalID: -7280189682310987276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_23
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 523
+        width: 489
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e298fb24091c3890800000000000000
+      internalID: -7477073775633591575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_24
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 523
+        width: 488
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25599f902a4c1d7d0800000000000000
+      internalID: -2895316885191420590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_25
+      rect:
+        serializedVersion: 2
+        x: 1798
+        y: 520
+        width: 346
+        height: 377
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1820626002ccaf840800000000000000
+      internalID: 5258739952822649473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_26
+      rect:
+        serializedVersion: 2
+        x: 2254
+        y: 551
+        width: 387
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f5866d830d112e80800000000000000
+      internalID: -8205245144997919243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_27
+      rect:
+        serializedVersion: 2
+        x: 2738
+        y: 534
+        width: 523
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e24dd8307fcac5c40800000000000000
+      internalID: 5502463021656429614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_28
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 52
+        width: 446
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb5c8584e444d7b90800000000000000
+      internalID: -7242557522729974338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_29
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 75
+        width: 380
+        height: 340
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e5d1e9ea3e522280800000000000000
+      internalID: -9069583092445751837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_30
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 81
+        width: 476
+        height: 329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf3750050d2352490800000000000000
+      internalID: -7771749711680801796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_31
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 98
+        width: 397
+        height: 295
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa322ef57839442c0800000000000000
+      internalID: -4448268322296683601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_32
+      rect:
+        serializedVersion: 2
+        x: 2351
+        y: 109
+        width: 392
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e13a7dc768a58890800000000000000
+      internalID: -7456368444259552795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: insects_color1_33
+      rect:
+        serializedVersion: 2
+        x: 2919
+        y: 49
+        width: 248
+        height: 429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45c0c4a6ddb5e11b0800000000000000
+      internalID: -5684004673165718444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      insects_color1_0: 2355663680511095286
+      insects_color1_1: -7932695529150215146
+      insects_color1_10: 7513833731197304678
+      insects_color1_11: -7484841928894453530
+      insects_color1_12: 6081181314559473682
+      insects_color1_13: -873964678340352139
+      insects_color1_14: 2046724925248146976
+      insects_color1_15: -4930595101413162071
+      insects_color1_16: -6792287328599189857
+      insects_color1_17: 2953206620744740898
+      insects_color1_18: -158422401386686800
+      insects_color1_19: 7110262527805810479
+      insects_color1_2: 5002976476646093576
+      insects_color1_20: 4647762968741440204
+      insects_color1_21: -2748416506681388007
+      insects_color1_22: -7280189682310987276
+      insects_color1_23: -7477073775633591575
+      insects_color1_24: -2895316885191420590
+      insects_color1_25: 5258739952822649473
+      insects_color1_26: -8205245144997919243
+      insects_color1_27: 5502463021656429614
+      insects_color1_28: -7242557522729974338
+      insects_color1_29: -9069583092445751837
+      insects_color1_3: 2637705040331528294
+      insects_color1_30: -7771749711680801796
+      insects_color1_31: -4448268322296683601
+      insects_color1_32: -7456368444259552795
+      insects_color1_33: -5684004673165718444
+      insects_color1_4: 7728247281432305064
+      insects_color1_5: -2130992477519375705
+      insects_color1_6: 2963899233635294142
+      insects_color1_7: -4959655938505464924
+      insects_color1_8: 7704697196422439738
+      insects_color1_9: -6007134810807952371
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
