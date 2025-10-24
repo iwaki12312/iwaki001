@@ -527,12 +527,20 @@ PrefabInstance:
       value: 07_CatchInsects
       objectReference: {fileID: 0}
     - target: {fileID: 6436566902569852018, guid: 65c7ffddf4c8f394885e49577ba1dd80, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.83618
+      objectReference: {fileID: 0}
+    - target: {fileID: 6436566902569852018, guid: 65c7ffddf4c8f394885e49577ba1dd80, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.9364985
+      objectReference: {fileID: 0}
+    - target: {fileID: 6436566902569852018, guid: 65c7ffddf4c8f394885e49577ba1dd80, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.5485005
+      value: -9.88
       objectReference: {fileID: 0}
     - target: {fileID: 6436566902569852018, guid: 65c7ffddf4c8f394885e49577ba1dd80, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.01383
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 6436566902569852018, guid: 65c7ffddf4c8f394885e49577ba1dd80, type: 3}
       propertyPath: m_LocalPosition.z
