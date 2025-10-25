@@ -10,6 +10,8 @@ public class BalloonSpawner : MonoBehaviour
     [SerializeField] private GameObject balloonPrefab;           // 通常風船Prefab
     [SerializeField] private GameObject giantBalloonPrefab;      // ジャイアント風船Prefab
     [SerializeField] private Sprite[] balloonSprites;            // 風船スプライト配列(8色)
+    [SerializeField] private float[] balloonColliderRadii = new float[8] 
+        { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f };     // 各色のコライダサイズ
     [SerializeField] private GameObject starParticlePrefab;      // 星パーティクルPrefab
     
     [Header("スポーン設定")]
@@ -97,7 +99,8 @@ public class BalloonSpawner : MonoBehaviour
         }
         
         // ランダムな色
-        Sprite sprite = balloonSprites[Random.Range(0, balloonSprites.Length)];
+        int colorIndex = Random.Range(0, balloonSprites.Length);
+        Sprite sprite = balloonSprites[colorIndex];
         
         // インスタンス化
         GameObject balloonObj = Instantiate(prefab, spawnPos, Quaternion.identity);
@@ -108,6 +111,12 @@ public class BalloonSpawner : MonoBehaviour
         if (controller != null)
         {
             controller.Initialize(sprite, spawnPos, starParticlePrefab);
+            
+            // 色に応じたコライダサイズを設定
+            if (colorIndex < balloonColliderRadii.Length)
+            {
+                controller.SetColliderRadius(balloonColliderRadii[colorIndex]);
+            }
             
             // アニマルパラシュート判定(ジャイアント以外)
             if (!isGiant && Random.value < animalChance)
@@ -143,7 +152,8 @@ public class BalloonSpawner : MonoBehaviour
                 0
             );
             
-            Sprite sprite = balloonSprites[Random.Range(0, balloonSprites.Length)];
+            int colorIndex = Random.Range(0, balloonSprites.Length);
+            Sprite sprite = balloonSprites[colorIndex];
             
             GameObject balloonObj = Instantiate(balloonPrefab, spawnPos, Quaternion.identity);
             balloonObj.transform.SetParent(transform);
@@ -152,6 +162,12 @@ public class BalloonSpawner : MonoBehaviour
             if (controller != null)
             {
                 controller.Initialize(sprite, spawnPos, starParticlePrefab);
+                
+                // 色に応じたコライダサイズを設定
+                if (colorIndex < balloonColliderRadii.Length)
+                {
+                    controller.SetColliderRadius(balloonColliderRadii[colorIndex]);
+                }
             }
             
             activeBalloons.Add(balloonObj);

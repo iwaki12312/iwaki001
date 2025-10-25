@@ -180,7 +180,13 @@ public class PopBalloonsSetup
         balloon.AddComponent<SpriteRenderer>();
         balloon.AddComponent<CircleCollider2D>();
         balloon.AddComponent<Rigidbody2D>();
-        balloon.AddComponent<BalloonController>();
+        BalloonController controller = balloon.AddComponent<BalloonController>();
+        
+        // デフォルトのサイズを設定
+        SerializedObject so = new SerializedObject(controller);
+        so.FindProperty("balloonSize").floatValue = 3.0f;
+        so.FindProperty("colliderRadius").floatValue = 2.0f;
+        so.ApplyModifiedProperties();
         
         PrefabUtility.SaveAsPrefabAsset(balloon, prefabPath);
         Object.DestroyImmediate(balloon);
@@ -201,7 +207,13 @@ public class PopBalloonsSetup
         giantBalloon.AddComponent<SpriteRenderer>();
         giantBalloon.AddComponent<CircleCollider2D>();
         giantBalloon.AddComponent<Rigidbody2D>();
-        giantBalloon.AddComponent<GiantBalloonController>();
+        GiantBalloonController controller = giantBalloon.AddComponent<GiantBalloonController>();
+        
+        // デフォルトのサイズを設定
+        SerializedObject so = new SerializedObject(controller);
+        so.FindProperty("balloonSize").floatValue = 3.0f;
+        so.FindProperty("colliderRadius").floatValue = 2.0f;
+        so.ApplyModifiedProperties();
         
         PrefabUtility.SaveAsPrefabAsset(giantBalloon, prefabPath);
         Object.DestroyImmediate(giantBalloon);

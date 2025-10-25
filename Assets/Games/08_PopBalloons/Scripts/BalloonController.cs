@@ -9,6 +9,8 @@ public class BalloonController : MonoBehaviour
 {
     [Header("設定")]
     [SerializeField] protected Sprite balloonSprite;       // 風船のスプライト
+    [SerializeField] protected float balloonSize = 1.0f;   // 統一する風船サイズ(Unity単位)
+    [SerializeField] protected float colliderRadius = 0.5f; // コライダの半径(Inspector調整可能)
     [SerializeField] protected float floatSpeed = 1.0f;    // 浮上速度
     [SerializeField] protected float swayAmount = 0.5f;    // 横揺れの強さ
     [SerializeField] protected GameObject starParticlePrefab; // 星パーティクルPrefab
@@ -31,8 +33,9 @@ public class BalloonController : MonoBehaviour
         if (circleCollider == null)
         {
             circleCollider = gameObject.AddComponent<CircleCollider2D>();
-            circleCollider.radius = 0.5f;
         }
+        // Awake時点では仮の値を設定(後でSetColliderRadiusで上書きされる)
+        circleCollider.radius = 0.5f;
         
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
@@ -56,12 +59,43 @@ public class BalloonController : MonoBehaviour
         spriteRenderer.sprite = balloonSprite;
         spriteRenderer.sortingOrder = 1;
         
+        // スプライトサイズを統一
+        if (balloonSprite != null)
+        {
+            float spriteWidth = balloonSprite.bounds.size.x;
+            float spriteHeight = balloonSprite.bounds.size.y;
+            float currentSize = Mathf.Max(spriteWidth, spriteHeight);
+            
+            if (currentSize > 0)
+            {
+                float scale = balloonSize / currentSize;
+                transform.localScale = Vector3.one * scale;
+            }
+        }
+        
         // Rigidbody2Dの設定
         rb.gravityScale = 0f; // 重力無効
         rb.linearDamping = 0.2f; // 空気抵抗
         
         // 上向きの力を加える
         rb.linearVelocity = new Vector2(Random.Range(-swayAmount, swayAmount), floatSpeed);
+    }
+    
+    /// <summary>
+    /// コライダの半径を設定
+    /// </summary>
+    public void SetColliderRadius(float radius)
+    {
+        colliderRadius = radius;
+        if (circleCollider != null)
+        {
+            circleCollider.radius = radius;
+            Debug.Log($"[BalloonController] コライダサイズを設定: {radius}, 実際の値: {circleCollider.radius}");
+        }
+        else
+        {
+            Debug.LogWarning("[BalloonController] circleCollider が null です");
+        }
     }
     
     void Update()

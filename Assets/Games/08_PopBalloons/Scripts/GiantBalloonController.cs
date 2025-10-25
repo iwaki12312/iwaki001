@@ -14,17 +14,17 @@ public class GiantBalloonController : BalloonController
     {
         base.Initialize(sprite, position, particlePrefab);
         
-        // スケールを拡大
-        transform.localScale = Vector3.one * giantScale;
+        // 基準サイズから巨大化
+        transform.localScale = transform.localScale * giantScale;
         
         // 速度を調整
         floatSpeed *= giantSpeedMultiplier;
         rb.linearVelocity = new Vector2(Random.Range(-swayAmount, swayAmount), floatSpeed);
         
-        // Colliderのサイズも調整
+        // Colliderのサイズも巨大化に合わせて拡大
         if (circleCollider != null)
         {
-            circleCollider.radius = 0.5f * giantScale;
+            circleCollider.radius = colliderRadius * giantScale;
         }
     }
     
