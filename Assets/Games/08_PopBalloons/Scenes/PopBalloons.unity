@@ -596,14 +596,14 @@ MonoBehaviour:
   giantParticlePrefab: {fileID: 2921154899733558926, guid: 4d09d6ad20a034f44988cb501c248cb8, type: 3}
   animalParachutePrefab: {fileID: 7641359491280453387, guid: 1bcdcdbc15ba0554a858a2b0ffaa0e21, type: 3}
   animalParachuteSprites: []
-  spawnInterval: 2
+  spawnInterval: 0.5
   maxSimultaneousBalloons: 8
   spawnYPosition: -6
   spawnXMin: -8
   spawnXMax: 8
-  giantChance: 0.08
-  animalChance: 0.1
-  stormChance: 0.05
+  giantChance: 0.1
+  animalChance: 0.2
+  stormChance: 0.15
 --- !u!4 &2026661159
 Transform:
   m_ObjectHideFlags: 0

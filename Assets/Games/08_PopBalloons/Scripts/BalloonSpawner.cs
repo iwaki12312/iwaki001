@@ -179,6 +179,14 @@ public class BalloonSpawner : MonoBehaviour
                 {
                     controller.SetColliderRadius(balloonColliderRadii[colorIndex]);
                 }
+                
+                // アニマルパラシュート判定(ストーム中も発生)
+                if (Random.value < animalChance)
+                {
+                    AnimalBalloonController animalController = balloonObj.AddComponent<AnimalBalloonController>();
+                    animalController.SetParticlePrefab(normalParticlePrefab);
+                    animalController.SetAnimalParachuteConfig(animalParachutePrefab, animalParachuteSprites);
+                }
             }
             
             activeBalloons.Add(balloonObj);
