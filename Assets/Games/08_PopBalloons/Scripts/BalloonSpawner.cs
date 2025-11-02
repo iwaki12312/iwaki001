@@ -14,6 +14,10 @@ public class BalloonSpawner : MonoBehaviour
         { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f };     // 各色のコライダサイズ
     [SerializeField] private GameObject starParticlePrefab;      // 星パーティクルPrefab
     
+    [Header("アニマルパラシュート設定")]
+    [SerializeField] private GameObject animalParachutePrefab;   // アニマルパラシュートPrefab
+    [SerializeField] private Sprite[] animalParachuteSprites;    // パラシュート付き動物スプライト(3種類)
+    
     [Header("スポーン設定")]
     [SerializeField] private float spawnInterval = 2f;           // スポーン間隔(秒)
     [SerializeField] private int maxSimultaneousBalloons = 8;    // 同時最大数
@@ -124,6 +128,9 @@ public class BalloonSpawner : MonoBehaviour
                 // AnimalBalloonコンポーネントを追加
                 AnimalBalloonController animalController = balloonObj.AddComponent<AnimalBalloonController>();
                 animalController.SetParticlePrefab(starParticlePrefab);
+                
+                // AnimalParachuteの設定を渡す
+                animalController.SetAnimalParachuteConfig(animalParachutePrefab, animalParachuteSprites);
             }
         }
         

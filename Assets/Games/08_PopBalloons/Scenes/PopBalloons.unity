@@ -148,6 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830fa33609008c94eb645b68defc6adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animalParachuteSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   fallSpeed: 0.3
   swayAmount: 0.3
 --- !u!4 &139842656
@@ -569,8 +573,6 @@ MonoBehaviour:
   rabbitVoiceSound: {fileID: 8300000, guid: b2bc0e1bced07a34cbbe70668ce54408, type: 3}
   bearVoiceSound: {fileID: 8300000, guid: 811a6050700261b49b35b18574ff8669, type: 3}
   catVoiceSound: {fileID: 8300000, guid: 58d2ca5d541b8704aa82da926775c77f, type: 3}
-  dogVoiceSound: {fileID: 8300000, guid: 39579ee62779d3847bd858df59fc24b0, type: 3}
-  elephantVoiceSound: {fileID: 8300000, guid: c3cac8bfc027ea24299b753ad6ca428f, type: 3}
   popNormalVolume: 1
   popGiantVolume: 1
   stormStartVolume: 1
@@ -620,8 +622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dd168192547dc4d8b0e05be37be99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balloonPrefab: {fileID: 3286630669855612288, guid: 483376ef31e2b0244a882b098d95e450, type: 3}
-  giantBalloonPrefab: {fileID: 3220572722961134745, guid: a558c43f946eb134d93c6a381b62c362, type: 3}
+  balloonPrefab: {fileID: 2043642384327163585, guid: 483376ef31e2b0244a882b098d95e450, type: 3}
+  giantBalloonPrefab: {fileID: 6997084282374382056, guid: a558c43f946eb134d93c6a381b62c362, type: 3}
   balloonSprites:
   - {fileID: 4374127248745904812, guid: 986e6b926c40dc44f9d417110cd520e7, type: 3}
   - {fileID: 8519304161266684632, guid: 986e6b926c40dc44f9d417110cd520e7, type: 3}
@@ -640,7 +642,9 @@ MonoBehaviour:
   - 8
   - 8
   - 4
-  starParticlePrefab: {fileID: 0}
+  starParticlePrefab: {fileID: 5605112475527206389, guid: 7b3808f9a6d1b214bb8cd0a1f0045f92, type: 3}
+  animalParachutePrefab: {fileID: 7641359491280453387, guid: 1bcdcdbc15ba0554a858a2b0ffaa0e21, type: 3}
+  animalParachuteSprites: []
   spawnInterval: 2
   maxSimultaneousBalloons: 8
   spawnYPosition: -6

@@ -5,12 +5,14 @@ using UnityEngine;
 /// </summary>
 public class AnimalParachuteController : MonoBehaviour
 {
+    [Header("スプライト設定")]
+    [SerializeField] private Sprite[] animalParachuteSprites;  // パラシュート付き動物スプライト(3種類)
+    
     [Header("降下設定")]
     [SerializeField] private float fallSpeed = 0.3f;       // 降下速度
     [SerializeField] private float swayAmount = 0.3f;      // 横揺れの強さ
     
-    private SpriteRenderer animalRenderer;
-    private SpriteRenderer parachuteRenderer;
+    private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private AnimalType animalType;
     private Camera mainCamera;
@@ -18,19 +20,9 @@ public class AnimalParachuteController : MonoBehaviour
     
     void Awake()
     {
-        // 動物用のSpriteRenderer
-        GameObject animalObj = new GameObject("Animal");
-        animalObj.transform.SetParent(transform);
-        animalObj.transform.localPosition = Vector3.zero;
-        animalRenderer = animalObj.AddComponent<SpriteRenderer>();
-        animalRenderer.sortingOrder = 2;
-        
-        // パラシュート用のSpriteRenderer
-        GameObject parachuteObj = new GameObject("Parachute");
-        parachuteObj.transform.SetParent(transform);
-        parachuteObj.transform.localPosition = new Vector3(0, 0.8f, 0); // 少し上
-        parachuteRenderer = parachuteObj.AddComponent<SpriteRenderer>();
-        parachuteRenderer.sortingOrder = 1;
+        // SpriteRenderer
+        spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = 2;
         
         // Rigidbody2D
         rb = gameObject.AddComponent<Rigidbody2D>();
@@ -42,19 +34,17 @@ public class AnimalParachuteController : MonoBehaviour
     /// <summary>
     /// 初期化
     /// </summary>
-    public void Initialize(AnimalType type, Sprite animalSprite, Sprite parachuteSprite)
+    public void Initialize(AnimalType type, Sprite animalParachuteSprite = null)
     {
         animalType = type;
         
-        // スプライトを設定
-        if (animalRenderer != null && animalSprite != null)
-        {
-            animalRenderer.sprite = animalSprite;
-        }
+        // 引数でスプライトが渡されなければ、フィールドの値を使用
+        Sprite finalSprite = animalParachuteSprite ?? (animalParachuteSprites != null && animalParachuteSprites.Length > (int)type ? animalParachuteSprites[(int)type] : null);
         
-        if (parachuteRenderer != null && parachuteSprite != null)
+        // スプライトを設定
+        if (spriteRenderer != null && finalSprite != null)
         {
-            parachuteRenderer.sprite = parachuteSprite;
+            spriteRenderer.sprite = finalSprite;
         }
         
         // 下向きの速度を設定

@@ -13,8 +13,6 @@ public class PopBalloonsSFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip rabbitVoiceSound;    // ウサギの鳴き声
     [SerializeField] private AudioClip bearVoiceSound;      // クマの鳴き声
     [SerializeField] private AudioClip catVoiceSound;       // ネコの鳴き声
-    [SerializeField] private AudioClip dogVoiceSound;       // イヌの鳴き声
-    [SerializeField] private AudioClip elephantVoiceSound;  // ゾウの鳴き声
     
     [Header("音量設定 (0.0 ~ 1.0)")]
     [SerializeField] [Range(0f, 1f)] private float popNormalVolume = 1.0f;
@@ -113,12 +111,6 @@ public class PopBalloonsSFXPlayer : MonoBehaviour
             case AnimalType.Cat:
                 voiceClip = catVoiceSound;
                 break;
-            case AnimalType.Dog:
-                voiceClip = dogVoiceSound;
-                break;
-            case AnimalType.Elephant:
-                voiceClip = elephantVoiceSound;
-                break;
         }
         
         if (voiceClip != null)
@@ -135,7 +127,5 @@ public enum AnimalType
 {
     Rabbit,     // ウサギ
     Bear,       // クマ
-    Cat,        // ネコ
-    Dog,        // イヌ
-    Elephant    // ゾウ
+    Cat         // ネコ
 }

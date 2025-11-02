@@ -94,8 +94,6 @@ public class PopBalloonsSetup
         so.FindProperty("rabbitVoiceSound").objectReferenceValue = sfx5;
         so.FindProperty("bearVoiceSound").objectReferenceValue = sfx6;
         so.FindProperty("catVoiceSound").objectReferenceValue = sfx7;
-        so.FindProperty("dogVoiceSound").objectReferenceValue = sfx8;
-        so.FindProperty("elephantVoiceSound").objectReferenceValue = sfx1; // ゾウはsfx1を代用
         so.ApplyModifiedProperties();
         
         Debug.Log("[PopBalloonsSetup] SFXPlayerを作成しました");
@@ -120,17 +118,34 @@ public class PopBalloonsSetup
         GameObject balloonPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Games/08_PopBalloons/Prefabs/Balloon.prefab");
         GameObject giantPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Games/08_PopBalloons/Prefabs/GiantBalloon.prefab");
         GameObject starPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Games/08_PopBalloons/Prefabs/StarParticle.prefab");
+        GameObject animalParachutePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Games/08_PopBalloons/Prefabs/AnimalParachute.prefab");
+        
+        // アニマルパラシュートスプライトを取得
+        Sprite[] spritesB = LoadSpritesFromSheet("Assets/Games/08_PopBalloons/Sprites/work_sprite_b.png");
+        Sprite[] animalParachuteSprites = new Sprite[3];
+        for (int i = 0; i < 3 && i + 1 < spritesB.Length; i++)
+        {
+            animalParachuteSprites[i] = spritesB[i + 1]; // red_1~3
+        }
         
         SerializedObject so = new SerializedObject(spawnerScript);
         so.FindProperty("balloonPrefab").objectReferenceValue = balloonPrefab;
         so.FindProperty("giantBalloonPrefab").objectReferenceValue = giantPrefab;
         so.FindProperty("starParticlePrefab").objectReferenceValue = starPrefab;
+        so.FindProperty("animalParachutePrefab").objectReferenceValue = animalParachutePrefab;
         
         SerializedProperty spritesProperty = so.FindProperty("balloonSprites");
         spritesProperty.arraySize = selectedSprites.Length;
         for (int i = 0; i < selectedSprites.Length; i++)
         {
             spritesProperty.GetArrayElementAtIndex(i).objectReferenceValue = selectedSprites[i];
+        }
+        
+        SerializedProperty animalSpritesProperty = so.FindProperty("animalParachuteSprites");
+        animalSpritesProperty.arraySize = animalParachuteSprites.Length;
+        for (int i = 0; i < animalParachuteSprites.Length; i++)
+        {
+            animalSpritesProperty.GetArrayElementAtIndex(i).objectReferenceValue = animalParachuteSprites[i];
         }
         
         so.ApplyModifiedProperties();
@@ -233,17 +248,16 @@ public class PopBalloonsSetup
         GameObject animalParachute = new GameObject("AnimalParachute");
         AnimalParachuteController controller = animalParachute.AddComponent<AnimalParachuteController>();
         
-        // 動物スプライトとパラシュートスプライトを設定
+        // パラシュート付き動物スプライトを設定
         Sprite[] spritesB = LoadSpritesFromSheet("Assets/Games/08_PopBalloons/Sprites/work_sprite_b.png");
         
         SerializedObject so = new SerializedObject(controller);
-        SerializedProperty animalSpritesProperty = so.FindProperty("animalSprites");
-        animalSpritesProperty.arraySize = 5;
-        for (int i = 0; i < 5 && i + 1 < spritesB.Length; i++)
+        SerializedProperty animalSpritesProperty = so.FindProperty("animalParachuteSprites");
+        animalSpritesProperty.arraySize = 3;
+        for (int i = 0; i < 3 && i + 1 < spritesB.Length; i++)
         {
-            animalSpritesProperty.GetArrayElementAtIndex(i).objectReferenceValue = spritesB[i + 1]; // red_1~5
+            animalSpritesProperty.GetArrayElementAtIndex(i).objectReferenceValue = spritesB[i + 1]; // red_1~3
         }
-        so.FindProperty("parachuteSprite").objectReferenceValue = spritesB.Length > 6 ? spritesB[6] : null; // red_6
         so.ApplyModifiedProperties();
         
         PrefabUtility.SaveAsPrefabAsset(animalParachute, prefabPath);

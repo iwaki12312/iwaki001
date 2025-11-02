@@ -6,8 +6,7 @@ using UnityEngine;
 /// </summary>
 public class AnimalBalloonController : MonoBehaviour
 {
-    [SerializeField] private Sprite[] animalSprites;       // 動物スプライト(5種類)
-    [SerializeField] private Sprite parachuteSprite;       // パラシュートスプライト
+    [SerializeField] private Sprite[] animalSprites;       // パラシュート付き動物スプライト(3種類)
     [SerializeField] private GameObject animalParachutePrefab; // AnimalParachutePrefab
     private GameObject starParticlePrefab;
     
@@ -28,6 +27,15 @@ public class AnimalBalloonController : MonoBehaviour
     }
     
     /// <summary>
+    /// アニマルパラシュートの設定を受け取る
+    /// </summary>
+    public void SetAnimalParachuteConfig(GameObject prefab, Sprite[] sprites)
+    {
+        animalParachutePrefab = prefab;
+        animalSprites = sprites;
+    }
+    
+    /// <summary>
     /// 動物パラシュートを出現させる
     /// </summary>
     public void SpawnAnimalParachute(Vector3 position)
@@ -35,8 +43,8 @@ public class AnimalBalloonController : MonoBehaviour
         if (hasTriggered) return;
         hasTriggered = true;
         
-        // ランダムな動物を選択
-        AnimalType animalType = (AnimalType)Random.Range(0, 5);
+        // ランダムな動物を選択(3種類)
+        AnimalType animalType = (AnimalType)Random.Range(0, 3);
         
         // AnimalParachutePrefabを生成
         if (animalParachutePrefab != null)
@@ -46,12 +54,12 @@ public class AnimalBalloonController : MonoBehaviour
             
             if (parachuteController != null)
             {
-                // 動物スプライトとパラシュートスプライトを取得
-                Sprite animalSprite = animalSprites != null && animalSprites.Length > (int)animalType
+                // 動物パラシュートスプライトを取得
+                Sprite animalParachuteSprite = animalSprites != null && animalSprites.Length > (int)animalType
                     ? animalSprites[(int)animalType]
                     : null;
                 
-                parachuteController.Initialize(animalType, animalSprite, parachuteSprite);
+                parachuteController.Initialize(animalType, animalParachuteSprite);
             }
         }
         
