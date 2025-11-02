@@ -49,4 +49,4 @@ MonoBehaviour:
   - {fileID: -2283728173279413848, guid: 23475a3eb4bace944bba5a4fd1a23541, type: 3}
   - {fileID: 2345473739246132669, guid: 23475a3eb4bace944bba5a4fd1a23541, type: 3}
   fallSpeed: 1.5
-  swayAmount: 1.5
+  swayAmount: 10
