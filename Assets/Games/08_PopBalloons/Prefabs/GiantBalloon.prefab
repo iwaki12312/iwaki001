@@ -170,6 +170,9 @@ MonoBehaviour:
   colliderRadius: 2
   floatSpeed: 1
   swayAmount: 0.5
-  starParticlePrefab: {fileID: 0}
+  starParticlePrefab: {fileID: 2921154899733558926, guid: 4d09d6ad20a034f44988cb501c248cb8, type: 3}
+  particleScale: 0.3
   giantScale: 2.5
   giantSpeedMultiplier: 0.7
+  giantParticlePrefab: {fileID: 2921154899733558926, guid: 4d09d6ad20a034f44988cb501c248cb8, type: 3}
+  giantParticleScale: 3

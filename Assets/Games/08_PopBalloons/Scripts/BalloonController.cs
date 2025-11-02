@@ -14,6 +14,7 @@ public class BalloonController : MonoBehaviour
     [SerializeField] protected float floatSpeed = 1.0f;    // 浮上速度
     [SerializeField] protected float swayAmount = 0.5f;    // 横揺れの強さ
     [SerializeField] protected GameObject starParticlePrefab; // 星パーティクルPrefab
+    [SerializeField] protected float particleScale = 1.0f; // パーティクルのスケール
     
     protected SpriteRenderer spriteRenderer;
     protected CircleCollider2D circleCollider;
@@ -146,6 +147,7 @@ public class BalloonController : MonoBehaviour
         if (starParticlePrefab != null)
         {
             GameObject particle = Instantiate(starParticlePrefab, transform.position, Quaternion.identity);
+            particle.transform.localScale = Vector3.one * particleScale;
             Destroy(particle, 2f);
         }
         

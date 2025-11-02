@@ -202,6 +202,7 @@ public class PopBalloonsSetup
         SerializedObject so = new SerializedObject(controller);
         so.FindProperty("balloonSize").floatValue = 3.0f;
         so.FindProperty("colliderRadius").floatValue = 2.0f;
+        so.FindProperty("particleScale").floatValue = 1.0f;
         so.ApplyModifiedProperties();
         
         PrefabUtility.SaveAsPrefabAsset(balloon, prefabPath);
@@ -229,6 +230,8 @@ public class PopBalloonsSetup
         SerializedObject so = new SerializedObject(controller);
         so.FindProperty("balloonSize").floatValue = 3.0f;
         so.FindProperty("colliderRadius").floatValue = 2.0f;
+        so.FindProperty("particleScale").floatValue = 1.0f;
+        so.FindProperty("giantParticleScale").floatValue = 2.0f;
         so.ApplyModifiedProperties();
         
         PrefabUtility.SaveAsPrefabAsset(giantBalloon, prefabPath);
