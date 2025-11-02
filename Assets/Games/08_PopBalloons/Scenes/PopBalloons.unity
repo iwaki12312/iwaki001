@@ -592,7 +592,8 @@ MonoBehaviour:
   - 8
   - 8
   - 4
-  starParticlePrefab: {fileID: 5605112475527206389, guid: 7b3808f9a6d1b214bb8cd0a1f0045f92, type: 3}
+  normalParticlePrefab: {fileID: 2060212803351811498, guid: 9b775f30755b3534eb16bf5b9fe4b7c3, type: 3}
+  giantParticlePrefab: {fileID: 2921154899733558926, guid: 4d09d6ad20a034f44988cb501c248cb8, type: 3}
   animalParachutePrefab: {fileID: 7641359491280453387, guid: 1bcdcdbc15ba0554a858a2b0ffaa0e21, type: 3}
   animalParachuteSprites: []
   spawnInterval: 2

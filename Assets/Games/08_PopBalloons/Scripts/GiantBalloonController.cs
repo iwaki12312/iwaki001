@@ -9,6 +9,7 @@ public class GiantBalloonController : BalloonController
     [Header("ジャイアント設定")]
     [SerializeField] private float giantScale = 2.5f;      // 通常の2.5倍
     [SerializeField] private float giantSpeedMultiplier = 0.7f; // 速度を0.7倍に
+    [SerializeField] private GameObject giantParticlePrefab;   // ジャイアント専用パーティクル(未設定時はstarParticlePrefabを使用)
     
     public override void Initialize(Sprite sprite, Vector3 position, GameObject particlePrefab)
     {
@@ -33,13 +34,16 @@ public class GiantBalloonController : BalloonController
         if (isPopped) return;
         isPopped = true;
         
+        // 使用するパーティクルを決定(giantParticlePrefab優先、未設定時はstarParticlePrefab)
+        GameObject particleToUse = giantParticlePrefab != null ? giantParticlePrefab : starParticlePrefab;
+        
         // 星のパーティクルを3倍の量で生成
-        if (starParticlePrefab != null)
+        if (particleToUse != null)
         {
             for (int i = 0; i < 3; i++)
             {
                 Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-                GameObject particle = Instantiate(starParticlePrefab, transform.position + offset, Quaternion.identity);
+                GameObject particle = Instantiate(particleToUse, transform.position + offset, Quaternion.identity);
                 Destroy(particle, 2f);
             }
         }

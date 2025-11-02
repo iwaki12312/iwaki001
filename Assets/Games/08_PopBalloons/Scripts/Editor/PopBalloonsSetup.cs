@@ -131,7 +131,8 @@ public class PopBalloonsSetup
         SerializedObject so = new SerializedObject(spawnerScript);
         so.FindProperty("balloonPrefab").objectReferenceValue = balloonPrefab;
         so.FindProperty("giantBalloonPrefab").objectReferenceValue = giantPrefab;
-        so.FindProperty("starParticlePrefab").objectReferenceValue = starPrefab;
+        so.FindProperty("normalParticlePrefab").objectReferenceValue = starPrefab;
+        so.FindProperty("giantParticlePrefab").objectReferenceValue = starPrefab; // 初期は同じ
         so.FindProperty("animalParachutePrefab").objectReferenceValue = animalParachutePrefab;
         
         SerializedProperty spritesProperty = so.FindProperty("balloonSprites");

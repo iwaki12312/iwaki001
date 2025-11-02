@@ -12,7 +12,8 @@ public class BalloonSpawner : MonoBehaviour
     [SerializeField] private Sprite[] balloonSprites;            // 風船スプライト配列(8色)
     [SerializeField] private float[] balloonColliderRadii = new float[8] 
         { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f };     // 各色のコライダサイズ
-    [SerializeField] private GameObject starParticlePrefab;      // 星パーティクルPrefab
+    [SerializeField] private GameObject normalParticlePrefab;    // 通常風船用パーティクルPrefab
+    [SerializeField] private GameObject giantParticlePrefab;     // ジャイアント風船用パーティクルPrefab
     
     [Header("アニマルパラシュート設定")]
     [SerializeField] private GameObject animalParachutePrefab;   // アニマルパラシュートPrefab
@@ -110,11 +111,14 @@ public class BalloonSpawner : MonoBehaviour
         GameObject balloonObj = Instantiate(prefab, spawnPos, Quaternion.identity);
         balloonObj.transform.SetParent(transform);
         
+        // 使用するパーティクルを決定
+        GameObject particleToUse = isGiant ? giantParticlePrefab : normalParticlePrefab;
+        
         // 初期化
         BalloonController controller = balloonObj.GetComponent<BalloonController>();
         if (controller != null)
         {
-            controller.Initialize(sprite, spawnPos, starParticlePrefab);
+            controller.Initialize(sprite, spawnPos, particleToUse);
             
             // 色に応じたコライダサイズを設定
             if (colorIndex < balloonColliderRadii.Length)
@@ -127,7 +131,7 @@ public class BalloonSpawner : MonoBehaviour
             {
                 // AnimalBalloonコンポーネントを追加
                 AnimalBalloonController animalController = balloonObj.AddComponent<AnimalBalloonController>();
-                animalController.SetParticlePrefab(starParticlePrefab);
+                animalController.SetParticlePrefab(particleToUse);
                 
                 // AnimalParachuteの設定を渡す
                 animalController.SetAnimalParachuteConfig(animalParachutePrefab, animalParachuteSprites);
@@ -168,7 +172,7 @@ public class BalloonSpawner : MonoBehaviour
             BalloonController controller = balloonObj.GetComponent<BalloonController>();
             if (controller != null)
             {
-                controller.Initialize(sprite, spawnPos, starParticlePrefab);
+                controller.Initialize(sprite, spawnPos, normalParticlePrefab);
                 
                 // 色に応じたコライダサイズを設定
                 if (colorIndex < balloonColliderRadii.Length)
