@@ -72,8 +72,9 @@ public class AnimalBalloonController : MonoBehaviour
     
     void OnDestroy()
     {
-        // 風船が削除される時に動物パラシュートを出現
-        if (!hasTriggered && balloonController != null)
+        // 風船がタップされて削除される時のみ動物パラシュートを出現
+        // 画面外で削除された場合は出現させない
+        if (!hasTriggered && balloonController != null && !balloonController.isDestroyedOffScreen)
         {
             SpawnAnimalParachute(transform.position);
         }

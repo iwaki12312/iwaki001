@@ -171,8 +171,8 @@ MonoBehaviour:
   floatSpeed: 2
   swayAmount: 0.5
   starParticlePrefab: {fileID: 2921154899733558926, guid: 4d09d6ad20a034f44988cb501c248cb8, type: 3}
-  particleScale: 0.3
+  particleScale: 1.5
   giantScale: 2.5
   giantSpeedMultiplier: 0.7
   giantParticlePrefab: {fileID: 2921154899733558926, guid: 4d09d6ad20a034f44988cb501c248cb8, type: 3}
-  giantParticleScale: 3
+  giantParticleScale: 4

@@ -21,6 +21,7 @@ public class BalloonController : MonoBehaviour
     protected Rigidbody2D rb;
     protected Camera mainCamera;
     protected bool isPopped = false;
+    public bool isDestroyedOffScreen { get; protected set; } = false; // 画面外で削除されたかどうか
     
     void Awake()
     {
@@ -124,6 +125,7 @@ public class BalloonController : MonoBehaviour
         // 画面外判定
         if (IsOutOfScreen())
         {
+            isDestroyedOffScreen = true;
             Destroy(gameObject);
         }
     }

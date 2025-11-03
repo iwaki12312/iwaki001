@@ -171,4 +171,4 @@ MonoBehaviour:
   floatSpeed: 3
   swayAmount: 0.5
   starParticlePrefab: {fileID: 2060212803351811498, guid: 9b775f30755b3534eb16bf5b9fe4b7c3, type: 3}
-  particleScale: 0.6
+  particleScale: 1.3
