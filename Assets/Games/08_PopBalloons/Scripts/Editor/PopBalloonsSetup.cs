@@ -88,12 +88,13 @@ public class PopBalloonsSetup
         
         SerializedObject so = new SerializedObject(player);
         so.FindProperty("popNormalSound").objectReferenceValue = sfx1;
-        so.FindProperty("popGiantSound").objectReferenceValue = sfx2;
-        so.FindProperty("stormStartSound").objectReferenceValue = sfx3;
-        so.FindProperty("animalAppearSound").objectReferenceValue = sfx4;
-        so.FindProperty("rabbitVoiceSound").objectReferenceValue = sfx5;
-        so.FindProperty("bearVoiceSound").objectReferenceValue = sfx6;
-        so.FindProperty("catVoiceSound").objectReferenceValue = sfx7;
+        so.FindProperty("popGiantSound1").objectReferenceValue = sfx2;
+        so.FindProperty("popGiantSound2").objectReferenceValue = sfx3;
+        so.FindProperty("stormStartSound").objectReferenceValue = sfx4;
+        so.FindProperty("animalAppearSound").objectReferenceValue = sfx5;
+        so.FindProperty("rabbitVoiceSound").objectReferenceValue = sfx6;
+        so.FindProperty("bearVoiceSound").objectReferenceValue = sfx7;
+        so.FindProperty("catVoiceSound").objectReferenceValue = sfx8;
         so.ApplyModifiedProperties();
         
         Debug.Log("[PopBalloonsSetup] SFXPlayerを作成しました");

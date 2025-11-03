@@ -514,14 +514,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popNormalSound: {fileID: 8300000, guid: addefafd59cce534cb4643226283d9ca, type: 3}
-  popGiantSound: {fileID: 8300000, guid: e4d242fbb439b1c43b8da29fdc01287b, type: 3}
+  popGiantSound1: {fileID: 8300000, guid: 4b5e5172c1a9a9f4d81a251d33331c84, type: 3}
+  popGiantSound2: {fileID: 8300000, guid: e4d242fbb439b1c43b8da29fdc01287b, type: 3}
   stormStartSound: {fileID: 8300000, guid: 5dc09fab4bc136e4dbc9c86a8ad22629, type: 3}
   animalAppearSound: {fileID: 8300000, guid: 84047a9aae9844f408ccbc5c41c78ad0, type: 3}
   rabbitVoiceSound: {fileID: 8300000, guid: 15e60b71165a17946ab35427004ea80e, type: 3}
   bearVoiceSound: {fileID: 8300000, guid: 15e60b71165a17946ab35427004ea80e, type: 3}
   catVoiceSound: {fileID: 8300000, guid: 15e60b71165a17946ab35427004ea80e, type: 3}
   popNormalVolume: 1
-  popGiantVolume: 1
+  popGiantSound1Volume: 1
+  popGiantSound2Volume: 0.554
   stormStartVolume: 1
   animalAppearVolume: 0.713
   animalVoiceVolume: 1

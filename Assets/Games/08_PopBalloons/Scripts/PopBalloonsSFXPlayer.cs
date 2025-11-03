@@ -7,7 +7,8 @@ public class PopBalloonsSFXPlayer : MonoBehaviour
 {
     [Header("効果音")]
     [SerializeField] private AudioClip popNormalSound;      // 通常風船の破裂音
-    [SerializeField] private AudioClip popGiantSound;       // ジャイアント風船の破裂音
+    [SerializeField] private AudioClip popGiantSound1;      // ジャイアント風船の破裂音1
+    [SerializeField] private AudioClip popGiantSound2;      // ジャイアント風船の破裂音2
     [SerializeField] private AudioClip stormStartSound;     // バルーンストーム開始音
     [SerializeField] private AudioClip animalAppearSound;   // 動物出現音
     [SerializeField] private AudioClip rabbitVoiceSound;    // ウサギの鳴き声
@@ -16,7 +17,8 @@ public class PopBalloonsSFXPlayer : MonoBehaviour
     
     [Header("音量設定 (0.0 ~ 1.0)")]
     [SerializeField] [Range(0f, 1f)] private float popNormalVolume = 1.0f;
-    [SerializeField] [Range(0f, 1f)] private float popGiantVolume = 1.0f;
+    [SerializeField] [Range(0f, 1f)] private float popGiantSound1Volume = 1.0f;
+    [SerializeField] [Range(0f, 1f)] private float popGiantSound2Volume = 1.0f;
     [SerializeField] [Range(0f, 1f)] private float stormStartVolume = 1.0f;
     [SerializeField] [Range(0f, 1f)] private float animalAppearVolume = 1.0f;
     [SerializeField] [Range(0f, 1f)] private float animalVoiceVolume = 1.0f;
@@ -61,13 +63,17 @@ public class PopBalloonsSFXPlayer : MonoBehaviour
     }
     
     /// <summary>
-    /// ジャイアント風船の破裂音を再生
+    /// ジャイアント風船の破裂音を再生(2つ同時)
     /// </summary>
     public void PlayPopGiant()
     {
-        if (popGiantSound != null)
+        if (popGiantSound1 != null)
         {
-            audioSource.PlayOneShot(popGiantSound, popGiantVolume);
+            audioSource.PlayOneShot(popGiantSound1, popGiantSound1Volume);
+        }
+        if (popGiantSound2 != null)
+        {
+            audioSource.PlayOneShot(popGiantSound2, popGiantSound2Volume);
         }
     }
     
