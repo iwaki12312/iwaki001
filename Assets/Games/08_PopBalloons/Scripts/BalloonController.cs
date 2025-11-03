@@ -145,6 +145,13 @@ public class BalloonController : MonoBehaviour
         if (isPopped) return;
         isPopped = true;
         
+        // AnimalBalloonControllerがあればアニマルパラシュートを出現させる
+        AnimalBalloonController animalController = GetComponent<AnimalBalloonController>();
+        if (animalController != null)
+        {
+            animalController.SpawnAnimalParachute(transform.position);
+        }
+        
         // 星のパーティクルを生成
         if (starParticlePrefab != null)
         {

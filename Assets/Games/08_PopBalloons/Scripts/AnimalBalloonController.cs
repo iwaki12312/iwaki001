@@ -9,6 +9,7 @@ public class AnimalBalloonController : MonoBehaviour
     [SerializeField] private Sprite[] animalSprites;       // パラシュート付き動物スプライト(3種類)
     [SerializeField] private GameObject animalParachutePrefab; // AnimalParachutePrefab
     private GameObject starParticlePrefab;
+    private Transform spawnerTransform; // BalloonSpawnerへの参照
     
     private BalloonController balloonController;
     private bool hasTriggered = false;
@@ -16,6 +17,12 @@ public class AnimalBalloonController : MonoBehaviour
     void Awake()
     {
         balloonController = GetComponent<BalloonController>();
+        
+        // BalloonSpawnerへの参照を取得
+        if (BalloonSpawner.Instance != null)
+        {
+            spawnerTransform = BalloonSpawner.Instance.transform;
+        }
     }
     
     /// <summary>
@@ -50,6 +57,13 @@ public class AnimalBalloonController : MonoBehaviour
         if (animalParachutePrefab != null)
         {
             GameObject parachuteObj = Instantiate(animalParachutePrefab, position, Quaternion.identity);
+            
+            // BalloonSpawnerを親として設定(シーン遷移時に確実に削除されるように)
+            if (spawnerTransform != null)
+            {
+                parachuteObj.transform.SetParent(spawnerTransform);
+            }
+            
             AnimalParachuteController parachuteController = parachuteObj.GetComponent<AnimalParachuteController>();
             
             if (parachuteController != null)
@@ -67,16 +81,6 @@ public class AnimalBalloonController : MonoBehaviour
         if (PopBalloonsSFXPlayer.Instance != null)
         {
             PopBalloonsSFXPlayer.Instance.PlayAnimalAppear();
-        }
-    }
-    
-    void OnDestroy()
-    {
-        // 風船がタップされて削除される時のみ動物パラシュートを出現
-        // 画面外で削除された場合は出現させない
-        if (!hasTriggered && balloonController != null && !balloonController.isDestroyedOffScreen)
-        {
-            SpawnAnimalParachute(transform.position);
         }
     }
 }
