@@ -759,6 +759,7 @@ MonoBehaviour:
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
+  seagullPrefab: {fileID: 621828857573453398, guid: f14c5e69d1599de40aec9f4e12e6d424, type: 3}
   spawnInterval: 2
   spawnXPosition: -10
   spawnYMin: -3

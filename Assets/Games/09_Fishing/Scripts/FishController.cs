@@ -22,6 +22,10 @@ public class FishController : MonoBehaviour
     [SerializeField] private float fadeOutDuration = 0.5f;     // フェードアウト時間（秒）
     [SerializeField] private AnimationCurve catchCurve = AnimationCurve.EaseInOut(0, 0, 1, 1); // 軌道カーブ
     
+    [Header("釣り糸位置設定")]
+    [SerializeField] private float catchPointOffsetX = 1.5f;   // 釣り人からのX軸オフセット
+    [SerializeField] private float catchPointOffsetY = -2.0f;  // 釣り人からのY軸オフセット
+    
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
     private Camera mainCamera;
@@ -230,30 +234,34 @@ public class FishController : MonoBehaviour
     /// </summary>
     private void StartCatchAnimation()
     {
-        // 角度から終点を計算
+        // 釣り人の位置を取得（釣り糸が垂れている位置）
+        Vector3 catchStartPos = GetFishermanCatchPoint();
+        
+        // 魚を釣り人の位置（釣り糸の位置）へ瞬時に移動
+        transform.position = catchStartPos;
+        
+        // 釣り上げ軌道を計算（釣り人の位置から開始）
         float angleRad = catchAngle * Mathf.Deg2Rad;
-        Vector3 endPos = transform.position + new Vector3(
+        Vector3 endPos = catchStartPos + new Vector3(
             Mathf.Cos(angleRad) * catchDistance,
             Mathf.Sin(angleRad) * catchDistance,
             0
         );
         
         // 放物線の頂点を計算
-        Vector3 midPos = (transform.position + endPos) / 2f + Vector3.up * catchDistance * 0.3f;
+        Vector3 midPos = (catchStartPos + endPos) / 2f + Vector3.up * catchDistance * 0.3f;
         
-        // 軌道の配列
-        Vector3[] path = new Vector3[] { transform.position, midPos, endPos };
-        
-        // DOTweenで釣り上げアニメーション
+        // DOTweenで釣り上げアニメーション（2段階で放物線を描く）
         Sequence catchSeq = DOTween.Sequence();
         
-        // 移動アニメーション
-        catchSeq.Append(transform.DOPath(path, catchDuration, PathType.CatmullRom)
-            .SetEase(catchCurve));
+        // 上昇（中間点へ）
+        catchSeq.Append(transform.DOMove(midPos, catchDuration * 0.5f).SetEase(Ease.OutQuad));
         
-        // フェードアウト（移動と同時に開始）
-        catchSeq.Join(spriteRenderer.DOFade(0f, fadeOutDuration)
-            .SetDelay(catchDuration - fadeOutDuration));
+        // 下降（終点へ）
+        catchSeq.Append(transform.DOMove(endPos, catchDuration * 0.5f).SetEase(Ease.InQuad));
+        
+        // フェードアウト（下降と同時に開始）
+        catchSeq.Join(spriteRenderer.DOFade(0f, fadeOutDuration));
         
         // 完了後に削除
         catchSeq.OnComplete(() => {
@@ -264,6 +272,23 @@ public class FishController : MonoBehaviour
             }
             Destroy(gameObject);
         });
+    }
+    
+    /// <summary>
+    /// 釣り人の釣り糸が垂れている位置を取得
+    /// </summary>
+    private Vector3 GetFishermanCatchPoint()
+    {
+        // 釣り人の位置を取得
+        if (FishermanController.Instance != null)
+        {
+            Vector3 fishermanPos = FishermanController.Instance.transform.position;
+            // 釣り人の位置からオフセットした位置を返す
+            return new Vector3(fishermanPos.x + catchPointOffsetX, fishermanPos.y + catchPointOffsetY, 0);
+        }
+        
+        // フォールバック: 画面中央やや左、水面付近
+        return new Vector3(-2f, 0f, 0);
     }
     
     /// <summary>

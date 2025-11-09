@@ -1,4 +1,5 @@
 using UnityEngine;
+// using DG.Tweening;
 
 /// <summary>
 /// Fishingゲーム全体を管理するクラス
@@ -17,6 +18,10 @@ public class FishingGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        // // DOTweenを初期化
+        // DOTween.Init();
+        // DOTween.SetTweensCapacity(200, 50);
     }
     
     void Start()
