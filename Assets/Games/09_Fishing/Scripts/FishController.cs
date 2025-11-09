@@ -109,8 +109,8 @@ public class FishController : MonoBehaviour
         }
 #endif
         
-        // 画面外判定（右端を超えたら削除）
-        if (IsOutOfScreen())
+        // 画面外判定（右端を超えたら削除）- カモメに奪われている場合はスキップ
+        if (transform.parent == null && IsOutOfScreen())
         {
             Destroy(gameObject);
         }
@@ -292,22 +292,11 @@ public class FishController : MonoBehaviour
     }
     
     /// <summary>
-    /// カモメに奪われた時の処理（SeagullControllerから呼ばれる）
+    /// SpriteRendererを取得（SeagullControllerから使用）
     /// </summary>
-    public void OnStolenBySeagull()
+    public SpriteRenderer GetSpriteRenderer()
     {
-        // アニメーションをキャンセル
-        DOTween.Kill(transform);
-        DOTween.Kill(spriteRenderer);
-        
-        // 魚を削除
-        Destroy(gameObject);
-        
-        // 釣り人を待機状態に戻す
-        if (FishermanController.Instance != null)
-        {
-            FishermanController.Instance.ReturnToIdle();
-        }
+        return spriteRenderer;
     }
     
     /// <summary>

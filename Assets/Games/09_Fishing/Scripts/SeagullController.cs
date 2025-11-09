@@ -70,12 +70,16 @@ public class SeagullController : MonoBehaviour
             }
         });
         
-        // 4. 画面外へ飛んでいく
+        // 4. 魚を掴んだまま画面外へ飛んでいく
         Vector3 exitPos = new Vector3(fishPosition.x + 10f, fishPosition.y + 10f, 0);
         flySeq.Append(transform.DOMove(exitPos, 1.0f).SetEase(Ease.InQuad));
         
-        // 5. 完了後に削除
+        // 5. 完了後に削除（魚も一緒に削除される）
         flySeq.OnComplete(() => {
+            if (targetFish != null)
+            {
+                Destroy(targetFish.gameObject);
+            }
             Destroy(gameObject);
         });
     }
@@ -88,10 +92,45 @@ public class SeagullController : MonoBehaviour
         if (hasGrabbed) return;
         hasGrabbed = true;
         
+        Debug.Log("[SeagullController] GrabFish開始");
+        
         if (targetFish != null)
         {
-            // 魚に奪われたことを通知
-            targetFish.OnStolenBySeagull();
+            Debug.Log($"[SeagullController] 魚発見: {targetFish.name}");
+            
+            // 魚のコライダーを無効化（再度タップされないように）
+            CircleCollider2D fishCollider = targetFish.GetComponent<CircleCollider2D>();
+            if (fishCollider != null)
+            {
+                fishCollider.enabled = false;
+                Debug.Log("[SeagullController] 魚のコライダー無効化");
+            }
+            
+            // 魚の進行中のアニメーションを停止
+            DOTween.Kill(targetFish.transform);
+            DOTween.Kill(targetFish.GetComponent<SpriteRenderer>());
+            Debug.Log("[SeagullController] 魚のアニメーション停止");
+            
+            // 魚をカモメの子オブジェクトにする（カモメと一緒に移動）
+            targetFish.transform.SetParent(transform);
+            Debug.Log($"[SeagullController] 魚を子オブジェクト化: parent={targetFish.transform.parent.name}");
+            
+            // 魚をカモメのやや下に配置
+            targetFish.transform.localPosition = new Vector3(0, -0.5f, 0);
+            Debug.Log($"[SeagullController] 魚の位置設定: localPos={targetFish.transform.localPosition}");
+            
+            // 釣り人を待機状態に戻す
+            if (FishermanController.Instance != null)
+            {
+                FishermanController.Instance.ReturnToIdle();
+                Debug.Log("[SeagullController] 釣り人を待機状態に戻しました");
+            }
+            
+            Debug.Log("[SeagullController] GrabFish完了");
+        }
+        else
+        {
+            Debug.LogWarning("[SeagullController] targetFishがnullです");
         }
     }
 }
