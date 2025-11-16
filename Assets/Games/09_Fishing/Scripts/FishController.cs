@@ -145,7 +145,7 @@ public class FishController : MonoBehaviour
         else
         {
             // 通常の釣り上げ
-            StartCatchAnimation();
+            StartCatchAnimation(false);
             
             // 効果音を再生（カモメに奪われない場合のみ）
             if (FishingSFXPlayer.Instance != null)
@@ -183,7 +183,7 @@ public class FishController : MonoBehaviour
         {
             Debug.LogWarning("[FishController] カモメPrefabが設定されていません。通常の釣り上げに戻します。");
             // Prefabがない場合は通常の釣り上げ
-            StartCatchAnimation();
+            StartCatchAnimation(false);
             
             // 効果音を再生
             if (FishingSFXPlayer.Instance != null)
@@ -200,39 +200,35 @@ public class FishController : MonoBehaviour
             return;
         }
         
-        GameObject seagullObj = Instantiate(seagullPrefab);
-        SeagullController seagull = seagullObj.GetComponent<SeagullController>();
+        // 魚の釣り上げアニメーションを開始（カモメイベント用）
+        StartCatchAnimation(true);
         
-        if (seagull != null)
-        {
-            Debug.Log("[FishController] カモメインスタンス化成功");
-            seagull.Initialize(transform.position, this);
-        }
-        else
-        {
-            Debug.LogWarning("[FishController] カモメにSeagullControllerコンポーネントがありません");
-            Destroy(seagullObj);
-            StartCatchAnimation();
-            
-            // 効果音を再生
-            if (FishingSFXPlayer.Instance != null)
+        // 0.5秒後にカモメを出現させる（魚が空中にいるタイミング）
+        DOVirtual.DelayedCall(0.5f, () => {
+            if (this != null && gameObject != null)
             {
-                if (isRare)
+                GameObject seagullObj = Instantiate(seagullPrefab);
+                SeagullController seagull = seagullObj.GetComponent<SeagullController>();
+                
+                if (seagull != null)
                 {
-                    FishingSFXPlayer.Instance.PlayFishRare();
+                    Debug.Log($"[FishController] カモメ出現: 魚の位置={transform.position}");
+                    seagull.Initialize(transform.position, this);
                 }
                 else
                 {
-                    FishingSFXPlayer.Instance.PlayFishCatch();
+                    Debug.LogWarning("[FishController] カモメにSeagullControllerコンポーネントがありません");
+                    Destroy(seagullObj);
                 }
             }
-        }
+        });
     }
     
     /// <summary>
     /// 釣り上げアニメーション開始
     /// </summary>
-    private void StartCatchAnimation()
+    /// <param name="isSeagullEvent">カモメイベントかどうか</param>
+    private void StartCatchAnimation(bool isSeagullEvent)
     {
         // 釣り人の位置を取得（釣り糸が垂れている位置）
         Vector3 catchStartPos = GetFishermanCatchPoint();
@@ -257,21 +253,30 @@ public class FishController : MonoBehaviour
         // 上昇（中間点へ）
         catchSeq.Append(transform.DOMove(midPos, catchDuration * 0.5f).SetEase(Ease.OutQuad));
         
-        // 下降（終点へ）
-        catchSeq.Append(transform.DOMove(endPos, catchDuration * 0.5f).SetEase(Ease.InQuad));
-        
-        // フェードアウト（下降と同時に開始）
-        catchSeq.Join(spriteRenderer.DOFade(0f, fadeOutDuration));
-        
-        // 完了後に削除
-        catchSeq.OnComplete(() => {
-            // 釣り人を待機状態に戻す
-            if (FishermanController.Instance != null)
-            {
-                FishermanController.Instance.ReturnToIdle();
-            }
-            Destroy(gameObject);
-        });
+        if (!isSeagullEvent)
+        {
+            // 通常の釣り上げ: 下降して終点まで
+            catchSeq.Append(transform.DOMove(endPos, catchDuration * 0.5f).SetEase(Ease.InQuad));
+            
+            // フェードアウト（下降と同時に開始）
+            catchSeq.Join(spriteRenderer.DOFade(0f, fadeOutDuration));
+            
+            // 完了後に削除
+            catchSeq.OnComplete(() => {
+                // 釣り人を待機状態に戻す
+                if (FishermanController.Instance != null)
+                {
+                    FishermanController.Instance.ReturnToIdle();
+                }
+                Destroy(gameObject);
+            });
+        }
+        else
+        {
+            // カモメイベント: 中間点で停止（カモメが奪いに来るまで）
+            // カモメが奪った後は、カモメ側で魚を制御する
+            Debug.Log("[FishController] カモメイベント用釣り上げアニメーション開始");
+        }
     }
     
     /// <summary>

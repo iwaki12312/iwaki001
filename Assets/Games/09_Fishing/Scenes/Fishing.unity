@@ -270,8 +270,8 @@ Transform:
   m_GameObject: {fileID: 341237527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 3.5, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: 4.39, y: 2.7, z: 0}
+  m_LocalScale: {x: 0.3147, y: 0.29505002, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -337,7 +337,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 8488264252480380762, guid: 78dc4cbea74c49647a642e47482932d3, type: 3}
+  m_Sprite: {fileID: -8483731395159641348, guid: f407800867fecfb4f882abbab2afc2a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -357,8 +357,8 @@ Transform:
   m_GameObject: {fileID: 617283652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9765625, y: 0.9765625, z: 0.9765625}
+  m_LocalPosition: {x: -0.0182, y: -1.86, z: 0}
+  m_LocalScale: {x: 0.9844298, y: 0.85296303, z: 0.9765625}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -492,7 +492,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
+  m_Sprite: {fileID: 5306023248532794136, guid: 8e795af85fc7697418c54cb9adcf6f6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -512,8 +512,8 @@ Transform:
   m_GameObject: {fileID: 1375509801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 3, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 6, y: 1.35, z: 0}
+  m_LocalScale: {x: 0.8942, y: 0.7224, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -730,26 +730,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 2805147534537784339, guid: 4e01e611b2d97504ea10479d88f743a9, type: 3}
   normalFishSprites:
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
-  - {fileID: -7490982025059118367, guid: d06e4e15a98a0d4419e14b5c94158133, type: 3}
+  - {fileID: 8966945178157639174, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 7910131988914132003, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 4694313144681828600, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -5337588824987023507, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -3968430113050936271, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -3589528415675698274, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 6466912814626516007, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -2114686101538272709, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
+  - {fileID: -515027122047594265, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -7784685719765339314, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 5368666533138668104, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 2767886457094809172, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -2843299357937944970, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 3093555907524137670, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -3209027340831218189, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 6007161146073487467, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 1091228756823284941, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
+  - {fileID: -8144145376688983806, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: 6034529960672641575, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - {fileID: -1710500768077515765, guid: 33440b3349df92a41905653db29e6d79, type: 3}
   rareFishSprites:
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
@@ -760,10 +760,10 @@ MonoBehaviour:
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
   - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
   seagullPrefab: {fileID: 621828857573453398, guid: f14c5e69d1599de40aec9f4e12e6d424, type: 3}
-  spawnInterval: 2
+  spawnInterval: 1
   spawnXPosition: -10
-  spawnYMin: -3
-  spawnYMax: 1
+  spawnYMin: -4.5
+  spawnYMax: -0.5
   minSwimSpeed: 1
   maxSwimSpeed: 3
   baseFishSize: 2
