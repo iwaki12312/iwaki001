@@ -21,7 +21,8 @@ public class GameInfo : MonoBehaviour
         new GameData("TouchTheStar", 5, "pack_free"),      // 05_TouchTheStar
         new GameData("PianoAndViolin", 6, "pack_free"),    // 06_PianoAndViolin
         new GameData("CatchInsects", 7, "pack_01"),        // 07_CatchInsects
-        new GameData("PopBalloons", 8, "pack_01")          // 08_PopBalloons
+        new GameData("PopBalloons", 8, "pack_01"),         // 08_PopBalloons
+        new GameData("Fishing", 9, "pack_01")              // 09_Fishing
     };
     
     // 総ページ数を取得
