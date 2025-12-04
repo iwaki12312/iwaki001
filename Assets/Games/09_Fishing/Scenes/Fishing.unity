@@ -730,35 +730,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 2805147534537784339, guid: 4e01e611b2d97504ea10479d88f743a9, type: 3}
   normalFishSprites:
-  - {fileID: 8966945178157639174, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 7910131988914132003, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 4694313144681828600, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -5337588824987023507, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -3968430113050936271, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -3589528415675698274, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 6466912814626516007, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -2114686101538272709, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
-  - {fileID: -515027122047594265, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -7784685719765339314, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 5368666533138668104, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 2767886457094809172, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -2843299357937944970, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 3093555907524137670, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -3209027340831218189, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 6007161146073487467, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 1091228756823284941, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
-  - {fileID: -8144145376688983806, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: 6034529960672641575, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-  - {fileID: -1710500768077515765, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+  - sprite: {fileID: 8966945178157639174, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 7910131988914132003, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 4694313144681828600, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -5337588824987023507, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -3968430113050936271, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -3589528415675698274, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 6466912814626516007, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 8272574640081733460, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -515027122047594265, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 6554164663265866747, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 5368666533138668104, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -5151204248301318049, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -2843299357937944970, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 3093555907524137670, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -3209027340831218189, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 6007161146073487467, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -2833908425949263862, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 3446899665053034493, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: 5551162239717915705, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+  - sprite: {fileID: -2138169658848872653, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
   rareFishSprites:
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  - {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
+  - sprite: {fileID: 0}
+    sizeMultiplier: 1
   seagullPrefab: {fileID: 621828857573453398, guid: f14c5e69d1599de40aec9f4e12e6d424, type: 3}
   spawnInterval: 1
   spawnXPosition: -10

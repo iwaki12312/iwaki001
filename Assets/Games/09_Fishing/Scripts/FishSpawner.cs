@@ -6,10 +6,20 @@ using System.Collections.Generic;
 /// </summary>
 public class FishSpawner : MonoBehaviour
 {
+    /// <summary>
+    /// 魚のスプライトとサイズのセット
+    /// </summary>
+    [System.Serializable]
+    public class FishSpriteData
+    {
+        public Sprite sprite;                                  // 魚のスプライト
+        [Range(0.5f, 2.0f)] public float sizeMultiplier = 1.0f; // サイズ倍率（1.0=標準）
+    }
+    
     [Header("魚設定")]
     [SerializeField] private GameObject fishPrefab;           // 魚Prefab
-    [SerializeField] private Sprite[] normalFishSprites;      // 通常魚スプライト配列[20]
-    [SerializeField] private Sprite[] rareFishSprites;        // レア魚スプライト配列[8]
+    [SerializeField] private FishSpriteData[] normalFishSprites;      // 通常魚スプライト配列[20]
+    [SerializeField] private FishSpriteData[] rareFishSprites;        // レア魚スプライト配列[8]
     
     [Header("カモメ設定")]
     [SerializeField] private GameObject seagullPrefab;        // カモメPrefab
@@ -92,19 +102,19 @@ public class FishSpawner : MonoBehaviour
         // レア判定
         bool isRare = Random.value < rareChance;
         
-        // スプライト選択
-        Sprite selectedSprite = null;
+        // スプライトとサイズデータを選択
+        FishSpriteData selectedData = null;
         if (isRare && rareFishSprites != null && rareFishSprites.Length > 0)
         {
-            selectedSprite = rareFishSprites[Random.Range(0, rareFishSprites.Length)];
+            selectedData = rareFishSprites[Random.Range(0, rareFishSprites.Length)];
         }
         else if (normalFishSprites != null && normalFishSprites.Length > 0)
         {
-            selectedSprite = normalFishSprites[Random.Range(0, normalFishSprites.Length)];
+            selectedData = normalFishSprites[Random.Range(0, normalFishSprites.Length)];
             isRare = false; // レアスプライトがない場合は通常扱い
         }
         
-        if (selectedSprite == null)
+        if (selectedData == null || selectedData.sprite == null)
         {
             Debug.LogWarning("[FishSpawner] スプライトが設定されていません");
             return;
@@ -124,15 +134,15 @@ public class FishSpawner : MonoBehaviour
         GameObject fishObj = Instantiate(fishPrefab, spawnPos, Quaternion.identity);
         fishObj.transform.SetParent(transform);
         
-        // 初期化
+        // 初期化（サイズ倍率を渡す）
         FishController controller = fishObj.GetComponent<FishController>();
         if (controller != null)
         {
-            controller.Initialize(selectedSprite, spawnPos, speed, isRare, baseFishSize);
+            controller.Initialize(selectedData.sprite, spawnPos, speed, isRare, baseFishSize, selectedData.sizeMultiplier);
         }
         
         activeFish.Add(fishObj);
         
-        Debug.Log($"[FishSpawner] 魚をスポーン: {(isRare ? "レア" : "通常")}");
+        Debug.Log($"[FishSpawner] 魚をスポーン: {(isRare ? "レア" : "通常")}, size={selectedData.sizeMultiplier}");
     }
 }

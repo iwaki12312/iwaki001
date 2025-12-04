@@ -10,7 +10,7 @@ public class FishController : MonoBehaviour
     [Header("魚の設定")]
     [SerializeField] private Sprite fishSprite;          // 魚のスプライト
     [SerializeField] private bool isRare = false;        // レアかどうか
-    [SerializeField] private float sizeMultiplier = 1.0f; // サイズ倍率（Inspector調整用）
+    [SerializeField] [Range(0.5f, 2.0f)] private float sizeMultiplier = 1.0f; // 個別サイズ微調整（1.0=標準、0.5=半分、2.0=2倍）
     
     [Header("泳ぎ設定")]
     [SerializeField] private float swimSpeed = 2.0f;     // 泳ぐ速度
@@ -52,7 +52,7 @@ public class FishController : MonoBehaviour
     /// <summary>
     /// 魚を初期化
     /// </summary>
-    public void Initialize(Sprite sprite, Vector3 position, float speed, bool rare, float baseFishSize)
+    public void Initialize(Sprite sprite, Vector3 position, float speed, bool rare, float baseFishSize, float sizeMultiplier = 1.0f)
     {
         fishSprite = sprite;
         transform.position = position;
