@@ -79,7 +79,7 @@ public class FishController : MonoBehaviour
         }
         
         // コライダーサイズを設定
-        circleCollider.radius = 0.5f;
+        circleCollider.radius = 1.2f;
     }
     
     void Update()
