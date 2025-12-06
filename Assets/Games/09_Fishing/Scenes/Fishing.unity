@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41f262b8df29f148af4abcb4a58cac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishCatchSound: {fileID: 8300000, guid: 9ee0f4e4fa8a57740baa279b9fb44870, type: 3}
+  fishCatchSound: {fileID: 8300000, guid: cb156b2666666cc45be1c4c5f6d029b1, type: 3}
   fishRareSound: {fileID: 8300000, guid: 7f19af02e7d8fd1409a96b0f8b2fe3d5, type: 3}
-  seagullAppearSound: {fileID: 8300000, guid: f86db5029db627544b878bb98e733a88, type: 3}
-  seagullCrySound: {fileID: 8300000, guid: 8654464e8b4cc5c4c9d0741acff7db89, type: 3}
+  seagullAppearSound: {fileID: 8300000, guid: 962e742ef446b6045930a740bc54bb60, type: 3}
+  seagullCrySound: {fileID: 8300000, guid: cca4598ba97cf6f4882278a37ba29137, type: 3}
   fishCatchVolume: 1
   fishRareVolume: 1
   seagullAppearVolume: 1
@@ -201,9 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89df58b5060ca47408710e02a1af2890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSprite: {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  hookedSprite: {fileID: 7558812865070109757, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  pullSprite: {fileID: 9078817585392498499, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
+  idleSprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
+  hookedSprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
+  pullSprite: {fileID: 7638019610821655944, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
   hookedDuration: 0.1
   pullDuration: 1.5
 --- !u!212 &341237529
@@ -249,8 +249,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 341237527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.39, y: 2.7, z: 0}
+  m_LocalPosition: {x: 4.15, y: 2.82, z: 0}
   m_LocalScale: {x: 0.3147, y: 0.29505002, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

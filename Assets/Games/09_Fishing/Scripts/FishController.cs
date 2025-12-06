@@ -95,6 +95,11 @@ public class FishController : MonoBehaviour
             Touch touch = Input.GetTouch(i);
             if (touch.phase == TouchPhase.Began && HitThisFish(touch.position))
             {
+                // 同一フレームで複数の魚が釣られないように制御
+                if (FishSpawner.Instance != null && !FishSpawner.Instance.TryClaimCatch())
+                {
+                    return;
+                }
                 OnFishCaught();
                 return;
             }
@@ -104,6 +109,11 @@ public class FishController : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0) && HitThisFish(Input.mousePosition))
         {
+            // 同一フレームで複数の魚が釣られないように制御
+            if (FishSpawner.Instance != null && !FishSpawner.Instance.TryClaimCatch())
+            {
+                return;
+            }
             OnFishCaught();
             return;
         }

@@ -37,6 +37,38 @@ public class InsectSpawner : MonoBehaviour
     private List<GameObject> activeInsects = new List<GameObject>();
     private HashSet<int> occupiedPositions = new HashSet<int>(); // 使用中のポジションインデックス
     private float lastSpawnTime;
+    private int lastCatchFrame = -1;  // 最後に昆虫を捕獲したフレーム番号
+    
+    public static InsectSpawner Instance { get; private set; }
+    
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    /// <summary>
+    /// このフレームで昆虫を捕獲できるかチェックし、捕獲できる場合はフレームを記録
+    /// 同一フレームで複数の昆虫が捕獲されないように制御
+    /// </summary>
+    /// <returns>捕獲できる場合はtrue</returns>
+    public bool TryClaimCatch()
+    {
+        int currentFrame = Time.frameCount;
+        if (lastCatchFrame == currentFrame)
+        {
+            // このフレームで既に別の昆虫が捕獲されている
+            return false;
+        }
+        lastCatchFrame = currentFrame;
+        return true;
+    }
     
     void Start()
     {

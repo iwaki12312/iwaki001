@@ -150,6 +150,11 @@ public class InsectController : MonoBehaviour
                 Vector3 worldPos = mainCamera.ScreenToWorldPoint(touch.position);
                 if (circleCollider.OverlapPoint(worldPos))
                 {
+                    // 同一フレームで複数の昆虫が捕獲されないように制御
+                    if (InsectSpawner.Instance != null && !InsectSpawner.Instance.TryClaimCatch())
+                    {
+                        return;
+                    }
                     OnTapped();
                     return;
                 }
@@ -162,6 +167,11 @@ public class InsectController : MonoBehaviour
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             if (circleCollider.OverlapPoint(worldPos))
             {
+                // 同一フレームで複数の昆虫が捕獲されないように制御
+                if (InsectSpawner.Instance != null && !InsectSpawner.Instance.TryClaimCatch())
+                {
+                    return;
+                }
                 OnTapped();
             }
         }

@@ -43,6 +43,7 @@ public class FishSpawner : MonoBehaviour
     
     private List<GameObject> activeFish = new List<GameObject>();
     private float lastSpawnTime;
+    private int lastCatchFrame = -1;  // 最後に魚を釣ったフレーム番号
     
     public static FishSpawner Instance { get; private set; }
     
@@ -55,6 +56,23 @@ public class FishSpawner : MonoBehaviour
     /// カモメPrefabを取得（FishControllerから参照）
     /// </summary>
     public GameObject SeagullPrefab => seagullPrefab;
+    
+    /// <summary>
+    /// このフレームで魚を釣れるかチェックし、釣れる場合はフレームを記録
+    /// 同一フレームで複数の魚が釣れないように制御
+    /// </summary>
+    /// <returns>釣れる場合はtrue</returns>
+    public bool TryClaimCatch()
+    {
+        int currentFrame = Time.frameCount;
+        if (lastCatchFrame == currentFrame)
+        {
+            // このフレームで既に別の魚が釣られている
+            return false;
+        }
+        lastCatchFrame = currentFrame;
+        return true;
+    }
     
     void Awake()
     {
