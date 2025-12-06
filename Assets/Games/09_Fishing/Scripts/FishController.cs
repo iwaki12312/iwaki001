@@ -312,8 +312,69 @@ public class FishController : MonoBehaviour
         if (mainCamera == null) return false;
         
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPosition);
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-        return hit && hit.collider != null && hit.collider.gameObject == gameObject;
+        
+        // その位置に重なっている魚の中から、描画上手前にいるものを選ぶ
+        FishController topMostFish = GetTopMostFishAt(worldPos);
+        return topMostFish != null && topMostFish == this;
+    }
+
+    /// <summary>
+    /// 指定位置に重なっている魚のうち、描画順で最前のものを取得
+    /// </summary>
+    private FishController GetTopMostFishAt(Vector2 worldPos)
+    {
+        Collider2D[] hits = Physics2D.OverlapPointAll(worldPos);
+        FishController best = null;
+        SortingKey bestKey = default;
+
+        foreach (var hit in hits)
+        {
+            if (hit == null) continue;
+            FishController fish = hit.GetComponent<FishController>();
+            if (fish == null) continue;
+
+            SortingKey key = SortingKey.From(fish);
+            if (best == null || key.IsInFrontOf(bestKey))
+            {
+                best = fish;
+                bestKey = key;
+            }
+        }
+
+        return best;
+    }
+
+    /// <summary>
+    /// SpriteRendererの描画順に基づく比較キー
+    /// </summary>
+    private struct SortingKey
+    {
+        public int layer;
+        public int order;
+        public float depth;
+
+        public static SortingKey From(FishController fish)
+        {
+            var renderer = fish.GetComponent<SpriteRenderer>();
+            int layerValue = renderer != null ? SortingLayer.GetLayerValueFromID(renderer.sortingLayerID) : 0;
+            int sortingOrder = renderer != null ? renderer.sortingOrder : 0;
+            // カメラに近い（zが小さい）ほど手前なので、逆符号で比較しやすくする
+            float depthValue = -fish.transform.position.z;
+
+            return new SortingKey
+            {
+                layer = layerValue,
+                order = sortingOrder,
+                depth = depthValue
+            };
+        }
+
+        public bool IsInFrontOf(SortingKey other)
+        {
+            if (layer != other.layer) return layer > other.layer;
+            if (order != other.order) return order > other.order;
+            return depth > other.depth;
+        }
     }
     
     /// <summary>
