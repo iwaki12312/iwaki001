@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishCatchSound: {fileID: 8300000, guid: cb156b2666666cc45be1c4c5f6d029b1, type: 3}
-  fishRareSound: {fileID: 8300000, guid: 7f19af02e7d8fd1409a96b0f8b2fe3d5, type: 3}
+  fishRareSound: {fileID: 8300000, guid: 8ffc0f9cf1cb6ab4eb17dbe5992c50ad, type: 3}
   seagullAppearSound: {fileID: 8300000, guid: 962e742ef446b6045930a740bc54bb60, type: 3}
   seagullCrySound: {fileID: 8300000, guid: cca4598ba97cf6f4882278a37ba29137, type: 3}
   fishCatchVolume: 1
@@ -757,7 +757,7 @@ MonoBehaviour:
   - sprite: {fileID: 6007161146073487467, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
   - sprite: {fileID: -1710500768077515765, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
+    sizeMultiplier: 1.301
   - sprite: {fileID: -2138169658848872653, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
   - sprite: {fileID: -7784685719765339314, guid: 33440b3349df92a41905653db29e6d79, type: 3}
@@ -772,31 +772,31 @@ MonoBehaviour:
     sizeMultiplier: 1
   rareFishSprites:
   - sprite: {fileID: -2114686101538272709, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
-    sizeMultiplier: 1
+    sizeMultiplier: 2
+  - sprite: {fileID: 6515904674758421358, guid: b63fc24b775cd034cbf7f2e906727839, type: 3}
+    sizeMultiplier: 2
+  - sprite: {fileID: -3486833207814245543, guid: c250ea677510c094c8ae96da71335210, type: 3}
+    sizeMultiplier: 2
+  - sprite: {fileID: 1722970863098500168, guid: 4c8e3d4d689b2ac46a1695464fb3b4bf, type: 3}
+    sizeMultiplier: 2
+  - sprite: {fileID: -4259635432228036503, guid: 26a796363517ddf46a10360ad2174199, type: 3}
+    sizeMultiplier: 2
+  - sprite: {fileID: 8304762679976087527, guid: 603ff934c224c3849b5f94a200842d8d, type: 3}
+    sizeMultiplier: 2
+  - sprite: {fileID: 8382007410915793689, guid: c944a1216bd4b4545ba3d792205cbb44, type: 3}
+    sizeMultiplier: 2
   - sprite: {fileID: 1091228756823284941, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
+    sizeMultiplier: 2
   seagullPrefab: {fileID: 621828857573453398, guid: f14c5e69d1599de40aec9f4e12e6d424, type: 3}
-  spawnInterval: 1
+  spawnInterval: 0.7
   spawnXPosition: -10
   spawnYMin: -4.5
   spawnYMax: -0.5
   minSwimSpeed: 1
-  maxSwimSpeed: 3
+  maxSwimSpeed: 5
   baseFishSize: 2
-  rareChance: 0.1
-  seagullChance: 0.1
+  rareChance: 0.15
+  seagullChance: 0.15
 --- !u!4 &2119661341
 Transform:
   m_ObjectHideFlags: 0
