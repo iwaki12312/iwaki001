@@ -213,8 +213,8 @@ public class FishController : MonoBehaviour
         // 魚の釣り上げアニメーションを開始（カモメイベント用）
         StartCatchAnimation(true);
         
-        // 0.5秒後にカモメを出現させる（魚が空中にいるタイミング）
-        DOVirtual.DelayedCall(0.5f, () => {
+        // 0.1秒後にカモメを出現させる（魚が空中にいるタイミング）
+        DOVirtual.DelayedCall(0.1f, () => {
             if (this != null && gameObject != null)
             {
                 GameObject seagullObj = Instantiate(seagullPrefab);
