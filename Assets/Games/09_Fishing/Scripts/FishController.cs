@@ -56,7 +56,7 @@ public class FishController : MonoBehaviour
     /// <summary>
     /// 魚を初期化
     /// </summary>
-    public void Initialize(Sprite sprite, Vector3 position, float speed, bool rare, float baseFishSize, float sizeMultiplier = 1.0f)
+    public void Initialize(Sprite sprite, Vector3 position, float speed, bool rare, float baseFishSize, float sizeMultiplier = 1.0f, float colliderRadius = 1.2f)
     {
         fishSprite = sprite;
         transform.position = position;
@@ -82,8 +82,9 @@ public class FishController : MonoBehaviour
             }
         }
         
-        // コライダーサイズを設定
-        circleCollider.radius = 1.2f;
+        // コライダーサイズを設定（インスペクターから個別指定がない場合はサイズ倍率に合わせて自動補正）
+        float effectiveRadius = colliderRadius > 0 ? colliderRadius : 1.2f * sizeMultiplier;
+        circleCollider.radius = effectiveRadius;
     }
     
     void Update()

@@ -14,6 +14,7 @@ public class FishSpawner : MonoBehaviour
     {
         public Sprite sprite;                                  // 魚のスプライト
         [Range(0.5f, 2.0f)] public float sizeMultiplier = 1.0f; // サイズ倍率（1.0=標準）
+        [Range(0.1f, 5.0f)] public float colliderRadius = 1.2f; // コライダー半径
     }
     
     [Header("魚設定")]
@@ -156,7 +157,7 @@ public class FishSpawner : MonoBehaviour
         FishController controller = fishObj.GetComponent<FishController>();
         if (controller != null)
         {
-            controller.Initialize(selectedData.sprite, spawnPos, speed, isRare, baseFishSize, selectedData.sizeMultiplier);
+            controller.Initialize(selectedData.sprite, spawnPos, speed, isRare, baseFishSize, selectedData.sizeMultiplier, selectedData.colliderRadius);
         }
         
         activeFish.Add(fishObj);
