@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Games/08_PopBalloons/Scenes/PopBalloons.unity
     guid: 049f87cd34769404cae54e3848d66ec7
+  - enabled: 1
+    path: Assets/Games/09_Fishing/Scenes/Fishing.unity
+    guid: 4316156222bd4c84d885a55d72ce5867
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 29cfb4b30c94b9b4292ef9eff942c378, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: b47bbedba24f5714da64247cf4522885, type: 2}
