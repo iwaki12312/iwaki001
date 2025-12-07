@@ -26,11 +26,15 @@ public class FishController : MonoBehaviour
     [SerializeField] private float catchPointOffsetX = 1.5f;   // 釣り人からのX軸オフセット
     [SerializeField] private float catchPointOffsetY = -2.0f;  // 釣り人からのY軸オフセット
     
+    [Header("カモメイベント演出設定")]
+    [SerializeField] private float seagullHideDelay = 0.2f;    // 釣り上げ後、カモメが掴むまで隠す猶予
+    
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
     private Camera mainCamera;
     private bool isCaught = false;
     private bool canBeStolen = true; // カモメに奪われる可能性があるか
+    private bool hiddenForSeagull = false;
     
     void Awake()
     {
@@ -212,6 +216,7 @@ public class FishController : MonoBehaviour
         
         // 魚の釣り上げアニメーションを開始（カモメイベント用）
         StartCatchAnimation(true);
+        HideForSeagullPickup();
         
         // 0.1秒後にカモメを出現させる（魚が空中にいるタイミング）
         DOVirtual.DelayedCall(0.1f, () => {
@@ -312,6 +317,20 @@ public class FishController : MonoBehaviour
     public SpriteRenderer GetSpriteRenderer()
     {
         return spriteRenderer;
+    }
+
+    /// <summary>
+    /// カモメに掴まれるまで一時的に非表示にして、すり抜け感を軽減
+    /// </summary>
+    private void HideForSeagullPickup()
+    {
+        if (spriteRenderer == null || hiddenForSeagull) return;
+
+        DOVirtual.DelayedCall(seagullHideDelay, () => {
+            if (this == null || spriteRenderer == null) return;
+            spriteRenderer.enabled = false;
+            hiddenForSeagull = true;
+        });
     }
     
     /// <summary>

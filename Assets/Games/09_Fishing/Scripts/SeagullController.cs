@@ -116,6 +116,16 @@ public class SeagullController : MonoBehaviour
                 fishCollider.enabled = false;
                 Debug.Log("[SeagullController] 魚のコライダー無効化");
             }
+
+            // カモメが掴むタイミングで再表示（事前にFish側で一時非表示）
+            SpriteRenderer fishRenderer = targetFish.GetSpriteRenderer();
+            if (fishRenderer != null)
+            {
+                fishRenderer.enabled = true;
+                var color = fishRenderer.color;
+                color.a = 1f;
+                fishRenderer.color = color;
+            }
             
             // 魚の進行中のアニメーションを停止
             DOTween.Kill(targetFish.transform);
