@@ -148,9 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bacaac0b0aeee843829c7df42fcc98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullSound: {fileID: 8300000, guid: 180f0af3f24765743aab0566d3b6043f, type: 3}
-  normalFanfare: {fileID: 8300000, guid: 2d75eeb80143ba24f819663dfb376d78, type: 3}
-  rareFanfare: {fileID: 8300000, guid: 0fae67168a2461d4695e53510d745372, type: 3}
+  pullSound: {fileID: 8300000, guid: ed4a415db9eef1943952dcf44f78a03d, type: 3}
+  normalFanfare: {fileID: 8300000, guid: ed3d1fd04400eab42af9d942810e754a, type: 3}
+  rareFanfare: {fileID: 8300000, guid: a47c4c15d40b12f41850d2dbe3ad856d, type: 3}
   pullVolume: 1
   normalFanfareVolume: 1
   rareFanfareVolume: 1
@@ -286,37 +286,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vegetableSpots:
-  - position: {x: -4, y: 1.5, z: 0}
+  - position: {x: -6.5474977, y: 0.62155247, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 0, y: 1.5, z: 0}
+  - position: {x: -1.3762349, y: 0.5044261, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 4, y: 1.5, z: 0}
+  - position: {x: 4, y: 0.47514462, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: -4, y: -2, z: 0}
+  - position: {x: -3.9707184, y: -2.8198843, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 0, y: -2, z: 0}
+  - position: {x: 1.4933609, y: -2.6734765, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 4, y: -2, z: 0}
+  - position: {x: 6.1375556, y: -2.6441948, z: 0}
     scale: 1
     colliderRadius: 1.2
   normalVegetables:
   - name: VegetableA
-    leafSprite: {fileID: -7490982025059118367, guid: 61e106501e133584b9ec15967b29a143, type: 3}
-    vegetableSprite: {fileID: -7490982025059118367, guid: 61e106501e133584b9ec15967b29a143, type: 3}
+    leafSprite: {fileID: -1350406728, guid: 97af9fc2dcde4d3499623a7d244dc599, type: 3}
+    vegetableSprite: {fileID: 67412348666659872, guid: 97af9fc2dcde4d3499623a7d244dc599, type: 3}
     isRare: 0
   - name: VegetableB
-    leafSprite: {fileID: 3514221269559143653, guid: d1c17b894756c114596392083e46aaee, type: 3}
-    vegetableSprite: {fileID: 3514221269559143653, guid: d1c17b894756c114596392083e46aaee, type: 3}
+    leafSprite: {fileID: -2018275555, guid: 2859c33e9e1a16a42a4b9c1e1e7f0767, type: 3}
+    vegetableSprite: {fileID: 531345679231033055, guid: 2859c33e9e1a16a42a4b9c1e1e7f0767, type: 3}
+    isRare: 0
+  - name: VegetableC
+    leafSprite: {fileID: 1845615539, guid: a5b0032d2be7f214798118695bcf1d27, type: 3}
+    vegetableSprite: {fileID: 695032933191070607, guid: a5b0032d2be7f214798118695bcf1d27, type: 3}
+    isRare: 0
+  - name: VegetableD
+    leafSprite: {fileID: 1240491669, guid: d54a595fda61a4049aab2b60b21ed2ee, type: 3}
+    vegetableSprite: {fileID: -8076030406043368894, guid: d54a595fda61a4049aab2b60b21ed2ee, type: 3}
+    isRare: 0
+  - name: VegetableE
+    leafSprite: {fileID: -1903550044, guid: 685d86510b6a7f44a82988e8b20546d1, type: 3}
+    vegetableSprite: {fileID: -4901425293387488071, guid: 685d86510b6a7f44a82988e8b20546d1, type: 3}
+    isRare: 0
+  - name: VegetableF
+    leafSprite: {fileID: 1451755537, guid: 9b0beaa4d50044143950a4646c22d6c8, type: 3}
+    vegetableSprite: {fileID: 4043836076644130968, guid: 9b0beaa4d50044143950a4646c22d6c8, type: 3}
+    isRare: 0
+  - name: VegetableG
+    leafSprite: {fileID: 789138388, guid: c9005b9ce75199e43b1bf533cfdfa5d1, type: 3}
+    vegetableSprite: {fileID: -6741867345216716665, guid: c9005b9ce75199e43b1bf533cfdfa5d1, type: 3}
+    isRare: 0
+  - name: VegetableH
+    leafSprite: {fileID: 1144049908, guid: c228b85a47b1ff045bece7710ed72ee4, type: 3}
+    vegetableSprite: {fileID: 3894692623791686868, guid: c228b85a47b1ff045bece7710ed72ee4, type: 3}
     isRare: 0
   rareVegetables:
   - name: RareVegetable
-    leafSprite: {fileID: 3514221269559143653, guid: d1c17b894756c114596392083e46aaee, type: 3}
-    vegetableSprite: {fileID: 3514221269559143653, guid: d1c17b894756c114596392083e46aaee, type: 3}
+    leafSprite: {fileID: 305701796, guid: bdb6d66b5f460184eb2c4e166793411d, type: 3}
+    vegetableSprite: {fileID: -1351548649750720658, guid: bdb6d66b5f460184eb2c4e166793411d, type: 3}
     isRare: 1
   vegetablePrefab: {fileID: 7783994600490125642, guid: 509a45456787b9c44bdc14d1567d9a40, type: 3}
   rareChance: 0.15

@@ -181,6 +181,12 @@ public class VegetableController : MonoBehaviour
     /// </summary>
     private void PlayPullAnimation()
     {
+        // 葉っぱを非表示（野菜スプライトに葉っぱが含まれているため）
+        if (leafRenderer != null)
+        {
+            leafRenderer.color = new Color(1, 1, 1, 0);
+        }
+        
         // 野菜本体を表示
         if (vegetableRenderer != null)
         {
@@ -252,6 +258,12 @@ public class VegetableController : MonoBehaviour
             if (vegetableRenderer != null)
             {
                 vegetableRenderer.color = new Color(1, 1, 1, 0);
+            }
+            
+            // 葉っぱも非表示に（フェードインで再表示される）
+            if (leafRenderer != null)
+            {
+                leafRenderer.color = new Color(1, 1, 1, 0);
             }
             
             // Spawnerに再スポーン準備完了を通知
