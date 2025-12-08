@@ -199,22 +199,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vegetableSpots:
-  - position: {x: -4, y: 1.5, z: 0}
+  - position: {x: -5.277377, y: 0.64841545, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 0, y: 1.5, z: 0}
+  - position: {x: -0.69951606, y: 0.7396563, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 4, y: 1.5, z: 0}
+  - position: {x: 3.5437942, y: 0.7700702, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: -4, y: -2, z: 0}
+  - position: {x: -2.9659324, y: -3.186136, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 0, y: -2, z: 0}
+  - position: {x: 1.0948949, y: -3.094895, z: 0}
     scale: 1
     colliderRadius: 1.2
-  - position: {x: 4, y: -2, z: 0}
+  - position: {x: 5.3382053, y: -3.094895, z: 0}
     scale: 1
     colliderRadius: 1.2
   normalVegetables:

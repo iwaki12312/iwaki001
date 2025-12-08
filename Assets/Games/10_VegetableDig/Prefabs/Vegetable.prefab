@@ -201,7 +201,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9168904139933321930}
@@ -229,5 +229,5 @@ MonoBehaviour:
   fadeOutDuration: 0.5
   respawnDelay: 0.5
   fadeInDuration: 0.5
-  colliderRadius: 2
+  colliderRadius: 1.5
   shineParticlePrefab: {fileID: 100000, guid: 535d640a9bfd2b24082d81b68a8ea7d4, type: 3}

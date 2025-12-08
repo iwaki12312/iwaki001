@@ -97,7 +97,14 @@ public class VegetableSpawner : MonoBehaviour
         // プレハブから生成
         GameObject vegObj = Instantiate(vegetablePrefab, spot.position, Quaternion.identity);
         vegObj.transform.SetParent(transform);
-        vegObj.transform.localScale = Vector3.one * spot.scale;
+        
+        // プレハブのスケールにspot.scaleを掛け算（プレハブのスケールを反映）
+        Vector3 prefabScale = vegetablePrefab.transform.localScale;
+        vegObj.transform.localScale = new Vector3(
+            prefabScale.x * spot.scale,
+            prefabScale.y * spot.scale,
+            prefabScale.z * spot.scale
+        );
         vegObj.name = $"Vegetable_{selectedType.name}";
         
         // コントローラーを初期化
