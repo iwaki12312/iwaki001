@@ -11,10 +11,39 @@ public static class VegetableDigSetup
     private const string GAME_PATH = "Assets/Games/10_VegetableDig";
     private const string SCENE_PATH = GAME_PATH + "/Scenes/VegetableDig.unity";
     private const string PREFAB_PATH = GAME_PATH + "/Prefabs/Vegetable.prefab";
+    private const string PARTICLE_PREFAB_PATH = GAME_PATH + "/Prefabs/Shine-1-Particles.prefab";
+    
+    /// <summary>
+    /// パーティクルプレハブをPowerUpフォルダからコピー
+    /// </summary>
+    private static void CopyParticlePrefab()
+    {
+        if (System.IO.File.Exists(PARTICLE_PREFAB_PATH))
+        {
+            Debug.Log("[VegetableDigSetup] パーティクルプレハブは既に存在します");
+            return;
+        }
+        
+        // PowerUpフォルダから検索
+        string sourcePath = "Assets/PowerUp/Prefabs/Shine-1-Particles.prefab";
+        if (System.IO.File.Exists(sourcePath))
+        {
+            AssetDatabase.CopyAsset(sourcePath, PARTICLE_PREFAB_PATH);
+            AssetDatabase.Refresh();
+            Debug.Log($"[VegetableDigSetup] パーティクルをコピーしました: {sourcePath} -> {PARTICLE_PREFAB_PATH}");
+        }
+        else
+        {
+            Debug.LogWarning($"[VegetableDigSetup] パーティクルプレハブが見つかりません: {sourcePath}");
+        }
+    }
     
     [MenuItem("Tools/Setup VegetableDig Game")]
     public static void SetupGame()
     {
+        // パーティクルプレハブをコピー（存在しない場合）
+        CopyParticlePrefab();
+        
         // シーンを作成または開く
         if (!System.IO.File.Exists(SCENE_PATH))
         {
@@ -136,12 +165,11 @@ public static class VegetableDigSetup
     
     private static GameObject CreateVegetablePrefab()
     {
-        // 既存のプレハブがあればロード
-        GameObject existingPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PREFAB_PATH);
-        if (existingPrefab != null)
+        // 既存のプレハブがあれば削除して再作成
+        if (System.IO.File.Exists(PREFAB_PATH))
         {
-            Debug.Log("[VegetableDigSetup] 既存のプレハブを使用");
-            return existingPrefab;
+            AssetDatabase.DeleteAsset(PREFAB_PATH);
+            Debug.Log("[VegetableDigSetup] 既存のプレハブを削除して再作成");
         }
         
         // 新規作成

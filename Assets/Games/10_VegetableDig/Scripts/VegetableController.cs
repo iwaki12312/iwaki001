@@ -200,16 +200,32 @@ public class VegetableController : MonoBehaviour
         // レア野菜の場合、光り輝くパーティクルを表示
         if (isRare && shineParticlePrefab != null)
         {
+            Debug.Log($"[VegetableController] レア野菜のパーティクルを生成: {shineParticlePrefab.name}");
             activeShineParticle = Instantiate(shineParticlePrefab, transform.position, Quaternion.identity);
             activeShineParticle.transform.SetParent(transform);
             activeShineParticle.transform.localPosition = Vector3.zero;
             
-            // パーティクルのSorting Orderを野菜の後ろに設定
+            // パーティクルのSorting OrderとLayerを設定
             ParticleSystemRenderer[] particleRenderers = activeShineParticle.GetComponentsInChildren<ParticleSystemRenderer>();
+            Debug.Log($"[VegetableController] パーティクルレンダラー数: {particleRenderers.Length}");
             foreach (var psr in particleRenderers)
             {
-                psr.sortingOrder = -1; // 野菜の後ろに表示
+                psr.sortingLayerName = "Default";
+                psr.sortingOrder = 10; // 野菜の前に表示（テスト用に変更）
+                Debug.Log($"[VegetableController] パーティクル設定完了: SortingOrder={psr.sortingOrder}");
             }
+            
+            // パーティクルシステムを再生
+            ParticleSystem[] particleSystems = activeShineParticle.GetComponentsInChildren<ParticleSystem>();
+            foreach (var ps in particleSystems)
+            {
+                ps.Play();
+                Debug.Log($"[VegetableController] パーティクル再生: {ps.name}");
+            }
+        }
+        else if (isRare && shineParticlePrefab == null)
+        {
+            Debug.LogWarning("[VegetableController] レア野菜ですが、shineParticlePrefabが設定されていません");
         }
         
         // 上方向に移動

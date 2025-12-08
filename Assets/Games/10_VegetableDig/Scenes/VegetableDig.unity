@@ -251,9 +251,29 @@ MonoBehaviour:
     vegetableSprite: {fileID: -4901425293387488071, guid: 685d86510b6a7f44a82988e8b20546d1, type: 3}
     isRare: 0
   rareVegetables:
-  - name: RareVegetable
+  - name: RareVegetableA
     leafSprite: {fileID: 305701796, guid: bdb6d66b5f460184eb2c4e166793411d, type: 3}
     vegetableSprite: {fileID: -1351548649750720658, guid: bdb6d66b5f460184eb2c4e166793411d, type: 3}
+    isRare: 1
+  - name: RareVegetableB
+    leafSprite: {fileID: -1387206845, guid: ca7299af223489849a53dfce916d49b8, type: 3}
+    vegetableSprite: {fileID: 4844940274055061875, guid: ca7299af223489849a53dfce916d49b8, type: 3}
+    isRare: 1
+  - name: RareVegetableC
+    leafSprite: {fileID: -973479631, guid: 7c3b0ccfa81209f4b8814ade97049003, type: 3}
+    vegetableSprite: {fileID: -8085649598548888056, guid: 7c3b0ccfa81209f4b8814ade97049003, type: 3}
+    isRare: 1
+  - name: RareVegetableD
+    leafSprite: {fileID: -594479963, guid: 9d0fd3034c40fe84fbb0b35b90e815cf, type: 3}
+    vegetableSprite: {fileID: 251128792991906835, guid: 9d0fd3034c40fe84fbb0b35b90e815cf, type: 3}
+    isRare: 1
+  - name: RareVegetableE
+    leafSprite: {fileID: 753474187, guid: f779f77a5775f2f4587e8643bda1d6bf, type: 3}
+    vegetableSprite: {fileID: -2473559421818627741, guid: f779f77a5775f2f4587e8643bda1d6bf, type: 3}
+    isRare: 1
+  - name: RareVegetableF
+    leafSprite: {fileID: 286592155, guid: 84bf38d30e004d94987cacf55e454c40, type: 3}
+    vegetableSprite: {fileID: -6524917973398077328, guid: 84bf38d30e004d94987cacf55e454c40, type: 3}
     isRare: 1
   vegetablePrefab: {fileID: 7783994600490125642, guid: 509a45456787b9c44bdc14d1567d9a40, type: 3}
   rareChance: 0.15
