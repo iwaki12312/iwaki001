@@ -17,11 +17,18 @@ public class CatchInsectsGameManager : MonoBehaviour
     public static CatchInsectsGameManager Instance { get; private set; }
     
     private bool isDisplaying = false;
+    private bool isCatching = false;  // 捕獲アニメーション中フラグ
     
     /// <summary>
     /// 昆虫を中央表示中かどうか(外部から参照可能)
     /// </summary>
     public bool IsDisplayingInsect => isDisplaying;
+    
+    /// <summary>
+    /// 捕獲アニメーション中または中央表示中かどうか
+    /// このフラグがtrueの間は他の虫をタップできない
+    /// </summary>
+    public bool IsBusy => isCatching || isDisplaying;
     
     void Awake()
     {
@@ -82,10 +89,29 @@ public class CatchInsectsGameManager : MonoBehaviour
             {
                 displayPanel.SetActive(false);
                 isDisplaying = false; // フェードアウト完了でフラグOFF
+                isCatching = false;   // 捕獲フラグもリセット
                 Debug.Log("[CatchInsectsGameManager] 昆虫表示完了、タップ再開可能");
             });
         
         Debug.Log($"[CatchInsectsGameManager] 昆虫表示開始: レア={isRare}、タップ無効化");
+    }
+    
+    /// <summary>
+    /// 捕獲アニメーション開始時に呼び出し（他の虫のタップを無効化）
+    /// </summary>
+    public void StartCatching()
+    {
+        isCatching = true;
+        Debug.Log("[CatchInsectsGameManager] 捕獲開始、他の虫のタップ無効化");
+    }
+    
+    /// <summary>
+    /// 捕獲アニメーション終了時に呼び出し
+    /// </summary>
+    public void EndCatching()
+    {
+        isCatching = false;
+        Debug.Log("[CatchInsectsGameManager] 捕獲アニメーション終了");
     }
     
     /// <summary>
