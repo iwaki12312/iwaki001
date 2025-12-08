@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41f262b8df29f148af4abcb4a58cac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishCatchSound: {fileID: 8300000, guid: 9ee0f4e4fa8a57740baa279b9fb44870, type: 3}
-  fishRareSound: {fileID: 8300000, guid: 7f19af02e7d8fd1409a96b0f8b2fe3d5, type: 3}
-  seagullAppearSound: {fileID: 8300000, guid: f86db5029db627544b878bb98e733a88, type: 3}
-  seagullCrySound: {fileID: 8300000, guid: 8654464e8b4cc5c4c9d0741acff7db89, type: 3}
+  fishCatchSound: {fileID: 8300000, guid: cb156b2666666cc45be1c4c5f6d029b1, type: 3}
+  fishRareSound: {fileID: 8300000, guid: 8ffc0f9cf1cb6ab4eb17dbe5992c50ad, type: 3}
+  seagullAppearSound: {fileID: 8300000, guid: 962e742ef446b6045930a740bc54bb60, type: 3}
+  seagullCrySound: {fileID: 8300000, guid: cca4598ba97cf6f4882278a37ba29137, type: 3}
   fishCatchVolume: 1
   fishRareVolume: 1
   seagullAppearVolume: 1
@@ -201,9 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89df58b5060ca47408710e02a1af2890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSprite: {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  hookedSprite: {fileID: 7558812865070109757, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
-  pullSprite: {fileID: 9078817585392498499, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
+  idleSprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
+  hookedSprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
+  pullSprite: {fileID: 7638019610821655944, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
   hookedDuration: 0.1
   pullDuration: 1.5
 --- !u!212 &341237529
@@ -249,8 +249,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 3514221269559143653, guid: 0da5a40eed562b24e935667cc1a293ec, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 341237527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.39, y: 2.7, z: 0}
+  m_LocalPosition: {x: 4.05, y: 2.8, z: 0}
   m_LocalScale: {x: 0.3147, y: 0.29505002, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -357,12 +357,109 @@ Transform:
   m_GameObject: {fileID: 617283652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0182, y: -1.86, z: 0}
-  m_LocalScale: {x: 0.9844298, y: 0.85296303, z: 0.9765625}
+  m_LocalPosition: {x: -0.0744, y: -1.86, z: 0}
+  m_LocalScale: {x: 1.0605608, y: 0.85296303, z: 0.9765625}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &617580818
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7872514220155716896, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_Name
+      value: CommonCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217805797682386740, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f57bc3f06007d444e9efc53cb75e0507, type: 3}
 --- !u!1 &1189054793
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,71 +829,99 @@ MonoBehaviour:
   normalFishSprites:
   - sprite: {fileID: 8966945178157639174, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 7910131988914132003, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 4694313144681828600, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
-  - sprite: {fileID: -5337588824987023507, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    colliderRadius: 1.2
+  - sprite: {fileID: 6034529960672641575, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: -3968430113050936271, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
-  - sprite: {fileID: -3589528415675698274, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 6466912814626516007, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 8272574640081733460, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: -515027122047594265, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
-  - sprite: {fileID: 6554164663265866747, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 5368666533138668104, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
-  - sprite: {fileID: -5151204248301318049, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: -2843299357937944970, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 3093555907524137670, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: -3209027340831218189, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
   - sprite: {fileID: 6007161146073487467, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
-  - sprite: {fileID: -2833908425949263862, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
-  - sprite: {fileID: 3446899665053034493, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
-  - sprite: {fileID: 5551162239717915705, guid: 33440b3349df92a41905653db29e6d79, type: 3}
-    sizeMultiplier: 1
+    colliderRadius: 1.2
+  - sprite: {fileID: -1710500768077515765, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1.301
+    colliderRadius: 1.2
   - sprite: {fileID: -2138169658848872653, guid: 33440b3349df92a41905653db29e6d79, type: 3}
     sizeMultiplier: 1
+    colliderRadius: 1.2
+  - sprite: {fileID: -7784685719765339314, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+    colliderRadius: 1.2
+  - sprite: {fileID: 3888636848816401433, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+    colliderRadius: 1.2
+  - sprite: {fileID: -6259949449885876755, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+    colliderRadius: 1.2
+  - sprite: {fileID: 2767886457094809172, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+    colliderRadius: 1.2
+  - sprite: {fileID: -8144145376688983806, guid: 33440b3349df92a41905653db29e6d79, type: 3}
+    sizeMultiplier: 1
+    colliderRadius: 1.2
   rareFishSprites:
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
-  - sprite: {fileID: 0}
-    sizeMultiplier: 1
+  - sprite: {fileID: -2114686101538272709, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: 6515904674758421358, guid: b63fc24b775cd034cbf7f2e906727839, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: -3486833207814245543, guid: c250ea677510c094c8ae96da71335210, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: 1722970863098500168, guid: 4c8e3d4d689b2ac46a1695464fb3b4bf, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: -4259635432228036503, guid: 26a796363517ddf46a10360ad2174199, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: 8304762679976087527, guid: 603ff934c224c3849b5f94a200842d8d, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: 8382007410915793689, guid: c944a1216bd4b4545ba3d792205cbb44, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
+  - sprite: {fileID: -752210870200769308, guid: 1fbfea0f211c62543897359b384cfb20, type: 3}
+    sizeMultiplier: 2
+    colliderRadius: 1.7
   seagullPrefab: {fileID: 621828857573453398, guid: f14c5e69d1599de40aec9f4e12e6d424, type: 3}
-  spawnInterval: 1
+  spawnInterval: 0.7
   spawnXPosition: -10
   spawnYMin: -4.5
   spawnYMax: -0.5
   minSwimSpeed: 1
-  maxSwimSpeed: 3
+  maxSwimSpeed: 4
   baseFishSize: 2
-  rareChance: 0.1
-  seagullChance: 0.1
+  rareChance: 0.15
+  seagullChance: 0.15
 --- !u!4 &2119661341
 Transform:
   m_ObjectHideFlags: 0
@@ -816,6 +941,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 617580818}
   - {fileID: 1533884311}
   - {fileID: 1189054796}
   - {fileID: 617283654}

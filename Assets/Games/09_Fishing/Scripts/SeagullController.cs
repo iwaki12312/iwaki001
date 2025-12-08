@@ -9,11 +9,15 @@ public class SeagullController : MonoBehaviour
 {
     [Header("飛行設定")]
     [SerializeField] private float flySpeed = 5.0f;          // 飛行速度
-    [SerializeField] private float grabDuration = 0.3f;      // 魚を掴むまでの時間
+    [SerializeField] private float grabDuration = 0.3f;      // 魚を掘むまでの時間
+    
+    [Header("魚の保持位置設定")]
+    [SerializeField] private Vector3 fishHoldOffset = new Vector3(0, -1.5f, 0);  // カモメの足の位置（魚をくわえる位置）
     
     private SpriteRenderer spriteRenderer;
     private FishController targetFish;
     private bool hasGrabbed = false;
+    private bool forceGrabScheduled = false;
     
     void Awake()
     {
@@ -45,6 +49,13 @@ public class SeagullController : MonoBehaviour
         
         // 飛行アニメーション開始
         StartFlyAnimation(fishPosition);
+
+        // 念のため、Tweenが途中で止まった場合でも一定時間後に掴む
+        if (!forceGrabScheduled)
+        {
+            forceGrabScheduled = true;
+            DOVirtual.DelayedCall(grabDuration + 0.05f, ForceGrabIfNeeded);
+        }
     }
     
     /// <summary>
@@ -54,7 +65,7 @@ public class SeagullController : MonoBehaviour
     {
         Sequence flySeq = DOTween.Sequence();
         
-        // 1. 魚の位置まで飛ぶ
+        // 1. 魚の位置まで飛ぶ（カモメの位置は魚の位置に固定）
         flySeq.Append(transform.DOMove(fishPosition, grabDuration).SetEase(Ease.Linear));
         
         // 2. 魚を掴む
@@ -105,6 +116,16 @@ public class SeagullController : MonoBehaviour
                 fishCollider.enabled = false;
                 Debug.Log("[SeagullController] 魚のコライダー無効化");
             }
+
+            // カモメが掴むタイミングで再表示（事前にFish側で一時非表示）
+            SpriteRenderer fishRenderer = targetFish.GetSpriteRenderer();
+            if (fishRenderer != null)
+            {
+                fishRenderer.enabled = true;
+                var color = fishRenderer.color;
+                color.a = 1f;
+                fishRenderer.color = color;
+            }
             
             // 魚の進行中のアニメーションを停止
             DOTween.Kill(targetFish.transform);
@@ -114,10 +135,9 @@ public class SeagullController : MonoBehaviour
             // 魚をカモメの子オブジェクトにする（カモメと一緒に移動）
             targetFish.transform.SetParent(transform);
             Debug.Log($"[SeagullController] 魚を子オブジェクト化: parent={targetFish.transform.parent.name}");
-            
-            // 魚をカモメのやや下に配置
-            targetFish.transform.localPosition = new Vector3(0, -0.5f, 0);
-            Debug.Log($"[SeagullController] 魚の位置設定: localPos={targetFish.transform.localPosition}");
+
+            // 魚をカモメの足の位置に配置（毎フレーム補正でズレ防止）
+            ApplyFishHoldPosition();
             
             // 釣り人を待機状態に戻す
             if (FishermanController.Instance != null)
@@ -131,6 +151,42 @@ public class SeagullController : MonoBehaviour
         else
         {
             Debug.LogWarning("[SeagullController] targetFishがnullです");
+        }
+    }
+
+    /// <summary>
+    /// fishHoldOffsetに基づき魚の位置を更新（親のスケールに依存しない見た目のオフセットにする）
+    /// </summary>
+    private void ApplyFishHoldPosition()
+    {
+        if (targetFish == null) return;
+
+        Vector3 adjustedOffset = new Vector3(
+            fishHoldOffset.x / (transform.localScale.x != 0 ? transform.localScale.x : 1),
+            fishHoldOffset.y / (transform.localScale.y != 0 ? transform.localScale.y : 1),
+            fishHoldOffset.z / (transform.localScale.z != 0 ? transform.localScale.z : 1)
+        );
+        targetFish.transform.localPosition = adjustedOffset;
+    }
+
+    /// <summary>
+    /// Tweenがキャンセルされた場合でも掴み処理を保証するフォールバック
+    /// </summary>
+    private void ForceGrabIfNeeded()
+    {
+        if (!hasGrabbed)
+        {
+            Debug.Log("[SeagullController] ForceGrab fallback実行");
+            GrabFish();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        // ほかのTweenやスクリプトが動かしても足元に固定する
+        if (hasGrabbed && targetFish != null)
+        {
+            ApplyFishHoldPosition();
         }
     }
 }

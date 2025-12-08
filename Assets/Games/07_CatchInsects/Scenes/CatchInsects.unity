@@ -761,7 +761,7 @@ MonoBehaviour:
     normalSprite3: {fileID: -7932695529150215146, guid: 7120f77bac76e1b429d47f63b2936240, type: 3}
     rareSprite: {fileID: 1618266608128836405, guid: 6e923f4bd3197084d97f8364235f59d3, type: 3}
   - typeName: Type E
-    spawnPosition: {x: -6.940198, y: -3.8294725, z: 0}
+    spawnPosition: {x: -6.1142974, y: -3.6642928, z: 0}
     spawnRotation: 0
     spawnScale: 0.7
     flipX: 0

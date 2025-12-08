@@ -26,11 +26,15 @@ public class FishController : MonoBehaviour
     [SerializeField] private float catchPointOffsetX = 1.5f;   // 釣り人からのX軸オフセット
     [SerializeField] private float catchPointOffsetY = -2.0f;  // 釣り人からのY軸オフセット
     
+    [Header("カモメイベント演出設定")]
+    [SerializeField] private float seagullHideDelay = 0.2f;    // 釣り上げ後、カモメが掴むまで隠す猶予
+    
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
     private Camera mainCamera;
     private bool isCaught = false;
     private bool canBeStolen = true; // カモメに奪われる可能性があるか
+    private bool hiddenForSeagull = false;
     
     void Awake()
     {
@@ -52,7 +56,7 @@ public class FishController : MonoBehaviour
     /// <summary>
     /// 魚を初期化
     /// </summary>
-    public void Initialize(Sprite sprite, Vector3 position, float speed, bool rare, float baseFishSize, float sizeMultiplier = 1.0f)
+    public void Initialize(Sprite sprite, Vector3 position, float speed, bool rare, float baseFishSize, float sizeMultiplier = 1.0f, float colliderRadius = 1.2f)
     {
         fishSprite = sprite;
         transform.position = position;
@@ -78,8 +82,9 @@ public class FishController : MonoBehaviour
             }
         }
         
-        // コライダーサイズを設定
-        circleCollider.radius = 0.5f;
+        // コライダーサイズを設定（インスペクターから個別指定がない場合はサイズ倍率に合わせて自動補正）
+        float effectiveRadius = colliderRadius > 0 ? colliderRadius : 1.2f * sizeMultiplier;
+        circleCollider.radius = effectiveRadius;
     }
     
     void Update()
@@ -95,6 +100,11 @@ public class FishController : MonoBehaviour
             Touch touch = Input.GetTouch(i);
             if (touch.phase == TouchPhase.Began && HitThisFish(touch.position))
             {
+                // 同一フレームで複数の魚が釣られないように制御
+                if (FishSpawner.Instance != null && !FishSpawner.Instance.TryClaimCatch())
+                {
+                    return;
+                }
                 OnFishCaught();
                 return;
             }
@@ -104,6 +114,11 @@ public class FishController : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0) && HitThisFish(Input.mousePosition))
         {
+            // 同一フレームで複数の魚が釣られないように制御
+            if (FishSpawner.Instance != null && !FishSpawner.Instance.TryClaimCatch())
+            {
+                return;
+            }
             OnFishCaught();
             return;
         }
@@ -202,9 +217,10 @@ public class FishController : MonoBehaviour
         
         // 魚の釣り上げアニメーションを開始（カモメイベント用）
         StartCatchAnimation(true);
+        HideForSeagullPickup();
         
-        // 0.5秒後にカモメを出現させる（魚が空中にいるタイミング）
-        DOVirtual.DelayedCall(0.5f, () => {
+        // 0.1秒後にカモメを出現させる（魚が空中にいるタイミング）
+        DOVirtual.DelayedCall(0.1f, () => {
             if (this != null && gameObject != null)
             {
                 GameObject seagullObj = Instantiate(seagullPrefab);
@@ -303,6 +319,20 @@ public class FishController : MonoBehaviour
     {
         return spriteRenderer;
     }
+
+    /// <summary>
+    /// カモメに掴まれるまで一時的に非表示にして、すり抜け感を軽減
+    /// </summary>
+    private void HideForSeagullPickup()
+    {
+        if (spriteRenderer == null || hiddenForSeagull) return;
+
+        DOVirtual.DelayedCall(seagullHideDelay, () => {
+            if (this == null || spriteRenderer == null) return;
+            spriteRenderer.enabled = false;
+            hiddenForSeagull = true;
+        });
+    }
     
     /// <summary>
     /// タップ判定
@@ -312,8 +342,69 @@ public class FishController : MonoBehaviour
         if (mainCamera == null) return false;
         
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPosition);
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-        return hit && hit.collider != null && hit.collider.gameObject == gameObject;
+        
+        // その位置に重なっている魚の中から、描画上手前にいるものを選ぶ
+        FishController topMostFish = GetTopMostFishAt(worldPos);
+        return topMostFish != null && topMostFish == this;
+    }
+
+    /// <summary>
+    /// 指定位置に重なっている魚のうち、描画順で最前のものを取得
+    /// </summary>
+    private FishController GetTopMostFishAt(Vector2 worldPos)
+    {
+        Collider2D[] hits = Physics2D.OverlapPointAll(worldPos);
+        FishController best = null;
+        SortingKey bestKey = default;
+
+        foreach (var hit in hits)
+        {
+            if (hit == null) continue;
+            FishController fish = hit.GetComponent<FishController>();
+            if (fish == null) continue;
+
+            SortingKey key = SortingKey.From(fish);
+            if (best == null || key.IsInFrontOf(bestKey))
+            {
+                best = fish;
+                bestKey = key;
+            }
+        }
+
+        return best;
+    }
+
+    /// <summary>
+    /// SpriteRendererの描画順に基づく比較キー
+    /// </summary>
+    private struct SortingKey
+    {
+        public int layer;
+        public int order;
+        public float depth;
+
+        public static SortingKey From(FishController fish)
+        {
+            var renderer = fish.GetComponent<SpriteRenderer>();
+            int layerValue = renderer != null ? SortingLayer.GetLayerValueFromID(renderer.sortingLayerID) : 0;
+            int sortingOrder = renderer != null ? renderer.sortingOrder : 0;
+            // カメラに近い（zが小さい）ほど手前なので、逆符号で比較しやすくする
+            float depthValue = -fish.transform.position.z;
+
+            return new SortingKey
+            {
+                layer = layerValue,
+                order = sortingOrder,
+                depth = depthValue
+            };
+        }
+
+        public bool IsInFrontOf(SortingKey other)
+        {
+            if (layer != other.layer) return layer > other.layer;
+            if (order != other.order) return order > other.order;
+            return depth > other.depth;
+        }
     }
     
     /// <summary>

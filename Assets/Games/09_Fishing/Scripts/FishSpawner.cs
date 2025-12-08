@@ -14,6 +14,7 @@ public class FishSpawner : MonoBehaviour
     {
         public Sprite sprite;                                  // 魚のスプライト
         [Range(0.5f, 2.0f)] public float sizeMultiplier = 1.0f; // サイズ倍率（1.0=標準）
+        [Range(0.1f, 5.0f)] public float colliderRadius = 1.2f; // コライダー半径
     }
     
     [Header("魚設定")]
@@ -43,6 +44,7 @@ public class FishSpawner : MonoBehaviour
     
     private List<GameObject> activeFish = new List<GameObject>();
     private float lastSpawnTime;
+    private int lastCatchFrame = -1;  // 最後に魚を釣ったフレーム番号
     
     public static FishSpawner Instance { get; private set; }
     
@@ -55,6 +57,23 @@ public class FishSpawner : MonoBehaviour
     /// カモメPrefabを取得（FishControllerから参照）
     /// </summary>
     public GameObject SeagullPrefab => seagullPrefab;
+    
+    /// <summary>
+    /// このフレームで魚を釣れるかチェックし、釣れる場合はフレームを記録
+    /// 同一フレームで複数の魚が釣れないように制御
+    /// </summary>
+    /// <returns>釣れる場合はtrue</returns>
+    public bool TryClaimCatch()
+    {
+        int currentFrame = Time.frameCount;
+        if (lastCatchFrame == currentFrame)
+        {
+            // このフレームで既に別の魚が釣られている
+            return false;
+        }
+        lastCatchFrame = currentFrame;
+        return true;
+    }
     
     void Awake()
     {
@@ -138,7 +157,7 @@ public class FishSpawner : MonoBehaviour
         FishController controller = fishObj.GetComponent<FishController>();
         if (controller != null)
         {
-            controller.Initialize(selectedData.sprite, spawnPos, speed, isRare, baseFishSize, selectedData.sizeMultiplier);
+            controller.Initialize(selectedData.sprite, spawnPos, speed, isRare, baseFishSize, selectedData.sizeMultiplier, selectedData.colliderRadius);
         }
         
         activeFish.Add(fishObj);

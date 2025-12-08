@@ -111,8 +111,8 @@ public class InsectController : MonoBehaviour
     
     void Update()
     {
-        // 中央表示中はゲーム進行を停止
-        if (CatchInsectsGameManager.Instance != null && CatchInsectsGameManager.Instance.IsDisplayingInsect)
+        // 捕獲中または中央表示中はゲーム進行を停止
+        if (CatchInsectsGameManager.Instance != null && CatchInsectsGameManager.Instance.IsBusy)
         {
             return;
         }
@@ -135,8 +135,8 @@ public class InsectController : MonoBehaviour
     /// </summary>
     private void HandleTouch()
     {
-        // 中央表示中はタップを無視
-        if (CatchInsectsGameManager.Instance != null && CatchInsectsGameManager.Instance.IsDisplayingInsect)
+        // 捕獲中または中央表示中はタップを無視
+        if (CatchInsectsGameManager.Instance != null && CatchInsectsGameManager.Instance.IsBusy)
         {
             return;
         }
@@ -150,6 +150,11 @@ public class InsectController : MonoBehaviour
                 Vector3 worldPos = mainCamera.ScreenToWorldPoint(touch.position);
                 if (circleCollider.OverlapPoint(worldPos))
                 {
+                    // 同一フレームで複数の昆虫が捕獲されないように制御
+                    if (InsectSpawner.Instance != null && !InsectSpawner.Instance.TryClaimCatch())
+                    {
+                        return;
+                    }
                     OnTapped();
                     return;
                 }
@@ -162,6 +167,11 @@ public class InsectController : MonoBehaviour
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             if (circleCollider.OverlapPoint(worldPos))
             {
+                // 同一フレームで複数の昆虫が捕獲されないように制御
+                if (InsectSpawner.Instance != null && !InsectSpawner.Instance.TryClaimCatch())
+                {
+                    return;
+                }
                 OnTapped();
             }
         }
@@ -175,6 +185,12 @@ public class InsectController : MonoBehaviour
         if (currentState != InsectState.Idle) return;
         
         currentState = InsectState.Caught;
+        
+        // 捕獲開始を通知（他の虫のタップを無効化）
+        if (CatchInsectsGameManager.Instance != null)
+        {
+            CatchInsectsGameManager.Instance.StartCatching();
+        }
         
         // 虫取り網の音を再生
         if (CatchInsectsSFXPlayer.Instance != null)
