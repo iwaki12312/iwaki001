@@ -164,6 +164,21 @@ public static class VegetableDigSetup
         SpriteRenderer bodySr = body.AddComponent<SpriteRenderer>();
         bodySr.sortingOrder = 0;
         
+        // レア野菜用パーティクルプレハブをロード
+        GameObject shineParticle = AssetDatabase.LoadAssetAtPath<GameObject>(GAME_PATH + "/Prefabs/Shine-1-Particles.prefab");
+        if (shineParticle != null)
+        {
+            VegetableController controller = vegetable.GetComponent<VegetableController>();
+            SerializedObject so = new SerializedObject(controller);
+            so.FindProperty("shineParticlePrefab").objectReferenceValue = shineParticle;
+            so.ApplyModifiedProperties();
+            Debug.Log("[VegetableDigSetup] レア野菜用パーティクルを設定しました");
+        }
+        else
+        {
+            Debug.LogWarning("[VegetableDigSetup] Shine-1-Particles.prefab が見つかりません");
+        }
+        
         // プレハブとして保存
         GameObject prefab = PrefabUtility.SaveAsPrefabAsset(vegetable, PREFAB_PATH);
         Object.DestroyImmediate(vegetable);

@@ -230,3 +230,4 @@ MonoBehaviour:
   respawnDelay: 0.5
   fadeInDuration: 0.5
   colliderRadius: 1
+  shineParticlePrefab: {fileID: 100000, guid: 535d640a9bfd2b24082d81b68a8ea7d4, type: 3}

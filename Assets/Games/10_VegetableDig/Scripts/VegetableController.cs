@@ -23,12 +23,16 @@ public class VegetableController : MonoBehaviour
     [Header("コライダー設定")]
     [SerializeField] private float colliderRadius = 1.0f;  // タップ判定の範囲
     
+    [Header("レア野菜エフェクト")]
+    [SerializeField] private GameObject shineParticlePrefab;  // レア野菜用パーティクルプレハブ
+    
     private SpriteRenderer leafRenderer;
     private SpriteRenderer vegetableRenderer;
     private CircleCollider2D circleCollider;
     private Camera mainCamera;
     private VegetableState currentState = VegetableState.Buried;
     private Vector3 originalPosition;
+    private GameObject activeShineParticle;  // 現在表示中のパーティクル
     
     // SpawnerからのコールバックでVegetableTypeを受け取る
     private System.Action<VegetableController> onReadyForRespawn;
@@ -193,6 +197,21 @@ public class VegetableController : MonoBehaviour
             vegetableRenderer.color = Color.white;
         }
         
+        // レア野菜の場合、光り輝くパーティクルを表示
+        if (isRare && shineParticlePrefab != null)
+        {
+            activeShineParticle = Instantiate(shineParticlePrefab, transform.position, Quaternion.identity);
+            activeShineParticle.transform.SetParent(transform);
+            activeShineParticle.transform.localPosition = Vector3.zero;
+            
+            // パーティクルのSorting Orderを野菜の後ろに設定
+            ParticleSystemRenderer[] particleRenderers = activeShineParticle.GetComponentsInChildren<ParticleSystemRenderer>();
+            foreach (var psr in particleRenderers)
+            {
+                psr.sortingOrder = -1; // 野菜の後ろに表示
+            }
+        }
+        
         // 上方向に移動
         Sequence pullSequence = DOTween.Sequence();
         
@@ -246,6 +265,16 @@ public class VegetableController : MonoBehaviour
         {
             respawnSequence.Join(vegetableRenderer.DOFade(0f, fadeOutDuration));
         }
+        
+        // レア野菜パーティクルを削除
+        respawnSequence.AppendCallback(() =>
+        {
+            if (activeShineParticle != null)
+            {
+                Destroy(activeShineParticle);
+                activeShineParticle = null;
+            }
+        });
         
         respawnSequence.AppendInterval(respawnDelay);
         
