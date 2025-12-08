@@ -909,7 +909,7 @@ MonoBehaviour:
   - sprite: {fileID: 8382007410915793689, guid: c944a1216bd4b4545ba3d792205cbb44, type: 3}
     sizeMultiplier: 2
     colliderRadius: 1.7
-  - sprite: {fileID: 1091228756823284941, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
+  - sprite: {fileID: -752210870200769308, guid: 1fbfea0f211c62543897359b384cfb20, type: 3}
     sizeMultiplier: 2
     colliderRadius: 1.7
   seagullPrefab: {fileID: 621828857573453398, guid: f14c5e69d1599de40aec9f4e12e6d424, type: 3}
