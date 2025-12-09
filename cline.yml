@@ -12,6 +12,7 @@ project:
       • CatchInsects : 虫をタップして捕まえるゲーム
       • PopBalloons : 風船をタップして割るゲーム
       • Fishing : 魚をタップして釣り上げるゲーム
+      • VegetableDig : 土の中の野菜をタップして引き抜くゲーム。時々レア野菜が出現する
       
     今後は他のミニゲームも順次追加する予定です。
     主にAIエージェントには新しいゲームの実装を担当してもらいます。
@@ -24,7 +25,7 @@ project:
     ・各ゲームはゲームテンプレートのフォルダをコピーして作成すること。 
     ・ゲームテンプレートの中には仮の効果音やスプライトが入っているので、新規作成時は一旦それを使用すること。 
 
-  unity_version: 2022.3
+  unity_version: 6000.3.0f1
   target_platforms:
     - Android
     - iOS
@@ -40,5 +41,6 @@ project:
     - CatchInsects
     - PopBalloons
     - Fishing
+    - VegetableDig
 
     
