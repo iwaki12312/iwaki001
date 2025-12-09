@@ -15,14 +15,15 @@ public class GameInfo : MonoBehaviour
     public static List<GameData> allGames = new List<GameData>
     {
         new GameData("MakeBubbles", 1, "pack_free"),       // 01_MakeBubbles
-        new GameData("WhackAMole", 2, "pack_free"),         // 02_WhackAMole
-        new GameData("FlowerBlooming", 3, "pack_free"),   // 03_FlowerBlooming
+        new GameData("WhackAMole", 2, "pack_free"),        // 02_WhackAMole
+        new GameData("FlowerBlooming", 3, "pack_free"),    // 03_FlowerBlooming
         new GameData("Cook", 4, "pack_free"),              // 04_Cook
         new GameData("TouchTheStar", 5, "pack_free"),      // 05_TouchTheStar
         new GameData("PianoAndViolin", 6, "pack_free"),    // 06_PianoAndViolin
         new GameData("CatchInsects", 7, "pack_01"),        // 07_CatchInsects
         new GameData("PopBalloons", 8, "pack_01"),         // 08_PopBalloons
-        new GameData("Fishing", 9, "pack_01")              // 09_Fishing
+        new GameData("Fishing", 9, "pack_01"),             // 09_Fishing
+        new GameData("VegetableDig", 10, "pack_01")        // 10_VegetableDig
     };
     
     // 総ページ数を取得

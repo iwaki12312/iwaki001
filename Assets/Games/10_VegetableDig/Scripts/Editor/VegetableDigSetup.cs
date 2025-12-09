@@ -183,14 +183,14 @@ public static class VegetableDigSetup
         leaf.transform.SetParent(vegetable.transform);
         leaf.transform.localPosition = new Vector3(0, 0.5f, 0); // 葉っぱは少し上
         SpriteRenderer leafSr = leaf.AddComponent<SpriteRenderer>();
-        leafSr.sortingOrder = 1;
+        leafSr.sortingOrder = 5;  // 背景より前に表示
         
         // 野菜本体子オブジェクト
         GameObject body = new GameObject("VegetableBody");
         body.transform.SetParent(vegetable.transform);
         body.transform.localPosition = Vector3.zero;
         SpriteRenderer bodySr = body.AddComponent<SpriteRenderer>();
-        bodySr.sortingOrder = 0;
+        bodySr.sortingOrder = 4;  // 背景より前、葉っぱより後ろ
         
         // レア野菜用パーティクルプレハブをロード
         GameObject shineParticle = AssetDatabase.LoadAssetAtPath<GameObject>(GAME_PATH + "/Prefabs/Shine-1-Particles.prefab");

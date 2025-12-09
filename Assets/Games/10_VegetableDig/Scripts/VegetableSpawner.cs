@@ -130,16 +130,53 @@ public class VegetableSpawner : MonoBehaviour
     {
         bool isRare = Random.value < rareChance;
         
+        VegetableType selected = null;
+        
         if (isRare && rareVegetables != null && rareVegetables.Length > 0)
         {
-            return rareVegetables[Random.Range(0, rareVegetables.Length)];
-        }
-        else if (normalVegetables != null && normalVegetables.Length > 0)
-        {
-            return normalVegetables[Random.Range(0, normalVegetables.Length)];
+            // 有効なレア野菜を探す
+            List<VegetableType> validRare = new List<VegetableType>();
+            foreach (var v in rareVegetables)
+            {
+                if (v != null && v.vegetableSprite != null)
+                {
+                    validRare.Add(v);
+                }
+            }
+            if (validRare.Count > 0)
+            {
+                selected = validRare[Random.Range(0, validRare.Count)];
+            }
         }
         
-        return null;
+        // レアが選べなかった場合、通常野菜から選択
+        if (selected == null && normalVegetables != null && normalVegetables.Length > 0)
+        {
+            // 有効な通常野菜を探す
+            List<VegetableType> validNormal = new List<VegetableType>();
+            foreach (var v in normalVegetables)
+            {
+                if (v != null && v.vegetableSprite != null)
+                {
+                    validNormal.Add(v);
+                }
+            }
+            if (validNormal.Count > 0)
+            {
+                selected = validNormal[Random.Range(0, validNormal.Count)];
+            }
+        }
+        
+        if (selected == null)
+        {
+            Debug.LogError("[VegetableSpawner] 有効な野菜が見つかりません！Inspectorで野菜スプライトが設定されているか確認してください");
+        }
+        else
+        {
+            Debug.Log($"[VegetableSpawner] 野菜選択: {selected.name}, レア={selected.isRare}, 葉={selected.leafSprite?.name}, 野菜={selected.vegetableSprite?.name}");
+        }
+        
+        return selected;
     }
     
     /// <summary>

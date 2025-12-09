@@ -56,10 +56,21 @@ public class VegetableController : MonoBehaviour
         if (leafTransform != null)
         {
             leafRenderer = leafTransform.GetComponent<SpriteRenderer>();
+            Debug.Log($"[VegetableController] Leaf SpriteRenderer取得: {leafRenderer != null}");
         }
+        else
+        {
+            Debug.LogError("[VegetableController] Leaf子オブジェクトが見つかりません！");
+        }
+        
         if (vegTransform != null)
         {
             vegetableRenderer = vegTransform.GetComponent<SpriteRenderer>();
+            Debug.Log($"[VegetableController] VegetableBody SpriteRenderer取得: {vegetableRenderer != null}");
+        }
+        else
+        {
+            Debug.LogError("[VegetableController] VegetableBody子オブジェクトが見つかりません！");
         }
         
         // コライダーを取得または追加
@@ -83,21 +94,40 @@ public class VegetableController : MonoBehaviour
         transform.position = position;
         onReadyForRespawn = respawnCallback;
         
+        // スプライトがnullかチェック
+        if (vegetable == null)
+        {
+            Debug.LogError($"[VegetableController] 野菜スプライトがnullです！位置={position}");
+        }
+        if (leaf == null)
+        {
+            Debug.LogWarning($"[VegetableController] 葉っぱスプライトがnullです！位置={position}");
+        }
+        
         // スプライトを設定
         if (leafRenderer != null)
         {
             leafRenderer.sprite = leafSprite;
-            leafRenderer.color = Color.white;
+            leafRenderer.color = Color.white; // 葉っぱは即座に表示
         }
+        else
+        {
+            Debug.LogWarning("[VegetableController] leafRenderer が null です");
+        }
+        
         if (vegetableRenderer != null)
         {
             vegetableRenderer.sprite = vegetableSprite;
-            vegetableRenderer.color = new Color(1, 1, 1, 0); // 最初は透明
+            vegetableRenderer.color = new Color(1, 1, 1, 0); // 野菜本体は最初は透明
+        }
+        else
+        {
+            Debug.LogWarning("[VegetableController] vegetableRenderer が null です");
         }
         
         currentState = VegetableState.Buried;
         
-        Debug.Log($"[VegetableController] 野菜初期化: レア={isRare}, 位置={position}");
+        Debug.Log($"[VegetableController] 野菜初期化: レア={isRare}, 位置={position}, 葉={leafSprite?.name}, 野菜={vegetableSprite?.name}");
     }
     
     /// <summary>
@@ -106,6 +136,11 @@ public class VegetableController : MonoBehaviour
     public void FadeIn()
     {
         currentState = VegetableState.Respawning;
+        
+        // 既存のTweenをすべてキャンセル（競合防止）
+        transform.DOKill();
+        if (leafRenderer != null) leafRenderer.DOKill();
+        if (vegetableRenderer != null) vegetableRenderer.DOKill();
         
         // 葉っぱを透明から開始
         if (leafRenderer != null)
@@ -185,16 +220,46 @@ public class VegetableController : MonoBehaviour
     /// </summary>
     private void PlayPullAnimation()
     {
+        Debug.Log($"[VegetableController] PlayPullAnimation開始: 野菜={vegetableSprite?.name}, レンダラー={vegetableRenderer != null}");
+        
+        // 既存のTweenをすべてキャンセル（競合防止）
+        transform.DOKill();
+        if (leafRenderer != null) leafRenderer.DOKill();
+        if (vegetableRenderer != null) vegetableRenderer.DOKill();
+        
+        // 野菜レンダラーの状態を詳細にログ
+        if (vegetableRenderer != null)
+        {
+            Debug.Log($"[VegetableController] 変更前: sprite={vegetableRenderer.sprite?.name}, enabled={vegetableRenderer.enabled}, gameObject.active={vegetableRenderer.gameObject.activeSelf}, color={vegetableRenderer.color}");
+        }
+        
         // 葉っぱを非表示（野菜スプライトに葉っぱが含まれているため）
         if (leafRenderer != null)
         {
             leafRenderer.color = new Color(1, 1, 1, 0);
+            Debug.Log("[VegetableController] 葉っぱを非表示に設定");
         }
         
         // 野菜本体を表示
         if (vegetableRenderer != null)
         {
+            // スプライトが消えている可能性があるので再設定
+            if (vegetableRenderer.sprite == null && vegetableSprite != null)
+            {
+                Debug.LogWarning($"[VegetableController] スプライトがnullだったので再設定: {vegetableSprite.name}");
+                vegetableRenderer.sprite = vegetableSprite;
+            }
+            
             vegetableRenderer.color = Color.white;
+            
+            // 詳細なデバッグ情報
+            Transform vegBodyTransform = vegetableRenderer.transform;
+            Debug.Log($"[VegetableController] 野菜本体を表示: sprite={vegetableRenderer.sprite?.name}, color={vegetableRenderer.color}");
+            Debug.Log($"[VegetableController] VegetableBody詳細: localPos={vegBodyTransform.localPosition}, localScale={vegBodyTransform.localScale}, sortingOrder={vegetableRenderer.sortingOrder}, enabled={vegetableRenderer.enabled}");
+        }
+        else
+        {
+            Debug.LogError("[VegetableController] vegetableRenderer が null です！");
         }
         
         // レア野菜の場合、光り輝くパーティクルを表示
@@ -270,6 +335,11 @@ public class VegetableController : MonoBehaviour
     /// </summary>
     private void StartRespawnSequence()
     {
+        // 既存のTweenをすべてキャンセル（競合防止）
+        transform.DOKill();
+        if (leafRenderer != null) leafRenderer.DOKill();
+        if (vegetableRenderer != null) vegetableRenderer.DOKill();
+        
         // フェードアウト
         Sequence respawnSequence = DOTween.Sequence();
         
