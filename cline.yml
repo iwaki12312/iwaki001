@@ -13,6 +13,7 @@ project:
       • PopBalloons : 風船をタップして割るゲーム
       • Fishing : 魚をタップして釣り上げるゲーム
       • VegetableDig : 土の中の野菜をタップして引き抜くゲーム。時々レア野菜が出現する
+      • EggHatch : たまごをタップしてヒビを入れ、動物を孵化させるゲーム。時々レア動物が出現する
       
     今後は他のミニゲームも順次追加する予定です。
     主にAIエージェントには新しいゲームの実装を担当してもらいます。
@@ -42,5 +43,6 @@ project:
     - PopBalloons
     - Fishing
     - VegetableDig
+    - EggHatch
 
     
