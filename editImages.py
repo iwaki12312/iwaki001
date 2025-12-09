@@ -14,7 +14,7 @@ BABY_ANIMAL_PROMPT = """
 Generate a cute baby animal sprite for a children's game.
 
 Requirements:
-- Style: Cartoon, colorful, child-friendly (ages 1-2)
+- Style: Cartoon, colorful, child-friendly (target audience: ages 1-2)
 - Format: PNG with transparent background
 - Size: 512x512 pixels minimum
 - Animal should be facing forward
@@ -46,7 +46,7 @@ Generate an egg sprite for a children's game.
 
 Requirements:
 - Style: Cartoon, simple, clean
-- Format: PNG with transparent background  
+- Format: PNG with transparent background
 - Size: 512x512 pixels minimum
 - Egg should be centered
 - Smooth, rounded shape
