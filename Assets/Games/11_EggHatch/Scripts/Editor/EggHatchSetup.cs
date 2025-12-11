@@ -72,11 +72,13 @@ public class EggHatchSetup : Editor
         
         // 効果音をロード
         AudioClip crackSound = AssetDatabase.LoadAssetAtPath<AudioClip>(GAME_PATH + "/Audios/work_sfx1.mp3");
-        AudioClip normalFanfare = AssetDatabase.LoadAssetAtPath<AudioClip>(GAME_PATH + "/Audios/work_sfx2.mp3");
+        AudioClip hatchSound = AssetDatabase.LoadAssetAtPath<AudioClip>(GAME_PATH + "/Audios/work_sfx2.mp3");
+        AudioClip normalFanfare = AssetDatabase.LoadAssetAtPath<AudioClip>(GAME_PATH + "/Audios/work_sfx3.mp3");
         AudioClip rareFanfare = AssetDatabase.LoadAssetAtPath<AudioClip>(GAME_PATH + "/Audios/work_sfx3.mp3");
         
         SerializedObject so = new SerializedObject(player);
         so.FindProperty("crackSound").objectReferenceValue = crackSound;
+        so.FindProperty("hatchSound").objectReferenceValue = hatchSound;
         so.FindProperty("normalFanfare").objectReferenceValue = normalFanfare;
         so.FindProperty("rareFanfare").objectReferenceValue = rareFanfare;
         so.ApplyModifiedProperties();
@@ -96,43 +98,28 @@ public class EggHatchSetup : Editor
         GameObject egg = new GameObject("Egg");
         
         // EggControllerを追加
-        egg.AddComponent<EggController>();
+        EggController controller = egg.AddComponent<EggController>();
+        
+        // パーティクルプレハブを設定
+        GameObject particlePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(GAME_PATH + "/Prefabs/Shine-1-Particles.prefab");
+        if (particlePrefab != null)
+        {
+            SerializedObject controllerSO = new SerializedObject(controller);
+            controllerSO.FindProperty("rareParticlePrefab").objectReferenceValue = particlePrefab;
+            controllerSO.ApplyModifiedProperties();
+        }
         
         // 仮スプライトをロード
         Sprite workSpriteA = AssetDatabase.LoadAssetAtPath<Sprite>(GAME_PATH + "/Sprites/work_sprite_a.png");
         Sprite workSpriteB = AssetDatabase.LoadAssetAtPath<Sprite>(GAME_PATH + "/Sprites/work_sprite_b.png");
         
-        // たまご本体
-        GameObject eggBase = new GameObject("EggBase");
-        eggBase.transform.SetParent(egg.transform);
-        eggBase.transform.localPosition = Vector3.zero;
-        SpriteRenderer eggBaseSr = eggBase.AddComponent<SpriteRenderer>();
-        eggBaseSr.sprite = workSpriteA;
-        eggBaseSr.sortingOrder = 0;
-        
-        // ヒビレイヤー1
-        GameObject crack1 = new GameObject("CrackLayer1");
-        crack1.transform.SetParent(egg.transform);
-        crack1.transform.localPosition = Vector3.zero;
-        SpriteRenderer crack1Sr = crack1.AddComponent<SpriteRenderer>();
-        crack1Sr.sortingOrder = 1;
-        crack1Sr.enabled = false;
-        
-        // ヒビレイヤー2
-        GameObject crack2 = new GameObject("CrackLayer2");
-        crack2.transform.SetParent(egg.transform);
-        crack2.transform.localPosition = Vector3.zero;
-        SpriteRenderer crack2Sr = crack2.AddComponent<SpriteRenderer>();
-        crack2Sr.sortingOrder = 1;
-        crack2Sr.enabled = false;
-        
-        // ヒビレイヤー3
-        GameObject crack3 = new GameObject("CrackLayer3");
-        crack3.transform.SetParent(egg.transform);
-        crack3.transform.localPosition = Vector3.zero;
-        SpriteRenderer crack3Sr = crack3.AddComponent<SpriteRenderer>();
-        crack3Sr.sortingOrder = 1;
-        crack3Sr.enabled = false;
+        // たまご本体（5段階でスプライト切り替え）
+        GameObject eggObj = new GameObject("Egg");
+        eggObj.transform.SetParent(egg.transform);
+        eggObj.transform.localPosition = Vector3.zero;
+        SpriteRenderer eggSr = eggObj.AddComponent<SpriteRenderer>();
+        eggSr.sprite = workSpriteA;
+        eggSr.sortingOrder = 0;
         
         // 動物
         GameObject animal = new GameObject("Animal");
@@ -166,13 +153,12 @@ public class EggHatchSetup : Editor
         // プレハブを設定
         so.FindProperty("eggPrefab").objectReferenceValue = prefab;
         
-        // ヒビスプライト（仮）を設定
-        so.FindProperty("crackSprite1").objectReferenceValue = spriteB;
-        so.FindProperty("crackSprite2").objectReferenceValue = spriteB;
-        so.FindProperty("crackSprite3").objectReferenceValue = spriteB;
-        
-        // レア卵スプライト（仮）
-        so.FindProperty("rareEggSprite").objectReferenceValue = spriteB;
+        // 卵段階スプライト（5枚・仮）を設定
+        so.FindProperty("eggSprite0").objectReferenceValue = spriteA;
+        so.FindProperty("eggSprite1").objectReferenceValue = spriteB;
+        so.FindProperty("eggSprite2").objectReferenceValue = spriteB;
+        so.FindProperty("eggSprite3").objectReferenceValue = spriteB;
+        so.FindProperty("eggSprite4").objectReferenceValue = spriteB;
         
         // スポット位置を設定（4箇所、2行2列の配置）
         SerializedProperty spotsProp = so.FindProperty("eggSpots");
@@ -203,7 +189,6 @@ public class EggHatchSetup : Editor
         {
             SerializedProperty animalProp = normalAnimalsProp.GetArrayElementAtIndex(i);
             animalProp.FindPropertyRelative("name").stringValue = normalAnimalNames[i];
-            animalProp.FindPropertyRelative("eggSprite").objectReferenceValue = spriteA;
             animalProp.FindPropertyRelative("animalSprite").objectReferenceValue = spriteB;
             animalProp.FindPropertyRelative("isRare").boolValue = false;
         }
@@ -217,7 +202,6 @@ public class EggHatchSetup : Editor
         {
             SerializedProperty animalProp = rareAnimalsProp.GetArrayElementAtIndex(i);
             animalProp.FindPropertyRelative("name").stringValue = rareAnimalNames[i];
-            animalProp.FindPropertyRelative("eggSprite").objectReferenceValue = spriteB; // レアは共通卵を使用
             animalProp.FindPropertyRelative("animalSprite").objectReferenceValue = spriteB;
             animalProp.FindPropertyRelative("isRare").boolValue = true;
         }

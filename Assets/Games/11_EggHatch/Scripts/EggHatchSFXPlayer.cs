@@ -7,6 +7,7 @@ public class EggHatchSFXPlayer : MonoBehaviour
 {
     [Header("効果音設定")]
     [SerializeField] private AudioClip crackSound;          // ヒビが入る音
+    [SerializeField] private AudioClip hatchSound;          // 卵が割れる音（パカ）
     [SerializeField] private AudioClip normalFanfare;       // 通常動物ファンファーレ
     [SerializeField] private AudioClip rareFanfare;         // レア動物ファンファーレ
     
@@ -41,6 +42,17 @@ public class EggHatchSFXPlayer : MonoBehaviour
         if (crackSound != null)
         {
             audioSource.PlayOneShot(crackSound);
+        }
+    }
+    
+    /// <summary>
+    /// 卵が割れる音を再生（パカ）
+    /// </summary>
+    public void PlayHatch()
+    {
+        if (hatchSound != null)
+        {
+            audioSource.PlayOneShot(hatchSound);
         }
     }
     

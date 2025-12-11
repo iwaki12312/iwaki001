@@ -8,11 +8,13 @@ using DG.Tweening;
 public class EggController : MonoBehaviour
 {
     [Header("たまご設定")]
-    [SerializeField] private int maxCracks = 3;              // 割れるまでのタップ回数
+    [SerializeField] private int maxCracks = 4;              // 割れるまでのタップ回数（スプライト0→1→2→3→4）
     [SerializeField] private float shakeStrength = 0.2f;     // タップ時の揺れ強度
     [SerializeField] private float shakeDuration = 0.2f;     // タップ時の揺れ時間
+    [SerializeField] private float crackedDisplayTime = 0.3f; // 卵が割れた瞬間の表示時間
     
     [Header("孵化アニメーション設定")]
+    [SerializeField] private float animalScale = 1.0f;       // 動物のサイズ（卵に対する倍率）
     [SerializeField] private float hatchJumpHeight = 1.0f;   // 動物のジャンプ高さ
     [SerializeField] private float hatchDuration = 0.5f;     // 孵化アニメーション時間
     [SerializeField] private float displayDuration = 2.0f;   // 動物表示時間
@@ -22,6 +24,20 @@ public class EggController : MonoBehaviour
     
     [Header("コライダー設定")]
     [SerializeField] private float colliderRadius = 1.5f;    // タップ判定の範囲
+    
+    [Header("エフェクト設定")]
+    [SerializeField] private GameObject rareParticlePrefab; // レア動物孵化時のパーティクル
+    
+    [Header("通常卵カラー設定")]
+    [SerializeField] private Color[] normalEggColors = new Color[]
+    {
+        new Color(1.0f, 1.0f, 0.94f),   // アイボリー
+        new Color(0.88f, 1.0f, 0.88f),  // ライトグリーン
+        new Color(0.88f, 0.94f, 1.0f),  // ライトブルー
+        new Color(1.0f, 0.88f, 0.94f),  // ライトピンク
+        new Color(0.94f, 0.88f, 1.0f),  // ライトパープル
+        new Color(1.0f, 1.0f, 0.88f),   // ライトイエロー
+    };
     
     [Header("レア卵カラー設定")]
     [SerializeField] private Color[] rareEggColors = new Color[]
@@ -34,11 +50,8 @@ public class EggController : MonoBehaviour
     };
     
     // 子オブジェクトのレンダラー
-    private SpriteRenderer eggBaseRenderer;
-    private SpriteRenderer crackLayer1Renderer;
-    private SpriteRenderer crackLayer2Renderer;
-    private SpriteRenderer crackLayer3Renderer;
-    private SpriteRenderer animalRenderer;
+    private SpriteRenderer eggRenderer;          // 卵本体（5段階で切り替え）
+    private SpriteRenderer animalRenderer;       // 動物
     
     private CircleCollider2D circleCollider;
     private Camera mainCamera;
@@ -55,8 +68,8 @@ public class EggController : MonoBehaviour
     // 現在の動物データ
     private AnimalData currentAnimalData;
     
-    // ヒビスプライト（共通）
-    private Sprite[] crackSprites;
+    // 卵段階スプライト（5枚）
+    private Sprite[] eggStageSprites;
     
     private enum EggState
     {
@@ -72,20 +85,11 @@ public class EggController : MonoBehaviour
         mainCamera = Camera.main;
         
         // 子オブジェクトからレンダラーを取得
-        Transform eggBaseTransform = transform.Find("EggBase");
-        Transform crack1Transform = transform.Find("CrackLayer1");
-        Transform crack2Transform = transform.Find("CrackLayer2");
-        Transform crack3Transform = transform.Find("CrackLayer3");
+        Transform eggTransform = transform.Find("Egg");
         Transform animalTransform = transform.Find("Animal");
         
-        if (eggBaseTransform != null)
-            eggBaseRenderer = eggBaseTransform.GetComponent<SpriteRenderer>();
-        if (crack1Transform != null)
-            crackLayer1Renderer = crack1Transform.GetComponent<SpriteRenderer>();
-        if (crack2Transform != null)
-            crackLayer2Renderer = crack2Transform.GetComponent<SpriteRenderer>();
-        if (crack3Transform != null)
-            crackLayer3Renderer = crack3Transform.GetComponent<SpriteRenderer>();
+        if (eggTransform != null)
+            eggRenderer = eggTransform.GetComponent<SpriteRenderer>();
         if (animalTransform != null)
             animalRenderer = animalTransform.GetComponent<SpriteRenderer>();
         
@@ -101,25 +105,32 @@ public class EggController : MonoBehaviour
     /// <summary>
     /// たまごを初期化
     /// </summary>
-    public void Initialize(AnimalData animalData, Sprite[] cracks, Vector3 position, System.Action<EggController> respawnCallback)
+    public void Initialize(AnimalData animalData, Sprite[] eggStages, Vector3 position, System.Action<EggController> respawnCallback)
     {
         currentAnimalData = animalData;
-        crackSprites = cracks;
+        eggStageSprites = eggStages;
         isRare = animalData.isRare;
         originalPosition = position;
         transform.position = position;
         onReadyForRespawn = respawnCallback;
         
-        // たまご本体を設定
-        if (eggBaseRenderer != null)
+        // たまご本体を設定（段階0: 通常の卵）
+        if (eggRenderer != null && eggStageSprites != null && eggStageSprites.Length > 0)
         {
-            eggBaseRenderer.sprite = animalData.eggSprite;
-            eggBaseRenderer.color = Color.white;
+            eggRenderer.sprite = eggStageSprites[0];
             
-            // レア卵の場合はランダムカラー適用
+            // 通常/レアに応じてランダムカラー適用
             if (isRare && rareEggColors.Length > 0)
             {
-                eggBaseRenderer.color = rareEggColors[Random.Range(0, rareEggColors.Length)];
+                eggRenderer.color = rareEggColors[Random.Range(0, rareEggColors.Length)];
+            }
+            else if (!isRare && normalEggColors.Length > 0)
+            {
+                eggRenderer.color = normalEggColors[Random.Range(0, normalEggColors.Length)];
+            }
+            else
+            {
+                eggRenderer.color = Color.white;
             }
         }
         
@@ -130,9 +141,6 @@ public class EggController : MonoBehaviour
             animalRenderer.color = new Color(1, 1, 1, 0);
             animalRenderer.transform.localScale = Vector3.zero;
         }
-        
-        // ヒビを非表示
-        HideAllCracks();
         
         currentCrackCount = 0;
         currentState = EggState.Idle;
@@ -147,12 +155,12 @@ public class EggController : MonoBehaviour
         
         // 既存のTweenをキャンセル
         transform.DOKill();
-        if (eggBaseRenderer != null) eggBaseRenderer.DOKill();
+        if (eggRenderer != null) eggRenderer.DOKill();
         
-        if (eggBaseRenderer != null)
+        if (eggRenderer != null)
         {
-            eggBaseRenderer.color = new Color(eggBaseRenderer.color.r, eggBaseRenderer.color.g, eggBaseRenderer.color.b, 0);
-            eggBaseRenderer.DOFade(1f, fadeInDuration).OnComplete(() =>
+            eggRenderer.color = new Color(eggRenderer.color.r, eggRenderer.color.g, eggRenderer.color.b, 0);
+            eggRenderer.DOFade(1f, fadeInDuration).OnComplete(() =>
             {
                 currentState = EggState.Idle;
             });
@@ -210,10 +218,17 @@ public class EggController : MonoBehaviour
         currentState = EggState.Cracking;
         currentCrackCount++;
         
-        // ヒビ音を再生
+        // 4回目（最後）のタップ時は割れる音、それ以外はヒビ音
         if (EggHatchSFXPlayer.Instance != null)
         {
-            EggHatchSFXPlayer.Instance.PlayCrack();
+            if (currentCrackCount >= maxCracks)
+            {
+                EggHatchSFXPlayer.Instance.PlayHatch();
+            }
+            else
+            {
+                EggHatchSFXPlayer.Instance.PlayCrack();
+            }
         }
         
         // たまごを揺らす
@@ -224,10 +239,14 @@ public class EggController : MonoBehaviour
                 // ヒビを追加
                 AddCrack(currentCrackCount);
                 
-                // 最大ヒビ数に達したら孵化
+                // 最大ヒビ数に達したら、割れた瞬間を表示してから孵化
                 if (currentCrackCount >= maxCracks)
                 {
-                    PlayHatchAnimation();
+                    // 割れた瞬間のスプライト表示時間
+                    DOVirtual.DelayedCall(crackedDisplayTime, () =>
+                    {
+                        PlayHatchAnimation();
+                    });
                 }
                 else
                 {
@@ -237,46 +256,17 @@ public class EggController : MonoBehaviour
     }
     
     /// <summary>
-    /// ヒビを追加表示
+    /// ヒビを進行（卵スプライトを切り替え）
     /// </summary>
     private void AddCrack(int crackStage)
     {
-        if (crackSprites == null || crackSprites.Length == 0) return;
+        if (eggRenderer == null || eggStageSprites == null || eggStageSprites.Length < 5) return;
         
-        switch (crackStage)
+        // crackStage 1~4に対応してスプライトを切り替え（0:通常, 1~3:ひび, 4:割れた瞬間）
+        if (crackStage >= 1 && crackStage <= 4)
         {
-            case 1:
-                if (crackLayer1Renderer != null && crackSprites.Length > 0)
-                {
-                    crackLayer1Renderer.sprite = crackSprites[0];
-                    crackLayer1Renderer.enabled = true;
-                }
-                break;
-            case 2:
-                if (crackLayer2Renderer != null && crackSprites.Length > 1)
-                {
-                    crackLayer2Renderer.sprite = crackSprites[1];
-                    crackLayer2Renderer.enabled = true;
-                }
-                break;
-            case 3:
-                if (crackLayer3Renderer != null && crackSprites.Length > 2)
-                {
-                    crackLayer3Renderer.sprite = crackSprites[2];
-                    crackLayer3Renderer.enabled = true;
-                }
-                break;
+            eggRenderer.sprite = eggStageSprites[crackStage];
         }
-    }
-    
-    /// <summary>
-    /// すべてのヒビを非表示
-    /// </summary>
-    private void HideAllCracks()
-    {
-        if (crackLayer1Renderer != null) crackLayer1Renderer.enabled = false;
-        if (crackLayer2Renderer != null) crackLayer2Renderer.enabled = false;
-        if (crackLayer3Renderer != null) crackLayer3Renderer.enabled = false;
     }
     
     /// <summary>
@@ -302,18 +292,17 @@ public class EggController : MonoBehaviour
         Sequence hatchSequence = DOTween.Sequence();
         
         // たまごをフェードアウト
-        if (eggBaseRenderer != null)
+        if (eggRenderer != null)
         {
-            hatchSequence.Join(eggBaseRenderer.DOFade(0f, hatchDuration * 0.5f));
+            hatchSequence.Join(eggRenderer.DOFade(0f, hatchDuration * 0.5f));
         }
         
-        // ヒビもフェードアウト
-        if (crackLayer1Renderer != null && crackLayer1Renderer.enabled)
-            hatchSequence.Join(crackLayer1Renderer.DOFade(0f, hatchDuration * 0.5f));
-        if (crackLayer2Renderer != null && crackLayer2Renderer.enabled)
-            hatchSequence.Join(crackLayer2Renderer.DOFade(0f, hatchDuration * 0.5f));
-        if (crackLayer3Renderer != null && crackLayer3Renderer.enabled)
-            hatchSequence.Join(crackLayer3Renderer.DOFade(0f, hatchDuration * 0.5f));
+        // レア動物の場合、パーティクルを表示
+        if (isRare && rareParticlePrefab != null)
+        {
+            GameObject particle = Instantiate(rareParticlePrefab, transform.position, Quaternion.identity);
+            Destroy(particle, 3f); // 3秒後に自動削除
+        }
         
         // 動物を登場させる
         if (animalRenderer != null)
@@ -321,8 +310,9 @@ public class EggController : MonoBehaviour
             animalRenderer.color = Color.white;
             animalRenderer.transform.localScale = Vector3.zero;
             
-            // スケールアップ + ジャンプ
-            hatchSequence.Append(animalRenderer.transform.DOScale(Vector3.one, hatchDuration).SetEase(Ease.OutBack));
+            // スケールアップ + ジャンプ（animalScaleを使用）
+            Vector3 targetScale = Vector3.one * animalScale;
+            hatchSequence.Append(animalRenderer.transform.DOScale(targetScale, hatchDuration).SetEase(Ease.OutBack));
             hatchSequence.Join(animalRenderer.transform.DOLocalJump(Vector3.zero, hatchJumpHeight, 1, hatchDuration));
         }
         

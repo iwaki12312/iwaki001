@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &618134258
+--- !u!1 &91969302
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,37 +127,104 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 618134260}
-  - component: {fileID: 618134259}
+  - component: {fileID: 91969304}
+  - component: {fileID: 91969303}
   m_Layer: 0
-  m_Name: EggHatchSFXPlayer
+  m_Name: EggSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &618134259
+--- !u!114 &91969303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618134258}
+  m_GameObject: {fileID: 91969302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b97d54e71db82740b17e8734c27e7f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ae384b6516d904291243fb45e8f81a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EggHatchSFXPlayer
-  crackSound: {fileID: 8300000, guid: 9c04e4bd78bdbc64ea717b99f6956c94, type: 3}
-  normalFanfare: {fileID: 8300000, guid: b594bc6e325915d4f9ce303f15df6b4a, type: 3}
-  rareFanfare: {fileID: 8300000, guid: 2f507ac796a08044586064769b153173, type: 3}
---- !u!4 &618134260
+  m_EditorClassIdentifier: Assembly-CSharp::EggSpawner
+  eggSpots:
+  - position: {x: -5.620011, y: 1.6658747, z: 0}
+    scale: 1
+    colliderRadius: 1.5
+  - position: {x: -2.29861, y: -0.4871205, z: 0}
+    scale: 1
+    colliderRadius: 1.5
+  - position: {x: -4.867238, y: -3.1985748, z: 0}
+    scale: 1
+    colliderRadius: 1.5
+  - position: {x: 3.3696165, y: 1.7067041, z: 0}
+    scale: 1
+    colliderRadius: 1.5
+  - position: {x: 1.0390543, y: -2.2663498, z: 0}
+    scale: 1
+    colliderRadius: 1.5
+  - position: {x: 5.456024, y: -1.600475, z: 0}
+    scale: 1
+    colliderRadius: 1.5
+  normalAnimals:
+  - name: Chick
+    animalSprite: {fileID: 6494298693845442348, guid: d1b5e364d48612e408e5f83e581953c3, type: 3}
+    isRare: 0
+  - name: Ostrich
+    animalSprite: {fileID: 7744151338768298228, guid: e9b4a3f82d626bb40ba07f6cfa1ece5a, type: 3}
+    isRare: 0
+  - name: Penguin
+    animalSprite: {fileID: -2712031569616708383, guid: 491b791b47a7414469bc8fd121183556, type: 3}
+    isRare: 0
+  - name: Owl
+    animalSprite: {fileID: 7299071170843980759, guid: 879311417eae82e479144dff9c98d879, type: 3}
+    isRare: 0
+  - name: Tortoise
+    animalSprite: {fileID: -7998274378043159534, guid: 995d1f0f6fc042542ba61a1785a0ff15, type: 3}
+    isRare: 0
+  - name: Lizard
+    animalSprite: {fileID: 1497376553071134885, guid: 3c4567d17f12e074dbc774f791b16aeb, type: 3}
+    isRare: 0
+  - name: Snake
+    animalSprite: {fileID: -2485466262441177021, guid: f086171748e9d53449567d41b7dd5ab8, type: 3}
+    isRare: 0
+  - name: Chameleon
+    animalSprite: {fileID: 2464345127944184829, guid: a54a9a7f71e728449b4864eb442584a8, type: 3}
+    isRare: 0
+  rareAnimals:
+  - name: Dragon
+    animalSprite: {fileID: -4801977308124636860, guid: 8737556cc6decc340a38a42b96473ea7, type: 3}
+    isRare: 1
+  - name: Phoenix
+    animalSprite: {fileID: 2029516722248871752, guid: af6edc22353e97549b43931b112ae03a, type: 3}
+    isRare: 1
+  - name: Triceratops
+    animalSprite: {fileID: -2241531433666916136, guid: 6c7e8f693b20a6d47851b326215e5405, type: 3}
+    isRare: 1
+  - name: Pteranodon
+    animalSprite: {fileID: -1401151173661323901, guid: 5d1b4fadc868f954c9986a2517bd383a, type: 3}
+    isRare: 1
+  - name: Velociraptor
+    animalSprite: {fileID: -5488438116482476272, guid: a80738b6c5c25664faea9999d7248c93, type: 3}
+    isRare: 1
+  - name: Brachiosaurus
+    animalSprite: {fileID: -2480653350687234734, guid: 66e8eeccda73e5541a77563db6874558, type: 3}
+    isRare: 1
+  eggSprite0: {fileID: -4072622106568590741, guid: 277fec9033a5610409d9b6dd9705a4d6, type: 3}
+  eggSprite1: {fileID: -5012961933758602109, guid: 277fec9033a5610409d9b6dd9705a4d6, type: 3}
+  eggSprite2: {fileID: 4488566306593746544, guid: 277fec9033a5610409d9b6dd9705a4d6, type: 3}
+  eggSprite3: {fileID: -5172895037355950900, guid: 277fec9033a5610409d9b6dd9705a4d6, type: 3}
+  eggSprite4: {fileID: 4492316552150090091, guid: 277fec9033a5610409d9b6dd9705a4d6, type: 3}
+  eggPrefab: {fileID: 1226267935034411291, guid: 0392fb7512b7ffc41a465daa4315d7c3, type: 3}
+  rareChance: 0.15
+--- !u!4 &91969304
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618134258}
+  m_GameObject: {fileID: 91969302}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -166,7 +233,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1109977611
+--- !u!1 &101173947
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,9 +241,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1109977614}
-  - component: {fileID: 1109977613}
-  - component: {fileID: 1109977612}
+  - component: {fileID: 101173950}
+  - component: {fileID: 101173949}
+  - component: {fileID: 101173948}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -184,21 +251,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1109977612
+--- !u!81 &101173948
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1109977611}
+  m_GameObject: {fileID: 101173947}
   m_Enabled: 1
---- !u!20 &1109977613
+--- !u!20 &101173949
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1109977611}
+  m_GameObject: {fileID: 101173947}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -243,13 +310,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &1109977614
+--- !u!4 &101173950
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1109977611}
+  m_GameObject: {fileID: 101173947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
@@ -258,7 +325,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1235107410
+--- !u!1 &790122059
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -266,133 +333,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1235107412}
-  - component: {fileID: 1235107411}
-  m_Layer: 0
-  m_Name: EggSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1235107411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235107410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ae384b6516d904291243fb45e8f81a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EggSpawner
-  eggSpots:
-  - position: {x: -3, y: 1, z: 0}
-    scale: 1
-    colliderRadius: 1.5
-  - position: {x: 3, y: 1, z: 0}
-    scale: 1
-    colliderRadius: 1.5
-  - position: {x: -3, y: -2, z: 0}
-    scale: 1
-    colliderRadius: 1.5
-  - position: {x: 3, y: -2, z: 0}
-    scale: 1
-    colliderRadius: 1.5
-  normalAnimals:
-  - name: Chick
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Ostrich
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Penguin
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Owl
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Tortoise
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Lizard
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Snake
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  - name: Chameleon
-    eggSprite: {fileID: -7490982025059118367, guid: 2220b16d7a78d7e458d5e4eafb943691, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 0
-  rareAnimals:
-  - name: Dragon
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  - name: Phoenix
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  - name: TRex
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  - name: Triceratops
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  - name: Pteranodon
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  - name: Velociraptor
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  - name: Brachiosaurus
-    eggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    animalSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-    isRare: 1
-  rareEggSprite: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-  crackSprite1: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-  crackSprite2: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-  crackSprite3: {fileID: 3514221269559143653, guid: cab11aace2752834f815153392ba7cf8, type: 3}
-  eggPrefab: {fileID: 7347322562590976635, guid: 0392fb7512b7ffc41a465daa4315d7c3, type: 3}
-  rareChance: 0.15
---- !u!4 &1235107412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235107410}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1605893555
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1605893557}
-  - component: {fileID: 1605893556}
+  - component: {fileID: 790122061}
+  - component: {fileID: 790122060}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -400,14 +342,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!212 &1605893556
+--- !u!212 &790122060
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605893555}
+  m_GameObject: {fileID: 790122059}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -449,27 +391,75 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8488264252480380762, guid: 2f1db4392f87dc245bc8fa5b03f71b10, type: 3}
+  m_Sprite: {fileID: -4364034832326165938, guid: 03a5fa79a037b844c98c2793292d6786, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10.94, y: 10.24}
+  m_Size: {x: 20, y: 15.03}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!4 &1605893557
+--- !u!4 &790122061
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605893555}
+  m_GameObject: {fileID: 790122059}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0965, y: 0.0643, z: 0}
+  m_LocalScale: {x: 1.0642188, y: 0.73334795, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1029914977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029914979}
+  - component: {fileID: 1029914978}
+  m_Layer: 0
+  m_Name: EggHatchSFXPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1029914978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029914977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b97d54e71db82740b17e8734c27e7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EggHatchSFXPlayer
+  crackSound: {fileID: 8300000, guid: 4ca58dc10ac791040a45ea50cba97914, type: 3}
+  hatchSound: {fileID: 8300000, guid: 99738fc175f71424d98d5db573eaf371, type: 3}
+  normalFanfare: {fileID: 8300000, guid: dd6cb87b7fb46b84cb57403e0ba6a087, type: 3}
+  rareFanfare: {fileID: 8300000, guid: 600b3f073697fe6489a5bada0805d54a, type: 3}
+--- !u!4 &1029914979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029914977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -478,7 +468,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1109977614}
-  - {fileID: 1605893557}
-  - {fileID: 618134260}
-  - {fileID: 1235107412}
+  - {fileID: 101173950}
+  - {fileID: 790122061}
+  - {fileID: 1029914979}
+  - {fileID: 91969304}

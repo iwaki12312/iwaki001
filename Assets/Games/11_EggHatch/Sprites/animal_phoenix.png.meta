@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 2f1db4392f87dc245bc8fa5b03f71b10
+guid: af6edc22353e97549b43931b112ae03a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8488264252480380762
-    second: bg_white_0
+      213: 2029516722248871752
+    second: animal_phoenix_0
+  - first:
+      213: 2154432237034005823
+    second: animal_phoenix_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,40 +112,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bg_white_0
+      name: animal_phoenix_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1094
-        height: 1024
+        x: 42
+        y: 32
+        width: 440
+        height: 450
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5f5db86d5f5cc570800000000000000
-      internalID: 8488264252480380762
+      spriteID: 84feb5fb4ba4a2c10800000000000000
+      internalID: 2029516722248871752
       vertices: []
       indices: 
       edges: []
@@ -151,7 +141,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2fe77fc923ddec047a6a6237a47510e8
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +151,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bg_white_0: 8488264252480380762
+      animal_phoenix_0: 2029516722248871752
+      animal_phoenix_1: 2154432237034005823
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
