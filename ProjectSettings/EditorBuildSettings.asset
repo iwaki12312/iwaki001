@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Games/10_VegetableDig/Scenes/VegetableDig.unity
     guid: 5ca5479cf3299f14ea251d44a850b721
+  - enabled: 1
+    path: Assets/Games/11_EggHatch/Scenes/EggHatch.unity
+    guid: c989b4142395a9f45af17f2a4c71a59c
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 29cfb4b30c94b9b4292ef9eff942c378, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: b47bbedba24f5714da64247cf4522885, type: 2}

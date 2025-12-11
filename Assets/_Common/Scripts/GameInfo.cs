@@ -23,7 +23,8 @@ public class GameInfo : MonoBehaviour
         new GameData("CatchInsects", 7, "pack_01"),        // 07_CatchInsects
         new GameData("PopBalloons", 8, "pack_01"),         // 08_PopBalloons
         new GameData("Fishing", 9, "pack_01"),             // 09_Fishing
-        new GameData("VegetableDig", 10, "pack_01")        // 10_VegetableDig
+        new GameData("VegetableDig", 10, "pack_01"),       // 10_VegetableDig
+        new GameData("EggHatch", 11, "pack_01")           // 11_EggHatch
     };
     
     // 総ページ数を取得
