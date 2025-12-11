@@ -301,6 +301,14 @@ public class EggController : MonoBehaviour
         if (isRare && rareParticlePrefab != null)
         {
             GameObject particle = Instantiate(rareParticlePrefab, transform.position, Quaternion.identity);
+            
+            // パーティクルのSorting Orderを動物より後ろに設定（背景側）
+            ParticleSystemRenderer particleRenderer = particle.GetComponent<ParticleSystemRenderer>();
+            if (particleRenderer != null)
+            {
+                particleRenderer.sortingOrder = 1; // 動物(2)より後ろ、卵(0)より前
+            }
+            
             Destroy(particle, 3f); // 3秒後に自動削除
         }
         
