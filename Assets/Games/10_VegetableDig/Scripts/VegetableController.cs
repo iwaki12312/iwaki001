@@ -276,8 +276,8 @@ public class VegetableController : MonoBehaviour
             foreach (var psr in particleRenderers)
             {
                 psr.sortingLayerName = "Default";
-                psr.sortingOrder = 10; // 野菜の前に表示（テスト用に変更）
-                Debug.Log($"[VegetableController] パーティクル設定完了: SortingOrder={psr.sortingOrder}");
+                psr.sortingOrder = -1; // 野菜本体(4)と葉っぱ(5)の後ろに表示
+                Debug.LogWarning($"[VegetableController] ★★★ パーティクルSortingOrderを-1に設定しました ★★★ (変更後={psr.sortingOrder})");
             }
             
             // パーティクルシステムを再生
