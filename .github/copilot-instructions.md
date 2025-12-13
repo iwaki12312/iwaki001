@@ -26,10 +26,17 @@
 - 既存ゲームの踏襲は最小限に。特に [Assets/Games/01_MakeBubbles](Assets/Games/01_MakeBubbles) は品質が低い前提（[cline.yml](cline.yml)）。
 - メニュー遷移の配線はユーザーが手作業で行う前提があるため、要件に明示がない限りAI側で勝手に実装しない（[cline.yml](cline.yml)）。
 
+## 新規ゲーム追加（テンプレート）
+- テンプレートは [Assets/Games/_GameTemplate](Assets/Games/_GameTemplate)。新規ゲームはこのフォルダをコピーして `NN_ゲーム名` にリネームし、`Scenes/`・`Sprites/`・`Audios/` 等の仮アセットを一旦そのまま使って組み立てる（詳細方針は [cline.yml](cline.yml)）。
+- `Scripts/` は空が前提（新規ゲームのスクリプトはゼロから作成する）。
+
 ## 開発・デバッグ（VS Code）
 - 推奨拡張: Visual Studio Tools for Unity（[.vscode/extensions.json](.vscode/extensions.json)）。
 - デバッグは [Attach to Unity](.vscode/launch.json) を使い、Unity Editor起動後にアタッチする。
 - VS Codeの表示/検索ではUnity生成物やバイナリが除外される（[.vscode/settings.json](.vscode/settings.json)）。見えない場合は除外設定を確認する。
+
+## テスト
+- 現状、自動テスト運用はなし（Test Runner/CIの前提なし）。変更確認はUnity EditorのPlayで行い、ログ（例: `MenuController`/`IAPManager` の `Debug.Log`）で初期化やロック状態を確認する。
 
 ## 補足
 - [aaa.ps1](aaa.ps1) は定期的にEnterを送る簡易スクリプト（用途は状況依存）。
