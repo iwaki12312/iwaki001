@@ -42,6 +42,7 @@ EditorBuildSettings:
     path: Assets/Games/11_EggHatch/Scenes/EggHatch.unity
     guid: c989b4142395a9f45af17f2a4c71a59c
   m_configObjects:
+    com.unity.adaptivePerformance.basic.provider_settings: {fileID: 11400000, guid: 004accbc0d4a8a04c84552ce32b57c8e, type: 2}
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 29cfb4b30c94b9b4292ef9eff942c378, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: b47bbedba24f5714da64247cf4522885, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 177823f726486b24d84b0d415d2bc48f, type: 2}
