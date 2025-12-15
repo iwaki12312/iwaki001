@@ -43,6 +43,7 @@ namespace WakuWaku.IAP
         private Action onClose;
         private bool isShowingSuccessResult = false;
         private int correctAnswer;
+        private bool isFullyInitialized = false;
         
         public static Paywall Instance { get; private set; }
         
@@ -69,19 +70,16 @@ namespace WakuWaku.IAP
                 }
                     
                 InitializeUI();
+                
+                // 初期化完了
+                isFullyInitialized = true;
+                Debug.Log("[Paywall] 初期化完了");
             }
             else
             {
                 Debug.Log("[Paywall] 既にInstanceが存在するため破棄します");
                 Destroy(gameObject);
             }
-        }
-        
-        void Start()
-        {
-            // 初期状態では非表示
-            if (purchaseContentPanel != null)
-                purchaseContentPanel.SetActive(false);
         }
         
         /// <summary>
@@ -125,10 +123,15 @@ namespace WakuWaku.IAP
                 errorText.gameObject.SetActive(false);
             }
             
-            // 初期状態で親ゲートパネルは非表示
+            // 初期状態で親ゲートと購入コンテンツは非表示
             if (parentalGateContent != null)
             {
                 parentalGateContent.SetActive(false);
+            }
+            
+            if (purchaseContent != null)
+            {
+                purchaseContent.SetActive(false);
             }
         }
         
@@ -141,6 +144,18 @@ namespace WakuWaku.IAP
         /// <param name="onClose">閉じる時のコールバック</param>
         public void ShowPaywall(string packId, Action onSuccess = null, Action onClose = null)
         {
+            if (!isFullyInitialized)
+            {
+                Debug.LogWarning("[Paywall] まだ初期化中です。1フレーム後に再試行します");
+                // 非表示のGameObjectではコルーチンが使えないため、Invokeを使用
+                Invoke(nameof(RetryShowPaywall), 0.1f);
+                // パラメータを一時保存
+                currentPackId = packId;
+                this.onPurchaseSuccess = onSuccess;
+                this.onClose = onClose;
+                return;
+            }
+            
             currentPackId = packId;
             this.onPurchaseSuccess = onSuccess;
             this.onClose = onClose;
@@ -158,6 +173,23 @@ namespace WakuWaku.IAP
             SetLoading(false);
             
             Debug.Log($"[Paywall] Paywall表示: {packId}");
+        }
+        
+        /// <summary>
+        /// ShowPaywallを再試行
+        /// </summary>
+        private void RetryShowPaywall()
+        {
+            if (isFullyInitialized)
+            {
+                Debug.Log("[Paywall] 再試行: Paywallを表示します");
+                ShowPaywall(currentPackId, onPurchaseSuccess, onClose);
+            }
+            else
+            {
+                Debug.LogWarning("[Paywall] まだ初期化中です。さらに再試行します");
+                Invoke(nameof(RetryShowPaywall), 0.1f);
+            }
         }
         
         /// <summary>
@@ -439,6 +471,18 @@ namespace WakuWaku.IAP
         /// </summary>
         private void ShowPurchaseUI()
         {
+            // 購入コンテンツを表示
+            if (purchaseContent != null)
+            {
+                purchaseContent.SetActive(true);
+            }
+            
+            // 親ゲートを非表示
+            if (parentalGateContent != null)
+            {
+                parentalGateContent.SetActive(false);
+            }
+            
             if (price != null)
             {
                 price.gameObject.SetActive(true);
