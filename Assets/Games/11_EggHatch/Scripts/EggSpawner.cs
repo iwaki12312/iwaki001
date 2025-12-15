@@ -64,6 +64,9 @@ public class EggSpawner : MonoBehaviour
         
         // 卵段階スプライト配列を作成（5枚）
         eggStageSprites = new Sprite[] { eggSprite0, eggSprite1, eggSprite2, eggSprite3, eggSprite4 };
+
+        WarnIfAnimalSpritesMissing(normalAnimals, "normalAnimals");
+        WarnIfAnimalSpritesMissing(rareAnimals, "rareAnimals");
     }
     
     void Start()
@@ -131,35 +134,90 @@ public class EggSpawner : MonoBehaviour
     /// </summary>
     private AnimalData SelectRandomAnimal()
     {
-        bool isRare = Random.value < rareChance;
-        
+        bool wantRare = Random.value < rareChance;
+
+        bool isRare = false;
         AnimalData selectedAnimal = null;
-        
-        if (isRare && rareAnimals != null && rareAnimals.Length > 0)
+
+        if (wantRare)
         {
-            // レア動物を選択
-            selectedAnimal = rareAnimals[Random.Range(0, rareAnimals.Length)];
-        }
-        // 通常動物を選択
-        else if (normalAnimals != null && normalAnimals.Length > 0)
-        {
-            // 通常動物を選択
-            selectedAnimal = normalAnimals[Random.Range(0, normalAnimals.Length)];
-        }
-        
-        // レアフラグを設定したコピーを返す
-        if (selectedAnimal != null)
-        {
-            AnimalData animalData = new AnimalData
+            selectedAnimal = PickRandomValidAnimal(rareAnimals);
+            isRare = selectedAnimal != null;
+
+            if (selectedAnimal == null)
             {
-                name = selectedAnimal.name,
-                animalSprite = selectedAnimal.animalSprite,
-                isRare = isRare
-            };
-            return animalData;
+                Debug.LogWarning("[EggSpawner] rareChanceに当たりましたが、rareAnimalsに有効なスプライト付き要素がありません。通常動物にフォールバックします。");
+            }
         }
-        
-        return selectedAnimal;
+
+        if (selectedAnimal == null)
+        {
+            selectedAnimal = PickRandomValidAnimal(normalAnimals);
+            isRare = false;
+        }
+
+        if (selectedAnimal == null)
+        {
+            return null;
+        }
+
+        // フラグ込みのコピーを返す（元配列を汚さないため）
+        return new AnimalData
+        {
+            name = selectedAnimal.name,
+            animalSprite = selectedAnimal.animalSprite,
+            isRare = isRare
+        };
+    }
+
+    private static AnimalData PickRandomValidAnimal(AnimalData[] animals)
+    {
+        if (animals == null || animals.Length == 0)
+        {
+            return null;
+        }
+
+        int startIndex = Random.Range(0, animals.Length);
+        for (int i = 0; i < animals.Length; i++)
+        {
+            AnimalData candidate = animals[(startIndex + i) % animals.Length];
+            if (candidate != null && candidate.animalSprite != null)
+            {
+                return candidate;
+            }
+        }
+
+        return null;
+    }
+
+    private static void WarnIfAnimalSpritesMissing(AnimalData[] animals, string arrayName)
+    {
+        if (animals == null || animals.Length == 0)
+        {
+            return;
+        }
+
+        int missingSpriteCount = 0;
+        int nullEntryCount = 0;
+
+        for (int i = 0; i < animals.Length; i++)
+        {
+            if (animals[i] == null)
+            {
+                nullEntryCount++;
+                continue;
+            }
+
+            if (animals[i].animalSprite == null)
+            {
+                missingSpriteCount++;
+            }
+        }
+
+        if (nullEntryCount > 0 || missingSpriteCount > 0)
+        {
+            Debug.LogWarning($"[EggSpawner] {arrayName} に不正な要素があります (null={nullEntryCount}, sprite未設定={missingSpriteCount})。レア演出だけ出て動物が見えない原因になります。");
+        }
     }
     
     /// <summary>
