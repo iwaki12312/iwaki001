@@ -310,7 +310,6 @@ RectTransform:
   - {fileID: 259692577504812665}
   - {fileID: 6950460307144324979}
   - {fileID: 3006319836725511123}
-  - {fileID: 5664761868934952160}
   m_Father: {fileID: 4847157782804999642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1131,9 +1130,10 @@ RectTransform:
   m_LocalScale: {x: 0.5546875, y: 0.5546875, z: 0.5546875}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6948629859628810235}
+  - {fileID: 5664761868934952160}
   - {fileID: 8345212802981363664}
   - {fileID: 4889727276672713239}
+  - {fileID: 6948629859628810235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1192,13 +1192,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paywallPanel: {fileID: 4156036060099169416}
+  closeButton: {fileID: 8762237801089483544}
+  contentPanel: {fileID: 0}
   titleText: {fileID: 7805606204386380552}
   descriptionText: {fileID: 1508726347946094663}
   priceText: {fileID: 8313823199930852133}
   purchaseButton: {fileID: 6485594015107202761}
   restoreButton: {fileID: 8942659015380228025}
-  closeButton: {fileID: 8762237801089483544}
   statusText: {fileID: 8700281705845629991}
+  parentalGatePanel: {fileID: 0}
+  gateTitle: {fileID: 0}
+  instruction: {fileID: 0}
+  question: {fileID: 0}
+  answerInputField: {fileID: 0}
+  submitButton: {fileID: 0}
+  errorText: {fileID: 0}
+  numberPad: {fileID: 0}
+  autoHideErrorDelay: 3
 --- !u!1 &4617644375135612894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,17 +1630,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361849308606374063}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6760356489575562313}
-  m_Father: {fileID: 8345212802981363664}
+  m_Father: {fileID: 4847157782804999642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 505.0342, y: 288.85104}
+  m_AnchoredPosition: {x: 505.0351, y: 334.15915}
   m_SizeDelta: {x: 169.9316, y: 111.4379}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4117365124912340759

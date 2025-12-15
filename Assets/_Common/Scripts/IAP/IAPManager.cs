@@ -11,7 +11,6 @@ namespace WakuWaku.IAP
         [Header("Prefab References")]
         [SerializeField] private GameObject entitlementStorePrefab;
         [SerializeField] private GameObject purchaseServicePrefab;
-        [SerializeField] private GameObject parentalGatePrefab;
         [SerializeField] private GameObject paywallPrefab;
 
         [Header("Settings")]
@@ -163,22 +162,7 @@ namespace WakuWaku.IAP
         /// </summary>
         private IEnumerator InitializeUIComponents()
         {
-            // ParentalGateの初期化
-            if (ParentalGate.Instance == null)
-            {
-                if (parentalGatePrefab != null)
-                {
-                    Instantiate(parentalGatePrefab);
-                }
-                else
-                {
-                    // Prefabが設定されていない場合は動的に作成
-                    GameObject parentalGateObj = new GameObject("ParentalGate");
-                    parentalGateObj.AddComponent<ParentalGate>();
-                }
-            }
-
-            // Paywallの初期化
+            // Paywallの初期化（親ゲート機能も含む）
             if (Paywall.Instance == null)
             {
                 if (paywallPrefab != null)
@@ -187,9 +171,7 @@ namespace WakuWaku.IAP
                 }
                 else
                 {
-                    // Prefabが設定されていない場合は動的に作成
-                    GameObject paywallObj = new GameObject("Paywall");
-                    paywallObj.AddComponent<Paywall>();
+                    Debug.LogWarning("[IAPManager] Paywall Prefabが設定されていません");
                 }
             }
 
