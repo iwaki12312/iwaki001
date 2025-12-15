@@ -615,27 +615,79 @@ namespace WakuWaku.IAP
         /// </summary>
         private void ShowParentalGate()
         {
+            Debug.Log("[Paywall] ShowParentalGate呼び出し");
+            
+            // デバッグ: 参照が同じか確認
+            if (purchaseContent == parentalGateContent)
+            {
+                Debug.LogError("[Paywall] purchaseContentとparentalGateContentが同じオブジェクトを参照しています！");
+            }
+            
+            // メインパネルの状態を確認
+            if (purchaseContentPanel != null)
+            {
+                Debug.Log($"[Paywall] purchaseContentPanel状態: activeInHierarchy={purchaseContentPanel.activeInHierarchy}, activeSelf={purchaseContentPanel.activeSelf}");
+                if (!purchaseContentPanel.activeSelf)
+                {
+                    Debug.LogWarning("[Paywall] purchaseContentPanelが非表示です。表示します");
+                    purchaseContentPanel.SetActive(true);
+                }
+            }
+            
             // 購入コンテンツを非表示
             if (purchaseContent != null)
             {
                 purchaseContent.SetActive(false);
+                Debug.Log($"[Paywall] purchaseContent非表示 (activeInHierarchy={purchaseContent.activeInHierarchy})");
+            }
+            else
+            {
+                Debug.LogWarning("[Paywall] purchaseContentがnullです");
             }
             
             // 親ゲートパネルを表示
             if (parentalGateContent != null)
             {
+                Debug.Log($"[Paywall] parentalGateContent表示前: activeInHierarchy={parentalGateContent.activeInHierarchy}, activeSelf={parentalGateContent.activeSelf}");
                 parentalGateContent.SetActive(true);
+                Debug.Log($"[Paywall] parentalGateContent表示後: activeInHierarchy={parentalGateContent.activeInHierarchy}, activeSelf={parentalGateContent.activeSelf}");
+            }
+            else
+            {
+                Debug.LogError("[Paywall] parentalGateContentがnullです！");
             }
             
-            // タイトルと説明文を設定
+            // 親ゲート内のUI要素を明示的に表示
             if (parentalGateTitle != null)
             {
+                parentalGateTitle.gameObject.SetActive(true);
                 parentalGateTitle.text = "保護者確認";
             }
             
             if (instruction != null)
             {
+                instruction.gameObject.SetActive(true);
                 instruction.text = "購入を続けるには、以下の計算問題に答えてください";
+            }
+            
+            if (question != null)
+            {
+                question.gameObject.SetActive(true);
+            }
+            
+            if (answerInputField != null)
+            {
+                answerInputField.gameObject.SetActive(true);
+            }
+            
+            if (submitButton != null)
+            {
+                submitButton.gameObject.SetActive(true);
+            }
+            
+            if (numberPad != null)
+            {
+                numberPad.gameObject.SetActive(true);
             }
             
             // 問題を生成
