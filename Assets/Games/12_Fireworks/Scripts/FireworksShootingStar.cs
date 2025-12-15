@@ -8,6 +8,7 @@ public class FireworksShootingStar : FireworksTapTarget
 
     private Vector3 velocity;
     private bool isConsumed;
+    private float rotationSpeedDegPerSec;
 
     public void Initialize(FireworksManager manager, Sprite sprite, Vector3 velocity)
     {
@@ -31,6 +32,7 @@ public class FireworksShootingStar : FireworksTapTarget
         }
 
         transform.localScale = Vector3.one * 1.2f;
+        rotationSpeedDegPerSec = Random.Range(-90f, 90f);
         isConsumed = false;
     }
 
@@ -42,6 +44,7 @@ public class FireworksShootingStar : FireworksTapTarget
         }
 
         transform.position += velocity * Time.deltaTime;
+        transform.Rotate(0f, 0f, rotationSpeedDegPerSec * Time.deltaTime);
 
         if (manager != null && manager.IsOutsideScreen(transform.position, 1.5f))
         {

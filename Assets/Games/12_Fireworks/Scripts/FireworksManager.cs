@@ -7,6 +7,7 @@ public class FireworksManager : MonoBehaviour
     [SerializeField] private Sprite rocketSprite;
     [SerializeField] private Sprite[] explosionSprites;
     [SerializeField] private Sprite shootingStarSprite;
+    [SerializeField] private Sprite shootingStarTapSprite;
     [SerializeField] private FireworksSFXPlayer sfxPlayer;
 
     [Header("通常スポーン")]
@@ -35,6 +36,7 @@ public class FireworksManager : MonoBehaviour
     [SerializeField] private float shootingStarCheckInterval = 6.0f;
     [SerializeField] private float shootingStarMinDuration = 0.9f;
     [SerializeField] private float shootingStarMaxDuration = 1.5f;
+    [SerializeField, Range(0.1f, 3.0f)] private float shootingStarSpeedMultiplier = 1.0f;
 
     [Header("レア: スターマイン（一定時間ごと）")]
     [SerializeField] private float starMineInterval = 30f;
@@ -234,7 +236,14 @@ public class FireworksManager : MonoBehaviour
         float rot = Random.Range(-90f, 90f);
         explosion.Initialize(sprite, duration, start, end, 1f, 0f, rot);
 
-        sfxPlayer?.PlayExplosion(isGiant ? 1.0f : 0.8f);
+        if (isGiant)
+        {
+            sfxPlayer?.PlayGiantExplosion(1.0f);
+        }
+        else
+        {
+            sfxPlayer?.PlayExplosion(0.8f);
+        }
     }
 
     private IEnumerator ShootingStarLoop()
@@ -274,6 +283,7 @@ public class FireworksManager : MonoBehaviour
 
         float duration = Random.Range(shootingStarMinDuration, shootingStarMaxDuration);
         Vector3 vel = (end - start) / Mathf.Max(0.01f, duration);
+        vel *= Mathf.Max(0.01f, shootingStarSpeedMultiplier);
 
         var obj = new GameObject("ShootingStar");
         obj.transform.position = start;
@@ -286,9 +296,39 @@ public class FireworksManager : MonoBehaviour
 
     public void OnShootingStarTapped(Vector3 position)
     {
-        // 「キラッ」: 小さめ爆発を短時間で
-        SpawnExplosion(position, 0.9f, isGiant: false, tapped: true);
-        sfxPlayer?.PlayShootingStar(1.0f);
+        // 流れ星タップ時は「専用の音だけ」を鳴らす（爆発音は鳴らさない）
+        Sprite tapSprite = GetShootingStarTapSprite();
+        SpawnTapEffect(position, tapSprite, 0.9f);
+        sfxPlayer?.PlayShootingStarTap(1.0f);
+    }
+
+    private Sprite GetShootingStarTapSprite()
+    {
+        if (shootingStarTapSprite != null)
+        {
+            return shootingStarTapSprite;
+        }
+
+        // 未設定なら既存の爆発スプライトから選ぶ（演出のみ。SFXは鳴らさない）
+        explosionSprites = SanitizeSprites(explosionSprites);
+        if (explosionSprites != null && explosionSprites.Length > 0)
+        {
+            return explosionSprites[Random.Range(0, explosionSprites.Length)];
+        }
+
+        return FireworksRuntimeSpriteFactory.CreateSolidSprite(new Color(1f, 0.9f, 0.5f, 1f));
+    }
+
+    private void SpawnTapEffect(Vector3 position, Sprite sprite, float scaleMultiplier)
+    {
+        var obj = new GameObject("ShootingStarTap");
+        obj.transform.position = new Vector3(position.x, position.y, 0f);
+
+        var explosion = obj.AddComponent<FireworksExplosion>();
+        float start = explosionScaleStart * scaleMultiplier;
+        float end = explosionScaleEnd * scaleMultiplier;
+        float rot = Random.Range(-90f, 90f);
+        explosion.Initialize(sprite, explosionDuration, start, end, 1f, 0f, rot);
     }
 
     private IEnumerator StarMineLoop()

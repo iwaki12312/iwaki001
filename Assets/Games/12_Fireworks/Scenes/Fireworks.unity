@@ -211,7 +211,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1893810555
+--- !u!1001 &1291281536
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e5f0058b9eab24c841fc2678a6b2ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketSprite: {fileID: 3446186529345879689, guid: 259c2ab23c4648b46baf52f7b4149e91, type: 3}
+  rocketSprite: {fileID: 6937817954938267909, guid: 3b0b7cf883b566b4bb9d98f008fa2705, type: 3}
   explosionSprites:
   - {fileID: -2448379849683102616, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
   - {fileID: -7640678364236855593, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
@@ -453,15 +453,16 @@ MonoBehaviour:
   - {fileID: -7169224521712048932, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
   - {fileID: -1557311047534816051, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
   - {fileID: -1327185856065445302, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: 4689549258767475154, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: -6868389972886923153, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: -461047943846881540, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: -3023745363847248307, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: 6808766537543483545, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: 8150201589859782377, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: -1326912584275989885, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  - {fileID: 209082712217379303, guid: 0bb42ed62d1488845a3abb7259b82e59, type: 3}
-  shootingStarSprite: {fileID: 3514221269559143653, guid: 9f93f4957ca54f54e85f3a16b2156509, type: 3}
+  - {fileID: 4156037390543594817, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: 4242517500701902870, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: -1352024567542564148, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: 4627654991429868827, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: -2135792106267060052, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: -4594134485426958679, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: -7650718318629532262, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  - {fileID: 6815522450281335828, guid: ffddccfba967b60458f99bbe389044f8, type: 3}
+  shootingStarSprite: {fileID: 1682156858929781144, guid: ee6dae6dba9088347a8c605bb1bd3f97, type: 3}
+  shootingStarTapSprite: {fileID: -6494492681559190855, guid: da24fb494720a6f42bd3e87db82b0477, type: 3}
   sfxPlayer: {fileID: 2000000022}
   maxRockets: 3
   minSpawnInterval: 0.5
@@ -472,15 +473,16 @@ MonoBehaviour:
   stopViewportY: 0.9
   rocketFadeOutDuration: 0.55
   fadeOutStartSpeedThreshold: 0.5
-  explosionDuration: 0.45
-  explosionScaleStart: 1
-  explosionScaleEnd: 1.7
-  giantChance: 0.03
-  shootingStarChancePerCheck: 0.08
+  explosionDuration: 1.2
+  explosionScaleStart: 1.5
+  explosionScaleEnd: 2
+  giantChance: 0.1
+  shootingStarChancePerCheck: 0.4
   shootingStarCheckInterval: 6
   shootingStarMinDuration: 0.9
   shootingStarMaxDuration: 1.5
-  starMineInterval: 30
+  shootingStarSpeedMultiplier: 0.25
+  starMineInterval: 20
   starMineDuration: 2.5
   starMineRocketInterval: 0.08
 --- !u!1 &2000000020
@@ -529,18 +531,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketLaunchSfx: {fileID: 8300000, guid: fa362fdc0cb6f8c458918f9714a8fe6b, type: 3}
   explosionSfx: {fileID: 8300000, guid: 0375660b0923c7448b77e3f02ef352c1, type: 3}
+  giantExplosionExtraSfx: {fileID: 8300000, guid: fa9a386a62a736645a3defb70324fba7, type: 3}
   shootingStarSfx: {fileID: 8300000, guid: c260f71bb93796c4db772b680961a1b1, type: 3}
+  shootingStarTapSfx: {fileID: 8300000, guid: 5a84d4b5bc87dc540886460f36105ccc, type: 3}
   starMineStartSfx: {fileID: 8300000, guid: f22b05170a094c845824643806e75161, type: 3}
   rocketLaunchVolume: 0.577
   explosionVolume: 0.509
+  giantExplosionExtraVolume: 1
   shootingStarVolume: 1
+  shootingStarTapVolume: 1
   starMineStartVolume: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1291281536}
   - {fileID: 613604584}
-  - {fileID: 1893810555}
   - {fileID: 2000000002}
   - {fileID: 2000000021}
   - {fileID: 2000000011}
