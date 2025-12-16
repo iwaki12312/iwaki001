@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
+using UnityEngine.Purchasing.Security;
 
 namespace WakuWaku.IAP
 {
@@ -124,23 +125,10 @@ namespace WakuWaku.IAP
             
             Debug.Log("[PurchaseService] 購入復元開始");
             
-            // Androidでは自動的に復元されるため、手動で既存の購入をチェック
-            int restoredCount = 0;
-            foreach (var product in storeController.products.all)
-            {
-                if (product.hasReceipt)
-                {
-                    var productInfo = GetProductInfoByProductId(product.definition.id);
-                    if (productInfo != null)
-                    {
-                        EntitlementStore.Instance.GrantPack(productInfo.packId);
-                        restoredCount++;
-                        Debug.Log($"[PurchaseService] 復元: {productInfo.packId}");
-                    }
-                }
-            }
+            // Androidでは自動的に復元されるため、手動で既存の購入をチェック（返金チェック含む）
+            ValidateAndGrantPurchases();
             
-            Debug.Log($"[PurchaseService] 購入復元完了: {restoredCount}個の商品を復元");
+            Debug.Log("[PurchaseService] 購入復元完了");
             currentOnRestoreCompleted?.Invoke();
         }
         
@@ -186,6 +174,93 @@ namespace WakuWaku.IAP
             return products.Find(p => p.productId == productId);
         }
         
+        /// <summary>
+        /// レシートを検証して購入状態を確認（返金チェック含む）
+        /// </summary>
+        private void ValidateAndGrantPurchases()
+        {
+#if (UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX) && RECEIPT_VALIDATION && !UNITY_EDITOR
+            // レシート検証器を初期化（実機のみ）
+            var validator = new CrossPlatformValidator(
+                GooglePlayTangle.Data(),
+                AppleTangle.Data(),
+                Application.identifier
+            );
+            
+            int grantedCount = 0;
+            int revokedCount = 0;
+            
+            // すべての商品をチェック
+            foreach (var product in storeController.products.all)
+            {
+                if (product.hasReceipt)
+                {
+                    var productInfo = GetProductInfoByProductId(product.definition.id);
+                    if (productInfo == null)
+                        continue;
+                    
+                    try
+                    {
+                        // レシートを検証（改ざんチェック）
+                        var result = validator.Validate(product.receipt);
+                        
+                        // Google Playのレシート情報を取得
+                        foreach (IPurchaseReceipt receipt in result)
+                        {
+                            GooglePlayReceipt googleReceipt = receipt as GooglePlayReceipt;
+                            if (googleReceipt != null)
+                            {
+                                // 購入状態をチェック
+                                // 0 = Purchased（購入済み）
+                                // 1 = Cancelled（キャンセル）
+                                // 2 = Refunded（返金済み）
+                                if (googleReceipt.purchaseState == GooglePurchaseState.Purchased)
+                                {
+                                    // 正常な購入 → パックを付与
+                                    EntitlementStore.Instance.GrantPack(productInfo.packId);
+                                    grantedCount++;
+                                    Debug.Log($"[PurchaseService] 有効な購入を確認: {productInfo.packId}");
+                                }
+                                else
+                                {
+                                    // 返金済みまたはキャンセル → パックを剥奪
+                                    EntitlementStore.Instance.RevokePack(productInfo.packId);
+                                    revokedCount++;
+                                    Debug.LogWarning($"[PurchaseService] 返金/キャンセルを検出: {productInfo.packId} (状態: {googleReceipt.purchaseState})");
+                                }
+                                break; // Google Playのレシートは1つだけ
+                            }
+                        }
+                    }
+                    catch (IAPSecurityException ex)
+                    {
+                        // レシートが不正（改ざん、署名エラーなど） → パックを剥奪
+                        EntitlementStore.Instance.RevokePack(productInfo.packId);
+                        revokedCount++;
+                        Debug.LogError($"[PurchaseService] 不正なレシートを検出: {productInfo.packId} - {ex.Message}");
+                    }
+                }
+            }
+            
+            Debug.Log($"[PurchaseService] レシート検証完了 - 付与: {grantedCount}個, 剥奪: {revokedCount}個");
+#else
+            // レシート検証が無効な場合、または対応プラットフォーム以外の場合は検証なしで付与
+            Debug.LogWarning("[PurchaseService] レシート検証は無効です。返金チェックは行われません。");
+            foreach (var product in storeController.products.all)
+            {
+                if (product.hasReceipt)
+                {
+                    var productInfo = GetProductInfoByProductId(product.definition.id);
+                    if (productInfo != null)
+                    {
+                        EntitlementStore.Instance.GrantPack(productInfo.packId);
+                        Debug.Log($"[PurchaseService] 既存購入を確認（検証なし）: {productInfo.packId}");
+                    }
+                }
+            }
+#endif
+        }
+        
         #region IStoreListener Implementation
         
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
@@ -196,19 +271,8 @@ namespace WakuWaku.IAP
             storeExtensionProvider = extensions;
             isInitialized = true;
             
-            // 既存の購入を確認して権利を付与
-            foreach (var product in controller.products.all)
-            {
-                if (product.hasReceipt)
-                {
-                    var productInfo = GetProductInfoByProductId(product.definition.id);
-                    if (productInfo != null)
-                    {
-                        EntitlementStore.Instance.GrantPack(productInfo.packId);
-                        Debug.Log($"[PurchaseService] 既存購入を確認: {productInfo.packId}");
-                    }
-                }
-            }
+            // 既存の購入を確認して権利を付与（返金チェック含む）
+            ValidateAndGrantPurchases();
             
             OnIAPInitialized?.Invoke();
         }
