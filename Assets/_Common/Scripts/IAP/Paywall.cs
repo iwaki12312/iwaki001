@@ -359,14 +359,7 @@ namespace WakuWaku.IAP
         {
             Debug.Log("[Paywall] 閉じるボタンクリック");
             
-            // 親ゲート表示中の場合は購入画面に戻る
-            if (parentalGateContent != null && parentalGateContent.activeInHierarchy)
-            {
-                HideParentalGate();
-                return;
-            }
-            
-            // それ以外は通常のクローズ処理
+            // 親ゲート表示中でも購入画面表示中でも、閉じるボタンは全体を閉じる
             onClose?.Invoke();
             HidePaywall();
         }
