@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 
 /// <summary>
 /// メニュー画面のページネーション機能を制御するクラス
@@ -14,6 +15,7 @@ public class MenuPaginationController : MonoBehaviour
     [SerializeField] private Transform gameContainer;    // ゲームオブジェクトの親コンテナ
     [SerializeField] private Transform pageIndicatorContainer; // ページインジケーターの親
     [SerializeField] private GameObject pageIndicatorPrefab;   // ページインジケーターのプレハブ
+    [SerializeField] private TextMeshProUGUI packNameText;     // パック名表示用テキスト
     
     [Header("アニメーション設定")]
     [SerializeField] private float slideAnimationDuration = 0.5f;
@@ -47,6 +49,9 @@ public class MenuPaginationController : MonoBehaviour
         AdjustUIForScreenSize();
         
         ShowCurrentPage();
+        
+        // パック名を初期表示
+        UpdatePackNameDisplay();
     }
     
     /// <summary>
@@ -296,6 +301,7 @@ public class MenuPaginationController : MonoBehaviour
             
             UpdateButtonStates();
             UpdatePageIndicators();
+            UpdatePackNameDisplay(); // パック名を更新
         });
     }
     
@@ -603,5 +609,35 @@ public class MenuPaginationController : MonoBehaviour
         }
         
         Debug.Log("AdjustUIForScreenSize完了");
+    }
+    
+    /// <summary>
+    /// パック名の表示を更新
+    /// </summary>
+    private void UpdatePackNameDisplay()
+    {
+        if (packNameText == null)
+        {
+            return; // packNameTextが設定されていない場合は何もしない
+        }
+        
+        // 現在のページのゲーム一覧を取得
+        List<GameInfo.GameData> currentGames = GameInfo.GetGamesForPage(GameInfo.currentPage);
+        
+        if (currentGames.Count > 0)
+        {
+            // 最初のゲームのパックIDを取得
+            string packId = currentGames[0].packID;
+            
+            // パック名を表示
+            packNameText.text = GameInfo.GetPackDisplayName(packId);
+            
+            Debug.Log($"[MenuPaginationController] パック名更新: {packId} → {packNameText.text}");
+        }
+        else
+        {
+            packNameText.text = "";
+            Debug.LogWarning("[MenuPaginationController] 現在のページにゲームがありません");
+        }
     }
 }
