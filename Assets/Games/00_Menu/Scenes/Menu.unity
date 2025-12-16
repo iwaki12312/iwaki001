@@ -3013,22 +3013,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
       propertyPath: m_text
-      value: "\uFFE5\uFF12\uFF15\uFF10"
+      value: '\250
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
+      propertyPath: m_fontSize
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1c90cf5cbdc6db844b1f0a218518d153, type: 2}
+      objectReference: {fileID: 11400000, guid: b4b1fcf52fc3c294ab0c1a7773c636d4, type: 2}
     - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
       propertyPath: m_fontStyle
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -2209468523186808191, guid: 1c90cf5cbdc6db844b1f0a218518d153, type: 2}
+      objectReference: {fileID: -1170872669834064121, guid: b4b1fcf52fc3c294ab0c1a7773c636d4, type: 2}
+    - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
+      propertyPath: m_overrideHtmlColors
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680886381179826182, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
+      propertyPath: m_enableVertexGradient
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6785082398022153267, guid: bcff09f80111c0c40b504cbd2e2aceb2, type: 3}
