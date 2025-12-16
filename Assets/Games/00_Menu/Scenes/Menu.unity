@@ -1325,7 +1325,7 @@ MonoBehaviour:
   pageIndicatorContainer: {fileID: 1678131279}
   pageIndicatorPrefab: {fileID: 611517656}
   packNameText: {fileID: 674477946}
-  slideAnimationDuration: 0.5
+  slideAnimationDuration: 0.3
   slideEase: 12
   buttonScaleAmount: 1.1
   buttonScaleDuration: 0.1

@@ -258,11 +258,9 @@ public class MenuPaginationController : MonoBehaviour
         // 現在のページのゲームオブジェクトを取得
         List<GameObject> currentPageGames = GetCurrentPageGameObjects();
         
-        // スライドアウトアニメーション
-        float slideDistance = Screen.width;
+        // スライドアウトアニメーション（距離を短縮して高速化）
+        float slideDistance = Screen.width * 0.6f; // Screen.widthから0.6倍に短縮
         Vector3 slideDirection = direction > 0 ? Vector3.left : Vector3.right;
-        
-        Sequence slideSequence = DOTween.Sequence();
         
         // 現在のページをスライドアウト
         foreach (GameObject gameObj in currentPageGames)
@@ -270,39 +268,37 @@ public class MenuPaginationController : MonoBehaviour
             if (gameObj != null)
             {
                 Vector3 targetPos = gameObj.transform.position + slideDirection * slideDistance;
-                slideSequence.Join(gameObj.transform.DOMove(targetPos, slideAnimationDuration).SetEase(slideEase));
+                gameObj.transform.DOMove(targetPos, slideAnimationDuration).SetEase(slideEase);
             }
         }
         
-        // ページ更新とスライドイン
-        slideSequence.OnComplete(() => {
-            GameInfo.currentPage = newPage;
-            ShowCurrentPage();
-            
-            // 新しいページのゲームオブジェクトを反対側から開始
-            List<GameObject> newPageGames = GetCurrentPageGameObjects();
-            Vector3 startDirection = direction > 0 ? Vector3.right : Vector3.left;
-            
-            foreach (GameObject gameObj in newPageGames)
+        // ページを即座に更新してスライドインを開始（オーバーラップさせる）
+        GameInfo.currentPage = newPage;
+        ShowCurrentPage();
+        
+        // 新しいページのゲームオブジェクトを反対側から開始
+        List<GameObject> newPageGames = GetCurrentPageGameObjects();
+        Vector3 startDirection = direction > 0 ? Vector3.right : Vector3.left;
+        
+        foreach (GameObject gameObj in newPageGames)
+        {
+            if (gameObj != null)
             {
-                if (gameObj != null)
-                {
-                    Vector3 startPos = gameObj.transform.position + startDirection * slideDistance;
-                    Vector3 endPos = gameObj.transform.position;
-                    
-                    gameObj.transform.position = startPos;
-                    gameObj.transform.DOMove(endPos, slideAnimationDuration)
-                        .SetEase(slideEase)
-                        .OnComplete(() => {
-                            isAnimating = false;
-                        });
-                }
+                Vector3 startPos = gameObj.transform.position + startDirection * slideDistance;
+                Vector3 endPos = gameObj.transform.position;
+                
+                gameObj.transform.position = startPos;
+                gameObj.transform.DOMove(endPos, slideAnimationDuration)
+                    .SetEase(slideEase)
+                    .OnComplete(() => {
+                        isAnimating = false;
+                    });
             }
-            
-            UpdateButtonStates();
-            UpdatePageIndicators();
-            UpdatePackNameDisplay(); // パック名を更新
-        });
+        }
+        
+        UpdateButtonStates();
+        UpdatePageIndicators();
+        UpdatePackNameDisplay(); // パック名を更新
     }
     
     /// <summary>
