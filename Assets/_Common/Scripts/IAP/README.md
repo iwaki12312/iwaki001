@@ -19,8 +19,8 @@
 - **IAPManager**: システム全体の初期化と管理
 
 ### UI要素
-- **ParentalGate**: 親ゲート（1を除外した掛け算クイズ）
-- **Paywall**: 購入画面（説明・価格・購入・復元ボタン）
+- **Paywall**: 購入画面と親ゲートを統合（説明・価格・購入・復元ボタン、および親ゲートの掛け算クイズ）
+- **NumberPadController**: 親ゲート用の数字パッド
 
 ### 統合
 - **MenuController**: 既存メニューシステムにロック機能を統合
@@ -37,8 +37,7 @@
 
 ### 3. UI Prefabの作成（必要に応じて）
 以下のPrefabを作成してIAPManagerに設定：
-- ParentalGate Prefab（親ゲートUI）
-- Paywall Prefab（購入画面UI）
+- Paywall Prefab（購入画面と親ゲートを統合したUI）
 
 ## Product ID設定
 
@@ -148,7 +147,7 @@ IAPManagerのContext Menuから以下を実行可能：
 
 ### UI のカスタマイズ
 - ParentalGateのデザイン変更
-- Paywallのレイアウト調整
+- Paywall内の親ゲートト調整
 - ロック表示の追加（ゲームアイコンにロックマーク等）
 
 ### 分析機能の追加

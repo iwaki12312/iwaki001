@@ -300,14 +300,8 @@ public class GameButton : MonoBehaviour
     /// </summary>
     private bool IsModalShowing()
     {
-        // Paywall表示中
+        // Paywall表示中（親ゲートもPaywallに統合されている）
         if (Paywall.Instance != null && Paywall.Instance.IsShowing())
-        {
-            return true;
-        }
-        
-        // ParentalGate表示中
-        if (ParentalGate.Instance != null && ParentalGate.Instance.IsShowing())
         {
             return true;
         }

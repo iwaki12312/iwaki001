@@ -6,25 +6,25 @@ using TMPro;
 namespace WakuWaku.IAP.Editor
 {
     /// <summary>
-    /// ParentalGate用の数字パッドUIを自動生成するエディタ拡張
+    /// Paywall用の数字パッドUIを自動生成するエディタ拡張
     /// </summary>
     public static class NumberPadSetup
     {
-        [MenuItem("Tools/Setup NumberPad for ParentalGate")]
+        [MenuItem("Tools/Setup NumberPad for Paywall")]
         public static void SetupNumberPad()
         {
-            // ParentalGateオブジェクトを検索
-            ParentalGate parentalGate = Object.FindObjectOfType<ParentalGate>(true);
-            if (parentalGate == null)
+            // Paywallオブジェクトを検索
+            Paywall paywall = Object.FindObjectOfType<Paywall>(true);
+            if (paywall == null)
             {
-                EditorUtility.DisplayDialog("エラー", "ParentalGateオブジェクトが見つかりません。", "OK");
+                EditorUtility.DisplayDialog("エラー", "Paywallオブジェクトが見つかりません。", "OK");
                 return;
             }
 
-            GameObject parentalGateGO = parentalGate.gameObject;
+            GameObject paywallGO = paywall.gameObject;
 
             // 既存のNumberPadを削除
-            Transform existingNumberPad = parentalGateGO.transform.Find("NumberPad");
+            Transform existingNumberPad = paywallGO.transform.Find("NumberPad");
             if (existingNumberPad != null)
             {
                 Object.DestroyImmediate(existingNumberPad.gameObject);
@@ -32,7 +32,7 @@ namespace WakuWaku.IAP.Editor
 
             // NumberPad親オブジェクトを作成
             GameObject numberPadGO = new GameObject("NumberPad");
-            numberPadGO.transform.SetParent(parentalGateGO.transform, false);
+            numberPadGO.transform.SetParent(paywallGO.transform, false);
             
             RectTransform numberPadRect = numberPadGO.AddComponent<RectTransform>();
             numberPadRect.anchorMin = new Vector2(0.5f, 0);
@@ -90,7 +90,7 @@ namespace WakuWaku.IAP.Editor
             clearButtonProp.objectReferenceValue = clearButton;
 
             // targetInputFieldを検索して設定
-            TMP_InputField inputField = parentalGateGO.GetComponentInChildren<TMP_InputField>();
+            TMP_InputField inputField = paywallGO.GetComponentInChildren<TMP_InputField>();
             if (inputField != null)
             {
                 SerializedProperty inputFieldProp = so.FindProperty("targetInputField");
@@ -100,12 +100,12 @@ namespace WakuWaku.IAP.Editor
             so.ApplyModifiedProperties();
 
             // シーンを保存
-            EditorUtility.SetDirty(parentalGateGO);
-            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(parentalGateGO.scene);
+            EditorUtility.SetDirty(paywallGO);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(paywallGO.scene);
 
             EditorUtility.DisplayDialog("完了", 
                 "NumberPadの生成が完了しました。\n" +
-                "ParentalGateオブジェクト配下に「NumberPad」が作成されています。", 
+                "Paywallオブジェクト配下に「NumberPad」が作成されています。", 
                 "OK");
         }
 

@@ -225,7 +225,7 @@ namespace WakuWaku.IAP
             // タイトル設定
             if (title != null)
             {
-                title.text = $"ゲームパック {GetPackDisplayName(currentPackId)}";
+                title.text = $"追加パック{GetPackDisplayName(currentPackId)}の購入";
             }
             
             // 説明文設定
@@ -233,11 +233,11 @@ namespace WakuWaku.IAP
             {
                 if (gameCount > 0)
                 {
-                    description.text = $"このパックの{gameCount}ゲームが解放されます";
+                    description.text = $"このパックの{gameCount}ゲームが\n遊べるようになります";
                 }
                 else
                 {
-                    description.text = "新しいゲームが解放されます";
+                    description.text = "新しいゲームが遊べるようになります";
                 }
             }
             
@@ -290,6 +290,13 @@ namespace WakuWaku.IAP
                 case "pack_01": return "1";
                 case "pack_02": return "2";
                 case "pack_03": return "3";
+                case "pack_04": return "4";
+                case "pack_05": return "5";
+                case "pack_06": return "6";
+                case "pack_07": return "7";
+                case "pack_08": return "8";
+                case "pack_09": return "9";
+                case "pack_10": return "10";
                 default: return packId.Replace("pack_", "");
             }
         }
@@ -660,7 +667,7 @@ namespace WakuWaku.IAP
             if (instruction != null)
             {
                 instruction.gameObject.SetActive(true);
-                instruction.text = "購入を続けるには、以下の計算問題に答えてください";
+                instruction.text = "購入するには、以下の計算問題に\n答えてください";
             }
             
             if (question != null)
