@@ -300,14 +300,8 @@ public class GameButton : MonoBehaviour
     /// </summary>
     private bool IsModalShowing()
     {
-        // Paywall表示中
+        // Paywall表示中（親ゲートもPaywallに統合されている）
         if (Paywall.Instance != null && Paywall.Instance.IsShowing())
-        {
-            return true;
-        }
-        
-        // ParentalGate表示中
-        if (ParentalGate.Instance != null && ParentalGate.Instance.IsShowing())
         {
             return true;
         }
@@ -348,6 +342,8 @@ public class GameButton : MonoBehaviour
     /// </summary>
     private void ShowPaywall()
     {
+        Debug.Log($"[GameButton] ShowPaywall呼び出し: {sceneName}");
+        
         // GameInfo.allGamesからシーン名に対応するゲームを検索
         var gameData = GameInfo.allGames.Find(g => g.sceneName == sceneName);
         if (gameData == null)
@@ -355,6 +351,9 @@ public class GameButton : MonoBehaviour
             Debug.LogError($"[GameButton] ゲーム情報が見つかりません: {sceneName}");
             return;
         }
+        
+        Debug.Log($"[GameButton] PackID: {gameData.packID}");
+        Debug.Log($"[GameButton] Paywall.Instance = {(Paywall.Instance != null ? "存在する" : "null")}");
         
         if (Paywall.Instance != null)
         {

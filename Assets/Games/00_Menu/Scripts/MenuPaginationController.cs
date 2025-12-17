@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 
 /// <summary>
 /// メニュー画面のページネーション機能を制御するクラス
@@ -14,6 +15,7 @@ public class MenuPaginationController : MonoBehaviour
     [SerializeField] private Transform gameContainer;    // ゲームオブジェクトの親コンテナ
     [SerializeField] private Transform pageIndicatorContainer; // ページインジケーターの親
     [SerializeField] private GameObject pageIndicatorPrefab;   // ページインジケーターのプレハブ
+    [SerializeField] private TextMeshProUGUI packNameText;     // パック名表示用テキスト
     
     [Header("アニメーション設定")]
     [SerializeField] private float slideAnimationDuration = 0.5f;
@@ -47,6 +49,9 @@ public class MenuPaginationController : MonoBehaviour
         AdjustUIForScreenSize();
         
         ShowCurrentPage();
+        
+        // パック名を初期表示
+        UpdatePackNameDisplay();
     }
     
     /// <summary>
@@ -253,11 +258,9 @@ public class MenuPaginationController : MonoBehaviour
         // 現在のページのゲームオブジェクトを取得
         List<GameObject> currentPageGames = GetCurrentPageGameObjects();
         
-        // スライドアウトアニメーション
-        float slideDistance = Screen.width;
+        // スライドアウトアニメーション（距離を短縮して高速化）
+        float slideDistance = Screen.width * 0.6f; // Screen.widthから0.6倍に短縮
         Vector3 slideDirection = direction > 0 ? Vector3.left : Vector3.right;
-        
-        Sequence slideSequence = DOTween.Sequence();
         
         // 現在のページをスライドアウト
         foreach (GameObject gameObj in currentPageGames)
@@ -265,38 +268,37 @@ public class MenuPaginationController : MonoBehaviour
             if (gameObj != null)
             {
                 Vector3 targetPos = gameObj.transform.position + slideDirection * slideDistance;
-                slideSequence.Join(gameObj.transform.DOMove(targetPos, slideAnimationDuration).SetEase(slideEase));
+                gameObj.transform.DOMove(targetPos, slideAnimationDuration).SetEase(slideEase);
             }
         }
         
-        // ページ更新とスライドイン
-        slideSequence.OnComplete(() => {
-            GameInfo.currentPage = newPage;
-            ShowCurrentPage();
-            
-            // 新しいページのゲームオブジェクトを反対側から開始
-            List<GameObject> newPageGames = GetCurrentPageGameObjects();
-            Vector3 startDirection = direction > 0 ? Vector3.right : Vector3.left;
-            
-            foreach (GameObject gameObj in newPageGames)
+        // ページを即座に更新してスライドインを開始（オーバーラップさせる）
+        GameInfo.currentPage = newPage;
+        ShowCurrentPage();
+        
+        // 新しいページのゲームオブジェクトを反対側から開始
+        List<GameObject> newPageGames = GetCurrentPageGameObjects();
+        Vector3 startDirection = direction > 0 ? Vector3.right : Vector3.left;
+        
+        foreach (GameObject gameObj in newPageGames)
+        {
+            if (gameObj != null)
             {
-                if (gameObj != null)
-                {
-                    Vector3 startPos = gameObj.transform.position + startDirection * slideDistance;
-                    Vector3 endPos = gameObj.transform.position;
-                    
-                    gameObj.transform.position = startPos;
-                    gameObj.transform.DOMove(endPos, slideAnimationDuration)
-                        .SetEase(slideEase)
-                        .OnComplete(() => {
-                            isAnimating = false;
-                        });
-                }
+                Vector3 startPos = gameObj.transform.position + startDirection * slideDistance;
+                Vector3 endPos = gameObj.transform.position;
+                
+                gameObj.transform.position = startPos;
+                gameObj.transform.DOMove(endPos, slideAnimationDuration)
+                    .SetEase(slideEase)
+                    .OnComplete(() => {
+                        isAnimating = false;
+                    });
             }
-            
-            UpdateButtonStates();
-            UpdatePageIndicators();
-        });
+        }
+        
+        UpdateButtonStates();
+        UpdatePageIndicators();
+        UpdatePackNameDisplay(); // パック名を更新
     }
     
     /// <summary>
@@ -603,5 +605,35 @@ public class MenuPaginationController : MonoBehaviour
         }
         
         Debug.Log("AdjustUIForScreenSize完了");
+    }
+    
+    /// <summary>
+    /// パック名の表示を更新
+    /// </summary>
+    private void UpdatePackNameDisplay()
+    {
+        if (packNameText == null)
+        {
+            return; // packNameTextが設定されていない場合は何もしない
+        }
+        
+        // 現在のページのゲーム一覧を取得
+        List<GameInfo.GameData> currentGames = GameInfo.GetGamesForPage(GameInfo.currentPage);
+        
+        if (currentGames.Count > 0)
+        {
+            // 最初のゲームのパックIDを取得
+            string packId = currentGames[0].packID;
+            
+            // パック名を表示
+            packNameText.text = GameInfo.GetPackDisplayName(packId);
+            
+            Debug.Log($"[MenuPaginationController] パック名更新: {packId} → {packNameText.text}");
+        }
+        else
+        {
+            packNameText.text = "";
+            Debug.LogWarning("[MenuPaginationController] 現在のページにゲームがありません");
+        }
     }
 }

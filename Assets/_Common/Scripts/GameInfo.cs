@@ -45,6 +45,42 @@ public class GameInfo : MonoBehaviour
             
         return allGames.GetRange(startIndex, count);
     }
+    
+    /// <summary>
+    /// パックIDから表示用の日本語パック名を取得
+    /// </summary>
+    /// <param name="packId">パックID (例: pack_free, pack_01)</param>
+    /// <returns>表示用のパック名</returns>
+    public static string GetPackDisplayName(string packId)
+    {
+        switch (packId)
+        {
+            case "pack_free":
+                return "さいしょのぱっく";
+            case "pack_01":
+                return "ついかぱっく１";
+            case "pack_02":
+                return "ついかぱっく２";
+            case "pack_03":
+                return "ついかぱっく３";
+            case "pack_04":
+                return "ついかぱっく４";
+            case "pack_05":
+                return "ついかぱっく５";
+            case "pack_06":
+                return "ついかぱっく６";
+            case "pack_07":
+                return "ついかぱっく７";
+            case "pack_08":
+                return "ついかぱっく８";
+            case "pack_09":
+                return "ついかぱっく９";
+            case "pack_10":
+                return "ついかぱっく１０";
+            default:
+                return packId;
+        }
+    }
 
     // 各ゲームの情報を格納するクラス
     public class GameData
