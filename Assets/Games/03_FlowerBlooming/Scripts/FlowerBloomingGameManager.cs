@@ -9,6 +9,25 @@ namespace Minigames.FlowerBlooming
     /// </summary>
     public class FlowerBloomingGameManager : MonoBehaviour
     {
+        private enum FlowerType
+        {
+            Normal,
+            Special,
+            Singing
+        }
+
+        private struct FlowerSelection
+        {
+            public GameObject Prefab;
+            public FlowerType Type;
+
+            public FlowerSelection(GameObject prefab, FlowerType type)
+            {
+                Prefab = prefab;
+                Type = type;
+            }
+        }
+
         #region Singleton
         public static FlowerBloomingGameManager Instance { get; private set; }
 
@@ -29,10 +48,12 @@ namespace Minigames.FlowerBlooming
         [Header("Flower Prefabs")]
         [SerializeField] private GameObject[] normalFlowerPrefabs;
         [SerializeField] private GameObject[] specialFlowerPrefabs;
+        [SerializeField] private GameObject[] singingFlowerPrefabs;
 
         [Header("Probability Settings")]
         [SerializeField] private float[] normalFlowerProbabilities = { 14f, 14f, 14f, 14f, 14f, 14f }; // 各14%
         [SerializeField] private float[] specialFlowerProbabilities = { 6f, 6f, 6f }; // 各6%
+        [SerializeField] private float[] singingFlowerProbabilities = { 2f }; // 歌う花の初期確率（低めに設定）
 
         [Header("References")]
         [SerializeField] private FlowerBloomingSFXPlayer sfxPlayer;
@@ -40,8 +61,8 @@ namespace Minigames.FlowerBlooming
         [Header("Animation Settings")]
         [SerializeField] private float fadeOutDuration = 0.7f;
 
-        // Flowerのplanterに対する初期位置のy軸のオフセット
-        [SerializeField] private float flowerOffsetY = 1.0f; // プ 
+        // Flowerのplanterに対する初期位置のy軸オフセット
+        [SerializeField] private float flowerOffsetY = 1.0f;
         #endregion
 
         #region Private Fields
@@ -51,7 +72,6 @@ namespace Minigames.FlowerBlooming
         #region Unity Lifecycle
         private void Start()
         {
-            // SFXPlayerの参照を取得
             if (sfxPlayer == null)
             {
                 sfxPlayer = FindObjectOfType<FlowerBloomingSFXPlayer>();
@@ -67,42 +87,33 @@ namespace Minigames.FlowerBlooming
         /// <summary>
         /// プランターをタップした時の処理
         /// </summary>
-        /// <param name="planter">タップされたプランター</param>
         public void OnPlanterTapped(GameObject planter)
         {
-            // プランターが使用可能かチェック
             if (planterAvailability.ContainsKey(planter) && !planterAvailability[planter])
             {
                 return; // 既に花が咲いている場合は何もしない
             }
 
-            // プランターを使用不可に設定
             planterAvailability[planter] = false;
 
-            // ランダムに花を選択して生成
-            GameObject flowerPrefab = SelectRandomFlower();
-            if (flowerPrefab != null)
+            FlowerSelection flowerSelection = SelectRandomFlower();
+            if (flowerSelection.Prefab != null)
             {
-                // 花を生成
-                GameObject flower = Instantiate(flowerPrefab, planter.transform.position, Quaternion.identity);
+                GameObject flower = Instantiate(flowerSelection.Prefab, planter.transform.position, Quaternion.identity);
                 flower.transform.SetParent(planter.transform);
-                
-                // 花の位置をプランターより少し上に調整（ローカル座標でY軸方向に上に）
-                flower.transform.localPosition = new Vector3(0, flowerOffsetY, 0); 
-                
-                // 花のSpriteRendererのSorting Orderを設定
+
+                ConfigureFlower(flower, flowerSelection.Type);
+
+                flower.transform.localPosition = new Vector3(0, flowerOffsetY, 0);
+
                 SpriteRenderer flowerRenderer = flower.GetComponent<SpriteRenderer>();
                 if (flowerRenderer != null)
                 {
-                    // プランターよりも前面に表示されるようにSorting Orderを設定
                     flowerRenderer.sortingOrder = 10;
                     Debug.Log($"花のSorting Orderを設定: {flowerRenderer.sortingOrder}");
                 }
-                
-                // 効果音はフェードアウト処理内で再生するため、ここでは再生しない
 
-                // フェードアウト処理を開始
-                StartCoroutine(FadeOutFlower(flower, planter));
+                StartCoroutine(FadeOutFlower(flower, planter, flowerSelection.Type));
             }
             else
             {
@@ -114,7 +125,6 @@ namespace Minigames.FlowerBlooming
         /// <summary>
         /// プランターを登録する
         /// </summary>
-        /// <param name="planter">登録するプランター</param>
         public void RegisterPlanter(GameObject planter)
         {
             if (!planterAvailability.ContainsKey(planter))
@@ -125,122 +135,152 @@ namespace Minigames.FlowerBlooming
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// ランダムに花を選択する
-        /// </summary>
-        /// <returns>選択された花のプレハブ</returns>
-        private GameObject SelectRandomFlower()
+        private FlowerSelection SelectRandomFlower()
         {
+            List<FlowerSelection> candidates = new List<FlowerSelection>();
+            List<float> probabilities = new List<float>();
+
+            AddFlowerCandidates(normalFlowerPrefabs, normalFlowerProbabilities, FlowerType.Normal, candidates, probabilities);
+            AddFlowerCandidates(specialFlowerPrefabs, specialFlowerProbabilities, FlowerType.Special, candidates, probabilities);
+            AddFlowerCandidates(singingFlowerPrefabs, singingFlowerProbabilities, FlowerType.Singing, candidates, probabilities);
+
+            if (candidates.Count == 0)
+            {
+                return new FlowerSelection(null, FlowerType.Normal);
+            }
+
             float totalProbability = 0f;
-
-            // 全確率の合計を計算
-            for (int i = 0; i < normalFlowerProbabilities.Length; i++)
+            for (int i = 0; i < probabilities.Count; i++)
             {
-                totalProbability += normalFlowerProbabilities[i];
+                totalProbability += probabilities[i];
             }
 
-            for (int i = 0; i < specialFlowerProbabilities.Length; i++)
+            if (totalProbability <= 0f)
             {
-                totalProbability += specialFlowerProbabilities[i];
+                return candidates[0];
             }
 
-            // 0〜100%の範囲でランダムな値を生成
             float randomValue = Random.Range(0f, totalProbability);
             float currentProbability = 0f;
 
-            // 通常の花をチェック
-            for (int i = 0; i < normalFlowerProbabilities.Length; i++)
+            for (int i = 0; i < candidates.Count; i++)
             {
-                currentProbability += normalFlowerProbabilities[i];
-                if (randomValue <= currentProbability && i < normalFlowerPrefabs.Length)
+                currentProbability += probabilities[i];
+                if (randomValue <= currentProbability)
                 {
-                    return normalFlowerPrefabs[i];
+                    return candidates[i];
                 }
             }
 
-            // 特殊な花をチェック
-            for (int i = 0; i < specialFlowerProbabilities.Length; i++)
-            {
-                currentProbability += specialFlowerProbabilities[i];
-                if (randomValue <= currentProbability && i < specialFlowerPrefabs.Length)
-                {
-                    return specialFlowerPrefabs[i];
-                }
-            }
-
-            // 万が一何も選ばれなかった場合は最初の通常花を返す
-            return normalFlowerPrefabs.Length > 0 ? normalFlowerPrefabs[0] : null;
+            return candidates[0];
         }
 
-        /// <summary>
-        /// 花の種類に応じたSFXを再生する
-        /// </summary>
-        /// <param name="flowerName">花の名前</param>
-        private void PlayFlowerSFX(string flowerName)
+        private void AddFlowerCandidates(
+            GameObject[] prefabs,
+            float[] probabilities,
+            FlowerType type,
+            List<FlowerSelection> candidateList,
+            List<float> probabilityList)
+        {
+            if (prefabs == null || probabilities == null) return;
+
+            int count = Mathf.Min(prefabs.Length, probabilities.Length);
+            for (int i = 0; i < count; i++)
+            {
+                if (prefabs[i] == null) continue;
+                float probability = probabilities[i];
+                if (probability <= 0f) continue;
+
+                candidateList.Add(new FlowerSelection(prefabs[i], type));
+                probabilityList.Add(probability);
+            }
+        }
+
+        private void PlayFlowerSFX(FlowerType flowerType, string flowerName)
         {
             if (sfxPlayer == null) return;
 
-            if (flowerName.Contains("Special"))
+            switch (flowerType)
             {
-                sfxPlayer.PlaySpecial();
-            }
-            else
-            {
-                sfxPlayer.PlayNormal();
+                case FlowerType.Singing:
+                    sfxPlayer.PlaySinging();
+                    break;
+                case FlowerType.Special:
+                    sfxPlayer.PlaySpecial();
+                    break;
+                default:
+                    // 名前にSpecialが含まれている場合の後方互換も担保
+                    if (flowerName.Contains("Special"))
+                    {
+                        sfxPlayer.PlaySpecial();
+                    }
+                    else
+                    {
+                        sfxPlayer.PlayNormal();
+                    }
+                    break;
             }
         }
 
-        /// <summary>
-        /// 花をフェードアウトさせる
-        /// </summary>
-        /// <param name="flower">フェードアウトさせる花</param>
-        /// <param name="planter">花が咲いたプランター</param>
-        /// <returns>コルーチン</returns>
-        private IEnumerator FadeOutFlower(GameObject flower, GameObject planter)
+        private void ConfigureFlower(GameObject flowerObject, FlowerType flowerType)
         {
-            // アニメーション情報を取得
+            if (flowerObject == null) return;
+
+            Flower flower = flowerObject.GetComponent<Flower>();
+            if (flower == null) return;
+
+            flower.SetSpecial(flowerType == FlowerType.Special);
+            flower.SetSinging(flowerType == FlowerType.Singing);
+        }
+
+        private void TriggerSingingNotes(FlowerType flowerType, Flower flowerComponent)
+        {
+            if (flowerType != FlowerType.Singing) return;
+            if (flowerComponent == null) return;
+
+            flowerComponent.PlayNoteEffect();
+        }
+
+        private IEnumerator FadeOutFlower(GameObject flower, GameObject planter, FlowerType flowerType)
+        {
             Animator animator = flower.GetComponent<Animator>();
-            float animationLength = 1.0f; // デフォルト値
+            float animationLength = 1.0f;
             string flowerName = flower.name;
+            Flower flowerComponent = flower.GetComponent<Flower>();
             
             if (animator != null)
             {
-                // アニメーションの長さを取得
                 AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
                 if (clipInfo.Length > 0)
                 {
                     animationLength = clipInfo[0].clip.length;
                     Debug.Log($"アニメーション長: {animationLength}秒");
                     
-                    // アニメーションの最終フレームまで待機（全体の90%程度で最終フレームと仮定）
                     float waitTime = animationLength * 0.9f;
                     yield return new WaitForSeconds(waitTime);
                     
-                    // 花が咲く最終フレームで効果音を再生
-                    PlayFlowerSFX(flowerName);
+                    PlayFlowerSFX(flowerType, flowerName);
+                    TriggerSingingNotes(flowerType, flowerComponent);
                     Debug.Log($"花が咲くタイミングで効果音を再生: {flowerName}");
                     
-                    // 残りのアニメーション時間を待機
                     yield return new WaitForSeconds(animationLength - waitTime);
                 }
                 else
                 {
-                    yield return new WaitForSeconds(1.0f); // デフォルト待機時間
-                    // 効果音を再生
-                    PlayFlowerSFX(flowerName);
+                    yield return new WaitForSeconds(1.0f);
+                    PlayFlowerSFX(flowerType, flowerName);
+                    TriggerSingingNotes(flowerType, flowerComponent);
                 }
             }
             else
             {
-                yield return new WaitForSeconds(1.0f); // デフォルト待機時間
-                // 効果音を再生
-                PlayFlowerSFX(flowerName);
+                yield return new WaitForSeconds(1.0f);
+                PlayFlowerSFX(flowerType, flowerName);
+                TriggerSingingNotes(flowerType, flowerComponent);
             }
 
-            // 0.5秒待機
             yield return new WaitForSeconds(0.5f);
 
-            // フェードアウト処理
             SpriteRenderer spriteRenderer = flower.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
@@ -256,10 +296,7 @@ namespace Minigames.FlowerBlooming
                 }
             }
 
-            // 花を削除
             Destroy(flower);
-
-            // プランターを再利用可能に設定
             planterAvailability[planter] = true;
         }
         #endregion

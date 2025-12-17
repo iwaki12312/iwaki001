@@ -46,13 +46,19 @@ namespace Minigames.FlowerBlooming
         [SerializeField] private AudioClip normalFlowerSFX;
         [SerializeField] private AudioClip specialFlowerSFX;
         [SerializeField] private float volume = 1.0f;
+        [SerializeField] private float normalVolume = 1.0f;
+        [SerializeField] private float specialVolume = 1.0f;
+        [SerializeField] private AudioClip singingFlowerSFX;
+        [SerializeField] private float singingVolume = 1.0f;
         #endregion
 
     #region Private Fields
         private const string NormalSFXPath = "Assets/Games/03_FlowerBlooming/Audios/SFX_Flower_Normal_Appear.mp3";
         private const string SpecialSFXPath = "Assets/Games/03_FlowerBlooming/Audios/SFX_Flower_Special_Appear.mp3";
+        private const string SingingSFXPath = "Assets/Games/03_FlowerBlooming/Audios/SFX_Flower_Singing.mp3";
         private const string NormalSFXResourcePath = "03_FlowerBlooming/Audios/SFX_Flower_Normal_Appear";
         private const string SpecialSFXResourcePath = "03_FlowerBlooming/Audios/SFX_Flower_Special_Appear";
+        private const string SingingSFXResourcePath = "03_FlowerBlooming/Audios/SFX_Flower_Singing";
     #endregion
 
         #region Public Methods
@@ -63,7 +69,7 @@ namespace Minigames.FlowerBlooming
         {
             if (normalFlowerSFX != null && audioSource != null)
             {
-                audioSource.PlayOneShot(normalFlowerSFX, volume);
+                audioSource.PlayOneShot(normalFlowerSFX, volume * normalVolume);
             }
             else
             {
@@ -78,11 +84,26 @@ namespace Minigames.FlowerBlooming
         {
             if (specialFlowerSFX != null && audioSource != null)
             {
-                audioSource.PlayOneShot(specialFlowerSFX, volume);
+                audioSource.PlayOneShot(specialFlowerSFX, volume * specialVolume);
             }
             else
             {
                 Debug.LogWarning("特殊な花の効果音が設定されていません");
+            }
+        }
+
+        /// <summary>
+        /// 歌う花の効果音を再生する
+        /// </summary>
+        public void PlaySinging()
+        {
+            if (singingFlowerSFX != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(singingFlowerSFX, volume * singingVolume);
+            }
+            else
+            {
+                Debug.LogWarning("歌う花の効果音が設定されていません");
             }
         }
         #endregion
@@ -122,6 +143,22 @@ namespace Minigames.FlowerBlooming
                 if (specialFlowerSFX == null)
                 {
                     Debug.LogError($"特殊な花の効果音が見つかりません");
+                }
+            }
+
+            // 歌う花の効果音を読み込む
+            if (singingFlowerSFX == null)
+            {
+#if UNITY_EDITOR
+                // エディタ実行時はAssetDatabaseを使用
+                singingFlowerSFX = AssetDatabase.LoadAssetAtPath<AudioClip>(SingingSFXPath);
+#else
+                // ビルド実行時はResourcesを使用
+                singingFlowerSFX = Resources.Load<AudioClip>(SingingSFXResourcePath);
+#endif
+                if (singingFlowerSFX == null)
+                {
+                    Debug.LogError($"歌う花の効果音が見つかりません");
                 }
             }
         }

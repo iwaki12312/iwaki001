@@ -1,0 +1,364 @@
+fileFormatVersion: 2
+guid: ae004b7765657484e9761c4b4899a600
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -10854621293674174
+    second: Flower_Singing_01_0
+  - first:
+      213: 1473735722852525280
+    second: Flower_Singing_01_1
+  - first:
+      213: 7607327503143879268
+    second: Flower_Singing_01_2
+  - first:
+      213: 3590665003862129297
+    second: Flower_Singing_01_3
+  - first:
+      213: 6371549738551654001
+    second: Flower_Singing_01_4
+  - first:
+      213: 1245391249937269831
+    second: Flower_Singing_01_5
+  - first:
+      213: 7416807245506572775
+    second: Flower_Singing_01_6
+  - first:
+      213: -7629569587488142348
+    second: Flower_Singing_01_7
+  - first:
+      213: 6494472146816261153
+    second: Flower_Singing_01_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Flower_Singing_01_0
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 598
+        width: 112
+        height: 95
+      alignment: 9
+      pivot: {x: 0.53411335, y: 0.097268194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2418e9987cf69dff0800000000000000
+      internalID: -10854621293674174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_1
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 594
+        width: 154
+        height: 109
+      alignment: 9
+      pivot: {x: 0.5119167, y: 0.10435444}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4ad6de4d2c37410800000000000000
+      internalID: 1473735722852525280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_2
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 594
+        width: 158
+        height: 143
+      alignment: 9
+      pivot: {x: 0.50000036, y: 0.06399558}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46243fa0f08a29960800000000000000
+      internalID: 7607327503143879268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_3
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 380
+        width: 156
+        height: 165
+      alignment: 9
+      pivot: {x: 0.5176456, y: 0.06624349}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19af0aefbca94d130800000000000000
+      internalID: 3590665003862129297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_4
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 378
+        width: 158
+        height: 175
+      alignment: 9
+      pivot: {x: 0.50580764, y: 0.07005668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 176ba13baba4c6850800000000000000
+      internalID: 6371549738551654001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_5
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 378
+        width: 162
+        height: 181
+      alignment: 9
+      pivot: {x: 0.5169923, y: 0.06910073}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74404e25eb4884110800000000000000
+      internalID: 1245391249937269831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_6
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 94
+        width: 193
+        height: 236
+      alignment: 9
+      pivot: {x: 0.50000006, y: 0.043171044}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e176f3d4eacde660800000000000000
+      internalID: 7416807245506572775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_7
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 91
+        width: 199
+        height: 242
+      alignment: 9
+      pivot: {x: 0.5000002, y: 0.052593548}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fb45a422e25e1690800000000000000
+      internalID: -7629569587488142348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flower_Singing_01_8
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 77
+        width: 222
+        height: 265
+      alignment: 9
+      pivot: {x: 0.5082667, y: 0.046412516}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12cd6a22200012a50800000000000000
+      internalID: 6494472146816261153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9d5ffdf323f290540b4fd9830258e7ef
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Flower_Singing_01_0: -10854621293674174
+      Flower_Singing_01_1: 1473735722852525280
+      Flower_Singing_01_2: 7607327503143879268
+      Flower_Singing_01_3: 3590665003862129297
+      Flower_Singing_01_4: 6371549738551654001
+      Flower_Singing_01_5: 1245391249937269831
+      Flower_Singing_01_6: 7416807245506572775
+      Flower_Singing_01_7: -7629569587488142348
+      Flower_Singing_01_8: 6494472146816261153
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
