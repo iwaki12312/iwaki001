@@ -119,34 +119,12 @@ TextureImporter:
       name: animal_dragon_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 325
-        width: 91
-        height: 94
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4499eb98413fb5db0800000000000000
-      internalID: -4801977308124636860
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: animal_dragon_1
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 25
+        x: 80
+        y: 26
         width: 394
         height: 469
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,7 +141,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: af1eb1239efb1e44381303dcdf60f244
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +151,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      animal_dragon_0: -4801977308124636860
-      animal_dragon_1: 8774623433999538121
+      animal_dragon_0: 8774623433999538121
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

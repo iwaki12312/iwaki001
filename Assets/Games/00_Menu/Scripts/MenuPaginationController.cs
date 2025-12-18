@@ -594,8 +594,8 @@ public class MenuPaginationController : MonoBehaviour
             RectTransform indicatorRect = pageIndicatorContainer.GetComponent<RectTransform>();
             if (indicatorRect != null)
             {
-                // Safe Area + 5%マージンで下部中央に配置
-                float bottomPosition = bottomSafeMargin + 0.05f;
+                // Safe Area + 7%マージンで下部中央に配置
+                float bottomPosition = bottomSafeMargin + 0.07f;
                 indicatorRect.anchorMin = new Vector2(0.5f, bottomPosition);
                 indicatorRect.anchorMax = new Vector2(0.5f, bottomPosition);
                 indicatorRect.anchoredPosition = Vector2.zero;
