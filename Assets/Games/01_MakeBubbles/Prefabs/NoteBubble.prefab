@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5098908734908166219}
   - component: {fileID: 842338282968835439}
   m_Layer: 0
-  m_Name: StarBubble
+  m_Name: NoteBubble
   m_TagString: Bubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8973000165994703482, guid: 74af227a4798f074fa5045fa9d9ce2a0, type: 3}
+  m_Sprite: {fileID: 5413933891109039312, guid: 6375009d9b898f746aadc28ac3c00167, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -171,8 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyDelay: 0.1
   bubbleSplashAnimPrefab: {fileID: 987074928486871365, guid: 7aaee283ea089d2488e639928e759a2d, type: 3}
-  isStarBubble: 1
+  isStarBubble: 0
   isHeartBubble: 0
+  isNoteBubble: 1
   starBurstSprite: {fileID: 4815476061570213978, guid: 7d1c0742162fec545af39f97c7b0e97b, type: 3}
   starBurstCountMin: 6
   starBurstCountMax: 8
@@ -191,6 +192,15 @@ MonoBehaviour:
   heartBurstAngularSpeedMin: -360
   heartBurstAngularSpeedMax: 360
   heartBurstScaleMultiplier: 0.6
+  noteBurstSprite: {fileID: 2382542705151310463, guid: 2fe2cc07b8502d846a10b15d8dab635e, type: 3}
+  noteBurstCountMin: 6
+  noteBurstCountMax: 8
+  noteBurstSpeedMin: 2
+  noteBurstSpeedMax: 4
+  noteBurstLifetime: 0.7
+  noteBurstAngularSpeedMin: -360
+  noteBurstAngularSpeedMax: 360
+  noteBurstScaleMultiplier: 0.6
   minSpeed: 0.3
   maxSpeed: 0.8
   maxMoveSpeed: 2

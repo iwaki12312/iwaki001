@@ -820,10 +820,18 @@ MonoBehaviour:
   splashSound: {fileID: 8300000, guid: ceb78ba751e09de4aae473e1827671a8, type: 3}
   starShotSound: {fileID: 8300000, guid: b85ce5a6e26b98f42a9e56f5a39e2edc, type: 3}
   starSplashSound: {fileID: 8300000, guid: 049c8b9ae07a0ec4d904297eb5e3f109, type: 3}
-  shotVolume: 0.712
-  splashVolume: 1
-  starShotVolume: 1
-  starSplashVolume: 1
+  heartShotSound: {fileID: 8300000, guid: b85ce5a6e26b98f42a9e56f5a39e2edc, type: 3}
+  heartSplashSound: {fileID: 8300000, guid: f73b87f5d3ebab949b98cead5cf3940f, type: 3}
+  noteShotSound: {fileID: 8300000, guid: b85ce5a6e26b98f42a9e56f5a39e2edc, type: 3}
+  noteSplashSound: {fileID: 8300000, guid: 36d42dfb68483c54fb24e49e6c59e5d8, type: 3}
+  shotVolume: 0.5
+  splashVolume: 0.5
+  starShotVolume: 0.5
+  starSplashVolume: 0.5
+  heartShotVolume: 0.5
+  heartSplashVolume: 0.5
+  noteShotVolume: 0.5
+  noteSplashVolume: 0.5
 --- !u!4 &1172817329
 Transform:
   m_ObjectHideFlags: 0
@@ -859,6 +867,10 @@ MonoBehaviour:
   bubblePrefab: {fileID: 2669154042050861876, guid: 60a08bec11d012e47b4fab9548f5c814, type: 3}
   starBubblePrefab: {fileID: 2669154042050861876, guid: 2f358c7bd7c940d19c7bf4caa6c77d2b, type: 3}
   starBubbleChance: 0.1
+  heartBubblePrefab: {fileID: 2669154042050861876, guid: d5f5ef8f5fdb4be6a6d1a6e6f8d55c0e, type: 3}
+  heartBubbleChance: 0.1
+  noteBubblePrefab: {fileID: 2669154042050861876, guid: 5a5b9f4f6d5a4a6aa6bb2f4f1f1c2a3b, type: 3}
+  noteBubbleChance: 0.1
 --- !u!1001 &1840360549
 PrefabInstance:
   m_ObjectHideFlags: 0

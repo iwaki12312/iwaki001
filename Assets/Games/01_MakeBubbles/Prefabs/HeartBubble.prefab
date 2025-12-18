@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5098908734908166219}
   - component: {fileID: 842338282968835439}
   m_Layer: 0
-  m_Name: StarBubble
+  m_Name: HeartBubble
   m_TagString: Bubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8973000165994703482, guid: 74af227a4798f074fa5045fa9d9ce2a0, type: 3}
+  m_Sprite: {fileID: 7420640100034923312, guid: 9f4f18b46ebef8b4ea671260ff9c6b22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -171,8 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyDelay: 0.1
   bubbleSplashAnimPrefab: {fileID: 987074928486871365, guid: 7aaee283ea089d2488e639928e759a2d, type: 3}
-  isStarBubble: 1
-  isHeartBubble: 0
+  isStarBubble: 0
+  isHeartBubble: 1
   starBurstSprite: {fileID: 4815476061570213978, guid: 7d1c0742162fec545af39f97c7b0e97b, type: 3}
   starBurstCountMin: 6
   starBurstCountMax: 8

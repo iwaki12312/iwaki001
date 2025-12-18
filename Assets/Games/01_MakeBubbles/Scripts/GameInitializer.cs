@@ -8,6 +8,10 @@ public class GameInitializer : MonoBehaviour
     [SerializeField] private GameObject bubblePrefab; // バブルプレハブの参照
     [SerializeField] private GameObject starBubblePrefab; // 星入りバブルプレハブ
     [SerializeField] [Range(0f, 1f)] private float starBubbleChance = 0.1f; // 星入り出現確率
+    [SerializeField] private GameObject heartBubblePrefab; // ハート入りバブルプレハブ
+    [SerializeField] [Range(0f, 1f)] private float heartBubbleChance = 0.05f; // ハート入り出現確率
+    [SerializeField] private GameObject noteBubblePrefab; // 音符入りバブルプレハブ
+    [SerializeField] [Range(0f, 1f)] private float noteBubbleChance = 0.05f; // 音符入り出現確率
     
     void Awake()
     {
@@ -123,6 +127,10 @@ public class GameInitializer : MonoBehaviour
         {
             BubbleMakerManager.Instance.SetStarBubblePrefab(starBubblePrefab);
             BubbleMakerManager.Instance.SetStarBubbleChance(starBubbleChance);
+            BubbleMakerManager.Instance.SetHeartBubblePrefab(heartBubblePrefab);
+            BubbleMakerManager.Instance.SetHeartBubbleChance(heartBubbleChance);
+            BubbleMakerManager.Instance.SetNoteBubblePrefab(noteBubblePrefab);
+            BubbleMakerManager.Instance.SetNoteBubbleChance(noteBubbleChance);
         }
     }
     

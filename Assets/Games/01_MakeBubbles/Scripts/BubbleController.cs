@@ -8,6 +8,8 @@ public class BubbleController : MonoBehaviour
     [SerializeField] private float destroyDelay = 0.1f;
     [SerializeField] private GameObject bubbleSplashAnimPrefab;
     [SerializeField] private bool isStarBubble = false;
+    [SerializeField] private bool isHeartBubble = false;
+    [SerializeField] private bool isNoteBubble = false;
 
     [Header("Star Burst")]
     [SerializeField] private Sprite starBurstSprite;
@@ -19,6 +21,28 @@ public class BubbleController : MonoBehaviour
     [SerializeField] private float starBurstAngularSpeedMin = -360f;
     [SerializeField] private float starBurstAngularSpeedMax = 360f;
     [SerializeField] private float starBurstScaleMultiplier = 0.6f;
+
+    [Header("Heart Burst")]
+    [SerializeField] private Sprite heartBurstSprite;
+    [SerializeField] private int heartBurstCountMin = 6;
+    [SerializeField] private int heartBurstCountMax = 8;
+    [SerializeField] private float heartBurstSpeedMin = 2.0f;
+    [SerializeField] private float heartBurstSpeedMax = 4.0f;
+    [SerializeField] private float heartBurstLifetime = 0.7f;
+    [SerializeField] private float heartBurstAngularSpeedMin = -360f;
+    [SerializeField] private float heartBurstAngularSpeedMax = 360f;
+    [SerializeField] private float heartBurstScaleMultiplier = 0.6f;
+
+    [Header("Note Burst")]
+    [SerializeField] private Sprite noteBurstSprite;
+    [SerializeField] private int noteBurstCountMin = 6;
+    [SerializeField] private int noteBurstCountMax = 8;
+    [SerializeField] private float noteBurstSpeedMin = 2.0f;
+    [SerializeField] private float noteBurstSpeedMax = 4.0f;
+    [SerializeField] private float noteBurstLifetime = 0.7f;
+    [SerializeField] private float noteBurstAngularSpeedMin = -360f;
+    [SerializeField] private float noteBurstAngularSpeedMax = 360f;
+    [SerializeField] private float noteBurstScaleMultiplier = 0.6f;
 
     [Header("移動設定")]
     [SerializeField] private float minSpeed = 0.3f;
@@ -106,7 +130,7 @@ public class BubbleController : MonoBehaviour
     /* -------- Bubble を割る本処理（旧 OnMouseDown の中身） -------- */
     void Burst()
     {
-        if (!isStarBubble)
+        if (!isStarBubble && !isHeartBubble && !isNoteBubble)
         {
             CreateBubbleSplashEffect();
         }
@@ -115,16 +139,19 @@ public class BubbleController : MonoBehaviour
         {
             if (isStarBubble)
                 BubbleSoundManager.Instance.PlayStarSplashSound();
+            else if (isHeartBubble)
+                BubbleSoundManager.Instance.PlayHeartSplashSound();
+            else if (isNoteBubble)
+                BubbleSoundManager.Instance.PlayNoteSplashSound();
             else
                 BubbleSoundManager.Instance.PlaySplashSound();
         }
         else
             Debug.LogWarning("BubbleSoundManager が見つかりません。効果音が再生されません。");
 
-        if (isStarBubble)
-        {
-            SpawnStarBurst();
-        }
+        if (isStarBubble) SpawnStarBurst();
+        else if (isHeartBubble) SpawnHeartBurst();
+        else if (isNoteBubble) SpawnNoteBurst();
 
         Destroy(gameObject, destroyDelay);
     }
@@ -132,6 +159,31 @@ public class BubbleController : MonoBehaviour
     public void SetStarBubble(bool isStar)
     {
         isStarBubble = isStar;
+        if (isStar)
+        {
+            isHeartBubble = false;
+            isNoteBubble = false;
+        }
+    }
+
+    public void SetHeartBubble(bool isHeart)
+    {
+        isHeartBubble = isHeart;
+        if (isHeart)
+        {
+            isStarBubble = false;
+            isNoteBubble = false;
+        }
+    }
+
+    public void SetNoteBubble(bool isNote)
+    {
+        isNoteBubble = isNote;
+        if (isNote)
+        {
+            isStarBubble = false;
+            isHeartBubble = false;
+        }
     }
 
     private void SpawnStarBurst()
@@ -189,6 +241,60 @@ public class BubbleController : MonoBehaviour
     }
 
     /* -------- 画面座標 pos がこのバブルに当たったか？ -------- */
+    private void SpawnHeartBurst()
+    {
+        if (heartBurstSprite == null)
+        {
+            Debug.LogWarning("HeartBurstSprite が未設定のため、ハートバースト演出をスキップします。");
+            return;
+        }
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        Color burstColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
+
+        int countMin = Mathf.Max(1, heartBurstCountMin);
+        int countMax = Mathf.Max(countMin, heartBurstCountMax);
+        int heartCount = Random.Range(countMin, countMax + 1);
+
+        float speedMin = Mathf.Max(0f, heartBurstSpeedMin);
+        float speedMax = Mathf.Max(speedMin, heartBurstSpeedMax);
+
+        float lifetime = Mathf.Max(0.01f, heartBurstLifetime);
+
+        float scaleMultiplier = Mathf.Max(0.01f, heartBurstScaleMultiplier);
+        Vector3 heartScale = transform.localScale * scaleMultiplier;
+
+        int sortingLayerId = spriteRenderer != null ? spriteRenderer.sortingLayerID : 0;
+        int sortingOrder = spriteRenderer != null ? spriteRenderer.sortingOrder + 1 : 1;
+
+        for (int i = 0; i < heartCount; i++)
+        {
+            Vector2 direction = Random.insideUnitCircle;
+            if (direction == Vector2.zero) direction = Vector2.right;
+            direction.Normalize();
+
+            float speed = Random.Range(speedMin, speedMax);
+            float angularSpeed = Random.Range(heartBurstAngularSpeedMin, heartBurstAngularSpeedMax);
+
+            GameObject heartObj = new GameObject("HeartPiece");
+            heartObj.transform.position = transform.position;
+            heartObj.transform.localScale = heartScale;
+
+            SpriteRenderer heartRenderer = heartObj.AddComponent<SpriteRenderer>();
+            heartRenderer.sprite = heartBurstSprite;
+            heartRenderer.color = burstColor;
+            heartRenderer.sortingLayerID = sortingLayerId;
+            heartRenderer.sortingOrder = sortingOrder;
+
+            StarPieceController controller = heartObj.AddComponent<StarPieceController>();
+            controller.Initialize(direction * speed, angularSpeed, lifetime, burstColor);
+        }
+    }
+
     bool HitThisBubble(Vector2 pos)
     {
         Vector2 world = mainCam.ScreenToWorldPoint(pos);
@@ -361,5 +467,59 @@ public class BubbleController : MonoBehaviour
     private void ResetDrag()
     {
         rb.linearDamping = airResistance;
+    }
+
+    private void SpawnNoteBurst()
+    {
+        if (noteBurstSprite == null)
+        {
+            Debug.LogWarning("NoteBurstSprite が未設定のため、音符バースト演出をスキップします。");
+            return;
+        }
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        Color burstColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
+
+        int countMin = Mathf.Max(1, noteBurstCountMin);
+        int countMax = Mathf.Max(countMin, noteBurstCountMax);
+        int noteCount = Random.Range(countMin, countMax + 1);
+
+        float speedMin = Mathf.Max(0f, noteBurstSpeedMin);
+        float speedMax = Mathf.Max(speedMin, noteBurstSpeedMax);
+
+        float lifetime = Mathf.Max(0.01f, noteBurstLifetime);
+
+        float scaleMultiplier = Mathf.Max(0.01f, noteBurstScaleMultiplier);
+        Vector3 noteScale = transform.localScale * scaleMultiplier;
+
+        int sortingLayerId = spriteRenderer != null ? spriteRenderer.sortingLayerID : 0;
+        int sortingOrder = spriteRenderer != null ? spriteRenderer.sortingOrder + 1 : 1;
+
+        for (int i = 0; i < noteCount; i++)
+        {
+            Vector2 direction = Random.insideUnitCircle;
+            if (direction == Vector2.zero) direction = Vector2.right;
+            direction.Normalize();
+
+            float speed = Random.Range(speedMin, speedMax);
+            float angularSpeed = Random.Range(noteBurstAngularSpeedMin, noteBurstAngularSpeedMax);
+
+            GameObject noteObj = new GameObject("NotePiece");
+            noteObj.transform.position = transform.position;
+            noteObj.transform.localScale = noteScale;
+
+            SpriteRenderer noteRenderer = noteObj.AddComponent<SpriteRenderer>();
+            noteRenderer.sprite = noteBurstSprite;
+            noteRenderer.color = burstColor;
+            noteRenderer.sortingLayerID = sortingLayerId;
+            noteRenderer.sortingOrder = sortingOrder;
+
+            StarPieceController controller = noteObj.AddComponent<StarPieceController>();
+            controller.Initialize(direction * speed, angularSpeed, lifetime, burstColor);
+        }
     }
 }

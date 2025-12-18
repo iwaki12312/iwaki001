@@ -9,6 +9,10 @@ public class BubbleMakerManager : MonoBehaviour
     [SerializeField] private int maxBubbles = 10; // 最大シャボン玉数
     [SerializeField] private GameObject starBubblePrefab;
     [SerializeField] [Range(0f, 1f)] private float starBubbleChance = 0.1f; // 星入りシャボン玉の出現確率
+    [SerializeField] private GameObject heartBubblePrefab;
+    [SerializeField] [Range(0f, 1f)] private float heartBubbleChance = 0.05f; // ハート入りシャボン玉の出現確率
+    [SerializeField] private GameObject noteBubblePrefab;
+    [SerializeField] [Range(0f, 1f)] private float noteBubbleChance = 0.05f; // 音符入りシャボン玉の出現確率
     
     private bool isCreatingBubble = false; // 現在シャボン玉を作成中かどうか
     private float cooldownTimer = 0f; // クールダウンタイマー
@@ -176,14 +180,36 @@ public class BubbleMakerManager : MonoBehaviour
         if (bubblePrefab != null)
         {
             // 効果音を再生
-            bool isStarBubble = starBubblePrefab != null && Random.value < starBubbleChance;
-            GameObject prefabToUse = isStarBubble ? starBubblePrefab : bubblePrefab;
+            float starChance = (starBubblePrefab != null) ? Mathf.Clamp01(starBubbleChance) : 0f;
+            float heartChance = (heartBubblePrefab != null) ? Mathf.Clamp01(heartBubbleChance) : 0f;
+            float noteChance = (noteBubblePrefab != null) ? Mathf.Clamp01(noteBubbleChance) : 0f;
+
+            heartChance = Mathf.Min(heartChance, 1f - starChance);
+            noteChance = Mathf.Min(noteChance, 1f - starChance - heartChance);
+            float roll = Random.value;
+
+            bool isStarBubble = roll < starChance;
+            bool isHeartBubble = !isStarBubble && roll < starChance + heartChance;
+            bool isNoteBubble = !isStarBubble && !isHeartBubble && roll < starChance + heartChance + noteChance;
+
+            GameObject prefabToUse = bubblePrefab;
+            if (isStarBubble) prefabToUse = starBubblePrefab;
+            else if (isHeartBubble) prefabToUse = heartBubblePrefab;
+            else if (isNoteBubble) prefabToUse = noteBubblePrefab;
 
             if (BubbleSoundManager.Instance != null)
             {
                 if (isStarBubble)
                 {
                     BubbleSoundManager.Instance.PlayStarShotSound();
+                }
+                else if (isHeartBubble)
+                {
+                    BubbleSoundManager.Instance.PlayHeartShotSound();
+                }
+                else if (isNoteBubble)
+                {
+                    BubbleSoundManager.Instance.PlayNoteShotSound();
                 }
                 else
                 {
@@ -229,6 +255,8 @@ public class BubbleMakerManager : MonoBehaviour
             if (bubbleController != null)
             {
                 bubbleController.SetStarBubble(isStarBubble);
+                bubbleController.SetHeartBubble(isHeartBubble);
+                bubbleController.SetNoteBubble(isNoteBubble);
             }
             
             Debug.Log($"シャボン玉を生成しました: 位置={spawnPosition}, 方向={direction}");
@@ -280,5 +308,43 @@ public class BubbleMakerManager : MonoBehaviour
     {
         starBubbleChance = Mathf.Clamp01(chance);
         Debug.Log($"星入りバブル出現確率を設定しました: {starBubbleChance:P0}");
+    }
+
+    public void SetHeartBubblePrefab(GameObject prefab)
+    {
+        heartBubblePrefab = prefab;
+        if (heartBubblePrefab != null)
+        {
+            Debug.Log($"ハート入りバブルプレハブを設定しました: {heartBubblePrefab.name}");
+        }
+        else
+        {
+            Debug.Log("ハート入りバブルプレハブが未設定です（ハート入りは出現しません）");
+        }
+    }
+
+    public void SetHeartBubbleChance(float chance)
+    {
+        heartBubbleChance = Mathf.Clamp01(chance);
+        Debug.Log($"ハート入りバブル出現確率を設定しました: {heartBubbleChance:P0}");
+    }
+
+    public void SetNoteBubblePrefab(GameObject prefab)
+    {
+        noteBubblePrefab = prefab;
+        if (noteBubblePrefab != null)
+        {
+            Debug.Log($"音符入りバブルプレハブを設定しました: {noteBubblePrefab.name}");
+        }
+        else
+        {
+            Debug.Log("音符入りバブルプレハブが未設定です（音符入りは出現しません）");
+        }
+    }
+
+    public void SetNoteBubbleChance(float chance)
+    {
+        noteBubbleChance = Mathf.Clamp01(chance);
+        Debug.Log($"音符入りバブル出現確率を設定しました: {noteBubbleChance:P0}");
     }
 }
