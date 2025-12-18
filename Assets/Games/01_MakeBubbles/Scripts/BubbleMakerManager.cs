@@ -13,6 +13,11 @@ public class BubbleMakerManager : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float heartBubbleChance = 0.05f; // ハート入りシャボン玉の出現確率
     [SerializeField] private GameObject noteBubblePrefab;
     [SerializeField] [Range(0f, 1f)] private float noteBubbleChance = 0.05f; // 音符入りシャボン玉の出現確率
+
+    [Header("Bubble Color")]
+    [SerializeField] private Color[] bubbleColorPalette;
+    [SerializeField] private Vector2 bubbleRgbRange = new Vector2(0.7f, 1f);
+    [SerializeField] [Range(0f, 1f)] private float bubbleAlpha = 0.8f;
     
     private bool isCreatingBubble = false; // 現在シャボン玉を作成中かどうか
     private float cooldownTimer = 0f; // クールダウンタイマー
@@ -23,6 +28,30 @@ public class BubbleMakerManager : MonoBehaviour
     
     // シングルトンパターン
     public static BubbleMakerManager Instance { get; private set; }
+
+    private Color GetRandomBubbleColor()
+    {
+        if (bubbleColorPalette != null && bubbleColorPalette.Length > 0)
+        {
+            Color c = bubbleColorPalette[Random.Range(0, bubbleColorPalette.Length)];
+            c.a = bubbleAlpha;
+            return c;
+        }
+
+        float min = Mathf.Clamp01(Mathf.Min(bubbleRgbRange.x, bubbleRgbRange.y));
+        float max = Mathf.Clamp01(Mathf.Max(bubbleRgbRange.x, bubbleRgbRange.y));
+        if (Mathf.Approximately(min, max))
+        {
+            max = Mathf.Min(1f, min + 0.0001f);
+        }
+
+        return new Color(
+            Random.Range(min, max),
+            Random.Range(min, max),
+            Random.Range(min, max),
+            bubbleAlpha
+        );
+    }
     
     void Awake()
     {
@@ -225,17 +254,10 @@ public class BubbleMakerManager : MonoBehaviour
             float size = Random.Range(0.5f, 1.5f);
             bubble.transform.localScale = new Vector3(size, size, 1f);
 
-            // ランダムな色を設定
-            Color randomColor = new Color(
-                Random.Range(0.7f, 1f),
-                Random.Range(0.7f, 1f),
-                Random.Range(0.7f, 1f),
-                0.8f
-            );
             SpriteRenderer renderer = bubble.GetComponent<SpriteRenderer>();
             if (renderer != null)
             {
-                renderer.color = randomColor;
+                renderer.color = GetRandomBubbleColor();
             }
 
             // シャボン玉に指定方向への初速度を設定

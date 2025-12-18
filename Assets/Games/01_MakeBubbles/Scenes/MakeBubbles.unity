@@ -259,6 +259,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 469f433c3d8dd7b419e6ac7dd7b4f61c, type: 3}
+--- !u!1 &206066276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 206066278}
+  - component: {fileID: 206066277}
+  m_Layer: 0
+  m_Name: 'BubbleMakerManager '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &206066277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206066276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9192f6f7d5742434383417e1b5fc77cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BubbleMakerManager
+  bubblePrefab: {fileID: 0}
+  maxBubbles: 10
+  starBubblePrefab: {fileID: 0}
+  starBubbleChance: 0.1
+  heartBubblePrefab: {fileID: 0}
+  heartBubbleChance: 0.05
+  noteBubblePrefab: {fileID: 0}
+  noteBubbleChance: 0.05
+  bubbleColorPalette:
+  - {r: 0.9621229, g: 0.9716981, b: 0.73794055, a: 0}
+  - {r: 1, g: 0.6858379, b: 0.6666667, a: 0}
+  - {r: 0.5990566, g: 0.9820474, b: 1, a: 0}
+  - {r: 1, g: 0.6556604, b: 0.99419737, a: 0}
+  - {r: 0.79986256, g: 0.5707547, b: 1, a: 0}
+  - {r: 0.72295904, g: 1, b: 0.5707547, a: 0}
+  bubbleRgbRange: {x: 0.7, y: 1}
+  bubbleAlpha: 0.8
+  cooldownDuration: 1
+--- !u!4 &206066278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206066276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.02055, y: -0.56295, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &385399008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -866,11 +928,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 2669154042050861876, guid: 60a08bec11d012e47b4fab9548f5c814, type: 3}
   starBubblePrefab: {fileID: 2669154042050861876, guid: 2f358c7bd7c940d19c7bf4caa6c77d2b, type: 3}
-  starBubbleChance: 0.1
+  starBubbleChance: 0.07
   heartBubblePrefab: {fileID: 2669154042050861876, guid: d5f5ef8f5fdb4be6a6d1a6e6f8d55c0e, type: 3}
-  heartBubbleChance: 0.1
+  heartBubbleChance: 0.07
   noteBubblePrefab: {fileID: 2669154042050861876, guid: 5a5b9f4f6d5a4a6aa6bb2f4f1f1c2a3b, type: 3}
-  noteBubbleChance: 0.1
+  noteBubbleChance: 0.07
 --- !u!1001 &1840360549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1027,3 +1089,4 @@ SceneRoots:
   - {fileID: 1923919826}
   - {fileID: 85543865}
   - {fileID: 1172817329}
+  - {fileID: 206066278}
