@@ -5,6 +5,14 @@ using UnityEngine;
 /// </summary>
 public class BubbleMakerManager : MonoBehaviour
 {
+    private enum BubbleKind
+    {
+        Normal,
+        Star,
+        Heart,
+        Note,
+    }
+
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private int maxBubbles = 10; // 最大シャボン玉数
     [SerializeField] private GameObject starBubblePrefab;
@@ -51,6 +59,22 @@ public class BubbleMakerManager : MonoBehaviour
             Random.Range(min, max),
             bubbleAlpha
         );
+    }
+
+    private BubbleKind RollBubbleKind()
+    {
+        float starChance = (starBubblePrefab != null) ? Mathf.Clamp01(starBubbleChance) : 0f;
+        float heartChance = (heartBubblePrefab != null) ? Mathf.Clamp01(heartBubbleChance) : 0f;
+        float noteChance = (noteBubblePrefab != null) ? Mathf.Clamp01(noteBubbleChance) : 0f;
+
+        heartChance = Mathf.Min(heartChance, 1f - starChance);
+        noteChance = Mathf.Min(noteChance, 1f - starChance - heartChance);
+
+        float roll = Random.value;
+        if (roll < starChance) return BubbleKind.Star;
+        if (roll < starChance + heartChance) return BubbleKind.Heart;
+        if (roll < starChance + heartChance + noteChance) return BubbleKind.Note;
+        return BubbleKind.Normal;
     }
     
     void Awake()
@@ -162,6 +186,25 @@ public class BubbleMakerManager : MonoBehaviour
         bubblesToCreate = Mathf.Min(bubblesToCreate, maxBubbles - currentBubbles);
         
         Debug.Log($"{creator.name}が{bubblesToCreate}個のシャボン玉を作成します");
+
+        BubbleKind[] kinds = new BubbleKind[bubblesToCreate];
+        bool containsNormal = false;
+        bool containsSpecial = false;
+        for (int i = 0; i < bubblesToCreate; i++)
+        {
+            kinds[i] = RollBubbleKind();
+            if (kinds[i] == BubbleKind.Normal) containsNormal = true;
+            else containsSpecial = true;
+        }
+
+        // 出現音はバッチで1回だけ（特殊が混ざっていればスター音に統一）
+        if (BubbleSoundManager.Instance != null)
+        {
+            if (containsNormal)
+                BubbleSoundManager.Instance.PlayShotSound();
+            if (containsSpecial)
+                BubbleSoundManager.Instance.PlayStarShotSound();
+        }
         
         // 複数のシャボン玉を生成
         for (int i = 0; i < bubblesToCreate; i++)
@@ -173,7 +216,7 @@ public class BubbleMakerManager : MonoBehaviour
             );
             
             // シャボン玉生成
-            SpawnBubble(creator, adjustedOffset, direction, bubbleSpeed);
+            SpawnBubble(creator, adjustedOffset, direction, bubbleSpeed, kinds[i]);
         }
         
         // クールダウン開始
@@ -204,47 +247,14 @@ public class BubbleMakerManager : MonoBehaviour
     /// <summary>
     /// シャボン玉生成
     /// </summary>
-    private void SpawnBubble(Transform creator, Vector2 spawnOffset, Vector2 direction, float bubbleSpeed)
+    private void SpawnBubble(Transform creator, Vector2 spawnOffset, Vector2 direction, float bubbleSpeed, BubbleKind kind)
     {
         if (bubblePrefab != null)
         {
-            // 効果音を再生
-            float starChance = (starBubblePrefab != null) ? Mathf.Clamp01(starBubbleChance) : 0f;
-            float heartChance = (heartBubblePrefab != null) ? Mathf.Clamp01(heartBubbleChance) : 0f;
-            float noteChance = (noteBubblePrefab != null) ? Mathf.Clamp01(noteBubbleChance) : 0f;
-
-            heartChance = Mathf.Min(heartChance, 1f - starChance);
-            noteChance = Mathf.Min(noteChance, 1f - starChance - heartChance);
-            float roll = Random.value;
-
-            bool isStarBubble = roll < starChance;
-            bool isHeartBubble = !isStarBubble && roll < starChance + heartChance;
-            bool isNoteBubble = !isStarBubble && !isHeartBubble && roll < starChance + heartChance + noteChance;
-
             GameObject prefabToUse = bubblePrefab;
-            if (isStarBubble) prefabToUse = starBubblePrefab;
-            else if (isHeartBubble) prefabToUse = heartBubblePrefab;
-            else if (isNoteBubble) prefabToUse = noteBubblePrefab;
-
-            if (BubbleSoundManager.Instance != null)
-            {
-                if (isStarBubble)
-                {
-                    BubbleSoundManager.Instance.PlayStarShotSound();
-                }
-                else if (isHeartBubble)
-                {
-                    BubbleSoundManager.Instance.PlayHeartShotSound();
-                }
-                else if (isNoteBubble)
-                {
-                    BubbleSoundManager.Instance.PlayNoteShotSound();
-                }
-                else
-                {
-                    BubbleSoundManager.Instance.PlayShotSound();
-                }
-            }
+            if (kind == BubbleKind.Star && starBubblePrefab != null) prefabToUse = starBubblePrefab;
+            else if (kind == BubbleKind.Heart && heartBubblePrefab != null) prefabToUse = heartBubblePrefab;
+            else if (kind == BubbleKind.Note && noteBubblePrefab != null) prefabToUse = noteBubblePrefab;
             
             // 生成位置を計算
             Vector3 spawnPosition = creator.position + new Vector3(spawnOffset.x, spawnOffset.y, 0);
@@ -276,9 +286,9 @@ public class BubbleMakerManager : MonoBehaviour
             BubbleController bubbleController = bubble.GetComponent<BubbleController>();
             if (bubbleController != null)
             {
-                bubbleController.SetStarBubble(isStarBubble);
-                bubbleController.SetHeartBubble(isHeartBubble);
-                bubbleController.SetNoteBubble(isNoteBubble);
+                bubbleController.SetStarBubble(kind == BubbleKind.Star);
+                bubbleController.SetHeartBubble(kind == BubbleKind.Heart);
+                bubbleController.SetNoteBubble(kind == BubbleKind.Note);
             }
             
             Debug.Log($"シャボン玉を生成しました: 位置={spawnPosition}, 方向={direction}");
