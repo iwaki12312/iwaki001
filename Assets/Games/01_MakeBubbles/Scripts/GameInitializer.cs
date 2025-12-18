@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameInitializer : MonoBehaviour
 {
     [SerializeField] private GameObject bubblePrefab; // バブルプレハブの参照
+    [SerializeField] private GameObject starBubblePrefab; // 星入りバブルプレハブ
+    [SerializeField] [Range(0f, 1f)] private float starBubbleChance = 0.1f; // 星入り出現確率
     
     void Awake()
     {
@@ -115,6 +117,12 @@ public class GameInitializer : MonoBehaviour
         {
             BubbleMakerManager.Instance.SetBubblePrefab(bubblePrefab);
             Debug.Log("BubbleMakerManagerにバブルプレハブを設定しました");
+        }
+
+        if (BubbleMakerManager.Instance != null)
+        {
+            BubbleMakerManager.Instance.SetStarBubblePrefab(starBubblePrefab);
+            BubbleMakerManager.Instance.SetStarBubbleChance(starBubbleChance);
         }
     }
     

@@ -7,6 +7,8 @@ public class BubbleMakerManager : MonoBehaviour
 {
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private int maxBubbles = 10; // 最大シャボン玉数
+    [SerializeField] private GameObject starBubblePrefab;
+    [SerializeField] [Range(0f, 1f)] private float starBubbleChance = 0.1f; // 星入りシャボン玉の出現確率
     
     private bool isCreatingBubble = false; // 現在シャボン玉を作成中かどうか
     private float cooldownTimer = 0f; // クールダウンタイマー
@@ -174,14 +176,24 @@ public class BubbleMakerManager : MonoBehaviour
         if (bubblePrefab != null)
         {
             // 効果音を再生
+            bool isStarBubble = starBubblePrefab != null && Random.value < starBubbleChance;
+            GameObject prefabToUse = isStarBubble ? starBubblePrefab : bubblePrefab;
+
             if (BubbleSoundManager.Instance != null)
             {
-                BubbleSoundManager.Instance.PlayShotSound();
+                if (isStarBubble)
+                {
+                    BubbleSoundManager.Instance.PlayStarShotSound();
+                }
+                else
+                {
+                    BubbleSoundManager.Instance.PlayShotSound();
+                }
             }
             
             // 生成位置を計算
             Vector3 spawnPosition = creator.position + new Vector3(spawnOffset.x, spawnOffset.y, 0);
-            GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Quaternion.identity);
+            GameObject bubble = Instantiate(prefabToUse, spawnPosition, Quaternion.identity);
 
             // ランダムなサイズを設定
             float size = Random.Range(0.5f, 1.5f);
@@ -211,6 +223,12 @@ public class BubbleMakerManager : MonoBehaviour
                 ).normalized;
                 
                 rb.linearVelocity = randomizedDirection * bubbleSpeed * Random.Range(0.8f, 1.2f);
+            }
+
+            BubbleController bubbleController = bubble.GetComponent<BubbleController>();
+            if (bubbleController != null)
+            {
+                bubbleController.SetStarBubble(isStarBubble);
             }
             
             Debug.Log($"シャボン玉を生成しました: 位置={spawnPosition}, 方向={direction}");
@@ -243,5 +261,24 @@ public class BubbleMakerManager : MonoBehaviour
         {
             Debug.LogWarning("設定しようとしたバブルプレハブがnullです");
         }
+    }
+
+    public void SetStarBubblePrefab(GameObject prefab)
+    {
+        starBubblePrefab = prefab;
+        if (starBubblePrefab != null)
+        {
+            Debug.Log($"星入りバブルプレハブを設定しました: {starBubblePrefab.name}");
+        }
+        else
+        {
+            Debug.Log("星入りバブルプレハブが未設定です（星入りは出現しません）");
+        }
+    }
+
+    public void SetStarBubbleChance(float chance)
+    {
+        starBubbleChance = Mathf.Clamp01(chance);
+        Debug.Log($"星入りバブル出現確率を設定しました: {starBubbleChance:P0}");
     }
 }

@@ -420,7 +420,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -428,6 +427,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -528,6 +528,7 @@ GameObject:
   m_IsActive: 1
 --- !u!212 &560654930
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -546,6 +547,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -567,9 +570,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 5760202260919997367, guid: ed104f217c027f44897f10e59d900def, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -579,7 +584,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &560654931
 Transform:
@@ -783,6 +787,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b40ac18e92e7d5f4497816e32d3ce504, type: 3}
+--- !u!1 &1172817327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1172817329}
+  - component: {fileID: 1172817328}
+  m_Layer: 0
+  m_Name: BubbleSoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1172817328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172817327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef60c326f7dc8f94ab6df843e190677f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BubbleSoundManager
+  shotSound: {fileID: 8300000, guid: 1fd7b089988a79b4999d843b3af2356f, type: 3}
+  splashSound: {fileID: 8300000, guid: ceb78ba751e09de4aae473e1827671a8, type: 3}
+  starShotSound: {fileID: 8300000, guid: b85ce5a6e26b98f42a9e56f5a39e2edc, type: 3}
+  starSplashSound: {fileID: 8300000, guid: 049c8b9ae07a0ec4d904297eb5e3f109, type: 3}
+  shotVolume: 0.712
+  splashVolume: 1
+  starShotVolume: 1
+  starSplashVolume: 1
+--- !u!4 &1172817329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172817327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.02055, y: -0.56295, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1673062281 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1234567890123456789, guid: b9b06872f9d8b374c985f5f5b29c47a1, type: 3}
@@ -801,6 +857,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 2669154042050861876, guid: 60a08bec11d012e47b4fab9548f5c814, type: 3}
+  starBubblePrefab: {fileID: 2669154042050861876, guid: 2f358c7bd7c940d19c7bf4caa6c77d2b, type: 3}
+  starBubbleChance: 0.1
 --- !u!1001 &1840360549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -956,3 +1014,4 @@ SceneRoots:
   - {fileID: 633778744}
   - {fileID: 1923919826}
   - {fileID: 85543865}
+  - {fileID: 1172817329}

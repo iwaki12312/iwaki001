@@ -11,10 +11,14 @@ public class BubbleSoundManager : MonoBehaviour
     [Header("効果音")]
     [SerializeField] private AudioClip shotSound;    // シャボン玉発射音
     [SerializeField] private AudioClip splashSound;  // シャボン玉が割れる音
+    [SerializeField] private AudioClip starShotSound;    // 星入りシャボン玉発射音
+    [SerializeField] private AudioClip starSplashSound;  // 星入りシャボン玉が割れる音
     
     [Header("音量設定")]
     [SerializeField] [Range(0f, 1f)] private float shotVolume = 0.5f;
     [SerializeField] [Range(0f, 1f)] private float splashVolume = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float starShotVolume = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float starSplashVolume = 0.5f;
     
     // 効果音用AudioSource
     private AudioSource effectAudioSource;
@@ -100,6 +104,34 @@ public class BubbleSoundManager : MonoBehaviour
                 Debug.Log("シャボン玉が割れる音を読み込みました: " + splashSound.name);
             }
         }
+
+        // 星入りシャボン玉発射音の読み込み
+        if (starShotSound == null)
+        {
+            starShotSound = Resources.Load<AudioClip>("Games/MakeBubbles/Audio/StarShot");
+            if (starShotSound == null)
+            {
+                Debug.LogWarning("星入りシャボン玉発射音が見つかりません。インスペクタで直接設定してください。");
+            }
+            else
+            {
+                Debug.Log("星入りシャボン玉発射音を読み込みました: " + starShotSound.name);
+            }
+        }
+
+        // 星入りシャボン玉が割れる音の読み込み
+        if (starSplashSound == null)
+        {
+            starSplashSound = Resources.Load<AudioClip>("Games/MakeBubbles/Audio/StarSplash");
+            if (starSplashSound == null)
+            {
+                Debug.LogWarning("星入りシャボン玉が割れる音が見つかりません。インスペクタで直接設定してください。");
+            }
+            else
+            {
+                Debug.Log("星入りシャボン玉が割れる音を読み込みました: " + starSplashSound.name);
+            }
+        }
     }
     
     /// <summary>
@@ -116,6 +148,18 @@ public class BubbleSoundManager : MonoBehaviour
             Debug.LogWarning("シャボン玉発射音が設定されていません");
         }
     }
+
+    public void PlayStarShotSound()
+    {
+        if (starShotSound != null)
+        {
+            effectAudioSource.PlayOneShot(starShotSound, starShotVolume);
+        }
+        else
+        {
+            Debug.LogWarning("星入りシャボン玉発射音が設定されていません");
+        }
+    }
     
     /// <summary>
     /// シャボン玉が割れる音を再生
@@ -129,6 +173,18 @@ public class BubbleSoundManager : MonoBehaviour
         else
         {
             Debug.LogWarning("シャボン玉が割れる音が設定されていません");
+        }
+    }
+
+    public void PlayStarSplashSound()
+    {
+        if (starSplashSound != null)
+        {
+            effectAudioSource.PlayOneShot(starSplashSound, starSplashVolume);
+        }
+        else
+        {
+            Debug.LogWarning("星入りシャボン玉が割れる音が設定されていません");
         }
     }
     

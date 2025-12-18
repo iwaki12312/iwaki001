@@ -7,6 +7,18 @@ public class BubbleController : MonoBehaviour
     [Header("基本設定")]
     [SerializeField] private float destroyDelay = 0.1f;
     [SerializeField] private GameObject bubbleSplashAnimPrefab;
+    [SerializeField] private bool isStarBubble = false;
+
+    [Header("Star Burst")]
+    [SerializeField] private Sprite starBurstSprite;
+    [SerializeField] private int starBurstCountMin = 6;
+    [SerializeField] private int starBurstCountMax = 8;
+    [SerializeField] private float starBurstSpeedMin = 2.0f;
+    [SerializeField] private float starBurstSpeedMax = 4.0f;
+    [SerializeField] private float starBurstLifetime = 0.7f;
+    [SerializeField] private float starBurstAngularSpeedMin = -360f;
+    [SerializeField] private float starBurstAngularSpeedMax = 360f;
+    [SerializeField] private float starBurstScaleMultiplier = 0.6f;
 
     [Header("移動設定")]
     [SerializeField] private float minSpeed = 0.3f;
@@ -97,11 +109,80 @@ public class BubbleController : MonoBehaviour
         CreateBubbleSplashEffect();
 
         if (BubbleSoundManager.Instance != null)
-            BubbleSoundManager.Instance.PlaySplashSound();
+        {
+            if (isStarBubble)
+                BubbleSoundManager.Instance.PlayStarSplashSound();
+            else
+                BubbleSoundManager.Instance.PlaySplashSound();
+        }
         else
             Debug.LogWarning("BubbleSoundManager が見つかりません。効果音が再生されません。");
 
+        if (isStarBubble)
+        {
+            SpawnStarBurst();
+        }
+
         Destroy(gameObject, destroyDelay);
+    }
+
+    public void SetStarBubble(bool isStar)
+    {
+        isStarBubble = isStar;
+    }
+
+    private void SpawnStarBurst()
+    {
+        if (starBurstSprite == null)
+        {
+            Debug.LogWarning("StarBurstSprite が未設定のため、星バースト演出をスキップします。");
+            return;
+        }
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        Color burstColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
+
+        int countMin = Mathf.Max(1, starBurstCountMin);
+        int countMax = Mathf.Max(countMin, starBurstCountMax);
+        int starCount = Random.Range(countMin, countMax + 1);
+
+        float speedMin = Mathf.Max(0f, starBurstSpeedMin);
+        float speedMax = Mathf.Max(speedMin, starBurstSpeedMax);
+
+        float lifetime = Mathf.Max(0.01f, starBurstLifetime);
+
+        float scaleMultiplier = Mathf.Max(0.01f, starBurstScaleMultiplier);
+        Vector3 starScale = transform.localScale * scaleMultiplier;
+
+        int sortingLayerId = spriteRenderer != null ? spriteRenderer.sortingLayerID : 0;
+        int sortingOrder = spriteRenderer != null ? spriteRenderer.sortingOrder + 1 : 1;
+
+        for (int i = 0; i < starCount; i++)
+        {
+            Vector2 direction = Random.insideUnitCircle;
+            if (direction == Vector2.zero) direction = Vector2.right;
+            direction.Normalize();
+
+            float speed = Random.Range(speedMin, speedMax);
+            float angularSpeed = Random.Range(starBurstAngularSpeedMin, starBurstAngularSpeedMax);
+
+            GameObject starObj = new GameObject("StarPiece");
+            starObj.transform.position = transform.position;
+            starObj.transform.localScale = starScale;
+
+            SpriteRenderer starRenderer = starObj.AddComponent<SpriteRenderer>();
+            starRenderer.sprite = starBurstSprite;
+            starRenderer.color = burstColor;
+            starRenderer.sortingLayerID = sortingLayerId;
+            starRenderer.sortingOrder = sortingOrder;
+
+            StarPieceController controller = starObj.AddComponent<StarPieceController>();
+            controller.Initialize(direction * speed, angularSpeed, lifetime, burstColor);
+        }
     }
 
     /* -------- 画面座標 pos がこのバブルに当たったか？ -------- */
