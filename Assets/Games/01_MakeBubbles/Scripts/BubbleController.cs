@@ -106,7 +106,10 @@ public class BubbleController : MonoBehaviour
     /* -------- Bubble を割る本処理（旧 OnMouseDown の中身） -------- */
     void Burst()
     {
-        CreateBubbleSplashEffect();
+        if (!isStarBubble)
+        {
+            CreateBubbleSplashEffect();
+        }
 
         if (BubbleSoundManager.Instance != null)
         {
