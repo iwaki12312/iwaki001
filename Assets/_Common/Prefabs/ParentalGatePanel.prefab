@@ -3869,7 +3869,6 @@ GameObject:
   - component: {fileID: 7609040488474375167}
   - component: {fileID: 1672144071196980056}
   - component: {fileID: 5493399699644833816}
-  - component: {fileID: 6388002717979227295}
   m_Layer: 5
   m_Name: ParentalGatePanel
   m_TagString: Untagged
@@ -3944,26 +3943,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6388002717979227295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7209919431896353966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 727253d8d0da1de438e4ec49769e48bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gatePanel: {fileID: 7209919431896353966}
-  questionText: {fileID: 5348345666980367327}
-  answerInput: {fileID: 6900066007442384271}
-  submitButton: {fileID: 3320549456888209465}
-  cancelButton: {fileID: 1133820762233295257}
-  errorText: {fileID: 3432745819690441988}
-  numberPad: {fileID: 0}
-  autoHideErrorDelay: 3
 --- !u!1 &7692750060528385539
 GameObject:
   m_ObjectHideFlags: 0
