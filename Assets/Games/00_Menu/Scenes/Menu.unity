@@ -1539,7 +1539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entitlementStorePrefab: {fileID: 0}
   purchaseServicePrefab: {fileID: 0}
-  paywallPrefab: {fileID: 1250803595}
+  purchaseContentPanelPrefab: {fileID: 1250803595}
   autoInitializeOnStart: 1
   initializationTimeout: 30
 --- !u!4 &853009164

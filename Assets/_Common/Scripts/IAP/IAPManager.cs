@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 namespace WakuWaku.IAP
 {
@@ -11,7 +12,8 @@ namespace WakuWaku.IAP
         [Header("Prefab References")]
         [SerializeField] private GameObject entitlementStorePrefab;
         [SerializeField] private GameObject purchaseServicePrefab;
-        [SerializeField] private GameObject paywallPrefab;
+[FormerlySerializedAs("paywallPrefab")]
+[SerializeField] private GameObject purchaseContentPanelPrefab;
 
         [Header("Settings")]
         [SerializeField] private bool autoInitializeOnStart = true;
@@ -165,13 +167,13 @@ namespace WakuWaku.IAP
             // Paywallの初期化（親ゲート機能も含む）
             if (Paywall.Instance == null)
             {
-                if (paywallPrefab != null)
+                if (purchaseContentPanelPrefab != null)
                 {
-                    Instantiate(paywallPrefab);
+                    Instantiate(purchaseContentPanelPrefab);
                 }
                 else
                 {
-                    Debug.LogWarning("[IAPManager] Paywall Prefabが設定されていません");
+                    Debug.LogWarning("[IAPManager] PurchaseContentPanel Prefabが設定されていません");
                 }
             }
 

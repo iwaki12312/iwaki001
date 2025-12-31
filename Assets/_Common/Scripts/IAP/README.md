@@ -37,7 +37,7 @@
 
 ### 3. UI Prefabの作成（必要に応じて）
 以下のPrefabを作成してIAPManagerに設定：
-- Paywall Prefab（購入画面と親ゲートを統合したUI）
+- PurchaseContentPanel Prefab（購入画面と親ゲートを統合したUI。Paywallが制御）
 
 ## Product ID設定
 
