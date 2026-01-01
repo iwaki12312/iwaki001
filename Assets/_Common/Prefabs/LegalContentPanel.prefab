@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 1293223897175122505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1681129462342234255}
@@ -114,27 +114,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1293223897175122505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99cdac8bacef794da3849c9cec263af, type: 3}
+  m_Script: {fileID: 11500000, guid: ecfccbf9264d4e89aab031ba624e8fbc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WakuWaku.IAP.Paywall
-  purchaseContentPanel: {fileID: 1293223897175122505}
-  closeButton: {fileID: 8965032681034192690}
-  purchaseContent: {fileID: 7952410985680446534}
-  title: {fileID: 0}
-  description: {fileID: 0}
-  price: {fileID: 0}
-  purchaseButton: {fileID: 4551099590630003702}
-  restoreButton: {fileID: 0}
-  statusText: {fileID: 0}
-  parentalGateContent: {fileID: 0}
-  parentalGateTitle: {fileID: 0}
-  instruction: {fileID: 0}
-  question: {fileID: 0}
-  answerInputField: {fileID: 0}
-  submitButton: {fileID: 0}
-  errorText: {fileID: 0}
-  numberPad: {fileID: 0}
-  autoHideErrorDelay: 3
+  m_EditorClassIdentifier: Assembly-CSharp::WakuWaku.IAP.LegalContentPanel
+  closeButton: {fileID: 0}
+  termsOfServiceButton: {fileID: 0}
+  privacyPolicyButton: {fileID: 0}
+  legalNoticeButton: {fileID: 0}
+  contactButton: {fileID: 0}
+  termsOfServiceUrl: 
+  privacyPolicyUrl: 
+  legalNoticeUrl: 
+  contactUrl: 
+  hideAfterOpenUrl: 0
+  startHidden: 1
 --- !u!1 &1494547604901837582
 GameObject:
   m_ObjectHideFlags: 0

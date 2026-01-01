@@ -1714,6 +1714,7 @@ GameObject:
   - component: {fileID: 1263073208}
   - component: {fileID: 1263073207}
   - component: {fileID: 1263073206}
+  - component: {fileID: 1263073209}
   m_Layer: 5
   m_Name: ParentalMenuButton
   m_TagString: Untagged
@@ -1823,6 +1824,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263073204}
   m_CullTransparentMesh: 1
+--- !u!114 &1263073209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263073204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85fe20a82c34233ad4a88ce3487d0e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParentalMenuLongPressButton
+  holdSeconds: 2
+  progressFillImage: {fileID: 0}
+  progressColor: {r: 1, g: 0.6, b: 0.1, a: 0.9}
+  progressHeight: 10
+  useUnscaledTime: 1
 --- !u!4 &1279575459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4449540662302241859, guid: 07c81e62e9922794cb3d11f6508e07e5, type: 3}
@@ -2729,12 +2747,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3458024738534683090, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: contactUrl
+      value: https://sites.google.com/rex10lab.com/rex10lab/wakuwaku-touch/contact
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458024738534683090, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
       propertyPath: statusText
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3458024738534683090, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
       propertyPath: description
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458024738534683090, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: legalNoticeUrl
+      value: https://sites.google.com/rex10lab.com/rex10lab/wakuwaku-touch/tokushoho
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458024738534683090, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: privacyPolicyUrl
+      value: https://sites.google.com/rex10lab.com/rex10lab/wakuwaku-touch/privacy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458024738534683090, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: termsOfServiceUrl
+      value: https://sites.google.com/rex10lab.com/rex10lab/wakuwaku-touch/terms
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

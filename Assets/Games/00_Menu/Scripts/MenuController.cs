@@ -305,6 +305,12 @@ public class GameButton : MonoBehaviour
         {
             return true;
         }
+
+        // 保護者向けメニュー（法務リンク）表示中
+        if (LegalContentPanel.IsShowingAny)
+        {
+            return true;
+        }
         
         return false;
     }
