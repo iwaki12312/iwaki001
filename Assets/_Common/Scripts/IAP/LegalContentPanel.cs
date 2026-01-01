@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -18,6 +20,9 @@ namespace WakuWaku.IAP
         [SerializeField] private Button contactButton;
         [SerializeField] private Button restoreButton;
 
+        [Header("Status (optional, auto-found by name if empty)")]
+        [SerializeField] private TMP_Text statusText;
+
         [Header("URLs")]
         [SerializeField] private string termsOfServiceUrl;
         [SerializeField] private string privacyPolicyUrl;
@@ -27,6 +32,7 @@ namespace WakuWaku.IAP
         [Header("Behavior")]
         [SerializeField] private bool hideAfterOpenUrl = false;
         [SerializeField] private bool startHidden = true;
+        [SerializeField] private bool clearStatusOnShow = true;
 
         private bool isWired;
         private bool isRestoring;
@@ -34,6 +40,7 @@ namespace WakuWaku.IAP
         private bool restoreButtonOriginalInteractable;
         private bool restoreButtonOriginalStateCaptured;
         private Coroutine restoreFeedbackCoroutine;
+        private Coroutine statusFeedbackCoroutine;
 
         private void Awake()
         {
@@ -73,6 +80,7 @@ namespace WakuWaku.IAP
                 IsShowingAny = false;
             }
 
+            ClearStatus();
             ResetRestoreButtonVisuals();
         }
 
@@ -96,6 +104,10 @@ namespace WakuWaku.IAP
             }
 
             WireIfNeeded();
+            if (clearStatusOnShow)
+            {
+                ClearStatus();
+            }
         }
 
         public void Hide()
@@ -180,17 +192,89 @@ namespace WakuWaku.IAP
 
             if (PurchaseService.Instance == null || !PurchaseService.Instance.IsInitialized)
             {
-                StartRestoreFeedback(button, "購入サービス準備中…", 1.5f, keepDisabled: false);
+                if (statusText != null)
+                {
+                    SetStatus("購入情報を取得できませんでした。しばらくしてからもう一度お試しください。");
+                }
+                else
+                {
+                    StartRestoreFeedback(button, "復元できません", 1.5f, keepDisabled: false);
+                }
                 return;
             }
 
+            if (EntitlementStore.Instance == null)
+            {
+                if (statusText != null)
+                {
+                    SetStatus("購入状態を確認できませんでした。しばらくしてからもう一度お試しください。");
+                }
+                else
+                {
+                    StartRestoreFeedback(button, "復元できません", 1.5f, keepDisabled: false);
+                }
+                return;
+            }
+
+            var ownedBefore = EntitlementStore.Instance.GetOwnedPacks();
+
             isRestoring = true;
-            StartRestoreFeedback(button, "復元中…", 0f, keepDisabled: true);
+            if (statusText != null)
+            {
+                if (button != null) button.interactable = false;
+                SetStatus("復元中…");
+            }
+            else
+            {
+                StartRestoreFeedback(button, "復元中…", 0f, keepDisabled: true);
+            }
 
             PurchaseService.Instance.RestorePurchases(() =>
             {
                 isRestoring = false;
-                StartRestoreFeedback(button, "復元しました", 1.5f, keepDisabled: false);
+
+                var ownedAfter = EntitlementStore.Instance != null
+                    ? EntitlementStore.Instance.GetOwnedPacks()
+                    : null;
+
+                var canCompare = ownedAfter != null;
+                var changed = canCompare && !ownedBefore.SetEquals(ownedAfter);
+
+                if (statusText != null)
+                {
+                    if (button != null)
+                    {
+                        button.interactable = restoreButtonOriginalStateCaptured ? restoreButtonOriginalInteractable : true;
+                    }
+
+                    if (!canCompare)
+                    {
+                        SetStatus("購入状態を確認できませんでした。しばらくしてからもう一度お試しください。");
+                    }
+                    else if (changed)
+                    {
+                        SetStatus("購入状態を\n更新しました。");
+                    }
+                    else
+                    {
+                        SetStatus("購入状態は\n最新です。");
+                    }
+                }
+                else
+                {
+                    if (!canCompare)
+                    {
+                        StartRestoreFeedback(button, "復元できません", 1.5f, keepDisabled: false);
+                    }
+                    else if (changed)
+                    {
+                        StartRestoreFeedback(button, "更新しました", 1.5f, keepDisabled: false);
+                    }
+                    else
+                    {
+                        StartRestoreFeedback(button, "最新です", 1.5f, keepDisabled: false);
+                    }
+                }
             });
         }
 
@@ -218,6 +302,7 @@ namespace WakuWaku.IAP
             legalNoticeButton ??= FindButtonByName("Btn_LegalNotice");
             contactButton ??= FindButtonByName("Btn_Contact");
             restoreButton ??= FindButtonByName("Btn_Restore");
+            statusText ??= FindTMPTextByName("StatusText");
         }
 
         private Button FindButtonByName(string objectName)
@@ -256,7 +341,7 @@ namespace WakuWaku.IAP
             restoreFeedbackCoroutine = StartCoroutine(RestoreFeedbackCoroutine(button, temporaryText, seconds, keepDisabled));
         }
 
-        private System.Collections.IEnumerator RestoreFeedbackCoroutine(Button button, string temporaryText, float seconds, bool keepDisabled)
+        private IEnumerator RestoreFeedbackCoroutine(Button button, string temporaryText, float seconds, bool keepDisabled)
         {
             if (button == null) yield break;
 
@@ -272,6 +357,45 @@ namespace WakuWaku.IAP
             SetButtonLabelText(button, string.IsNullOrEmpty(restoreButtonOriginalText) ? previousText : restoreButtonOriginalText);
 
             restoreFeedbackCoroutine = null;
+        }
+
+        private void SetStatus(string message, float autoHideSeconds = 0f)
+        {
+            if (statusText == null) return;
+
+            statusText.text = message ?? string.Empty;
+            statusText.gameObject.SetActive(!string.IsNullOrEmpty(message));
+
+            if (statusFeedbackCoroutine != null)
+            {
+                StopCoroutine(statusFeedbackCoroutine);
+                statusFeedbackCoroutine = null;
+            }
+
+            if (autoHideSeconds > 0f)
+            {
+                statusFeedbackCoroutine = StartCoroutine(AutoHideStatusCoroutine(autoHideSeconds));
+            }
+        }
+
+        private void ClearStatus()
+        {
+            if (statusFeedbackCoroutine != null)
+            {
+                StopCoroutine(statusFeedbackCoroutine);
+                statusFeedbackCoroutine = null;
+            }
+
+            if (statusText == null) return;
+
+            statusText.text = string.Empty;
+            statusText.gameObject.SetActive(false);
+        }
+
+        private IEnumerator AutoHideStatusCoroutine(float seconds)
+        {
+            yield return new WaitForSecondsRealtime(seconds);
+            ClearStatus();
         }
 
         private void ResetRestoreButtonVisuals()
@@ -302,6 +426,19 @@ namespace WakuWaku.IAP
 
             var legacy = button.GetComponentInChildren<Text>(true);
             if (legacy != null) return legacy.text;
+
+            return null;
+        }
+
+        private TMP_Text FindTMPTextByName(string objectName)
+        {
+            foreach (var text in GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (text != null && text.name == objectName)
+                {
+                    return text;
+                }
+            }
 
             return null;
         }

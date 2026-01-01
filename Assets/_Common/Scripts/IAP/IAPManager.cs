@@ -263,6 +263,19 @@ namespace WakuWaku.IAP
         }
 
         /// <summary>
+        /// デバッグ用：Pack1を剥奪（ロック状態に戻す）
+        /// </summary>
+        [ContextMenu("Debug Revoke Pack 01")]
+        public void DebugRevokePack01()
+        {
+            if (EntitlementStore.Instance != null)
+            {
+                EntitlementStore.Instance.RevokePack("pack_01");
+                Debug.Log("[IAPManager] デバッグ：Pack01を剥奪しました");
+            }
+        }
+
+        /// <summary>
         /// デバッグ用：アクセス状況を表示
         /// </summary>
         [ContextMenu("Debug Print Access Status")]
