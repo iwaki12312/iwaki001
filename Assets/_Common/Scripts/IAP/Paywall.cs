@@ -408,7 +408,7 @@ namespace WakuWaku.IAP
             
             if (description != null)
             {
-                description.text = "ゲームパックの購入が完了しました！";
+                description.text = "ゲームパックの購入が完了しました。\n「×」ボタンを押して\nメニューに戻ります。";
             }
             
             // statusTextを直接表示
