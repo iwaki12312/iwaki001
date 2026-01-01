@@ -1205,6 +1205,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1099088238390101924, guid: 07344fdf78e43ee4e81f0fe8f9a88faf, type: 2}
+    - target: {fileID: 404405177998753064, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 440923031820849695, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_Color.b
       value: 0.3443396
@@ -1315,7 +1319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359364068669233716, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 512.7277
+      value: 1131.3843
       objectReference: {fileID: 0}
     - target: {fileID: 1359364068669233716, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1323,7 +1327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359364068669233716, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 87.491
+      value: 79
       objectReference: {fileID: 0}
     - target: {fileID: 1359364068669233716, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1500,6 +1504,14 @@ PrefabInstance:
     - target: {fileID: 3007047258012300981, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_fontSizeBase
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007047258012300981, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007047258012300981, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3105238242464903425, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1940,6 +1952,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1125839613740869493, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
+    - {fileID: 404405177998753064, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddf05451c3a8ad849ae9b85c1cd6f8ea, type: 3}
