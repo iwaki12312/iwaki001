@@ -803,7 +803,7 @@ namespace WakuWaku.IAP
                 else
                 {
                     Debug.Log($"[Paywall] 不正解: 入力={userAnswer}, 正解={correctAnswer}");
-                    ShowError("答えが間違っています");
+                    ShowError("答えが\n間違っています");
                     
                     // 不正解の場合は新しい問題を生成
                     GenerateQuestion();
