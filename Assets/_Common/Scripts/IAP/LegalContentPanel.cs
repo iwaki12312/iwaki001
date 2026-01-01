@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace WakuWaku.IAP
 {
@@ -15,6 +16,7 @@ namespace WakuWaku.IAP
         [SerializeField] private Button privacyPolicyButton;
         [SerializeField] private Button legalNoticeButton;
         [SerializeField] private Button contactButton;
+        [SerializeField] private Button restoreButton;
 
         [Header("URLs")]
         [SerializeField] private string termsOfServiceUrl;
@@ -27,6 +29,11 @@ namespace WakuWaku.IAP
         [SerializeField] private bool startHidden = true;
 
         private bool isWired;
+        private bool isRestoring;
+        private string restoreButtonOriginalText;
+        private bool restoreButtonOriginalInteractable;
+        private bool restoreButtonOriginalStateCaptured;
+        private Coroutine restoreFeedbackCoroutine;
 
         private void Awake()
         {
@@ -65,6 +72,8 @@ namespace WakuWaku.IAP
             {
                 IsShowingAny = false;
             }
+
+            ResetRestoreButtonVisuals();
         }
 
         public static void ShowMenu()
@@ -128,6 +137,8 @@ namespace WakuWaku.IAP
             WireOpenUrl(privacyPolicyButton, () => privacyPolicyUrl);
             WireOpenUrl(legalNoticeButton, () => legalNoticeUrl);
             WireOpenUrl(contactButton, () => contactUrl);
+
+            WireRestorePurchases(restoreButton);
         }
 
         private void WireOpenUrl(Button button, Func<string> urlGetter)
@@ -141,6 +152,46 @@ namespace WakuWaku.IAP
 
             button.onClick.RemoveListener(Handler);
             button.onClick.AddListener(Handler);
+        }
+
+        private void WireRestorePurchases(Button button)
+        {
+            if (button == null) return;
+
+            if (!restoreButtonOriginalStateCaptured)
+            {
+                restoreButtonOriginalInteractable = button.interactable;
+                restoreButtonOriginalText = GetButtonLabelText(button);
+                restoreButtonOriginalStateCaptured = true;
+            }
+
+            void Handler()
+            {
+                OnRestoreClicked(button);
+            }
+
+            button.onClick.RemoveListener(Handler);
+            button.onClick.AddListener(Handler);
+        }
+
+        private void OnRestoreClicked(Button button)
+        {
+            if (isRestoring) return;
+
+            if (PurchaseService.Instance == null || !PurchaseService.Instance.IsInitialized)
+            {
+                StartRestoreFeedback(button, "購入サービス準備中…", 1.5f, keepDisabled: false);
+                return;
+            }
+
+            isRestoring = true;
+            StartRestoreFeedback(button, "復元中…", 0f, keepDisabled: true);
+
+            PurchaseService.Instance.RestorePurchases(() =>
+            {
+                isRestoring = false;
+                StartRestoreFeedback(button, "復元しました", 1.5f, keepDisabled: false);
+            });
         }
 
         private void OpenUrl(string url)
@@ -166,6 +217,7 @@ namespace WakuWaku.IAP
             privacyPolicyButton ??= FindButtonByName("Btn_PrivacyPolicy");
             legalNoticeButton ??= FindButtonByName("Btn_LegalNotice");
             contactButton ??= FindButtonByName("Btn_Contact");
+            restoreButton ??= FindButtonByName("Btn_Restore");
         }
 
         private Button FindButtonByName(string objectName)
@@ -179,6 +231,97 @@ namespace WakuWaku.IAP
             }
 
             return null;
+        }
+
+        private void StartRestoreFeedback(Button button, string temporaryText, float seconds, bool keepDisabled)
+        {
+            if (button == null) return;
+
+            if (restoreFeedbackCoroutine != null)
+            {
+                StopCoroutine(restoreFeedbackCoroutine);
+                restoreFeedbackCoroutine = null;
+            }
+
+            if (seconds <= 0f)
+            {
+                if (keepDisabled)
+                {
+                    button.interactable = false;
+                }
+                SetButtonLabelText(button, temporaryText);
+                return;
+            }
+
+            restoreFeedbackCoroutine = StartCoroutine(RestoreFeedbackCoroutine(button, temporaryText, seconds, keepDisabled));
+        }
+
+        private System.Collections.IEnumerator RestoreFeedbackCoroutine(Button button, string temporaryText, float seconds, bool keepDisabled)
+        {
+            if (button == null) yield break;
+
+            var previousInteractable = button.interactable;
+            var previousText = GetButtonLabelText(button);
+
+            button.interactable = keepDisabled ? false : previousInteractable;
+            SetButtonLabelText(button, temporaryText);
+
+            yield return new WaitForSecondsRealtime(seconds);
+
+            button.interactable = previousInteractable;
+            SetButtonLabelText(button, string.IsNullOrEmpty(restoreButtonOriginalText) ? previousText : restoreButtonOriginalText);
+
+            restoreFeedbackCoroutine = null;
+        }
+
+        private void ResetRestoreButtonVisuals()
+        {
+            isRestoring = false;
+
+            if (restoreFeedbackCoroutine != null)
+            {
+                StopCoroutine(restoreFeedbackCoroutine);
+                restoreFeedbackCoroutine = null;
+            }
+
+            if (restoreButton == null) return;
+
+            restoreButton.interactable = restoreButtonOriginalStateCaptured ? restoreButtonOriginalInteractable : true;
+            if (!string.IsNullOrEmpty(restoreButtonOriginalText))
+            {
+                SetButtonLabelText(restoreButton, restoreButtonOriginalText);
+            }
+        }
+
+        private string GetButtonLabelText(Button button)
+        {
+            if (button == null) return null;
+
+            var tmp = button.GetComponentInChildren<TMP_Text>(true);
+            if (tmp != null) return tmp.text;
+
+            var legacy = button.GetComponentInChildren<Text>(true);
+            if (legacy != null) return legacy.text;
+
+            return null;
+        }
+
+        private void SetButtonLabelText(Button button, string text)
+        {
+            if (button == null) return;
+
+            var tmp = button.GetComponentInChildren<TMP_Text>(true);
+            if (tmp != null)
+            {
+                tmp.text = text;
+                return;
+            }
+
+            var legacy = button.GetComponentInChildren<Text>(true);
+            if (legacy != null)
+            {
+                legacy.text = text;
+            }
         }
     }
 }
