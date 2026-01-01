@@ -2514,6 +2514,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 853009164}
     m_Modifications:
+    - target: {fileID: 1017931828297302546, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017931828297302546, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017931828297302546, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 1293223897175122505, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
       propertyPath: m_Name
       value: PurchaseContentPanel
@@ -2810,6 +2822,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8392684977018676247, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1730.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392684977018676247, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00034237
+      objectReference: {fileID: 0}
     - target: {fileID: 8655751188363274585, guid: 9d1c2a792262ae74aa88c2e2e168e3c6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2927,6 +2947,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 853009164}
     m_Modifications:
+    - target: {fileID: 1017931828297302546, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017931828297302546, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017931828297302546, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 1293223897175122505, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
       propertyPath: m_Name
       value: LegalContentPanel
@@ -3078,6 +3110,14 @@ PrefabInstance:
     - target: {fileID: 8349646043015682203, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -522
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392684977018676247, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1730.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392684977018676247, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00034237
       objectReference: {fileID: 0}
     - target: {fileID: 8826134016541987497, guid: c70e2f088db0fcd41a6081bbc7573cda, type: 3}
       propertyPath: m_AnchoredPosition.y
