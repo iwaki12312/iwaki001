@@ -1838,8 +1838,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ParentalMenuLongPressButton
   holdSeconds: 2
   progressFillImage: {fileID: 0}
-  progressColor: {r: 1, g: 0.6, b: 0.1, a: 0.9}
+  progressBackgroundImage: {fileID: 0}
+  progressColor: {r: 1, g: 1, b: 1, a: 0.9}
+  progressBackgroundColor: {r: 0, g: 0, b: 0, a: 0.25}
   progressHeight: 10
+  disableChildRaycastTargets: 1
   useUnscaledTime: 1
 --- !u!4 &1279575459 stripped
 Transform:

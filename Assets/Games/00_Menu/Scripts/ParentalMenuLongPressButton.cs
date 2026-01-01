@@ -76,14 +76,25 @@ public class ParentalMenuLongPressButton : MonoBehaviour, IPointerDownHandler, I
     {
         if (progressFillImage != null)
         {
-            progressFillImage.sprite ??= Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+            var baseSprite = GetBaseSprite();
+            progressFillImage.sprite ??= baseSprite;
+            if (progressBackgroundImage != null)
+            {
+                progressBackgroundImage.sprite ??= baseSprite;
+            }
             return;
         }
+
+        var baseSpriteForExisting = GetBaseSprite();
 
         var bgTransform = transform.Find("HoldProgressBG");
         if (bgTransform != null)
         {
             progressBackgroundImage = bgTransform.GetComponent<Image>();
+            if (progressBackgroundImage != null)
+            {
+                progressBackgroundImage.sprite ??= baseSpriteForExisting;
+            }
         }
 
         var fillTransform = transform.Find("HoldProgressFill");
@@ -92,7 +103,7 @@ public class ParentalMenuLongPressButton : MonoBehaviour, IPointerDownHandler, I
             progressFillImage = fillTransform.GetComponent<Image>();
             if (progressFillImage != null)
             {
-                progressFillImage.sprite ??= Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+                progressFillImage.sprite ??= baseSpriteForExisting;
                 return;
             }
         }
@@ -110,7 +121,7 @@ public class ParentalMenuLongPressButton : MonoBehaviour, IPointerDownHandler, I
         progressBackgroundImage = holdBg.GetComponent<Image>();
         progressBackgroundImage.raycastTarget = false;
         progressBackgroundImage.color = progressBackgroundColor;
-        progressBackgroundImage.sprite ??= Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+        progressBackgroundImage.sprite ??= baseSpriteForExisting;
         progressBackgroundImage.type = Image.Type.Sliced;
 
         var holdFill = new GameObject("HoldProgressFill", typeof(RectTransform), typeof(Image));
@@ -126,11 +137,25 @@ public class ParentalMenuLongPressButton : MonoBehaviour, IPointerDownHandler, I
         progressFillImage = holdFill.GetComponent<Image>();
         progressFillImage.raycastTarget = false;
         progressFillImage.color = progressColor;
-        progressFillImage.sprite ??= Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+        progressFillImage.sprite ??= baseSpriteForExisting;
         progressFillImage.type = Image.Type.Filled;
         progressFillImage.fillMethod = Image.FillMethod.Horizontal;
         progressFillImage.fillOrigin = 0;
         progressFillImage.fillAmount = 0f;
+    }
+
+    private Sprite GetBaseSprite()
+    {
+        var image = GetComponent<Image>();
+        if (image != null && image.sprite != null) return image.sprite;
+
+        var button = GetComponent<Button>();
+        if (button != null && button.targetGraphic is Image targetImage && targetImage.sprite != null)
+        {
+            return targetImage.sprite;
+        }
+
+        return Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
     }
 
     private void DisableChildRaycastTargets()
