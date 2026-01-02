@@ -126,6 +126,27 @@ namespace WakuWaku.IAP
             Debug.Log("[PurchaseService] 購入復元開始");
             
             // Androidでは自動的に復元されるため、手動で既存の購入をチェック（返金チェック含む）
+
+#if UNITY_ANDROID
+            if (Application.internetReachability != NetworkReachability.NotReachable && storeExtensionProvider != null)
+            {
+                var googleExtensions = storeExtensionProvider.GetExtension<IGooglePlayStoreExtensions>();
+                if (googleExtensions != null)
+                {
+                    googleExtensions.RestoreTransactions((success, error) =>
+                    {
+                        if (!success)
+                        {
+                            Debug.LogWarning($"[PurchaseService] RestoreTransactions failed: {error}");
+                        }
+                        ValidateAndGrantPurchases();
+                        Debug.Log("[PurchaseService] 購入復元完了");
+                        currentOnRestoreCompleted?.Invoke();
+                    });
+                    return;
+                }
+            }
+#endif
             ValidateAndGrantPurchases();
             
             Debug.Log("[PurchaseService] 購入復元完了");
@@ -187,61 +208,62 @@ namespace WakuWaku.IAP
                 Application.identifier
             );
             
-            int grantedCount = 0;
-            int revokedCount = 0;
-            
-            // すべての商品をチェック
+            var validPackIds = new HashSet<string>();
+
             foreach (var product in storeController.products.all)
             {
-                if (product.hasReceipt)
+                var productInfo = GetProductInfoByProductId(product.definition.id);
+                if (productInfo == null)
+                    continue;
+
+                if (!product.hasReceipt)
+                    continue;
+
+                try
                 {
-                    var productInfo = GetProductInfoByProductId(product.definition.id);
-                    if (productInfo == null)
-                        continue;
-                    
-                    try
+                    var result = validator.Validate(product.receipt);
+
+                    foreach (IPurchaseReceipt receipt in result)
                     {
-                        // レシートを検証（改ざんチェック）
-                        var result = validator.Validate(product.receipt);
-                        
-                        // Google Playのレシート情報を取得
-                        foreach (IPurchaseReceipt receipt in result)
+                        GooglePlayReceipt googleReceipt = receipt as GooglePlayReceipt;
+                        if (googleReceipt == null)
+                            continue;
+
+                        if (googleReceipt.purchaseState == GooglePurchaseState.Purchased)
                         {
-                            GooglePlayReceipt googleReceipt = receipt as GooglePlayReceipt;
-                            if (googleReceipt != null)
-                            {
-                                // 購入状態をチェック
-                                // 0 = Purchased（購入済み）
-                                // 1 = Cancelled（キャンセル）
-                                // 2 = Refunded（返金済み）
-                                if (googleReceipt.purchaseState == GooglePurchaseState.Purchased)
-                                {
-                                    // 正常な購入 → パックを付与
-                                    EntitlementStore.Instance.GrantPack(productInfo.packId);
-                                    grantedCount++;
-                                    Debug.Log($"[PurchaseService] 有効な購入を確認: {productInfo.packId}");
-                                }
-                                else
-                                {
-                                    // 返金済みまたはキャンセル → パックを剥奪
-                                    EntitlementStore.Instance.RevokePack(productInfo.packId);
-                                    revokedCount++;
-                                    Debug.LogWarning($"[PurchaseService] 返金/キャンセルを検出: {productInfo.packId} (状態: {googleReceipt.purchaseState})");
-                                }
-                                break; // Google Playのレシートは1つだけ
-                            }
+                            validPackIds.Add(productInfo.packId);
                         }
-                    }
-                    catch (IAPSecurityException ex)
-                    {
-                        // レシートが不正（改ざん、署名エラーなど） → パックを剥奪
-                        EntitlementStore.Instance.RevokePack(productInfo.packId);
-                        revokedCount++;
-                        Debug.LogError($"[PurchaseService] 不正なレシートを検出: {productInfo.packId} - {ex.Message}");
+                        else
+                        {
+                            Debug.LogWarning($"[PurchaseService] Purchase cancelled/refunded: {productInfo.packId} ({googleReceipt.purchaseState})");
+                        }
+                        break;
                     }
                 }
+                catch (IAPSecurityException ex)
+                {
+                    Debug.LogError($"[PurchaseService] Invalid receipt: {productInfo.packId} - {ex.Message}");
+                }
             }
-            
+
+            int grantedCount = 0;
+            int revokedCount = 0;
+            foreach (var product in products)
+            {
+                bool isOwned = EntitlementStore.Instance.HasPack(product.packId);
+                if (validPackIds.Contains(product.packId))
+                {
+                    if (!isOwned)
+                        grantedCount++;
+                    EntitlementStore.Instance.GrantPack(product.packId);
+                }
+                else
+                {
+                    if (isOwned)
+                        revokedCount++;
+                    EntitlementStore.Instance.RevokePack(product.packId);
+                }
+            }
             Debug.Log($"[PurchaseService] レシート検証完了 - 付与: {grantedCount}個, 剥奪: {revokedCount}個");
 #else
             // レシート検証が無効な場合、または対応プラットフォーム以外の場合は検証なしで付与
