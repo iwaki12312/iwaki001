@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class HoleController : MonoBehaviour
 {
@@ -17,17 +18,20 @@ public class HoleController : MonoBehaviour
     void Update()
     {
         /* ❶ スマホ実機：すべての指をチェック */
-        for (int i = 0; i < Input.touchCount; i++)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch t = Input.GetTouch(i);
-            if (t.phase != TouchPhase.Began) continue;          // 押した瞬間だけ処理
-
-            if (HitThisHole(t.position)) TapMole();
+            foreach (var touch in touchscreen.touches)
+            {
+                if (!touch.press.wasPressedThisFrame) continue; // 押した瞬間だけ処理
+                if (HitThisHole(touch.position.ReadValue())) TapMole();
+            }
         }
 
 #if UNITY_EDITOR   // ❷ エディタ用：マウスでも動くようにしておく
-        if (Input.GetMouseButtonDown(0))
-            if (HitThisHole(Input.mousePosition)) TapMole();
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
+            if (HitThisHole(mouse.position.ReadValue())) TapMole();
 #endif
     }
 

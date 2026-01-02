@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Minigames.FlowerBlooming
 {
@@ -46,15 +47,20 @@ namespace Minigames.FlowerBlooming
             if (!isInteractable || !mainCam || !myCol) return;
 
             /* ❶ すべてのタッチを調べる（実機） */
-            for (int i = 0; i < Input.touchCount; i++)
+            var touchscreen = Touchscreen.current;
+            if (touchscreen != null)
             {
-                Touch t = Input.GetTouch(i);
-                if (t.phase == TouchPhase.Began && HitPlanter(t.position))
-                    NotifyTapped();
+                foreach (var touch in touchscreen.touches)
+                {
+                    if (!touch.press.wasPressedThisFrame) continue;
+                    if (HitPlanter(touch.position.ReadValue()))
+                        NotifyTapped();
+                }
             }
 
 #if UNITY_EDITOR      // ❷ エディタ用：左クリックでテスト
-            if (Input.GetMouseButtonDown(0) && HitPlanter(Input.mousePosition))
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasPressedThisFrame && HitPlanter(mouse.position.ReadValue()))
                 NotifyTapped();
 #endif
         }

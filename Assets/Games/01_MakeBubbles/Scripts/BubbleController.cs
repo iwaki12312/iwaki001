@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -106,16 +107,21 @@ public class BubbleController : MonoBehaviour
     void Update()
     {
         /* ❶ すべてのタッチを調べる（実機） */
-        for (int i = 0; i < Input.touchCount; i++)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch t = Input.GetTouch(i);
-            if (t.phase == TouchPhase.Began && HitThisBubble(t.position))
-                Burst();                       // ← 元の OnMouseDown 相当
+            foreach (var touch in touchscreen.touches)
+            {
+                if (!touch.press.wasPressedThisFrame) continue;
+                if (HitThisBubble(touch.position.ReadValue()))
+                    Burst();                       // ← 元の OnMouseDown 相当
+            }
         }
 
         /* ❂ エディタ／マウス操作用フォールバック */
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && HitThisBubble(Input.mousePosition))
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame && HitThisBubble(mouse.position.ReadValue()))
             Burst();
 #endif
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FireworksManager : MonoBehaviour
 {
@@ -129,20 +130,24 @@ public class FireworksManager : MonoBehaviour
         }
 
         // タッチ
-        for (int i = 0; i < Input.touchCount; i++)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch t = Input.GetTouch(i);
-            if (t.phase != TouchPhase.Began) continue;
+            foreach (var touch in touchscreen.touches)
+            {
+                if (!touch.press.wasPressedThisFrame) continue;
 
-            Vector2 world = cam.ScreenToWorldPoint(t.position);
-            TryTapAt(world);
+                Vector2 world = cam.ScreenToWorldPoint(touch.position.ReadValue());
+                TryTapAt(world);
+            }
         }
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         // エディタ確認用（クリック）
-        if (Input.GetMouseButtonDown(0))
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
         {
-            Vector2 world = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 world = cam.ScreenToWorldPoint(mouse.position.ReadValue());
             TryTapAt(world);
         }
 #endif

@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 個別の風船を制御するクラス
@@ -103,11 +104,14 @@ public class BalloonController : MonoBehaviour
     void Update()
     {
         // マルチタッチ対応
-        for (int i = 0; i < Input.touchCount; i++)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began && HitThisBalloon(touch.position))
+            foreach (var touch in touchscreen.touches)
             {
+                if (!touch.press.wasPressedThisFrame) continue;
+                if (!HitThisBalloon(touch.position.ReadValue())) continue;
+
                 Pop();
                 return;
             }
@@ -115,7 +119,8 @@ public class BalloonController : MonoBehaviour
         
         // エディタ用マウス操作
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && HitThisBalloon(Input.mousePosition))
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame && HitThisBalloon(mouse.position.ReadValue()))
         {
             Pop();
             return;

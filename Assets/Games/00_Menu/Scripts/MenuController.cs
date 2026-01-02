@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using WakuWaku.IAP;
 
 /// <summary>
@@ -235,18 +236,33 @@ public class GameButton : MonoBehaviour
         // モーダル表示中は入力を無視
         if (IsModalShowing()) return;
 
-        for (int i = 0; i < Input.touchCount; i++)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch t = Input.GetTouch(i);
-            if (t.phase != TouchPhase.Began) continue;
+            foreach (var touch in touchscreen.touches)
+            {
+                if (!touch.press.wasPressedThisFrame) continue;
 
-            Vector2 world = mainCam.ScreenToWorldPoint(t.position);
+                Vector2 world = mainCam.ScreenToWorldPoint(touch.position.ReadValue());
+                if (myCol.OverlapPoint(world))
+                {
+                    LoadGame();
+                    break; // 複数回呼ばれないように
+                }
+            }
+        }
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
+        {
+            Vector2 world = mainCam.ScreenToWorldPoint(mouse.position.ReadValue());
             if (myCol.OverlapPoint(world))
             {
                 LoadGame();
-                break;                       // 複数回呼ばれないように
             }
         }
+#endif
     }
 
     void OnMouseEnter()

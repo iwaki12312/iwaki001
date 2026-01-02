@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// タップイベントを一元管理し、重なったオブジェクトの処理順序を制御するクラス
@@ -20,19 +21,20 @@ public class TouchManager : MonoBehaviour
     void Update()
     {
         // マウスクリック（PC用）
-        if (Input.GetMouseButtonDown(0))
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
         {
-            Vector2 touchPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 touchPosition = mainCamera.ScreenToWorldPoint(mouse.position.ReadValue());
             HandleTouch(touchPosition);
         }
-        
-        // マルチタッチ入力（モバイル用）
-        for (int i = 0; i < Input.touchCount; i++)
+
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began)
+            foreach (var touch in touchscreen.touches)
             {
-                Vector2 touchPosition = mainCamera.ScreenToWorldPoint(touch.position);
+                if (!touch.press.wasPressedThisFrame) continue;
+                Vector2 touchPosition = mainCamera.ScreenToWorldPoint(touch.position.ReadValue());
                 HandleTouch(touchPosition);
             }
         }

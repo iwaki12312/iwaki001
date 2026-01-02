@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -69,7 +70,7 @@ public class FireworksInitializer : MonoBehaviour
 
         var eventSystemObj = new GameObject("EventSystem");
         eventSystemObj.AddComponent<EventSystem>();
-        eventSystemObj.AddComponent<StandaloneInputModule>();
+        eventSystemObj.AddComponent<InputSystemUIInputModule>();
     }
 
     private void CreateBackgroundIfNeeded()

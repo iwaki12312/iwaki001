@@ -118,7 +118,7 @@ public class MenuSetupWindow : EditorWindow
             // EventSystemを作成
             GameObject eventSystem = new GameObject("EventSystem");
             eventSystem.AddComponent<UnityEngine.EventSystems.EventSystem>();
-            eventSystem.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+            eventSystem.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
             Debug.Log("EventSystemを作成しました");
         }
         

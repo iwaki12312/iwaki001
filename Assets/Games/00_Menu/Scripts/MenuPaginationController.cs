@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// メニュー画面のページネーション機能を制御するクラス
@@ -502,26 +503,24 @@ public class MenuPaginationController : MonoBehaviour
     {
         if (isAnimating) return;
         
-        // タッチ入力の処理
-        if (Input.touchCount == 1)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen == null) return;
+
+        var primaryTouch = touchscreen.primaryTouch;
+        if (primaryTouch.press.wasReleasedThisFrame)
         {
-            Touch touch = Input.GetTouch(0);
-            
-            if (touch.phase == TouchPhase.Ended)
+            Vector2 deltaPosition = primaryTouch.delta.ReadValue();
+            float swipeThreshold = 50f;
+
+            if (Mathf.Abs(deltaPosition.x) > swipeThreshold)
             {
-                Vector2 deltaPosition = touch.deltaPosition;
-                float swipeThreshold = 50f;
-                
-                if (Mathf.Abs(deltaPosition.x) > swipeThreshold)
+                if (deltaPosition.x > 0)
                 {
-                    if (deltaPosition.x > 0)
-                    {
-                        ChangePage(-1); // 右スワイプで前のページ
-                    }
-                    else
-                    {
-                        ChangePage(1);  // 左スワイプで次のページ
-                    }
+                    ChangePage(-1); // 右スワイプで前のページ
+                }
+                else
+                {
+                    ChangePage(1);  // 左スワイプで次のページ
                 }
             }
         }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 個別の魚を制御するクラス
@@ -95,10 +96,10 @@ public class FishController : MonoBehaviour
         transform.Translate(Vector3.right * swimSpeed * Time.deltaTime);
         
         // マルチタッチ対応
-        for (int i = 0; i < Input.touchCount; i++)
+        for (int i = 0; Touchscreen.current != null && i < Touchscreen.current.touches.Count; i++)
         {
-            Touch touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began && HitThisFish(touch.position))
+            var touch = Touchscreen.current.touches[i];
+            if (touch.press.wasPressedThisFrame && HitThisFish(touch.position.ReadValue()))
             {
                 // 同一フレームで複数の魚が釣られないように制御
                 if (FishSpawner.Instance != null && !FishSpawner.Instance.TryClaimCatch())
@@ -112,7 +113,8 @@ public class FishController : MonoBehaviour
         
         // エディタ用マウス操作
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && HitThisFish(Input.mousePosition))
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame && HitThisFish(mouse.position.ReadValue()))
         {
             // 同一フレームで複数の魚が釣られないように制御
             if (FishSpawner.Instance != null && !FishSpawner.Instance.TryClaimCatch())

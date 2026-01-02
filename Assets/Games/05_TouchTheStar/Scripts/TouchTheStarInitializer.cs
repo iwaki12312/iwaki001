@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 /// <summary>
 /// TouchTheStarゲームの自動初期化を行うクラス
@@ -190,7 +191,7 @@ public class TouchTheStarInitializer : MonoBehaviour
         {
             GameObject eventSystemObj = new GameObject("EventSystem");
             eventSystemObj.AddComponent<EventSystem>();
-            eventSystemObj.AddComponent<StandaloneInputModule>();
+            eventSystemObj.AddComponent<InputSystemUIInputModule>();
             Debug.Log("EventSystemを作成しました。");
         }
         else

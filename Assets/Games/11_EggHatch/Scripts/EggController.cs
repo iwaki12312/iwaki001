@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 個別のたまごを制御するクラス
@@ -181,12 +182,14 @@ public class EggController : MonoBehaviour
     private void HandleTouch()
     {
         // すべてのタッチを処理
-        for (int i = 0; i < Input.touchCount; i++)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            Touch touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began)
+            foreach (var touch in touchscreen.touches)
             {
-                Vector3 worldPos = mainCamera.ScreenToWorldPoint(touch.position);
+                if (!touch.press.wasPressedThisFrame) continue;
+
+                Vector3 worldPos = mainCamera.ScreenToWorldPoint(touch.position.ReadValue());
                 worldPos.z = 0;
                 if (circleCollider.OverlapPoint(worldPos))
                 {
@@ -197,9 +200,10 @@ public class EggController : MonoBehaviour
         }
         
         // エディタ用: マウスクリック
-        if (Input.GetMouseButtonDown(0))
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
         {
-            Vector3 worldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 worldPos = mainCamera.ScreenToWorldPoint(mouse.position.ReadValue());
             worldPos.z = 0;
             if (circleCollider.OverlapPoint(worldPos))
             {

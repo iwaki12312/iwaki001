@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,10 +25,32 @@ private void Start()
     private void Update()
     {
         // ESCキーでメニューに戻る
-        if (Input.GetKeyDown(backToMenuKey))
+        if (IsKeyPressedThisFrame(backToMenuKey))
         {
             BackToMenu();
         }
+    }
+
+    private static bool IsKeyPressedThisFrame(KeyCode keyCode)
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return false;
+
+        switch (keyCode)
+        {
+            case KeyCode.Return:
+                return keyboard.enterKey.wasPressedThisFrame;
+            case KeyCode.KeypadEnter:
+                return keyboard.numpadEnterKey.wasPressedThisFrame;
+        }
+
+        if (Enum.TryParse<Key>(keyCode.ToString(), out var key))
+        {
+            var keyControl = keyboard[key];
+            return keyControl != null && keyControl.wasPressedThisFrame;
+        }
+
+        return false;
     }
 
     // メニューシーンに戻る
