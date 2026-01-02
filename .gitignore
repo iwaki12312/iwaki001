@@ -40,6 +40,10 @@ Thumbs.db
 # Crashレポートなど
 *.stacktrace
 
+# Unity Performance Test Framework (run artifacts)
+Assets/Resources/PerformanceTestRun*.json
+Assets/Resources/PerformanceTestRun*.json.meta
+
 # Mac向けビルドで使われる一時ファイル
 *.xcworkspace
 *.xcuserstate
