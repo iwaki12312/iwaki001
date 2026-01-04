@@ -25,6 +25,7 @@
   <Project Path="Unity.Burst.csproj" />
   <Project Path="Unity.Services.Core.Environments.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Flow.Editor.csproj" />
+  <Project Path="Unity.Recorder.Editor.csproj" />
   <Project Path="Unity.2D.SpriteShape.Editor.csproj" />
   <Project Path="Unity.VisualStudio.Editor.csproj" />
   <Project Path="Unity.InputSystem.csproj" />
@@ -71,6 +72,7 @@
   <Project Path="Unity.AdaptivePerformance.csproj" />
   <Project Path="Unity.2D.PixelPerfect.Editor.csproj" />
   <Project Path="CFXRDemo.csproj" />
+  <Project Path="Unity.Recorder.csproj" />
   <Project Path="Unity.Services.Core.Configuration.Editor.csproj" />
   <Project Path="CFXREditor.csproj" />
   <Project Path="Unity.Services.Core.Configuration.csproj" />
@@ -98,6 +100,7 @@
   <Project Path="Unity.ShaderGraph.Utilities.csproj" />
   <Project Path="Unity.AdaptivePerformance.Google.Android.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Shared.Editor.csproj" />
+  <Project Path="Unity.Recorder.Base.csproj" />
   <Project Path="KinoBloom.Runtime.csproj" />
   <Project Path="Unity.2D.Aseprite.Common.csproj" />
   <Project Path="Unity.Services.Core.Device.csproj" />
@@ -107,6 +110,7 @@
   <Project Path="IAPResolver.csproj" />
   <Project Path="Unity.RenderPipeline.Universal.ShaderLibrary.csproj" />
   <Project Path="ToonyColorsPro.Demo.Editor.csproj" />
+  <Project Path="Unity.Bindings.OpenImageIO.Editor.csproj" />
   <Project Path="Unity.AdaptivePerformance.Simulator.Google.Extension.Editor.csproj" />
   <Project Path="Unity.Services.Core.Registration.csproj" />
   <Project Path="Unity.2D.PixelPerfect.csproj" />
