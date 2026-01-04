@@ -219,9 +219,18 @@ $prefs = "com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml"
 PowerShellでは `< file` リダイレクトが使えないため、パイプで流します。
 
 ```powershell
+$adb  = "C:\Program Files\Unity\Hub\Editor\6000.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe"
+$pkg  = "com.iw.wakuwaku.touchhiroba"
+$prefs= "com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml"
+# 念のため停止
 & $adb shell am force-stop $pkg
-Get-Content -Raw .\playerprefs.xml | & $adb shell run-as $pkg sh -c "cat > shared_prefs/$prefs"
-& $adb shell run-as $pkg cat "shared_prefs/$prefs" | Select-String purchased_packs
+# 1) いったん端末の一時領域へ送る（ここは誰でも読める場所）
+& $adb push ".\playerprefs.xml" /data/local/tmp/playerprefs.xml
+# 2) アプリ領域にコピー（相対パスで shared_prefs を使う）
+& $adb shell run-as $pkg mkdir -p shared_prefs
+& $adb shell run-as $pkg cp /data/local/tmp/playerprefs.xml shared_prefs/$prefs
+# 確認
+& $adb shell run-as $pkg cat shared_prefs/$prefs | Select-String purchased_packs
 ```
 
 ### 起動
