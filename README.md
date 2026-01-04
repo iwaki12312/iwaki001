@@ -1,4 +1,4 @@
-﻿# このプロジェクトの課金（追加パック）フロー概要（Android）
+# このプロジェクトの課金（追加パック）フロー概要（Android）
 
 当面は **Androidのみ** を対象にしています。リリースビルドでは `RECEIPT_VALIDATION` を有効にし、購入/返金状態は **レシート検証結果**に基づいてパックのロック状態（権利）を更新します。
 
@@ -98,3 +98,142 @@ Google Playの購入は、支払いの確定が後になる「保留（Pending/D
   - アプリのストレージ削除とは独立しているため、アプリ側のデータを消しても「購入済み情報」が端末/ストア側から返ることがある
   - オフライン中は最新状態に更新できず、次回オンラインで問い合わせが成功したタイミングで最新状態に近づく（反映に遅延が出る場合あり）
 
+## デバッグ：Android端末のPlayerPrefsを書き換えて擬似ロックする
+
+前提：
+- 端末で「USBデバッグ」を有効化
+- `adb` が使えること（このプロジェクトは Unity 同梱の `adb.exe` を使う）
+- 対象アプリが **debuggable ビルド**（Development Build 等）でインストールされていること（`run-as` を使うため）。Play配信の通常ビルドでは失敗することがあります。
+
+このプロジェクトのAndroidパッケージ名：`com.iw.wakuwaku.touchhiroba`
+
+### 1) adb.exe の場所（Unity同梱）
+Unity 6000.3.0f1 の例：
+
+```powershell
+$adb = "C:\Program Files\Unity\Hub\Editor\6000.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe"
+& $adb devices
+```
+
+### 2) PlayerPrefs（SharedPreferences）を読む
+1. アプリ停止（起動中だと終了時に上書きされることがあります）
+
+```powershell
+$pkg = "com.iw.wakuwaku.touchhiroba"
+& $adb shell am force-stop $pkg
+```
+
+2. `shared_prefs` のファイル名を確認
+
+```powershell
+& $adb shell run-as $pkg ls shared_prefs
+```
+
+3. ファイルを表示（例：`com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml`）
+
+```powershell
+$prefs = "com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml"
+& $adb shell run-as $pkg cat "shared_prefs/$prefs"
+```
+
+`purchased_packs`（権利情報）はURLエンコードされたJSONとして保存されています。デコード例：
+
+```powershell
+# %7B...%7D の部分を貼り付けてデコード
+[System.Uri]::UnescapeDataString("%7B%22ownedPacks%22%3A%5B%22pack_free%22%2C%22pack_01%22%5D%7D")
+```
+
+### 3) PlayerPrefsを書き換える（擬似ロック/擬似アンロック）
+1. 端末からXMLを取り出してPCで編集
+
+```powershell
+& $adb exec-out run-as $pkg cat "shared_prefs/$prefs" | Out-File -Encoding utf8 .\playerprefs.xml
+```
+
+2. `.\playerprefs.xml` の `<string name="purchased_packs">...</string>` を編集
+   - 例：`pack_01` をロックしたい場合は `ownedPacks` から `pack_01` を削除
+
+3. 端末へ上書き（PowerShellでは `< file` リダイレクトが使えないためパイプで流す）
+
+```powershell
+Get-Content -Raw .\playerprefs.xml | & $adb shell run-as $pkg sh -c "cat > shared_prefs/$prefs"
+```
+
+4. 確認
+
+```powershell
+& $adb shell run-as $pkg cat "shared_prefs/$prefs" | Select-String purchased_packs
+```
+
+### 4) アプリを起動して確認
+
+```powershell
+& $adb shell monkey -p $pkg -c android.intent.category.LAUNCHER 1
+```
+
+### 注意
+- 起動後に購入同期が走ると、`PlayerPrefs` を書き換えても自動で上書きされることがあります。擬似ロック状態だけ確認したい場合は、機内モード（オフライン）で起動して確認すると安定します。
+
+## 以前にやった手順メモ（コピペ用）
+
+### 変数（環境に合わせて）
+```powershell
+$adb  = "C:\Program Files\Unity\Hub\Editor\6000.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe"
+$pkg  = "com.iw.wakuwaku.touchhiroba"
+$prefs = "com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml"
+```
+
+### 端末接続確認
+
+```powershell
+& $adb devices
+```
+
+### アプリ停止（重要）
+
+```powershell
+& $adb shell am force-stop $pkg
+```
+
+### prefsファイル名確認
+
+```powershell
+& $adb shell run-as $pkg ls shared_prefs
+```
+
+### PCに取り出し
+
+```powershell
+& $adb exec-out run-as $pkg cat "shared_prefs/$prefs" | Out-File -Encoding utf8 .\playerprefs.xml
+```
+
+### `playerprefs.xml` を編集
+`<string name="purchased_packs">...</string>` の中身（URLエンコードされたJSON）を編集します。
+
+例：`pack_01` をロックしたい場合（`pack_free` のみ残す）
+```text
+%7B%22ownedPacks%22%3A%5B%22pack_free%22%5D%7D
+```
+
+### 端末へ戻す（上書き）
+PowerShellでは `< file` リダイレクトが使えないため、パイプで流します。
+
+```powershell
+& $adb shell am force-stop $pkg
+Get-Content -Raw .\playerprefs.xml | & $adb shell run-as $pkg sh -c "cat > shared_prefs/$prefs"
+& $adb shell run-as $pkg cat "shared_prefs/$prefs" | Select-String purchased_packs
+```
+
+### 起動
+
+```powershell
+& $adb shell monkey -p $pkg -c android.intent.category.LAUNCHER 1
+```
+
+### メインアクティビティを明示して起動（任意）
+
+```powershell
+& $adb shell cmd package resolve-activity --brief $pkg
+# 出力された Activity を使って起動（例）
+& $adb shell am start -n "$pkg/com.unity3d.player.UnityPlayerGameActivity"
+```
