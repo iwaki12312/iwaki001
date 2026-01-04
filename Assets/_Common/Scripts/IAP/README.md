@@ -165,3 +165,79 @@ IAPManagerのContext Menuから以下を実行可能：
 ## サポート
 
 実装に関する質問や問題が発生した場合は、各クラスのデバッグ機能を活用してログを確認してください。
+
+## デバッグ：Android端末のPlayerPrefsを書き換えて擬似ロックする
+
+前提：
+- 端末で「USBデバッグ」を有効化
+- `adb` が使えること（このプロジェクトは Unity 同梱の `adb.exe` を使う）
+- 対象アプリが **debuggable ビルド**（Development Build 等）でインストールされていること（`run-as` を使うため）。Play配信の通常ビルドでは失敗することがあります。
+
+このプロジェクトのAndroidパッケージ名：`com.iw.wakuwaku.touchhiroba`
+
+### 1) adb.exe の場所（Unity同梱）
+Unity 6000.3.0f1 の例：
+
+```powershell
+$adb = "C:\Program Files\Unity\Hub\Editor\6000.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe"
+& $adb devices
+```
+
+### 2) PlayerPrefs（SharedPreferences）を読む
+1. アプリ停止（起動中だと終了時に上書きされることがあります）
+
+```powershell
+$pkg = "com.iw.wakuwaku.touchhiroba"
+& $adb shell am force-stop $pkg
+```
+
+2. `shared_prefs` のファイル名を確認
+
+```powershell
+& $adb shell run-as $pkg ls shared_prefs
+```
+
+3. ファイルを表示（例：`com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml`）
+
+```powershell
+$prefs = "com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml"
+& $adb shell run-as $pkg cat "shared_prefs/$prefs"
+```
+
+`purchased_packs`（権利情報）はURLエンコードされたJSONとして保存されています。デコード例：
+
+```powershell
+# %7B...%7D の部分を貼り付けてデコード
+[System.Uri]::UnescapeDataString("%7B%22ownedPacks%22%3A%5B%22pack_free%22%2C%22pack_01%22%5D%7D")
+```
+
+### 3) PlayerPrefsを書き換える（擬似ロック/擬似アンロック）
+1. 端末からXMLを取り出してPCで編集
+
+```powershell
+& $adb exec-out run-as $pkg cat "shared_prefs/$prefs" | Out-File -Encoding utf8 .\playerprefs.xml
+```
+
+2. `.\playerprefs.xml` の `<string name="purchased_packs">...</string>` を編集
+   - 例：`pack_01` をロックしたい場合は `ownedPacks` から `pack_01` を削除
+
+3. 端末へ上書き（PowerShellでは `< file` リダイレクトが使えないためパイプで流す）
+
+```powershell
+Get-Content -Raw .\playerprefs.xml | & $adb shell run-as $pkg sh -c "cat > shared_prefs/$prefs"
+```
+
+4. 確認
+
+```powershell
+& $adb shell run-as $pkg cat "shared_prefs/$prefs" | Select-String purchased_packs
+```
+
+### 4) アプリを起動して確認
+
+```powershell
+& $adb shell monkey -p $pkg -c android.intent.category.LAUNCHER 1
+```
+
+### 注意
+- 起動後に購入同期が走ると、`PlayerPrefs` を書き換えても自動で上書きされることがあります。擬似ロック状態だけ確認したい場合は、機内モード（オフライン）で起動して確認すると安定します。

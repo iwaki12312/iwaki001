@@ -57,6 +57,21 @@ Unity IAP 購入完了
 PurchaseService.ProcessPurchase → EntitlementStore.GrantPack → UIコールバック
 ```
 
+## 保留購入（Pending/Deferred）の扱い
+Google Playの購入は、支払いの確定が後になる「保留（Pending/Deferred）」状態になることがあります（アプリ側で意図的に発生させる機能を作らなくても起こり得ます）。
+
+- 検出: `PurchaseService` が Google Play拡張の情報から「保留」を検出します
+  - `IGooglePlayConfiguration.SetDeferredPurchaseListener`（購入が保留になった通知）
+  - `IGooglePlayStoreExtensions.IsPurchasedProductDeferred`（該当Productが保留かどうか判定）
+- 権利: 保留中は **パックを解放しません**
+  - `EntitlementStore` に保留パックIDを `pending_packs` として保存します（所持権利 `purchased_packs` とは別）
+  - `ValidateAndGrantPurchases` でも保留中のパックは「有効購入」に含めないため、ロックされたままになります
+- UI: `Paywall` は保留中のパックを検出すると説明文を差し替え、購入ボタンを非活性にします
+  - 表示例: 「購入は保留中です。Google Play側で確定後に反映されます。」
+- 反映: 支払いが確定し、次回オンライン同期（初期化/復元）で保留状態が解消されると
+  - `pending_packs` から削除
+  - `purchased_packs` に付与され、ゲームが解放されます
+
 ## 重要な前提（オフライン）
 - `product.hasReceipt` / `product.receipt` が参照する「レシート」は **Unity IAPのローカルキャッシュ**で、`PlayerPrefs` とは別物です。
 - オフライン時はストアと同期できないため、**キャッシュに残っているレシート情報を元に判断**します。
@@ -82,5 +97,4 @@ PurchaseService.ProcessPurchase → EntitlementStore.GrantPack → UIコール�
 - 特徴:
   - アプリのストレージ削除とは独立しているため、アプリ側のデータを消しても「購入済み情報」が端末/ストア側から返ることがある
   - オフライン中は最新状態に更新できず、次回オンラインで問い合わせが成功したタイミングで最新状態に近づく（反映に遅延が出る場合あり）
-
 

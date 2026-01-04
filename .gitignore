@@ -54,3 +54,6 @@ Assets/Resources/PerformanceTestRun*.json.meta
 .gradle/
 local.properties
 output/
+
+# Local debug artifacts
+playerprefs*.xml
