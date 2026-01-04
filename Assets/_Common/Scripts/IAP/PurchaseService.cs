@@ -33,6 +33,7 @@ namespace WakuWaku.IAP
         // コールバック保持用
         private Action<string> currentOnSuccess;
         private Action<string, string> currentOnFailed;
+        private Action<string> currentOnDeferred;
         private Action currentOnRestoreCompleted;
         
         void Awake()
@@ -60,6 +61,10 @@ namespace WakuWaku.IAP
             Debug.Log("[PurchaseService] Unity IAP初期化開始");
             
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+
+#if UNITY_ANDROID
+            builder.Configure<IGooglePlayConfiguration>().SetDeferredPurchaseListener(OnDeferredPurchase);
+#endif
             
             // 商品を登録
             foreach (var product in products)
@@ -76,10 +81,12 @@ namespace WakuWaku.IAP
         /// </summary>
         public void PurchaseProduct(string packId, 
             Action<string> onSuccess = null, 
-            Action<string, string> onFailed = null)
+            Action<string, string> onFailed = null,
+            Action<string> onDeferred = null)
         {
             currentOnSuccess = onSuccess;
             currentOnFailed = onFailed;
+            currentOnDeferred = onDeferred;
             
             if (!isInitialized)
             {
@@ -108,6 +115,23 @@ namespace WakuWaku.IAP
                 currentOnFailed?.Invoke(packId, "商品が購入できません");
             }
         }
+
+#if UNITY_ANDROID
+        private void OnDeferredPurchase(Product product)
+        {
+            var productInfo = GetProductInfoByProductId(product.definition.id);
+            if (productInfo == null)
+                return;
+
+            if (EntitlementStore.Instance != null)
+            {
+                EntitlementStore.Instance.MarkPackPending(productInfo.packId);
+            }
+
+            Debug.LogWarning($"[PurchaseService] Purchase deferred (pending): {productInfo.packId}");
+            currentOnDeferred?.Invoke(productInfo.packId);
+        }
+#endif
         
         /// <summary>
         /// 購入の復元
@@ -209,12 +233,27 @@ namespace WakuWaku.IAP
             );
             
             var validPackIds = new HashSet<string>();
+            var deferredPackIds = new HashSet<string>();
+
+#if UNITY_ANDROID
+            var googleExtensions = storeExtensionProvider?.GetExtension<IGooglePlayStoreExtensions>();
+#endif
 
             foreach (var product in storeController.products.all)
             {
                 var productInfo = GetProductInfoByProductId(product.definition.id);
                 if (productInfo == null)
                     continue;
+
+#if UNITY_ANDROID
+                if (googleExtensions != null && googleExtensions.IsPurchasedProductDeferred(product))
+                {
+                    deferredPackIds.Add(productInfo.packId);
+                    EntitlementStore.Instance.MarkPackPending(productInfo.packId);
+                    Debug.LogWarning($"[PurchaseService] Purchase pending: {productInfo.packId}");
+                    continue;
+                }
+#endif
 
                 if (!product.hasReceipt)
                     continue;
@@ -243,6 +282,14 @@ namespace WakuWaku.IAP
                 catch (IAPSecurityException ex)
                 {
                     Debug.LogError($"[PurchaseService] Invalid receipt: {productInfo.packId} - {ex.Message}");
+                }
+            }
+
+            foreach (var product in products)
+            {
+                if (!deferredPackIds.Contains(product.packId))
+                {
+                    EntitlementStore.Instance.ClearPackPending(product.packId);
                 }
             }
 
@@ -315,8 +362,19 @@ namespace WakuWaku.IAP
             if (productInfo != null)
             {
                 Debug.Log($"[PurchaseService] 購入成功: {productInfo.packId}");
+#if UNITY_ANDROID
+                var googleExtensions = storeExtensionProvider?.GetExtension<IGooglePlayStoreExtensions>();
+                if (googleExtensions != null && googleExtensions.IsPurchasedProductDeferred(args.purchasedProduct))
+                {
+                    EntitlementStore.Instance.MarkPackPending(productInfo.packId);
+                    Debug.LogWarning($"[PurchaseService] Purchase deferred (pending): {productInfo.packId}");
+                    currentOnDeferred?.Invoke(productInfo.packId);
+                    return PurchaseProcessingResult.Complete;
+                }
+#endif
+
+                EntitlementStore.Instance.ClearPackPending(productInfo.packId);
                 EntitlementStore.Instance.GrantPack(productInfo.packId);
-                
                 currentOnSuccess?.Invoke(productInfo.packId);
             }
             else
@@ -339,6 +397,18 @@ namespace WakuWaku.IAP
                 // 重複購入の場合は権利を付与
                 if (productInfo != null)
                 {
+#if UNITY_ANDROID
+                    var googleExtensions = storeExtensionProvider?.GetExtension<IGooglePlayStoreExtensions>();
+                    if (googleExtensions != null && googleExtensions.IsPurchasedProductDeferred(product))
+                    {
+                        EntitlementStore.Instance.MarkPackPending(productInfo.packId);
+                        Debug.LogWarning($"[PurchaseService] Purchase deferred (pending): {productInfo.packId}");
+                        currentOnDeferred?.Invoke(productInfo.packId);
+                        return;
+                    }
+#endif
+
+                    EntitlementStore.Instance.ClearPackPending(productInfo.packId);
                     EntitlementStore.Instance.GrantPack(productInfo.packId);
                     currentOnSuccess?.Invoke(productInfo.packId);
                 }

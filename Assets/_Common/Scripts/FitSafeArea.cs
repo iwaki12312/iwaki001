@@ -29,6 +29,12 @@ public class FitSafeArea : MonoBehaviour
 
     void Apply()
     {
+        if (_rt == null)
+            _rt = (RectTransform)transform;
+
+        if (Screen.width <= 0 || Screen.height <= 0)
+            return;
+
         var sa = Screen.safeArea;
         _lastArea = sa; _lastRes = new Vector2Int(Screen.width, Screen.height);
 

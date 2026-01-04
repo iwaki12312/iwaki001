@@ -45,6 +45,8 @@ namespace WakuWaku.IAP
         private bool isShowingSuccessResult = false;
         private int correctAnswer;
         private bool isFullyInitialized = false;
+
+        private const string PendingPurchaseMessage = "購入は保留中です。\nGoogle Play側で確定後に反映されます。";
         
         public static Paywall Instance { get; private set; }
         
@@ -232,7 +234,11 @@ namespace WakuWaku.IAP
             // 説明文設定
             if (description != null)
             {
-                if (gameCount > 0)
+                if (IsPackPending(currentPackId))
+                {
+                    description.text = PendingPurchaseMessage;
+                }
+                else if (gameCount > 0)
                 {
                     description.text = $"このパックの{gameCount}ゲームが\n遊べるようになります";
                 }
@@ -268,10 +274,11 @@ namespace WakuWaku.IAP
             bool isPurchaseAvailable = PurchaseService.Instance != null && 
                                      PurchaseService.Instance.IsInitialized && 
                                      PurchaseService.Instance.IsProductAvailable(currentPackId);
+            bool isPending = IsPackPending(currentPackId);
             
             if (purchaseButton != null)
             {
-                purchaseButton.interactable = isPurchaseAvailable;
+                purchaseButton.interactable = isPurchaseAvailable && !isPending;
             }
             
             if (restoreButton != null)
@@ -279,6 +286,11 @@ namespace WakuWaku.IAP
                 restoreButton.interactable = PurchaseService.Instance != null && 
                                            PurchaseService.Instance.IsInitialized;
             }
+        }
+
+        private bool IsPackPending(string packId)
+        {
+            return EntitlementStore.Instance != null && EntitlementStore.Instance.IsPackPending(packId);
         }
         
         /// <summary>
@@ -334,7 +346,8 @@ namespace WakuWaku.IAP
             PurchaseService.Instance.PurchaseProduct(
                 currentPackId,
                 onSuccess: OnPurchaseSuccess,
-                onFailed: OnPurchaseFailed
+                onFailed: OnPurchaseFailed,
+                onDeferred: OnPurchaseDeferred
             );
         }
         
@@ -525,6 +538,44 @@ namespace WakuWaku.IAP
         /// <summary>
         /// 購入失敗時の処理
         /// </summary>
+        private void OnPurchaseDeferred(string packId)
+        {
+            if (packId == currentPackId)
+            {
+                SetLoading(false);
+                Debug.LogWarning($"[Paywall] Purchase pending: {packId}");
+                ShowPendingResult();
+            }
+        }
+
+        private void ShowPendingResult()
+        {
+            isShowingSuccessResult = true;
+            HidePurchaseUI();
+
+            if (title != null)
+            {
+                title.text = "購入は保留中です";
+            }
+
+            if (description != null)
+            {
+                description.text = PendingPurchaseMessage;
+            }
+
+            if (statusText != null)
+            {
+                statusText.text = "閉じるボタンを押してメニューに戻ります";
+                statusText.color = Color.white;
+                statusText.gameObject.SetActive(true);
+            }
+
+            if (closeButton != null)
+            {
+                closeButton.gameObject.SetActive(true);
+            }
+        }
+
         private void OnPurchaseFailed(string packId, string error)
         {
             if (packId == currentPackId)
@@ -591,7 +642,8 @@ namespace WakuWaku.IAP
             if (purchaseButton != null)
             {
                 purchaseButton.interactable = !isLoading && PurchaseService.Instance != null && 
-                                            PurchaseService.Instance.IsProductAvailable(currentPackId);
+                                            PurchaseService.Instance.IsProductAvailable(currentPackId) &&
+                                            !IsPackPending(currentPackId);
             }
             
             if (restoreButton != null)

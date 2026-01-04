@@ -11,9 +11,11 @@ namespace WakuWaku.IAP
     public class EntitlementStore : MonoBehaviour
     {
         private const string ENTITLEMENTS_KEY = "purchased_packs";
+        private const string PENDING_KEY = "pending_packs";
         private const string PACK_FREE = "pack_free";
         
         private HashSet<string> ownedPacks = new HashSet<string>();
+        private HashSet<string> pendingPacks = new HashSet<string>();
         
         public static EntitlementStore Instance { get; private set; }
         
@@ -27,6 +29,7 @@ namespace WakuWaku.IAP
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
                 LoadEntitlements();
+                LoadPendingPacks();
                 
                 // 無料パックは常に所有
                 GrantPack(PACK_FREE);
@@ -46,6 +49,38 @@ namespace WakuWaku.IAP
                 return false;
                 
             return ownedPacks.Contains(packId);
+        }
+
+        public bool IsPackPending(string packId)
+        {
+            if (string.IsNullOrEmpty(packId) || packId == PACK_FREE)
+                return false;
+
+            return pendingPacks.Contains(packId);
+        }
+
+        public void MarkPackPending(string packId)
+        {
+            if (string.IsNullOrEmpty(packId) || packId == PACK_FREE)
+                return;
+
+            if (pendingPacks.Add(packId))
+            {
+                SavePendingPacks();
+                Debug.Log($"[EntitlementStore] Pending pack: {packId}");
+            }
+        }
+
+        public void ClearPackPending(string packId)
+        {
+            if (string.IsNullOrEmpty(packId) || packId == PACK_FREE)
+                return;
+
+            if (pendingPacks.Remove(packId))
+            {
+                SavePendingPacks();
+                Debug.Log($"[EntitlementStore] Clear pending: {packId}");
+            }
         }
         
         /// <summary>
@@ -88,6 +123,11 @@ namespace WakuWaku.IAP
         public HashSet<string> GetOwnedPacks()
         {
             return new HashSet<string>(ownedPacks);
+        }
+
+        public HashSet<string> GetPendingPacks()
+        {
+            return new HashSet<string>(pendingPacks);
         }
         
         /// <summary>
@@ -142,12 +182,57 @@ namespace WakuWaku.IAP
         /// <summary>
         /// デバッグ用：全権利をクリア
         /// </summary>
+        private void LoadPendingPacks()
+        {
+            string json = PlayerPrefs.GetString(PENDING_KEY, "");
+            if (!string.IsNullOrEmpty(json))
+            {
+                try
+                {
+                    var data = JsonUtility.FromJson<PendingData>(json);
+                    pendingPacks = data?.pendingPacks != null
+                        ? new HashSet<string>(data.pendingPacks)
+                        : new HashSet<string>();
+                    Debug.Log($"[EntitlementStore] Pending情報読み込み完了: {pendingPacks.Count}個");
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"[EntitlementStore] Pending情報の読み込みに失敗: {e.Message}");
+                    pendingPacks = new HashSet<string>();
+                }
+            }
+            else
+            {
+                pendingPacks = new HashSet<string>();
+            }
+        }
+
+        private void SavePendingPacks()
+        {
+            try
+            {
+                var data = new PendingData
+                {
+                    pendingPacks = new List<string>(pendingPacks)
+                };
+                string json = JsonUtility.ToJson(data);
+                PlayerPrefs.SetString(PENDING_KEY, json);
+                PlayerPrefs.Save();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[EntitlementStore] Pending情報の保存に失敗: {e.Message}");
+            }
+        }
+
         [ContextMenu("Clear All Entitlements")]
         public void ClearAllEntitlements()
         {
             ownedPacks.Clear();
+            pendingPacks.Clear();
             GrantPack(PACK_FREE); // 無料パックは再付与
             SaveEntitlements();
+            SavePendingPacks();
             Debug.Log("[EntitlementStore] 全権利をクリアしました");
         }
         
@@ -169,5 +254,11 @@ namespace WakuWaku.IAP
     public class EntitlementData
     {
         public List<string> ownedPacks = new List<string>();
+    }
+
+    [Serializable]
+    public class PendingData
+    {
+        public List<string> pendingPacks = new List<string>();
     }
 }
