@@ -34,6 +34,102 @@ IAPManager.InitializeIAPSystem
                   +-- [オフライン] ValidateAndGrantPurchases（ローカルキャッシュのレシート）
 ```
 
+## オンライン時とオフライン時の動作の違い
+
+### オンライン時
+```
+RestorePurchases()
+    │
+    ├─ ネット接続あり？ → YES
+    │
+    ▼
+Google Play Store に問い合わせ
+（googleExtensions.RestoreTransactions）
+    │
+    ▼
+Unity IAP のレシートキャッシュが最新化
+（返金情報なども反映）
+    │
+    ▼
+ValidateAndGrantPurchases()
+    │
+    ├─ 各商品のレシートを検証
+    ├─ 有効 → EntitlementStore.GrantPack()
+    └─ 無効/返金済 → EntitlementStore.RevokePack()
+    │
+    ▼
+PlayerPrefs に所有パック情報を保存
+    │
+    ▼
+FeatureGate がロック状態を判定
+```
+
+### オフライン時
+```
+RestorePurchases()
+    │
+    ├─ ネット接続あり？ → NO
+    │
+    ▼
+RestoreTransactions をスキップ
+    │
+    ▼
+Unity IAP のキャッシュ済みレシートを使用
+（前回オンライン時の情報）
+    │
+    ▼
+ValidateAndGrantPurchases()
+    │
+    ├─ 各商品のレシートを検証
+    ├─ 有効 → EntitlementStore.GrantPack()
+    └─ 無効 → EntitlementStore.RevokePack()
+    │
+    ▼
+PlayerPrefs に所有パック情報を保存
+    │
+    ▼
+FeatureGate がロック状態を判定
+```
+
+### 比較表
+
+| | オンライン | オフライン |
+|---|---|---|
+| **レシート情報** | Google Play Store から最新取得 | Unity IAP のキャッシュを使用 |
+| **返金反映** | ✅ 即座に反映 | ❌ 次回オンライン時まで反映されない |
+| **新規購入の復元** | ✅ 他端末の購入も復元可能 | ❌ キャッシュにある分のみ |
+
+### データの流れ（図解）
+```
+┌─────────────────┐
+│ Google Play    │ ←── オンライン時のみ問い合わせ
+│ Store          │
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│ Unity IAP      │ ←── レシートをキャッシュ
+│ (内部キャッシュ) │     オフライン時はここを参照
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│ PurchaseService│ ←── レシート検証
+│                │
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│EntitlementStore│ ←── 所有パックIDを管理
+│ (PlayerPrefs)  │
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│ FeatureGate    │ ←── ロック判定
+└─────────────────┘
+```
+
 ## レシート検証と権利更新の考え方
 `PurchaseService.ValidateAndGrantPurchases()` は、概ね次の手順で「正しい権利状態」に寄せます。
 
