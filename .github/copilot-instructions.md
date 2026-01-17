@@ -38,5 +38,3 @@
 ## テスト
 - 現状、自動テスト運用はなし（Test Runner/CIの前提なし）。変更確認はUnity EditorのPlayで行い、ログ（例: `MenuController`/`IAPManager` の `Debug.Log`）で初期化やロック状態を確認する。
 
-## 補足
-- [aaa.ps1](aaa.ps1) は定期的にEnterを送る簡易スクリプト（用途は状況依存）。
