@@ -13,7 +13,7 @@ public class FishSpawner : MonoBehaviour
     public class FishSpriteData
     {
         public Sprite sprite;                                  // 魚のスプライト
-        [Range(0.5f, 2.0f)] public float sizeMultiplier = 1.0f; // サイズ倍率（1.0=標準）
+        [Range(0.5f, 5.0f)] public float sizeMultiplier = 1.0f; // サイズ倍率（1.0=標準）
         [Range(0.1f, 5.0f)] public float colliderRadius = 1.2f; // コライダー半径
     }
     
