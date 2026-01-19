@@ -836,19 +836,19 @@ MonoBehaviour:
     sizeMultiplier: 3
     colliderRadius: 2
   - sprite: {fileID: 6515904674758421358, guid: b63fc24b775cd034cbf7f2e906727839, type: 3}
-    sizeMultiplier: 3
+    sizeMultiplier: 4
     colliderRadius: 2
   - sprite: {fileID: -3486833207814245543, guid: c250ea677510c094c8ae96da71335210, type: 3}
     sizeMultiplier: 3
     colliderRadius: 2
   - sprite: {fileID: 1722970863098500168, guid: 4c8e3d4d689b2ac46a1695464fb3b4bf, type: 3}
-    sizeMultiplier: 3
+    sizeMultiplier: 3.5
     colliderRadius: 2
   - sprite: {fileID: -4259635432228036503, guid: 26a796363517ddf46a10360ad2174199, type: 3}
     sizeMultiplier: 3
     colliderRadius: 2
   - sprite: {fileID: 8304762679976087527, guid: 603ff934c224c3849b5f94a200842d8d, type: 3}
-    sizeMultiplier: 3
+    sizeMultiplier: 3.5
     colliderRadius: 2
   - sprite: {fileID: 8382007410915793689, guid: c944a1216bd4b4545ba3d792205cbb44, type: 3}
     sizeMultiplier: 2.5
