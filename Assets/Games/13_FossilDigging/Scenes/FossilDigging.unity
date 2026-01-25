@@ -183,7 +183,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4364034832326165938, guid: 0260a857b2c5a3240ad87aee97f77840, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -246,7 +246,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.8, g: 0.7, b: 0.5, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -297,6 +297,218 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1021716945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1021716947}
+  - component: {fileID: 1021716946}
+  m_Layer: 0
+  m_Name: RockSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1021716946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021716945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14e4f74fccec8044b60ccb92bf34b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RockSpawner
+  spawnPoints:
+  - pointName: Point_0
+    position: {x: -4, y: -1, z: 0}
+    scale: 1
+  - pointName: Point_1
+    position: {x: 0, y: -1, z: 0}
+    scale: 1
+  - pointName: Point_2
+    position: {x: 4, y: -1, z: 0}
+    scale: 1
+  - pointName: Point_3
+    position: {x: -4, y: -4, z: 0}
+    scale: 1
+  - pointName: Point_4
+    position: {x: 0, y: -4, z: 0}
+    scale: 1
+  - pointName: Point_5
+    position: {x: 4, y: -4, z: 0}
+    scale: 1
+  normalChance: 0.7
+  rareChance: 0.25
+  superRareChance: 0.05
+  rockPrefab: {fileID: 0}
+  rockSprites:
+  - {fileID: -855298285791758126, guid: d682a49d9b0f1994eba5a3fcdc2a6240, type: 3}
+  - {fileID: 6937817954938267909, guid: 6a035fa31506ccb4aaaa63e8b64bdc8a, type: 3}
+  - {fileID: -6470460504253458178, guid: 0cc66745f1294204b847ee4848f50c85, type: 3}
+  - {fileID: -4178046375966092550, guid: 96e882fd8c8fc4a44846afb886d7a8ec, type: 3}
+  - {fileID: 4130640169021434097, guid: 1935e3125f050e143bd35c8baf7b3427, type: 3}
+  - {fileID: 3465286685962602723, guid: b838e4bc247bd6c488e6d5ae40512b85, type: 3}
+  pickaxeSprite: {fileID: 5676015964712416853, guid: 6634bd3767eb0a442b880cc5c03f856e, type: 3}
+  brokenPieceSprites:
+  - {fileID: -8857967048923322314, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  - {fileID: -4541420943946728957, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  - {fileID: 5055093960688652863, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  - {fileID: 6910885458497076145, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  - {fileID: -5796965964227978324, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  - {fileID: 4491468921550522487, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  - {fileID: -3754164438366229076, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
+  normalTreasureSprites:
+  - {fileID: -8544467328750673333, guid: 77c1423916f72d44591a13bf351c2d72, type: 3}
+  - {fileID: -6252249584830872964, guid: 79f2471e9c2c1f74f8b5e974cd01a4f3, type: 3}
+  - {fileID: 6333888042954574163, guid: e3caad70cecbe954daa8ef52a4ab1a9c, type: 3}
+  - {fileID: -395224896204468029, guid: 24a1b9196b3ddc647964628161411ba5, type: 3}
+  - {fileID: -439537531642709468, guid: 9d7079a6579c2da47b0336c257a64290, type: 3}
+  - {fileID: 6104872854573604670, guid: d4c1bd0983d5b5043ada569f6583a219, type: 3}
+  - {fileID: -6681950906282848695, guid: bb8f7c0aa3dbecd4cb623a440bef440b, type: 3}
+  - {fileID: -4857170940059964981, guid: d926c75eb7d70eb4eab5ecd8024df2c4, type: 3}
+  rareTreasureSprites:
+  - {fileID: 5162408703209877613, guid: eb5c931a171d439448318fc9e95a6369, type: 3}
+  - {fileID: -1328728025650687732, guid: d9270aedcaa83cc428844abcdf09e569, type: 3}
+  - {fileID: -7020747437224009449, guid: 7cc6098baaf7d5a4d8d7640cca9cb46c, type: 3}
+  - {fileID: -1409791646483227946, guid: 2c0dcc1a1c026bd4395ea7fe10c6e086, type: 3}
+  - {fileID: 4790464891497709451, guid: 8e6d573dfdb24b549b7bfdce4aaa1d36, type: 3}
+  - {fileID: 8269033704941043246, guid: 0bfad933207795945978058c0663e51d, type: 3}
+  - {fileID: -5675357917545480165, guid: 62bc79609c5267b4584f4bf8df52bd79, type: 3}
+  - {fileID: -3562480070736688738, guid: 52959f3a9add1074ba5ccd0479797583, type: 3}
+  - {fileID: -5510021035364922296, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
+  - {fileID: 5757123808653501914, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
+  - {fileID: 6477783489728159851, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
+  - {fileID: 7554941206929411802, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
+  superRareTreasureSprites:
+  - {fileID: 7936247690525743310, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
+  - {fileID: -608635299887750605, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
+  - {fileID: 1765155225814598105, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
+  - {fileID: 3548886332107885216, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
+  hitEffectPrefab: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+  breakEffectPrefab: {fileID: 395031058680739610, guid: b2f0b8902a31c8a46a1c4bb24ed9ea36, type: 3}
+--- !u!4 &1021716947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021716945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1340107136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1340107138}
+  - component: {fileID: 1340107137}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1340107137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340107136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c647aaedfc5d724ea925d0de172f739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FossilDiggingManager
+  rockSpawner: {fileID: 0}
+  sfxPlayer: {fileID: 0}
+--- !u!4 &1340107138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340107136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1530397323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1530397325}
+  - component: {fileID: 1530397324}
+  m_Layer: 0
+  m_Name: FossilDiggingSFXPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1530397324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530397323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fbb2f703bfeef47b914e5495d60201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FossilDiggingSFXPlayer
+  attackSound: {fileID: 8300000, guid: 8d4f3d52c44b6a24d91aff9391c8dc3a, type: 3}
+  brokenSound: {fileID: 8300000, guid: ba7305621a559d3498580302be4b7f29, type: 3}
+  normalFanfare: {fileID: 8300000, guid: ea31a87cca9af8644b14615e0228bd31, type: 3}
+  rareFanfare: {fileID: 8300000, guid: 8ec72c23522968946839f6bff2bc56df, type: 3}
+  superRareFanfare: {fileID: 8300000, guid: 91e105386119b644e8d73ad08144508e, type: 3}
+  attackVolume: 1
+  brokenVolume: 1
+  normalFanfareVolume: 0.8
+  rareFanfareVolume: 0.9
+  superRareFanfareVolume: 1
+--- !u!4 &1530397325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530397323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -406,3 +618,6 @@ SceneRoots:
   - {fileID: 613604584}
   - {fileID: 1893810555}
   - {fileID: 578839805}
+  - {fileID: 1340107138}
+  - {fileID: 1530397325}
+  - {fileID: 1021716947}
