@@ -58,7 +58,8 @@
 - 詳細手順/デバッグ用ContextMenuは [Assets/_Common/Scripts/IAP/README.md](Assets/_Common/Scripts/IAP/README.md) を参照。
 
 ## 入力・UXのプロジェクト規約
-- マルチタッチ前提: 既存実装は `Input.touchCount` をループして処理（例: [MenuController.cs](Assets/Games/00_Menu/Scripts/MenuController.cs) 内 `GameButton.Update()`）。新規ゲームでも「同時2点以上タップ」でも反応する作りにする。
+- **新しいInput System使用**: プロジェクトは `UnityEngine.InputSystem` パッケージを使用。古い `UnityEngine.Input` クラス（`Input.touchCount`, `Input.GetMouseButtonDown` 等）は使用禁止。タッチ入力は `Touchscreen.current`、マウス入力は `Mouse.current` を使用すること（例: [CatchInsects/InsectController.cs](Assets/Games/07_CatchInsects/Scripts/InsectController.cs)）。
+- マルチタッチ前提: 既存実装は `Touchscreen.current.touches` をループして処理。新規ゲームでも「同時2点以上タップ」でも反応する作りにする。
 - 新規ゲームは、起動に必要なオブジェクト配置/アタッチ/必須参照設定を極力自動化する（例: [TouchTheStarInitializer.cs](Assets/Games/05_TouchTheStar/Scripts/TouchTheStarInitializer.cs) が EventSystem や SFXPlayer 等を生成）。
 - 効果音は「【ゲーム名】+ SFXPlayer」命名でゲーム単位に集約（例: `TouchTheStarSFXPlayer`）。
 - 既存ゲームの踏襲は最小限に。特に [Assets/Games/01_MakeBubbles](Assets/Games/01_MakeBubbles) は品質が低い前提（[cline.yml](cline.yml)）。
