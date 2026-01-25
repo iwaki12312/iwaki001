@@ -276,6 +276,32 @@ namespace WakuWaku.IAP
         }
 
         /// <summary>
+        /// デバッグ用：Pack2を付与
+        /// </summary>
+        [ContextMenu("Debug Grant Pack 02")]
+        public void DebugGrantPack02()
+        {
+            if (EntitlementStore.Instance != null)
+            {
+                EntitlementStore.Instance.GrantPack("pack_02");
+                Debug.Log("[IAPManager] デバッグ：Pack02を付与しました");
+            }
+        }
+
+        /// <summary>
+        /// デバッグ用：Pack2を剥奪（ロック状態に戻す）
+        /// </summary>
+        [ContextMenu("Debug Revoke Pack 02")]
+        public void DebugRevokePack02()
+        {
+            if (EntitlementStore.Instance != null)
+            {
+                EntitlementStore.Instance.RevokePack("pack_02");
+                Debug.Log("[IAPManager] デバッグ：Pack02を剥奪しました");
+            }
+        }
+
+        /// <summary>
         /// デバッグ用：アクセス状況を表示
         /// </summary>
         [ContextMenu("Debug Print Access Status")]
