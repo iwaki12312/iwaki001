@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 613604584}
   - component: {fileID: 613604583}
   - component: {fileID: 613604582}
+  - component: {fileID: 613604585}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -302,6 +303,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613604585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613604581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1021716945
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,26 +378,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RockSpawner
   spawnPoints:
   - pointName: Point_0
-    position: {x: -4, y: -1, z: 0}
-    scale: 1
+    position: {x: -6.0502195, y: 1.79934, z: 0}
+    scale: 0.3
   - pointName: Point_1
-    position: {x: 0, y: -1, z: 0}
-    scale: 1
+    position: {x: -0.7600894, y: 1.5478253, z: 0}
+    scale: 0.3
   - pointName: Point_2
-    position: {x: 4, y: -1, z: 0}
-    scale: 1
+    position: {x: 5.2458267, y: 1.4496999, z: 0}
+    scale: 0.3
   - pointName: Point_3
-    position: {x: -4, y: -4, z: 0}
-    scale: 1
+    position: {x: -4.1498766, y: -2.2992585, z: 0}
+    scale: 0.3
   - pointName: Point_4
-    position: {x: 0, y: -4, z: 0}
-    scale: 1
+    position: {x: 0.9118526, y: -2.256751, z: 0}
+    scale: 0.3
   - pointName: Point_5
-    position: {x: 4, y: -4, z: 0}
-    scale: 1
-  normalChance: 0.7
-  rareChance: 0.25
-  superRareChance: 0.05
+    position: {x: 5.736639, y: -2.8147306, z: 0}
+    scale: 0.3
+  normalChance: 0.5
+  rareChance: 0.3
+  superRareChance: 0.2
   rockPrefab: {fileID: 0}
   rockSprites:
   - {fileID: -855298285791758126, guid: d682a49d9b0f1994eba5a3fcdc2a6240, type: 3}
@@ -388,10 +433,7 @@ MonoBehaviour:
   - {fileID: 8269033704941043246, guid: 0bfad933207795945978058c0663e51d, type: 3}
   - {fileID: -5675357917545480165, guid: 62bc79609c5267b4584f4bf8df52bd79, type: 3}
   - {fileID: -3562480070736688738, guid: 52959f3a9add1074ba5ccd0479797583, type: 3}
-  - {fileID: -5510021035364922296, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
-  - {fileID: 5757123808653501914, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
   - {fileID: 6477783489728159851, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
-  - {fileID: 7554941206929411802, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
   superRareTreasureSprites:
   - {fileID: 7936247690525743310, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
   - {fileID: -608635299887750605, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
@@ -399,6 +441,14 @@ MonoBehaviour:
   - {fileID: 3548886332107885216, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
   hitEffectPrefab: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   breakEffectPrefab: {fileID: 395031058680739610, guid: b2f0b8902a31c8a46a1c4bb24ed9ea36, type: 3}
+  rockScale: 0.8
+  pickaxeStartOffset: {x: 1.5, y: 1.5}
+  pickaxeEndOffset: {x: 0.3, y: 0.3}
+  pickaxeStartRotation: -45
+  pickaxeEndRotation: 0
+  pickaxeScale: 1
+  pickaxeSwingDuration: 0.15
+  pickaxeEase: 5
 --- !u!4 &1021716947
 Transform:
   m_ObjectHideFlags: 0
@@ -496,9 +546,9 @@ MonoBehaviour:
   superRareFanfare: {fileID: 8300000, guid: 91e105386119b644e8d73ad08144508e, type: 3}
   attackVolume: 1
   brokenVolume: 1
-  normalFanfareVolume: 0.8
-  rareFanfareVolume: 0.9
-  superRareFanfareVolume: 1
+  normalFanfareVolume: 1
+  rareFanfareVolume: 0.8
+  superRareFanfareVolume: 0.8
 --- !u!4 &1530397325
 Transform:
   m_ObjectHideFlags: 0

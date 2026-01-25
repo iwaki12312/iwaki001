@@ -32,6 +32,14 @@ public class RockController : MonoBehaviour
     [SerializeField] private float treasureDisplayTime = 3f;     // 宝物表示時間
     [SerializeField] private float rockShakeStrength = 0.1f;     // 岩の揺れ強度
 
+    [Header("ツルハシ演出設定")]
+    [SerializeField] private Vector2 pickaxeStartOffset = new Vector2(1.5f, 1.5f);  // 開始位置オフセット（岩からの相対位置）
+    [SerializeField] private Vector2 pickaxeEndOffset = new Vector2(0.3f, 0.3f);    // 終了位置オフセット（岩からの相対位置）
+    [SerializeField] private float pickaxeStartRotation = 45f;   // 開始時の回転角度（度）
+    [SerializeField] private float pickaxeEndRotation = -45f;    // 終了時の回転角度（度）
+    [SerializeField] private float pickaxeScale = 1f;            // ツルハシのスケール
+    [SerializeField] private Ease pickaxeEase = Ease.InQuad;     // アニメーションのイージング
+
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
     private int currentHitCount = 0;
@@ -139,6 +147,13 @@ public class RockController : MonoBehaviour
             if (mainCamera == null) return;
         }
 
+        // 実行中のスケール変更を反映
+        var spawner = RockSpawner.Instance;
+        if (spawner != null)
+        {
+            transform.localScale = Vector3.one * spawner.RockScale;
+        }
+
         // 新しいInput Systemを使用
         HandleTouch();
     }
@@ -235,21 +250,35 @@ public class RockController : MonoBehaviour
     {
         if (pickaxeSprite == null) return;
 
+        // RockSpawnerから最新の設定を取得（実行中の変更を反映）
+        var spawner = RockSpawner.Instance;
+        Vector2 startOffset = spawner != null ? spawner.PickaxeStartOffset : pickaxeStartOffset;
+        Vector2 endOffset = spawner != null ? spawner.PickaxeEndOffset : pickaxeEndOffset;
+        float startRot = spawner != null ? spawner.PickaxeStartRotation : pickaxeStartRotation;
+        float endRot = spawner != null ? spawner.PickaxeEndRotation : pickaxeEndRotation;
+        float scale = spawner != null ? spawner.PickaxeScale : pickaxeScale;
+        float duration = spawner != null ? spawner.PickaxeSwingDuration : pickaxeSwingDuration;
+        Ease ease = spawner != null ? spawner.PickaxeEase : pickaxeEase;
+
         // ツルハシオブジェクトを生成
         GameObject pickaxeObj = new GameObject("Pickaxe");
         SpriteRenderer pickaxeSr = pickaxeObj.AddComponent<SpriteRenderer>();
         pickaxeSr.sprite = pickaxeSprite;
         pickaxeSr.sortingOrder = 100;
 
-        // 岩の右上に配置
-        Vector3 startPos = transform.position + new Vector3(pickaxeOffset, pickaxeOffset, 0);
+        // スケール設定
+        pickaxeObj.transform.localScale = Vector3.one * scale;
+
+        // 岩からの相対位置に配置
+        Vector3 startPos = transform.position + new Vector3(startOffset.x, startOffset.y, 0);
+        Vector3 endPos = transform.position + new Vector3(endOffset.x, endOffset.y, 0);
         pickaxeObj.transform.position = startPos;
-        pickaxeObj.transform.rotation = Quaternion.Euler(0, 0, 45f); // 斜め上向き
+        pickaxeObj.transform.rotation = Quaternion.Euler(0, 0, startRot);
 
         // 振り下ろしアニメーション
         Sequence seq = DOTween.Sequence();
-        seq.Append(pickaxeObj.transform.DORotate(new Vector3(0, 0, -45f), pickaxeSwingDuration).SetEase(Ease.InQuad));
-        seq.Join(pickaxeObj.transform.DOMove(transform.position + new Vector3(0.3f, 0.3f, 0), pickaxeSwingDuration).SetEase(Ease.InQuad));
+        seq.Append(pickaxeObj.transform.DORotate(new Vector3(0, 0, endRot), duration).SetEase(ease));
+        seq.Join(pickaxeObj.transform.DOMove(endPos, duration).SetEase(ease));
         seq.AppendCallback(() =>
         {
             Destroy(pickaxeObj);
@@ -263,6 +292,9 @@ public class RockController : MonoBehaviour
     {
         if (brokenPieceSprites == null || brokenPieceSprites.Length == 0) return;
 
+        // 岩のスケールを取得
+        float rockScale = RockSpawner.Instance != null ? RockSpawner.Instance.RockScale : 1f;
+
         for (int i = 0; i < count; i++)
         {
             GameObject piece = new GameObject("BrokenPiece");
@@ -271,11 +303,11 @@ public class RockController : MonoBehaviour
             pieceSr.sortingOrder = 50;
 
             piece.transform.position = transform.position;
-            piece.transform.localScale = Vector3.one * Random.Range(0.3f, 0.6f);
+            piece.transform.localScale = Vector3.one * Random.Range(0.3f, 0.6f) * rockScale;
 
-            // ランダムな方向に飛散
+            // ランダムな方向に飛散（飛距離も岩のスケールに比例）
             Vector2 direction = Random.insideUnitCircle.normalized;
-            float force = pieceScatterForce * forceMultiplier * Random.Range(0.8f, 1.2f);
+            float force = pieceScatterForce * forceMultiplier * Random.Range(0.8f, 1.2f) * rockScale;
 
             // DOTweenで飛散アニメーション
             Sequence seq = DOTween.Sequence();
@@ -342,6 +374,9 @@ public class RockController : MonoBehaviour
         // ファンファーレ再生
         FossilDiggingSFXPlayer.Instance?.PlayFanfareByRarity(currentRarity);
 
+        // 岩のスケールを取得
+        float rockScale = RockSpawner.Instance != null ? RockSpawner.Instance.RockScale : 1f;
+
         // 宝物オブジェクトを生成
         GameObject treasure = new GameObject("Treasure");
         SpriteRenderer treasureSr = treasure.AddComponent<SpriteRenderer>();
@@ -350,15 +385,16 @@ public class RockController : MonoBehaviour
         treasure.transform.position = transform.position;
         treasure.transform.localScale = Vector3.zero;
 
-        // 出現アニメーション
+        // 出現アニメーション（岩のスケールに合わせる）
+        Vector3 targetScale = Vector3.one * rockScale;
         Sequence showSeq = DOTween.Sequence();
-        showSeq.Append(treasure.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack));
+        showSeq.Append(treasure.transform.DOScale(targetScale, 0.5f).SetEase(Ease.OutBack));
         
         // スーパーレアの場合は特別な演出
         if (currentRarity == TreasureRarity.SuperRare)
         {
-            showSeq.Append(treasure.transform.DOScale(Vector3.one * 1.2f, 0.3f).SetEase(Ease.InOutSine));
-            showSeq.Append(treasure.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine));
+            showSeq.Append(treasure.transform.DOScale(targetScale * 1.2f, 0.3f).SetEase(Ease.InOutSine));
+            showSeq.Append(treasure.transform.DOScale(targetScale, 0.3f).SetEase(Ease.InOutSine));
         }
 
         // 表示時間後に消える
@@ -432,5 +468,21 @@ public class RockController : MonoBehaviour
     {
         hitEffectPrefab = hitEffect;
         breakEffectPrefab = breakEffect;
+    }
+
+    /// <summary>
+    /// ツルハシ演出設定を適用（セットアップ用）
+    /// </summary>
+    public void SetPickaxeSettings(Vector2 startOffset, Vector2 endOffset, 
+                                   float startRotation, float endRotation, 
+                                   float scale, float swingDuration, Ease ease)
+    {
+        pickaxeStartOffset = startOffset;
+        pickaxeEndOffset = endOffset;
+        pickaxeStartRotation = startRotation;
+        pickaxeEndRotation = endRotation;
+        pickaxeScale = scale;
+        pickaxeSwingDuration = swingDuration;
+        pickaxeEase = ease;
     }
 }

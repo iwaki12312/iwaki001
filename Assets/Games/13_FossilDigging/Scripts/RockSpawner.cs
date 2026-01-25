@@ -42,6 +42,28 @@ public class RockSpawner : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;         // ヒット時エフェクト
     [SerializeField] private GameObject breakEffectPrefab;       // 破壊時エフェクト
 
+    [Header("岩設定")]
+    [SerializeField] private float rockScale = 1f;               // 岩のスケール（実行中変更可能）
+
+    [Header("ツルハシ演出設定")]
+    [SerializeField] private Vector2 pickaxeStartOffset = new Vector2(1.5f, 1.5f);  // 開始位置オフセット
+    [SerializeField] private Vector2 pickaxeEndOffset = new Vector2(0.3f, 0.3f);    // 終了位置オフセット
+    [SerializeField] private float pickaxeStartRotation = 45f;   // 開始時の回転角度
+    [SerializeField] private float pickaxeEndRotation = -45f;    // 終了時の回転角度
+    [SerializeField] private float pickaxeScale = 1f;            // ツルハシのスケール
+    [SerializeField] private float pickaxeSwingDuration = 0.15f; // 振り下ろし時間
+    [SerializeField] private DG.Tweening.Ease pickaxeEase = DG.Tweening.Ease.InQuad; // イージング
+
+    // ツルハシ設定の公開プロパティ（RockControllerから参照用）
+    public float RockScale => rockScale;
+    public Vector2 PickaxeStartOffset => pickaxeStartOffset;
+    public Vector2 PickaxeEndOffset => pickaxeEndOffset;
+    public float PickaxeStartRotation => pickaxeStartRotation;
+    public float PickaxeEndRotation => pickaxeEndRotation;
+    public float PickaxeScale => pickaxeScale;
+    public float PickaxeSwingDuration => pickaxeSwingDuration;
+    public DG.Tweening.Ease PickaxeEase => pickaxeEase;
+
     private Dictionary<int, GameObject> activeRocks = new Dictionary<int, GameObject>();
 
     void Awake()
@@ -165,6 +187,11 @@ public class RockSpawner : MonoBehaviour
 
         // エフェクトを設定
         controller.SetEffects(hitEffectPrefab, breakEffectPrefab);
+
+        // ツルハシ演出設定を適用
+        controller.SetPickaxeSettings(pickaxeStartOffset, pickaxeEndOffset,
+                                      pickaxeStartRotation, pickaxeEndRotation,
+                                      pickaxeScale, pickaxeSwingDuration, pickaxeEase);
 
         // 初期化
         int rockSpriteIndex = Random.Range(0, rockSprites?.Length ?? 1);
