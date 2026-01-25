@@ -1,8 +1,46 @@
 # このリポジトリ（Unity）でAIが即戦力になるための指示
 
 ## プロジェクト概要
-- Unity 6（6000.3.0f1）。1〜2歳児向けの「タップのみ」ミニゲーム集。概要と追加ゲーム時の前提は [cline.yml](cline.yml) を最優先で読む。
+- Unity 6（6000.3.0f1）。1〜2歳児向けの「タップのみ」ミニゲーム集。
 - ターゲット: Android / iOS（パッケージは [Packages/manifest.json](Packages/manifest.json)）。
+
+### 既存ミニゲーム一覧（概要）
+- MakeBubbles: 少年をタップしてシャボン玉を発射し、シャボン玉をタップして割る
+- WhackAMole: 地面から出てくるモグラをタップして叩く
+- FlowerBlooming: プランターをタップすると花が咲く
+- Cook: 鍋とフライパンをタップすると料理が飛び出す
+- TouchTheStar: 星をタッチすると弾ける
+- PianoAndViolin: ピアノやバイオリンをタップして音を鳴らす
+- CatchInsects: 虫をタップして捕まえる
+- PopBalloons: 風船をタップして割る
+- Fishing: 魚をタップして釣り上げる
+- VegetableDig: 土の中の野菜をタップして引き抜く（時々レア野菜が出現）
+- EggHatch: たまごをタップしてヒビを入れて孵化（時々レア動物が出現）
+
+### 新規ゲーム実装時の前提
+- 指示がある場合を除き、既存ゲームのソースコードを参考にしない（ゲーム間の結合度を下げる）
+- メニュー画面との遷移配線はユーザーが手動で実装する前提のため、AIは勝手に実装しない
+- 効果音は「【ゲーム名】 + SFXPlayer」命名で、ゲームごとに一元管理する
+- SFXPlayerは効果音ごとにボリュームを個別設定できるようにする
+- マルチタッチ前提: 画面上の2か所以上を同時タップしても反応する作りにする
+- 新規ゲームは 指示がない場合は[Assets/Games/_GameTemplate](Assets/Games/_GameTemplate) をコピーして作成し、仮スプライト/仮SEを一旦そのまま使って組み立てる
+- ユーザー操作を極限まで減らすため、必要ならセットアップスクリプト等でオブジェクト配置/アタッチ/必須参照設定まで自動化する
+
+### ゲームプレイ/シーン
+- gameplay_style: タップのみ・シンプルUI
+- scenes:
+	- MainMenu
+	- MakeBubbles
+	- WhackAMole
+	- FlowerBlooming
+	- Cook
+	- TouchTheStar
+	- PianoAndViolin
+	- CatchInsects
+	- PopBalloons
+	- Fishing
+	- VegetableDig
+	- EggHatch
 
 ## 全体構造（どこを触るか）
 - 各ゲームは [Assets/Games](Assets/Games) 配下の `NN_ゲーム名` フォルダ（例: [Assets/Games/05_TouchTheStar](Assets/Games/05_TouchTheStar)）。
@@ -29,11 +67,6 @@
 ## 新規ゲーム追加（テンプレート）
 - テンプレートは [Assets/Games/_GameTemplate](Assets/Games/_GameTemplate)。新規ゲームはこのフォルダをコピーして `NN_ゲーム名` にリネームし、`Scenes/`・`Sprites/`・`Audios/` 等の仮アセットを一旦そのまま使って組み立てる（詳細方針は [cline.yml](cline.yml)）。
 - `Scripts/` は空が前提（新規ゲームのスクリプトはゼロから作成する）。
-
-## 開発・デバッグ（VS Code）
-- 推奨拡張: Visual Studio Tools for Unity（[.vscode/extensions.json](.vscode/extensions.json)）。
-- デバッグは [Attach to Unity](.vscode/launch.json) を使い、Unity Editor起動後にアタッチする。
-- VS Codeの表示/検索ではUnity生成物やバイナリが除外される（[.vscode/settings.json](.vscode/settings.json)）。見えない場合は除外設定を確認する。
 
 ## テスト
 - 現状、自動テスト運用はなし（Test Runner/CIの前提なし）。変更確認はUnity EditorのPlayで行い、ログ（例: `MenuController`/`IAPManager` の `Debug.Log`）で初期化やロック状態を確認する。
