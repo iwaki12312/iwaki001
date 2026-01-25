@@ -25,7 +25,8 @@ public class GameInfo : MonoBehaviour
         new GameData("PopBalloons", 8, "pack_01"),         // 08_PopBalloons
         new GameData("VegetableDig", 10, "pack_01"),       // 10_VegetableDig
         new GameData("EggHatch", 11, "pack_01"),           // 11_EggHatch
-        new GameData("Fireworks", 12, "pack_01")           // 12_Fireworks
+        new GameData("Fireworks", 12, "pack_01"),          // 12_Fireworks
+        new GameData("FossilDigging", 13, "pack_02")       // 13_FossilDigging
     };
 
     // 総ページ数を取得
