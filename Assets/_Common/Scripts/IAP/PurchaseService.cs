@@ -18,6 +18,13 @@ namespace WakuWaku.IAP
             new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.01", "pack_01", ProductType.NonConsumable),
             new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.02", "pack_02", ProductType.NonConsumable),
             new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.03", "pack_03", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.04", "pack_04", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.05", "pack_05", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.06", "pack_06", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.07", "pack_07", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.08", "pack_08", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.09", "pack_09", ProductType.NonConsumable),
+            new ProductInfo("com.iw.wakuwaku.touchhiroba.pack.10", "pack_10", ProductType.NonConsumable),
         };
         
         private IStoreController storeController;
