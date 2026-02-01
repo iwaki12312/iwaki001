@@ -378,34 +378,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RockSpawner
   spawnPoints:
   - pointName: Point_0
-    position: {x: -6.0502195, y: 1.79934, z: 0}
-    scale: 0.3
+    position: {x: -5.577694, y: 1.5938945, z: 0}
+    scale: 1
   - pointName: Point_1
     position: {x: -0.7600894, y: 1.5478253, z: 0}
-    scale: 0.3
+    scale: 1
   - pointName: Point_2
-    position: {x: 5.2458267, y: 1.4496999, z: 0}
-    scale: 0.3
+    position: {x: 4.54731, y: 1.5113336, z: 0}
+    scale: 1
   - pointName: Point_3
     position: {x: -4.1498766, y: -2.2992585, z: 0}
-    scale: 0.3
+    scale: 1
   - pointName: Point_4
     position: {x: 0.9118526, y: -2.256751, z: 0}
-    scale: 0.3
+    scale: 1
   - pointName: Point_5
-    position: {x: 5.736639, y: -2.8147306, z: 0}
-    scale: 0.3
+    position: {x: 5.6133704, y: -2.383294, z: 0}
+    scale: 1
   normalChance: 0.5
   rareChance: 0.3
   superRareChance: 0.2
   rockPrefab: {fileID: 0}
   rockSprites:
-  - {fileID: -855298285791758126, guid: d682a49d9b0f1994eba5a3fcdc2a6240, type: 3}
-  - {fileID: 6937817954938267909, guid: 6a035fa31506ccb4aaaa63e8b64bdc8a, type: 3}
-  - {fileID: -6470460504253458178, guid: 0cc66745f1294204b847ee4848f50c85, type: 3}
-  - {fileID: -4178046375966092550, guid: 96e882fd8c8fc4a44846afb886d7a8ec, type: 3}
-  - {fileID: 4130640169021434097, guid: 1935e3125f050e143bd35c8baf7b3427, type: 3}
-  - {fileID: 3465286685962602723, guid: b838e4bc247bd6c488e6d5ae40512b85, type: 3}
+  - {fileID: -8880660518399506977, guid: 6e4b84a0287b12543a89817a8349999d, type: 3}
+  - {fileID: 2729775662145126574, guid: ae7187d13cd58c644b3d32da69a6579a, type: 3}
+  - {fileID: -1581218162088747416, guid: a115e72cec976c44f897b347f4867c0b, type: 3}
+  - {fileID: -8862080717188707863, guid: 4184bf8f9da73b04dbaedb0babd8f57b, type: 3}
+  - {fileID: -3017536213418486081, guid: 8f4f3040bcc098943a494f99cc697aa2, type: 3}
+  - {fileID: -7956013069824597617, guid: 68c20acc4b7f28e40b0dccfc17ba83ce, type: 3}
+  - {fileID: -7099406560117543942, guid: 0f2bdba9b4c5b694cb80c50552323ebf, type: 3}
+  - {fileID: 1162179483383047921, guid: dd48bf12a4b766d4b8be91f2deb3e016, type: 3}
+  - {fileID: -2677519816315858808, guid: e08a2e15108c57a4195854d742ef8aaf, type: 3}
+  - {fileID: -3422957168851564036, guid: 2deb771a51527bd4d93928ffc9c91e07, type: 3}
   pickaxeSprite: {fileID: 5676015964712416853, guid: 6634bd3767eb0a442b880cc5c03f856e, type: 3}
   brokenPieceSprites:
   - {fileID: -8857967048923322314, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
@@ -416,32 +420,39 @@ MonoBehaviour:
   - {fileID: 4491468921550522487, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
   - {fileID: -3754164438366229076, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
   normalTreasureSprites:
-  - {fileID: -8544467328750673333, guid: 77c1423916f72d44591a13bf351c2d72, type: 3}
-  - {fileID: -6252249584830872964, guid: 79f2471e9c2c1f74f8b5e974cd01a4f3, type: 3}
-  - {fileID: 6333888042954574163, guid: e3caad70cecbe954daa8ef52a4ab1a9c, type: 3}
-  - {fileID: -395224896204468029, guid: 24a1b9196b3ddc647964628161411ba5, type: 3}
-  - {fileID: -439537531642709468, guid: 9d7079a6579c2da47b0336c257a64290, type: 3}
-  - {fileID: 6104872854573604670, guid: d4c1bd0983d5b5043ada569f6583a219, type: 3}
-  - {fileID: -6681950906282848695, guid: bb8f7c0aa3dbecd4cb623a440bef440b, type: 3}
-  - {fileID: -4857170940059964981, guid: d926c75eb7d70eb4eab5ecd8024df2c4, type: 3}
+  - {fileID: -8265877889279120954, guid: 2d5f31eec3842b04dbb4177e333ad419, type: 3}
+  - {fileID: -3407900934517809145, guid: 09419da5f58108a41b3970801cae5a48, type: 3}
+  - {fileID: -3338796179210763214, guid: 6ee3c249d5b626d4cb5a47011a1a2d48, type: 3}
+  - {fileID: -8081076530245252372, guid: 3603b71b1d3a19249aad7c52526a4e46, type: 3}
+  - {fileID: -6384433045439167389, guid: 01244ba775ee6dd419ca630976fc2ef9, type: 3}
+  - {fileID: 830425426439730544, guid: 6d6b39bfa3d2e1e49871167ae9b70939, type: 3}
+  - {fileID: -314033294363224381, guid: 91e167c0df31e314f9b0649ba8bc263f, type: 3}
+  - {fileID: 5108985611211232849, guid: 8acdc7989b5bbcf4abaa8894641beed6, type: 3}
   rareTreasureSprites:
-  - {fileID: 5162408703209877613, guid: eb5c931a171d439448318fc9e95a6369, type: 3}
-  - {fileID: -1328728025650687732, guid: d9270aedcaa83cc428844abcdf09e569, type: 3}
-  - {fileID: -7020747437224009449, guid: 7cc6098baaf7d5a4d8d7640cca9cb46c, type: 3}
-  - {fileID: -1409791646483227946, guid: 2c0dcc1a1c026bd4395ea7fe10c6e086, type: 3}
-  - {fileID: 4790464891497709451, guid: 8e6d573dfdb24b549b7bfdce4aaa1d36, type: 3}
-  - {fileID: 8269033704941043246, guid: 0bfad933207795945978058c0663e51d, type: 3}
-  - {fileID: -5675357917545480165, guid: 62bc79609c5267b4584f4bf8df52bd79, type: 3}
-  - {fileID: -3562480070736688738, guid: 52959f3a9add1074ba5ccd0479797583, type: 3}
-  - {fileID: 6477783489728159851, guid: 72d21fa5a6bdfb94283fa1f58092e279, type: 3}
+  - {fileID: -2710236386628599434, guid: 3d5e628e3a46b2e4e9bf25bdea5b4b36, type: 3}
+  - {fileID: -7187539106180384267, guid: e475a615e001a7241a42a198380a97fd, type: 3}
+  - {fileID: -7904241134240137787, guid: e7a891f2df9a72c478278b0150d4b92f, type: 3}
+  - {fileID: 1859778861461395985, guid: 5f252403ce8b8014088005988d0f157a, type: 3}
+  - {fileID: -2978822457239456900, guid: 74c62c6181268e8439e5f0499526f0de, type: 3}
+  - {fileID: 6227786000052937446, guid: eb231bf3a2bbc134da23b87e510c0212, type: 3}
+  - {fileID: 4256138247888645193, guid: 0bc20f42d5ec7f841b252a1f143769fc, type: 3}
+  - {fileID: 5796730275757392908, guid: f137a81f1dc8ae64d8cf2e11e8145221, type: 3}
+  - {fileID: -9082203560079868657, guid: 1464a69f9f0d0984f88cffde7300a6b4, type: 3}
+  - {fileID: -7552400540482035520, guid: e7a347af3038ec64db8b4c4e4a07faf3, type: 3}
+  - {fileID: 4045140029612663272, guid: f847fae9d37565042b534517761dd899, type: 3}
+  - {fileID: -7618111119300072957, guid: 15c8c5759a1ebca458b70b8616a8914f, type: 3}
   superRareTreasureSprites:
-  - {fileID: 7936247690525743310, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
-  - {fileID: -608635299887750605, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
-  - {fileID: 1765155225814598105, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
-  - {fileID: 3548886332107885216, guid: b619eebf1e48cf3418f5ca446312b2b0, type: 3}
+  - {fileID: 5162177712376406027, guid: 7213acce0f30e3d448602dcb8ed0c4e0, type: 3}
+  - {fileID: 1968966247083344282, guid: 234f369cded8ea642abf5b4791ffbc0a, type: 3}
+  - {fileID: 4166466133414542491, guid: 0cbf9e3da83c2a642bd3aa00ff0ed374, type: 3}
+  - {fileID: 5267154889450247547, guid: 16fbc308630af3644aa8c33a0f54af1f, type: 3}
+  - {fileID: 2261206583019818407, guid: 01c99e170199c794888bf5a3c266176e, type: 3}
+  - {fileID: -3882223415059162024, guid: ea508a5955a83f64e9449d3832fd583b, type: 3}
+  - {fileID: -2833947372110302034, guid: b50be6edf0f891c4e9e3ec0dd7f1f7fc, type: 3}
   hitEffectPrefab: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   breakEffectPrefab: {fileID: 395031058680739610, guid: b2f0b8902a31c8a46a1c4bb24ed9ea36, type: 3}
-  rockScale: 0.8
+  rockScale: 1.7
+  treasureScale: 1.8
   pickaxeStartOffset: {x: 1.5, y: 1.5}
   pickaxeEndOffset: {x: 0.3, y: 0.3}
   pickaxeStartRotation: -45

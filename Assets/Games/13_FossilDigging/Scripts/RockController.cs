@@ -374,8 +374,8 @@ public class RockController : MonoBehaviour
         // ファンファーレ再生
         FossilDiggingSFXPlayer.Instance?.PlayFanfareByRarity(currentRarity);
 
-        // 岩のスケールを取得
-        float rockScale = RockSpawner.Instance != null ? RockSpawner.Instance.RockScale : 1f;
+        // 化石/宝石のスケールを取得（岩のスケールとは独立）
+        float treasureScale = RockSpawner.Instance != null ? RockSpawner.Instance.TreasureScale : 1f;
 
         // 宝物オブジェクトを生成
         GameObject treasure = new GameObject("Treasure");
@@ -385,8 +385,8 @@ public class RockController : MonoBehaviour
         treasure.transform.position = transform.position;
         treasure.transform.localScale = Vector3.zero;
 
-        // 出現アニメーション（岩のスケールに合わせる）
-        Vector3 targetScale = Vector3.one * rockScale;
+        // 出現アニメーション（化石/宝石のスケールを適用）
+        Vector3 targetScale = Vector3.one * treasureScale;
         Sequence showSeq = DOTween.Sequence();
         showSeq.Append(treasure.transform.DOScale(targetScale, 0.5f).SetEase(Ease.OutBack));
         

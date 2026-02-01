@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 19c428b955e98a24f98b491f11c87b22
+guid: e08a2e15108c57a4195854d742ef8aaf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2710236386628599434
-    second: fossil01_trex_skull_0
+      213: -2677519816315858808
+    second: rock8_v2_clay_thick_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fossil01_trex_skull_0
+      name: rock8_v2_clay_thick_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 34
-        width: 221
-        height: 198
+        x: 12
+        y: 52
+        width: 231
+        height: 153
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6710aa5ad5e436ad0800000000000000
-      internalID: -2710236386628599434
+      spriteID: 8809c65c9e987dad0800000000000000
+      internalID: -2677519816315858808
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f625cb329cb445d40a401b8f57077cb5
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fossil01_trex_skull_0: -2710236386628599434
+      rock8_v2_clay_thick_0: -2677519816315858808
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

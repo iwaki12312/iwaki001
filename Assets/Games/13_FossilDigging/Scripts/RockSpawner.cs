@@ -44,6 +44,7 @@ public class RockSpawner : MonoBehaviour
 
     [Header("岩設定")]
     [SerializeField] private float rockScale = 1f;               // 岩のスケール（実行中変更可能）
+    [SerializeField] private float treasureScale = 1f;           // 化石/宝石のスケール（実行中変更可能）
 
     [Header("ツルハシ演出設定")]
     [SerializeField] private Vector2 pickaxeStartOffset = new Vector2(1.5f, 1.5f);  // 開始位置オフセット
@@ -56,6 +57,7 @@ public class RockSpawner : MonoBehaviour
 
     // ツルハシ設定の公開プロパティ（RockControllerから参照用）
     public float RockScale => rockScale;
+    public float TreasureScale => treasureScale;
     public Vector2 PickaxeStartOffset => pickaxeStartOffset;
     public Vector2 PickaxeEndOffset => pickaxeEndOffset;
     public float PickaxeStartRotation => pickaxeStartRotation;
