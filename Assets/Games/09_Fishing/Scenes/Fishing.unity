@@ -201,9 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89df58b5060ca47408710e02a1af2890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
-  hookedSprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
-  pullSprite: {fileID: 7638019610821655944, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
+  idleSprite: {fileID: 9118213209582376027, guid: 336064319963ac844baf5d2ef2058f59, type: 3}
+  hookedSprite: {fileID: 9118213209582376027, guid: 336064319963ac844baf5d2ef2058f59, type: 3}
+  pullSprite: {fileID: 1480917699468073914, guid: 336064319963ac844baf5d2ef2058f59, type: 3}
   hookedDuration: 0.1
   pullDuration: 1.5
 --- !u!212 &341237529
@@ -255,7 +255,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2538004209770703685, guid: 21f3ac0ccba79bf4e94bcbd3ceb3682d, type: 3}
+  m_Sprite: {fileID: 9118213209582376027, guid: 336064319963ac844baf5d2ef2058f59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -274,8 +274,8 @@ Transform:
   m_GameObject: {fileID: 341237527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.05, y: 2.8, z: 0}
-  m_LocalScale: {x: 0.3147, y: 0.29505002, z: 1.5}
+  m_LocalPosition: {x: 4.53, y: 2.52, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -832,7 +832,7 @@ MonoBehaviour:
     sizeMultiplier: 1
     colliderRadius: 1.5
   rareFishSprites:
-  - sprite: {fileID: -2114686101538272709, guid: 9aba7f203cec4ec4985745a6d6e3fe05, type: 3}
+  - sprite: {fileID: -6470460504253458178, guid: 4814f117cd2d0d94bb978f61ba25a847, type: 3}
     sizeMultiplier: 3
     colliderRadius: 2
   - sprite: {fileID: 6515904674758421358, guid: b63fc24b775cd034cbf7f2e906727839, type: 3}
