@@ -56,5 +56,8 @@ Assets/Resources/PerformanceTestRun*.json.meta
 local.properties
 output/
 
+# 画像生成作業フォルダ
+makeImage/
+
 # Local debug artifacts
 playerprefs*.xml
