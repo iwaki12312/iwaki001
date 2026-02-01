@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 19c428b955e98a24f98b491f11c87b22
+guid: 66bea9fc34cbcd84a99b09e93da6d3d5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2710236386628599434
-    second: fossil01_trex_skull_0
+      213: -3338796179210763214
+    second: fossil07_ammonite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fossil01_trex_skull_0
+      name: fossil07_ammonite_0
       rect:
         serializedVersion: 2
         x: 18
-        y: 34
-        width: 221
-        height: 198
+        y: 39
+        width: 223
+        height: 192
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6710aa5ad5e436ad0800000000000000
-      internalID: -2710236386628599434
+      spriteID: 23406b090963aa1d0800000000000000
+      internalID: -3338796179210763214
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f625cb329cb445d40a401b8f57077cb5
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fossil01_trex_skull_0: -2710236386628599434
+      fossil07_ammonite_0: -3338796179210763214
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
