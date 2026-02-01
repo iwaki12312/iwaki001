@@ -421,7 +421,6 @@ MonoBehaviour:
   - {fileID: -3754164438366229076, guid: a5a0fb30560d79c43983dedb563ff8c6, type: 3}
   normalTreasureSprites:
   - {fileID: -8265877889279120954, guid: 2d5f31eec3842b04dbb4177e333ad419, type: 3}
-  - {fileID: -3407900934517809145, guid: 09419da5f58108a41b3970801cae5a48, type: 3}
   - {fileID: -3338796179210763214, guid: 6ee3c249d5b626d4cb5a47011a1a2d48, type: 3}
   - {fileID: -8081076530245252372, guid: 3603b71b1d3a19249aad7c52526a4e46, type: 3}
   - {fileID: -6384433045439167389, guid: 01244ba775ee6dd419ca630976fc2ef9, type: 3}
