@@ -186,7 +186,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
+  previewSprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
   overrideScale: 0
 --- !u!4 &266659481
 Transform:
@@ -292,7 +292,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
+  previewSprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
   overrideScale: 0
 --- !u!4 &524063115
 Transform:
@@ -490,7 +490,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
+  previewSprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
   overrideScale: 0
 --- !u!4 &770684603
 Transform:
@@ -596,7 +596,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
+  previewSprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
   overrideScale: 0
 --- !u!4 &1084466593
 Transform:
@@ -702,7 +702,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
+  previewSprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
   overrideScale: 0
 --- !u!4 &1453645112
 Transform:
@@ -850,12 +850,12 @@ MonoBehaviour:
   colliderRadius: 1
   timeChangeInterval: 20
   spawnPoints:
-  - {fileID: 770684602}
-  - {fileID: 266659480}
-  - {fileID: 1883077072}
-  - {fileID: 1084466592}
   - {fileID: 1453645111}
+  - {fileID: 1084466592}
+  - {fileID: 266659480}
   - {fileID: 524063114}
+  - {fileID: 770684602}
+  - {fileID: 1883077072}
 --- !u!4 &1489363211
 Transform:
   m_ObjectHideFlags: 0
@@ -938,7 +938,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
+  previewSprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
   overrideScale: 0
 --- !u!4 &1883077073
 Transform:
