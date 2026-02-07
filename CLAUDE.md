@@ -1,26 +1,54 @@
-# CLAUDE.md
+# このリポジトリ（Unity）でAIが即戦力になるための指示
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> **この文書は `.github/copilot-instructions.md`、`CLAUDE.md`、`README.md` で同一内容を保持しています。**
+> 変更時は3ファイルすべてを同期してください。
+
+---
 
 ## プロジェクト概要
 
-Unity 6 (6000.3.0f1) - 0～3歳児向けタップ操作のミニゲーム集。対象プラットフォーム: Android/iOS。
+- **Unity 6（6000.3.0f1）**: 0～3歳児向けの「タップのみ」ミニゲーム集
+- **ターゲット**: Android / iOS
+- **パッケージ名**: `com.iw.wakuwaku.touchhiroba`
+- **パッケージ定義**: [Packages/manifest.json](Packages/manifest.json)
 
-**パッケージ名**: `com.iw.wakuwaku.touchhiroba`
+### 既存ミニゲーム一覧
 
-## ビルド・開発コマンド
+| # | シーン名 | 概要 |
+|---|---------|------|
+| 1 | MakeBubbles | 少年をタップしてシャボン玉を発射し、シャボン玉をタップして割る |
+| 2 | WhackAMole | 地面から出てくるモグラをタップして叩く |
+| 3 | FlowerBlooming | プランターをタップすると花が咲く |
+| 4 | Cook | 鍋とフライパンをタップすると料理が飛び出す |
+| 5 | TouchTheStar | 星をタッチすると弾ける |
+| 6 | PianoAndViolin | ピアノやバイオリンをタップして音を鳴らす |
+| 7 | CatchInsects | 虫をタップして捕まえる |
+| 8 | PopBalloons | 風船をタップして割る |
+| 9 | Fishing | 魚をタップして釣り上げる |
+| 10 | VegetableDig | 土の中の野菜をタップして引き抜く（時々レア野菜が出現） |
+| 11 | EggHatch | たまごをタップしてヒビを入れて孵化（時々レア動物が出現） |
+| 12 | Fireworks | 花火を打ち上げる |
+| 13 | FossilDigging | 化石を発掘する |
+| 14 | AnimalVoice | 動物をタップすると鳴き声が聞こえる（背景が朝→昼→夜と変化、レア動物も出現） |
 
-### Unity エディタ操作
-このプロジェクトはUnity Editorでビルドします。コマンドラインビルドスクリプトはありません。
+### ゲーム設計ガイドライン（0～3歳児向け）
 
-- **エディタで再生**: Unity EditorのPlayボタンでテスト
-- **Android APKビルド**: File → Build Settings → Android → Build
-- **iOSビルド**: File → Build Settings → iOS → Build
+- シンプルにタップだけで遊べて、難しいルールは不要
+- スコア等のUIは不要
+- 文字やテキストも不要（読めないため）
+- 視覚的にわかりやすく、ポップなデザイン
+- 子供が好きなテーマを採用
+- タップしたら何かが起きて、飽きさせない工夫を入れる（レア要素など）
 
-### コンパイル確認
-コード変更後は、Unity Editorでビルドするか、Consoleでエラーを確認してコンパイルを検証すること。
+---
 
 ## プロジェクトアーキテクチャ
+
+### フォルダ構成
+
+- 各ゲームは [Assets/Games](Assets/Games) 配下の `NN_ゲーム名` フォルダ（例: [Assets/Games/05_TouchTheStar](Assets/Games/05_TouchTheStar)）
+- 共通ロジックは [Assets/_Common](Assets/_Common)（ゲーム一覧・IAP等）
+- `.csproj/.sln` はUnityが自動生成するため編集しない（編集は `Assets/**/*.cs` が中心）
 
 ### ゲーム管理システム
 
@@ -37,34 +65,12 @@ Unity 6 (6000.3.0f1) - 0～3歳児向けタップ操作のミニゲーム集。�
 3. `GameButton` コンポーネントをアタッチし、シーン/パック参照を設定
 4. IAP権利に基づいてロック状態を更新
 
-### IAP・ゲームロックシステム
-
-IAP実装は [Assets/_Common/Scripts/IAP](Assets/_Common/Scripts/IAP) にあります。
-
-**主要コンポーネント**:
-- **IAPManager**: 起動時にIAPシステム全体を初期化
-- **EntitlementStore**: 所有パックIDのローカル保存（PlayerPrefs経由）
-- **PurchaseService**: Unity IAP統合、レシート検証、付与/剥奪ロジック
-- **FeatureGate**: 権利に基づくロック/アンロックロジック
-
-**フロー**:
-1. `pack_free` は常に付与される
-2. 起動時、IAPManagerがEntitlementStore → PurchaseService を初期化 → 購入同期
-3. レシート検証で現在の権利を判定
-4. FeatureGateがゲームの `packID` が所有されているかチェック
-
-**Product ID ↔ Pack ID のマッピング**は `PurchaseService.cs` の products リストにあります。
-
-詳細なIAPフロー（オンライン/オフライン、保留購入、adbデバッグ）は [README.md](README.md) のIAPセクションを参照。
-
 ### 入力システム
 
-**重要**: このプロジェクトは**Unityの新Input System**（`UnityEngine.InputSystem`）を使用。
+**重要**: このプロジェクトは **Unityの新Input System**（`UnityEngine.InputSystem`）を使用。
 
 **使用禁止**:
-- `Input.GetMouseButtonDown()`
-- `Input.touchCount`
-- `UnityEngine.Input` クラス全般
+- `Input.GetMouseButtonDown()` / `Input.touchCount` / `UnityEngine.Input` クラス全般
 
 **代わりに使用**:
 - マルチタッチ: `Touchscreen.current.touches`
@@ -73,23 +79,10 @@ IAP実装は [Assets/_Common/Scripts/IAP](Assets/_Common/Scripts/IAP) にあり�
 
 **マルチタッチ要件**: ゲームは2箇所以上の同時タップに対応する必要があります。
 
-### ゲームテンプレートシステム
-
-新規ゲームは [Assets/Games/_GameTemplate](Assets/Games/_GameTemplate) から開始:
-1. `_GameTemplate` フォルダをコピー → `NN_ゲーム名` にリネーム（例: `14_AnimalVoice`）
-2. プレースホルダーアセットを使用（スプライト: `work_bg.png`, `work_sprite_a/b.png`; オーディオ: `work_sfx1-8.mp3`）
-3. `Scripts/` に新規ゲームスクリプトをゼロから作成（テンプレートのScriptsフォルダは空）
-4. セットアップスクリプトを作成（例: `Scripts/Editor/` に `AnimalVoiceSetup.cs`）して自動化:
-   - シーン作成
-   - オブジェクト階層セットアップ
-   - コンポーネントアタッチ
-   - アセット参照の配線
-5. ユーザーがUnityメニューから手動実行（例: `Tools → Setup AnimalVoice Game`）
-
 ### 効果音アーキテクチャ
 
-各ゲームは専用のSFXPlayerコンポーネントを持つ（例: `TouchTheStarSFXPlayer`, `AnimalVoiceSFXPlayer`）:
-- 命名規則: `{ゲーム名}SFXPlayer`
+各ゲームは専用のSFXPlayerコンポーネントを持つ:
+- 命名規則: `{ゲーム名}SFXPlayer`（例: `TouchTheStarSFXPlayer`, `AnimalVoiceSFXPlayer`）
 - 効果音ごとの音量個別制御が可能
 - ゲームのオーディオクリップ参照を一元管理
 
@@ -101,18 +94,41 @@ IAP実装は [Assets/_Common/Scripts/IAP](Assets/_Common/Scripts/IAP) にあり�
 - プログラムで参照を配線
 - Unity Editorでの手動セットアップを最小化
 
+### 外部ライブラリ
+
+プロジェクトにはサードパーティライブラリが含まれています。ゼロから実装する前に利用可能か確認:
+- **DOTween**: トゥイーン/アニメーション
+- **Cartoon FX Remaster** (CFXR): パーティクルエフェクト（[Assets/JMO Assets/Cartoon FX Remaster](Assets/JMO%20Assets/Cartoon%20FX%20Remaster)）
+
+### 主要Unityパッケージ
+
+[Packages/manifest.json](Packages/manifest.json) 参照:
+- `com.unity.inputsystem` (1.16.0) - 新Input System
+- `com.unity.purchasing` (5.0.1) - IAP
+- `com.unity.render-pipelines.universal` (17.3.0) - URP
+
+---
+
 ## 新規ゲーム実装ルール
 
-新規ゲーム実装時:
+### 基本ルール
 
-1. **分離**: 他のゲーム実装を参照しない（結合度を低く保つ）
-2. **テンプレートベース**: [Assets/Games/_GameTemplate](Assets/Games/_GameTemplate) をコピーして開始
+1. **分離**: 指示がある場合を除き、既存ゲームのソースコードを参考にしない（ゲーム間の結合度を下げる）
+2. **テンプレートベース**: 指示がない場合は [Assets/Games/_GameTemplate](Assets/Games/_GameTemplate) をコピーして作成
 3. **プレースホルダーアセット**: テンプレートの `work_*.png` と `work_sfx*.mp3` を最初に使用
-4. **セットアップ自動化**: Editorスクリプトでシーン/オブジェクトセットアップを自動化
-5. **マルチタッチ**: 同時タップが動作するようにする（`Touchscreen.current.touches` をループ処理）
-6. **メニュー配線なし**: AIはメニューシーン遷移を実装しない（ユーザーが手動で行う）
-7. **SFXPlayer**: ゲーム専用の `{ゲーム名}SFXPlayer` をクリップごとの音量設定で作成
-8. **ビルド確認**: 実装後、Unity Consoleでコンパイルを確認
+4. **セットアップ自動化**: ユーザー操作を極限まで減らすため、Editorスクリプトでオブジェクト配置/アタッチ/必須参照設定まで自動化。セットアップスクリプトはユーザーが手動で実行する形にする
+5. **マルチタッチ**: 画面上の2か所以上を同時タップしても反応する作りにする
+6. **メニュー配線なし**: メニュー画面との遷移配線はユーザーが手動で実装する前提のため、AIは勝手に実装しない
+7. **SFXPlayer**: 効果音は「【ゲーム名】+ SFXPlayer」命名でゲームごとに一元管理。効果音ごとにボリュームを個別設定できるようにする
+8. **ビルド確認**: 新規実装時や大きく実装を直した後は、必ずコンパイルエラーがないことを確認してから作業を完了すること
+
+### ゲームテンプレートシステム
+
+テンプレートは [Assets/Games/_GameTemplate](Assets/Games/_GameTemplate):
+1. `_GameTemplate` フォルダをコピー → `NN_ゲーム名` にリネーム（例: `14_AnimalVoice`）
+2. プレースホルダーアセットを使用（スプライト: `work_bg.png`, `work_sprite_a/b.png`; オーディオ: `work_sfx1-8.mp3`）
+3. `Scripts/` に新規ゲームスクリプトをゼロから作成（テンプレートのScriptsフォルダは空）
+4. セットアップスクリプトを作成（例: `Scripts/Editor/` に setup スクリプト）して自動化
 
 ### 新規ゲーム実装の完全な手順
 
@@ -158,11 +174,7 @@ public static void ApplyAssets()
 
 #### ステップ3: 画像アセットの生成
 
-1. `makeImage/makeImages.py`に画像生成ジョブを追加
-2. 必要な画像リストを作成（背景、キャラクター、UI要素など）
-3. OpenAI APIで生成: `python makeImages.py`
-4. 生成された画像を`Assets/Games/NN_ゲーム名/Sprites/`にコピー
-5. .metaファイルを生成: `python generate_meta.py`
+[画像アセット生成ワークフロー](#画像アセット生成ワークフロー) を参照。
 
 #### ステップ4: Unity Editorでのセットアップ
 
@@ -179,61 +191,30 @@ public static void ApplyAssets()
 3. 問題があればUnity Consoleのログを確認
 
 自動テスト（推奨）:
-1. Unity Editorを開いた状態で実行:
 ```bash
 cd makeImage
 python restart_unity_test.py
 ```
-2. 生成されたスクリーンショットを確認
-3. 問題があればUnity Consoleのログを確認
 
-#### ステップ6: デバッグと修正
-
-よくある問題と解決方法:
-
-**問題**: オブジェクトが表示されない
-- **原因**: sortingOrderが設定されていない、またはスプライトがnull
-- **解決**: SpriteRendererにsortingOrderを設定（推奨値: 10）
-- **確認**: Unity Consoleのログでスプライトのロード状況を確認
-
-**問題**: タップが反応しない
-- **原因**: Colliderが設定されていない、またはEventSystemがない
-- **解決**: CircleCollider2DまたはBoxCollider2Dを追加、EventSystemが存在するか確認
-
-**問題**: アセット参照がnull
-- **原因**: .metaファイルが生成されていない、またはパスが間違っている
-- **解決**: `generate_meta.py`を実行、AssetDatabase.LoadAssetAtPathのパスを確認
-
-**問題**: Unity Editorが変更を認識しない
-- **原因**: Unity Editorがバックグラウンドにある
-- **解決**: Unity Editorにフォーカスを当てて、コンパイルが完了するまで待つ
-
-#### ステップ7: アセットの本番化（オプション）
+#### ステップ6: アセットの本番化（オプション）
 
 初回実装では低品質（`quality="low"`）の画像を使用します。動作確認後、高品質版を生成:
-
 1. `makeImages.py`の該当ジョブで`quality="standard"`に変更
 2. 再度生成: `python makeImages.py`
 3. 既存の画像を上書き
 4. Unity Editorで`Tools → Apply {ゲーム名} Assets`を実行
 
-### 新規ゲーム設計ガイドライン
-
-0～3歳児向け:
-- タップのみの操作（複雑なジェスチャーなし）
-- スコア/UIテキストなし（読めないため）
-- タップごとに視覚的フィードバック
-- シンプルで繰り返しの仕組み
-- レア/サプライズ要素で飽きさせない
-- 明るくカラフルな見た目
+---
 
 ## 画像アセット生成ワークフロー
 
 ### OpenAI Image Generation APIを使用した素材作成
 
-**スクリプトの場所**: [makeImage/makeImages.py](makeImage/makeImages.py)
+**スクリプトの場所**: [makeImage/](makeImage/) ディレクトリ
 
-#### 使用方法
+### 基本的な画像生成
+
+**スクリプト**: [makeImage/makeImages.py](makeImage/makeImages.py)
 
 1. **画像生成ジョブの定義** - `makeImages.py`の`jobs`配列に生成したい画像を追加:
 ```python
@@ -259,13 +240,86 @@ cd makeImage
 python generate_meta.py
 ```
 
-#### 重要な注意点
+### スプライトシート方式（同一キャラの状態違いスプライト生成）
 
-- **レート制限**: OpenAI APIは20画像/分の制限があります。`makeImages.py`は自動的に3.5秒の遅延を入れて対応
+**重要ルール**: 同一キャラクターの「通常時」と「リアクション時」など、**同じキャラクターデザインで表情・ポーズだけが異なるスプライトを作る場合は、必ずスプライトシート方式を使用すること**。
+
+#### なぜスプライトシート方式が必要か
+
+画像生成AIに別々のプロンプトで個別に生成させると、プロンプトを揃えてもキャラクターの色味・体型・細部のデザインに差異が出る。1枚の横長画像内に複数の状態を同時に生成させることで、同一キャラクターの一貫性を保証する。
+
+#### 使い方
+
+**スクリプト**: [makeImage/makeImages_spritesheet.py](makeImage/makeImages_spritesheet.py)
+
+```python
+COMMON_PREFIX = (
+    "2体の同じ動物キャラクターを描いたスプライトシート画像。"
+    "カラフルでポップな2Dアイコン、太めの黒アウトライン、背景透過、子供向けゲーム用。"
+    "画像の左半分に1体目、右半分に2体目を配置。"
+    "2体は全く同じキャラクターデザイン・同じ色・同じ体型で、口の開閉だけが異なる。"
+    "左側: 口を閉じた通常の表情。右側: 口を大きく開けて鳴いている表情。"
+    "どちらも正面向き、可愛いデザイン、0～3歳児向け。"
+)
+
+jobs = [
+    {
+        "name": "chicken",
+        "prompt": f"{COMMON_PREFIX}動物: ニワトリ。赤いトサカ、白い体、黄色いくちばし。",
+    },
+    # ...
+]
+```
+
+1. **生成**: `python makeImages_spritesheet.py`
+   - 1536×1024の横長画像を生成
+   - 自動的に左右に分割して `{name}_normal.png` / `{name}_reaction.png` を出力
+   - スプライトシート原本も `{name}_sheet.png` として保存
+2. **デプロイ**: `python deploy_spritesheet.py`
+   - 既存スプライトのバックアップを作成
+   - 分割画像をSpritesフォルダにコピー
+   - 必要に応じて.metaファイルを生成
+3. **反映**: Unity Editorで `Tools → Apply {ゲーム名} Assets` を実行
+
+#### スプライトシート方式を使うべき場面
+
+| 場面 | 方式 |
+|------|------|
+| 同一キャラの状態違い（通常/リアクション） | **スプライトシート方式** |
+| 同一キャラのアニメーションフレーム | **スプライトシート方式** |
+| 別々のキャラクター | 個別生成（通常方式） |
+| 背景画像 | 個別生成（通常方式） |
+| UI要素 | 個別生成（通常方式） |
+
+#### Unityへの取り込みについて
+
+スプライトシートはPythonスクリプト側で左右に分割し、個別ファイル（`_normal.png` / `_reaction.png`）としてUnityに取り込む。理由：
+- 既存のInitializer、ApplyAssets、Setupスクリプトが個別ファイル参照を前提としている
+- Unityの「Multiple」スプライトモード対応にすると全てのアセット参照コードの改修が必要になる
+- 個別ファイル方式なら既存コードに変更不要
+
+### 画像生成の共通ルール
+
+- **レート制限**: OpenAI APIは20画像/分の制限。`makeImages.py`は自動的に3.5秒の遅延を入れて対応
 - **品質設定**: デフォルトは`quality="low"`（コスト削減のため）。高品質版が必要な場合は後で再生成
-- **プロンプト保存**: 全てのプロンプトは`makeImages.py`に保存されているため、高品質で再生成可能
+- **プロンプト保存**: 全てのプロンプトは`makeImages.py`（または`makeImages_spritesheet.py`）に保存されているため、高品質で再生成可能
 - **背景透過**: キャラクター/オブジェクトのプロンプトには必ず「背景透過」を含める
 - **アートスタイル統一**: ゲーム内の全素材で一貫したスタイルを使用（例: "カラフルでポップな2Dアイコン、太めの黒アウトライン"）
+- **プロンプトのバックアップ**: 生成方式を変更する場合は、既存のプロンプトファイルを `_backup_xxx.py` としてバックアップしてから変更すること
+
+### 画像生成関連スクリプト一覧
+
+| スクリプト | 用途 |
+|-----------|------|
+| [makeImage/makeImages.py](makeImage/makeImages.py) | 個別画像生成（背景、独立キャラクター等） |
+| [makeImage/makeImages_spritesheet.py](makeImage/makeImages_spritesheet.py) | スプライトシート生成（同一キャラの状態違い） |
+| [makeImage/makeImages_backup_individual.py](makeImage/makeImages_backup_individual.py) | 旧個別生成プロンプトのバックアップ |
+| [makeImage/deploy_spritesheet.py](makeImage/deploy_spritesheet.py) | スプライトシート分割画像のデプロイ |
+| [makeImage/generate_meta.py](makeImage/generate_meta.py) | Unity .metaファイル生成 |
+| [makeImage/resize_images.py](makeImage/resize_images.py) | 画像リサイズ |
+| [makeImage/editImages.py](makeImage/editImages.py) | OpenAI Edit APIでの画像編集 |
+
+---
 
 ## Unity自動化とデバッグ
 
@@ -291,7 +345,7 @@ cd makeImage
 python restart_unity_test.py
 ```
 
-**出力**: `C:\dev\iwaki001\screenshot_animalvoice.png`にスクリーンショットが保存される
+**出力**: `C:\dev\iwaki001\screenshot_animalvoice.png`
 
 #### auto_test_unity.py
 
@@ -306,19 +360,10 @@ python restart_unity_test.py
 **場所**: [Assets/Games/14_AnimalVoice/Scripts/Editor/AnimalVoiceAutoTest.cs](Assets/Games/14_AnimalVoice/Scripts/Editor/AnimalVoiceAutoTest.cs)
 
 **機能**:
-- トリガーファイル（`C:\dev\iwaki001\trigger_autotest.txt`）を監視
-- ファイル検出時に自動的にPlay modeを開始
-- 5秒後にスクリーンショットを撮影して停止
+- トリガーファイル（`trigger_autotest.txt`）を監視 → Play mode開始 → 5秒後にスクリーンショット撮影して停止
+- トリガーファイル（`trigger_apply_and_test.txt`）を監視 → ApplyAssets実行 → Play mode開始 → スクリーンショット
 
 **手動実行**: Unity Editor → `Tools → Auto Test AnimalVoice`
-
-#### AnimalVoiceDebugCapture.cs
-
-**場所**: [Assets/Games/14_AnimalVoice/Scripts/AnimalVoiceDebugCapture.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalVoiceDebugCapture.cs)
-
-**機能**:
-- Play mode開始5秒後に自動でスクリーンショットを撮影
-- ゲーム状態をUnity Consoleに詳細ログ出力（GameObject数、AnimalController数、Sprite設定など）
 
 ### 重要な実装上の注意点
 
@@ -330,7 +375,7 @@ python restart_unity_test.py
 
 #### SpriteRendererのソート順設定
 
-Unity 2Dゲームでスプライトを正しく表示するには、**sortingOrderを必ず設定**してください:
+Unity 2Dゲームでスプライトを正しく表示するには、**sortingOrderを必ず設定**:
 
 ```csharp
 SpriteRenderer sr = gameObject.AddComponent<SpriteRenderer>();
@@ -343,12 +388,9 @@ sr.sortingOrder = 10;  // 背景より前面に表示
 - UI要素、エフェクト: `50` ～ `100`
 - フェードオーバーレイ: `100` 以上
 
-sortingOrderを設定しないと、デフォルト値`0`になり、背景や他の要素と重なって表示されない場合があります。
-
 #### 既存シーンでの変更反映
 
 Unity Editorスクリプトで新しいPrefabを作成した場合、**既存のシーンには反映されません**。以下のいずれかを実行:
-
 1. **新しいシーンを作成**: `Tools → Setup [GameName] Game`
 2. **既存シーンに再適用**: `Tools → Apply [GameName] Assets`
 
@@ -359,107 +401,84 @@ Unityにアセットをインポートするには、`.meta`ファイルが必�
 - [makeImage/generate_meta.py](makeImage/generate_meta.py)を使用して`.meta`ファイルを生成
 - Unityが自動生成することもありますが、Editorにフォーカスを当てる必要があります
 
-## 外部ライブラリ
-
-プロジェクトにはサードパーティライブラリが含まれています - ゼロから実装する前に利用可能か確認:
-- **DOTween**: トゥイーン/アニメーション（インポートされている場合）
-- **Cartoon FX Remaster** (CFXR): パーティクルエフェクト（[Assets/JMO Assets/Cartoon FX Remaster](Assets/JMO%20Assets/Cartoon%20FX%20Remaster)）
-
-新機能実装前に関連アセットを検索すること。
-
-## Unity パッケージ
-
-主要パッケージ（[Packages/manifest.json](Packages/manifest.json) 参照）:
-- `com.unity.inputsystem` (1.16.0) - 新Input System
-- `com.unity.purchasing` (5.0.1) - IAP
-- `com.unity.render-pipelines.universal` (17.3.0) - URP
+---
 
 ## テスト
 
-自動テスト基盤はありません。検証は以下で実施:
-- Unity EditorのPlayモード
-- Consoleログ確認（IAPManager、MenuControllerが初期化をログ出力）
-- 最終確認用のデバイスビルド
+- 自動テスト基盤はありません。検証はUnity EditorのPlayモードとConsoleログで実施
+- **新規実装時や大きく実装を直した後は、必ずコンパイルエラーがないことを確認してから作業を完了すること**
 
-## 重要なファイル
-
-- [GameInfo.cs](Assets/_Common/Scripts/GameInfo.cs) - ゲームの中央レジストリ
-- [MenuController.cs](Assets/Games/00_Menu/Scripts/MenuController.cs) - 動的メニュー生成
-- [IAPManager.cs](Assets/_Common/Scripts/IAP/IAPManager.cs) - IAPシステム初期化
-- [EntitlementStore.cs](Assets/_Common/Scripts/IAP/EntitlementStore.cs) - パック所有権のストレージ
-- [FeatureGate.cs](Assets/_Common/Scripts/IAP/FeatureGate.cs) - ロック/アンロックロジック
-- [README.md](README.md) - IAPフローの詳細ドキュメント（adbデバッグコマンド含む）
-- [.github/copilot-instructions.md](.github/copilot-instructions.md) - 追加の開発ガイドライン
+---
 
 ## トラブルシューティング
 
-### Unity Editorが応答しない
+### Unity Editorが応答しない / 変更が反映されない
 
-**症状**: スクリプト変更が反映されない、コンパイルが完了しない
-
-**解決方法**:
 1. Unity Editorウィンドウにフォーカスを当てる
 2. 数秒待ってコンパイルが完了するのを確認（下部のプログレスバー）
 3. Unity Consoleでコンパイルエラーを確認
 
 ### 画像生成APIのレート制限エラー
 
-**症状**: `Rate limit reached for gpt-image... Limit 20, Used 20`
-
-**解決方法**:
-- `makeImages.py`は自動的に3.5秒の遅延を入れています
-- 手動で実行する場合は、20画像ごとに1分待機してください
+`Rate limit reached for gpt-image... Limit 20, Used 20` → `makeImages.py`は自動的に3.5秒の遅延を入れています。手動実行する場合は20画像ごとに1分待機。
 
 ### Unity Consoleログの確認方法
 
 **ログファイルの場所**: `C:\Users\{ユーザー名}\AppData\Local\Unity\Editor\Editor.log`
 
-**コマンドラインから確認**:
-```bash
-# 最新100行を表示
-tail -100 "C:\Users\{ユーザー名}\AppData\Local\Unity\Editor\Editor.log"
-
-# 特定のキーワードで検索
-grep -i "error\|exception" "C:\Users\{ユーザー名}\AppData\Local\Unity\Editor\Editor.log"
+```powershell
+# PowerShellから共有モードで読み取り
+$p = [IO.Path]::Combine($env:LOCALAPPDATA,"Unity","Editor","Editor.log")
+$fs = [IO.FileStream]::new($p, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::ReadWrite)
+$sr = [IO.StreamReader]::new($fs)
+$text = $sr.ReadToEnd(); $sr.Close(); $fs.Close()
+$lines = $text -split "`n"
+$lines[-100..-1] | Where-Object { $_ -match "error|Error" }
 ```
 
 ### スクリーンショットが撮影されない
 
-**原因**:
 1. Unity Editorがバックグラウンドにある → フォーカスを当てる
 2. トリガーファイルが検出されていない → Unity Editorを再起動
-3. AnimalVoiceAutoTest.csがコンパイルされていない → Unity Consoleでエラー確認
+3. AutoTest.csがコンパイルされていない → Unity Consoleでエラー確認
+
+### よくあるゲーム実装の問題
+
+| 問題 | 原因 | 解決 |
+|------|------|------|
+| オブジェクトが表示されない | sortingOrder未設定 / スプライトがnull | SpriteRendererにsortingOrderを設定（推奨値: 10） |
+| タップが反応しない | Collider未設定 / EventSystem無し | CircleCollider2D追加、EventSystem存在確認 |
+| アセット参照がnull | .metaファイル未生成 / パス間違い | `generate_meta.py`実行、パス確認 |
+
+---
 
 ## 参考実装
 
 ### 推奨参考ゲーム
 
-以下のゲームは実装品質が高く、参考にすることを推奨:
-
 - **AnimalVoice** ([Assets/Games/14_AnimalVoice](Assets/Games/14_AnimalVoice)) - 最新の実装パターン、自動化スクリプト完備
 - **TouchTheStar** ([Assets/Games/05_TouchTheStar](Assets/Games/05_TouchTheStar)) - シンプルなタップゲームの好例
 - **CatchInsects** ([Assets/Games/07_CatchInsects](Assets/Games/07_CatchInsects)) - マルチタッチの実装例
+
+### 参照禁止
+
+[Assets/Games/01_MakeBubbles](Assets/Games/01_MakeBubbles) は品質が低いとされています。新規実装の参考にしないでください。
 
 ### AnimalVoiceゲームの構成
 
 **場所**: [Assets/Games/14_AnimalVoice](Assets/Games/14_AnimalVoice)
 
 **主要スクリプト**:
-- [AnimalVoiceInitializer.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalVoiceInitializer.cs) - ゲーム初期化、動的なScriptableObject生成
+- [AnimalVoiceInitializer.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalVoiceInitializer.cs) - ゲーム初期化、動的ScriptableObject生成
 - [AnimalController.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalController.cs) - 動物の個別制御、タップ検出
-- [AnimalSpawner.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalSpawner.cs) - 動物のスポーン管理
+- [AnimalSpawner.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalSpawner.cs) - 動物のスポーン管理（SpawnPoint対応）
+- [AnimalSpawnPoint.cs](Assets/Games/14_AnimalVoice/Scripts/AnimalSpawnPoint.cs) - Edit mode配置可能なスポーンポイント
 - [BackgroundTimeManager.cs](Assets/Games/14_AnimalVoice/Scripts/BackgroundTimeManager.cs) - 時間帯の切り替え
 
 **Editorスクリプト**:
 - [AnimalVoiceSetup.cs](Assets/Games/14_AnimalVoice/Scripts/Editor/AnimalVoiceSetup.cs) - 初回シーン作成
 - [AnimalVoiceApplyAssets.cs](Assets/Games/14_AnimalVoice/Scripts/Editor/AnimalVoiceApplyAssets.cs) - アセット再適用
 - [AnimalVoiceAutoTest.cs](Assets/Games/14_AnimalVoice/Scripts/Editor/AnimalVoiceAutoTest.cs) - 自動テスト
-
-**自動化スクリプト**:
-- [makeImage/makeImages.py](makeImage/makeImages.py) - 43枚の画像を生成（背景3枚 + 動物40枚）
-- [makeImage/generate_meta.py](makeImage/generate_meta.py) - .metaファイル生成
-- [makeImage/restart_unity_test.py](makeImage/restart_unity_test.py) - Unity自動テスト
-- [makeImage/auto_test_unity.py](makeImage/auto_test_unity.py) - シンプル版自動テスト
 
 **特徴**:
 - 完全にプログラムで生成されるゲームオブジェクト階層
@@ -468,7 +487,208 @@ grep -i "error\|exception" "C:\Users\{ユーザー名}\AppData\Local\Unity\Edito
 - マルチタッチ対応
 - レア要素（10%確率）
 - 時間帯による背景・動物の切り替え（30秒ごと）
+- SpawnPointシステムによるEdit mode配置対応
 
-## 参照禁止
+---
 
-[Assets/Games/01_MakeBubbles](Assets/Games/01_MakeBubbles) は品質が低いとされています - 新規実装の参考にしないでください。
+## IAP（課金・ゲームロック）システム
+
+### 関係コンポーネント
+
+IAPコアは [Assets/_Common/Scripts/IAP](Assets/_Common/Scripts/IAP):
+
+| コンポーネント | 役割 |
+|-------------|------|
+| [IAPManager.cs](Assets/_Common/Scripts/IAP/IAPManager.cs) | 起動時の初期化と同期トリガー |
+| [PurchaseService.cs](Assets/_Common/Scripts/IAP/PurchaseService.cs) | Unity IAP、復元、レシート検証、付与/剥奪 |
+| [EntitlementStore.cs](Assets/_Common/Scripts/IAP/EntitlementStore.cs) | 権利のローカル保存（`PlayerPrefs`） |
+| [FeatureGate.cs](Assets/_Common/Scripts/IAP/FeatureGate.cs) | 権利に基づくゲーム開始可否判定 |
+| [Paywall.cs](Assets/_Common/Scripts/IAP/Paywall.cs) | 購入/復元UI |
+
+`pack_free` は常に所有。Product ID ↔ packId の対応は `PurchaseService.cs` の `products` リスト。
+
+### 起動時フロー（全体像）
+
+```
+起動
+  |
+IAPManager.InitializeIAPSystem
+  |
+  +--> EntitlementStore 起動
+  |       - PlayerPrefs から権利読込
+  |       - pack_free は常に付与
+  |
+  +--> PurchaseService 起動（Unity IAP Initialize）
+  |       |
+  |       +--> OnInitialized
+  |               |
+  |               +--> ValidateAndGrantPurchases（レシート検証 → 付与/剥奪）
+  |
+  +--> SyncPurchases（復元/同期）
+          |
+          +--> PurchaseService.RestorePurchases
+                  |
+                  +-- [オンライン] Google RestoreTransactions → ValidateAndGrantPurchases
+                  |
+                  +-- [オフライン] ValidateAndGrantPurchases（ローカルキャッシュのレシート）
+```
+
+### オンライン時 vs オフライン時
+
+| | オンライン | オフライン |
+|---|---|---|
+| **レシート情報** | Google Play Store から最新取得 | Unity IAP のキャッシュを使用 |
+| **返金反映** | 即座に反映 | 次回オンライン時まで反映されない |
+| **新規購入の復元** | 他端末の購入も復元可能 | キャッシュにある分のみ |
+
+### データの流れ
+
+```
+┌─────────────────┐
+│ Google Play    │ ←── オンライン時のみ問い合わせ
+│ Store          │
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│ Unity IAP      │ ←── レシートをキャッシュ
+│ (内部キャッシュ) │     オフライン時はここを参照
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│ PurchaseService│ ←── レシート検証
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│EntitlementStore│ ←── 所有パックIDを管理
+│ (PlayerPrefs)  │
+└───────┬────────┘
+        │
+        ▼
+┌─────────────────┐
+│ FeatureGate    │ ←── ロック判定
+└─────────────────┘
+```
+
+### レシート検証と権利更新
+
+`PurchaseService.ValidateAndGrantPurchases()` は:
+1. Unity IAPの全商品を走査し、レシートがあるものを検証
+2. 「有効（Purchased）」なパックID集合を作る
+3. 集合に含まれる → `EntitlementStore.GrantPack(packId)` / 含まれない → `EntitlementStore.RevokePack(packId)`
+
+### 購入フロー（Paywall経由）
+
+```
+Paywall 購入 → PurchaseService.PurchaseProduct → Unity IAP 購入完了
+  → PurchaseService.ProcessPurchase → EntitlementStore.GrantPack → UIコールバック
+```
+
+### 保留購入（Pending/Deferred）の扱い
+
+- 検出: `PurchaseService` がGoogle Play拡張の情報から「保留」を検出
+- 権利: 保留中はパックを解放しない（`pending_packs`として別途保存）
+- UI: `Paywall` は保留中のパックを検出すると説明文を差し替え、購入ボタンを非活性化
+- 反映: 支払い確定後、次回オンライン同期で `purchased_packs` に移行
+
+### 重要な前提（オフライン）
+
+- `product.hasReceipt` / `product.receipt` は **Unity IAPのローカルキャッシュ**で `PlayerPrefs` とは別物
+- オフライン時はキャッシュに残っているレシート情報を元に判断
+- 返金は**次回オンラインで同期成功したタイミング**でロック状態に反映
+
+### 用語・データの所在
+
+| データ | 保存先 | 特徴 |
+|--------|--------|------|
+| PlayerPrefs（ローカル権利） | アプリのデータ領域 | 「ストレージ削除」で消える |
+| レシート（Unity IAPキャッシュ） | Unity IAPがアプリ内に保持 | 「ストレージ削除」で消える |
+| Google Play Billing（原本） | Googleのサーバ | アプリ側のデータ削除とは独立 |
+
+---
+
+## デバッグ：Android端末のPlayerPrefsを書き換えて擬似ロックする
+
+### 前提
+- 端末で「USBデバッグ」を有効化
+- `adb` が使えること（Unity同梱のものを使用）
+- 対象アプリが **debuggableビルド** でインストールされていること
+
+### 変数（環境に合わせて）
+
+```powershell
+$adb  = "C:\Program Files\Unity\Hub\Editor\6000.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe"
+$pkg  = "com.iw.wakuwaku.touchhiroba"
+$prefs = "com.iw.wakuwaku.touchhiroba.v2.playerprefs.xml"
+```
+
+### 手順
+
+```powershell
+# 1. 端末接続確認
+& $adb devices
+
+# 2. アプリ停止（重要：起動中だと終了時に上書きされる）
+& $adb shell am force-stop $pkg
+
+# 3. prefsファイル名確認
+& $adb shell run-as $pkg ls shared_prefs
+
+# 4. PCに取り出し
+& $adb exec-out run-as $pkg cat "shared_prefs/$prefs" | Out-File -Encoding utf8 .\playerprefs.xml
+```
+
+### PlayerPrefsの編集
+
+`purchased_packs` はURLエンコードされたJSONとして保存されています:
+
+```powershell
+# デコード例
+[System.Uri]::UnescapeDataString("%7B%22ownedPacks%22%3A%5B%22pack_free%22%2C%22pack_01%22%5D%7D")
+```
+
+`pack_01` をロックしたい場合（`pack_free`のみ残す）:
+```text
+%7B%22ownedPacks%22%3A%5B%22pack_free%22%5D%7D
+```
+
+### 端末へ戻す
+
+```powershell
+# 停止
+& $adb shell am force-stop $pkg
+
+# 一時領域へ送る
+& $adb push ".\playerprefs.xml" /data/local/tmp/playerprefs.xml
+
+# アプリ領域にコピー
+& $adb shell run-as $pkg mkdir -p shared_prefs
+& $adb shell run-as $pkg cp /data/local/tmp/playerprefs.xml shared_prefs/$prefs
+
+# 確認
+& $adb shell run-as $pkg cat shared_prefs/$prefs | Select-String purchased_packs
+
+# 起動
+& $adb shell monkey -p $pkg -c android.intent.category.LAUNCHER 1
+```
+
+### 注意
+
+- 起動後に購入同期が走ると `PlayerPrefs` が自動で上書きされる。擬似ロック確認は**機内モード（オフライン）**で起動すると安定する。
+
+---
+
+## 重要なファイル一覧
+
+| ファイル | 役割 |
+|---------|------|
+| [GameInfo.cs](Assets/_Common/Scripts/GameInfo.cs) | ゲームの中央レジストリ |
+| [MenuController.cs](Assets/Games/00_Menu/Scripts/MenuController.cs) | 動的メニュー生成 |
+| [IAPManager.cs](Assets/_Common/Scripts/IAP/IAPManager.cs) | IAPシステム初期化 |
+| [EntitlementStore.cs](Assets/_Common/Scripts/IAP/EntitlementStore.cs) | パック所有権のストレージ |
+| [FeatureGate.cs](Assets/_Common/Scripts/IAP/FeatureGate.cs) | ロック/アンロックロジック |
+| [.github/copilot-instructions.md](.github/copilot-instructions.md) | AI向けガイドライン（本ファイルと同一内容） |
+| [CLAUDE.md](CLAUDE.md) | AI向けガイドライン（本ファイルと同一内容） |
+| [README.md](README.md) | AI向けガイドライン（本ファイルと同一内容） |

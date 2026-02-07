@@ -15,6 +15,19 @@ public static class AnimalVoiceApplyAssets
     [MenuItem("Tools/Apply AnimalVoice Assets")]
     public static void ApplyAssets()
     {
+        ApplyAssetsInternal(showDialog: true);
+    }
+    
+    /// <summary>
+    /// ダイアログなしでアセットを適用（自動テスト用）
+    /// </summary>
+    public static void ApplyAssetsSilent()
+    {
+        ApplyAssetsInternal(showDialog: false);
+    }
+
+    private static void ApplyAssetsInternal(bool showDialog)
+    {
         // シーンを開く
         var scene = EditorSceneManager.OpenScene(SCENE_PATH);
 
@@ -23,12 +36,19 @@ public static class AnimalVoiceApplyAssets
 
         if (initializer == null)
         {
-            EditorUtility.DisplayDialog(
-                "エラー",
-                "AnimalVoiceInitializerが見つかりません。\n" +
-                "Tools → Setup AnimalVoice Game を実行してください。",
-                "OK"
-            );
+            if (showDialog)
+            {
+                EditorUtility.DisplayDialog(
+                    "エラー",
+                    "AnimalVoiceInitializerが見つかりません。\n" +
+                    "Tools → Setup AnimalVoice Game を実行してください。",
+                    "OK"
+                );
+            }
+            else
+            {
+                Debug.LogError("[AnimalVoiceApplyAssets] AnimalVoiceInitializerが見つかりません");
+            }
             return;
         }
 
@@ -43,12 +63,15 @@ public static class AnimalVoiceApplyAssets
 
         Debug.Log("[AnimalVoiceApplyAssets] アセットの適用が完了しました！");
 
-        EditorUtility.DisplayDialog(
-            "完了",
-            "AnimalVoiceゲームのアセット設定が完了しました！\n\n" +
-            "Playボタンで動作確認してください。",
-            "OK"
-        );
+        if (showDialog)
+        {
+            EditorUtility.DisplayDialog(
+                "完了",
+                "AnimalVoiceゲームのアセット設定が完了しました！\n\n" +
+                "Playボタンで動作確認してください。",
+                "OK"
+            );
+        }
     }
 
     private static void SetupAssets(AnimalVoiceInitializer initializer)

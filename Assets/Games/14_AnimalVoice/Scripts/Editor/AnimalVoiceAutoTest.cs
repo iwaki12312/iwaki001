@@ -14,6 +14,7 @@ public static class AnimalVoiceAutoTest
     private const string SCENE_PATH = "Assets/Games/14_AnimalVoice/Scenes/AnimalVoice.unity";
     private const string SCREENSHOT_PATH = "C:/dev/iwaki001/screenshot_animalvoice.png";
     private const string TRIGGER_FILE = "C:/dev/iwaki001/trigger_autotest.txt";
+    private const string TRIGGER_APPLY_FILE = "C:/dev/iwaki001/trigger_apply_and_test.txt";
     private const float CAPTURE_DELAY = 5f;
 
     private static bool isAutoTesting = false;
@@ -34,6 +35,15 @@ public static class AnimalVoiceAutoTest
         {
             File.Delete(TRIGGER_FILE);
             Debug.Log("[AnimalVoiceAutoTest] トリガーファイル検出。自動テストを開始します。");
+            StartAutoTest();
+        }
+        
+        // ApplyAssets + テストのトリガー
+        if (File.Exists(TRIGGER_APPLY_FILE) && !EditorApplication.isPlaying && !isAutoTesting)
+        {
+            File.Delete(TRIGGER_APPLY_FILE);
+            Debug.Log("[AnimalVoiceAutoTest] Apply+Testトリガー検出。アセット適用後にテストを開始します。");
+            AnimalVoiceApplyAssets.ApplyAssetsSilent();
             StartAutoTest();
         }
     }
