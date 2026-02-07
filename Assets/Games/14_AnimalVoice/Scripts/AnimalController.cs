@@ -47,6 +47,33 @@ public class AnimalController : MonoBehaviour
     }
     
     /// <summary>
+    /// コライダー半径を外部から設定
+    /// </summary>
+    public void SetColliderRadius(float radius)
+    {
+        colliderRadius = radius;
+    }
+    
+    /// <summary>
+    /// 動物を初期化（スケール・コライダー指定あり）
+    /// </summary>
+    public void Initialize(AnimalVoiceData data, Vector3 position, GameObject heartPrefab, GameObject notePrefab, float baseScale, float colRadius)
+    {
+        colliderRadius = colRadius;
+        Initialize(data, position, heartPrefab, notePrefab);
+        
+        // ベーススケールを適用
+        transform.localScale = Vector3.one * baseScale;
+        originalScale = transform.localScale;
+        
+        // コライダー半径を更新
+        if (circleCollider != null)
+        {
+            circleCollider.radius = colliderRadius;
+        }
+    }
+    
+    /// <summary>
     /// 動物を初期化
     /// </summary>
     public void Initialize(AnimalVoiceData data, Vector3 position, GameObject heartPrefab, GameObject notePrefab)
@@ -102,9 +129,9 @@ public class AnimalController : MonoBehaviour
             originalScale = transform.localScale;
         }
         
-        // フェードインアニメーション
-        spriteRenderer.color = new Color(1, 1, 1, 0);
-        spriteRenderer.DOFade(1f, 0.5f);
+        // フェードインアニメーション（一旦無効化）
+        spriteRenderer.color = new Color(1, 1, 1, 1);  // 直接表示
+        // spriteRenderer.DOFade(1f, 0.5f);
         
         Debug.Log($"[AnimalController] 動物スポーン: {animalData?.animalType}, レア={animalData?.isRare}");
     }

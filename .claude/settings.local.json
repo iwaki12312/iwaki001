@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.3.0f1/Editor/Unity.exe\" -batchmode -projectPath \"C:/dev/iwaki001\" -executeMethod AnimalVoiceApplyAssets.ApplyAssets -quit -logFile \"apply_assets_log.txt\")",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd.exe /c \"taskkill /IM Unity.exe /F\")",
+      "Bash(powershell.exe:*)"
+    ]
+  }
+}

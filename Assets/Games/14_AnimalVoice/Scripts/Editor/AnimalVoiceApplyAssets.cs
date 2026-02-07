@@ -2,76 +2,56 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using System.IO;
 
 /// <summary>
-/// AnimalVoiceゲームのシーンセットアップを行うエディタ拡張
-/// Tools → Setup AnimalVoice Game から実行
+/// 既存のAnimalVoiceシーンにアセットを適用するエディタスクリプト
+/// Tools → Apply AnimalVoice Assets から実行
 /// </summary>
-public static class AnimalVoiceSetup
+public static class AnimalVoiceApplyAssets
 {
     private const string GAME_PATH = "Assets/Games/14_AnimalVoice";
-    private const string SCENE_NAME = "AnimalVoice";
-    
-    [MenuItem("Tools/Setup AnimalVoice Game")]
-    public static void SetupGame()
+    private const string SCENE_PATH = "Assets/Games/14_AnimalVoice/Scenes/AnimalVoice.unity";
+
+    [MenuItem("Tools/Apply AnimalVoice Assets")]
+    public static void ApplyAssets()
     {
-        // 新しいシーンを作成
-        var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
-        
-        // カメラ設定
-        Camera mainCamera = Camera.main;
-        if (mainCamera != null)
+        // シーンを開く
+        var scene = EditorSceneManager.OpenScene(SCENE_PATH);
+
+        // AnimalVoiceInitializerを検索
+        AnimalVoiceInitializer initializer = Object.FindFirstObjectByType<AnimalVoiceInitializer>();
+
+        if (initializer == null)
         {
-            mainCamera.orthographic = true;
-            mainCamera.orthographicSize = 5;
-            mainCamera.backgroundColor = new Color(0.5f, 0.7f, 1f); // 明るい空色
-            mainCamera.transform.position = new Vector3(0, 0, -10);
+            EditorUtility.DisplayDialog(
+                "エラー",
+                "AnimalVoiceInitializerが見つかりません。\n" +
+                "Tools → Setup AnimalVoice Game を実行してください。",
+                "OK"
+            );
+            return;
         }
-        
-        // Initializerオブジェクトを作成
-        GameObject initializerObj = new GameObject("AnimalVoiceInitializer");
-        AnimalVoiceInitializer initializer = initializerObj.AddComponent<AnimalVoiceInitializer>();
-        
-        // 仮アセットを自動設定
-        SetupPlaceholderAssets(initializer);
-        
-        // スポーンポイントを配置
-        CreateSpawnPoints(initializer);
-        
+
+        Debug.Log("[AnimalVoiceApplyAssets] アセットの適用を開始...");
+
+        // アセットを設定
+        SetupAssets(initializer);
+
         // シーンを保存
-        string scenePath = $"{GAME_PATH}/Scenes/{SCENE_NAME}.unity";
-        
-        // ディレクトリが存在しない場合は作成
-        string directory = Path.GetDirectoryName(scenePath);
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-        
-        EditorSceneManager.SaveScene(scene, scenePath);
-        
-        // Build Settingsにシーンを追加
-        AddSceneToBuildSettings();
-        
-        AssetDatabase.Refresh();
-        
-        Debug.Log($"[AnimalVoiceSetup] シーンを作成しました: {scenePath}");
-        
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+
+        Debug.Log("[AnimalVoiceApplyAssets] アセットの適用が完了しました！");
+
         EditorUtility.DisplayDialog(
-            "セットアップ完了",
-            $"AnimalVoiceゲームのセットアップが完了しました！\n\n" +
-            $"シーン: {scenePath}\n\n" +
-            "Playボタンで動作確認できます（仮アセット使用）\n\n" +
-            "本番アセットはAnimalVoiceInitializerのInspectorで設定してください。",
+            "完了",
+            "AnimalVoiceゲームのアセット設定が完了しました！\n\n" +
+            "Playボタンで動作確認してください。",
             "OK"
         );
     }
-    
-    /// <summary>
-    /// 生成された画像とアセットを自動設定
-    /// </summary>
-    private static void SetupPlaceholderAssets(AnimalVoiceInitializer initializer)
+
+    private static void SetupAssets(AnimalVoiceInitializer initializer)
     {
         // 背景スプライトをロード
         Sprite bgMorning = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_morning.png");
@@ -96,7 +76,7 @@ public static class AnimalVoiceSetup
         so.FindProperty("morningBackground").objectReferenceValue = bgMorning;
         so.FindProperty("daytimeBackground").objectReferenceValue = bgDaytime;
         so.FindProperty("nightBackground").objectReferenceValue = bgNight;
-        
+
         // 朝の動物
         SetAnimalSpritesFromPath(so, "chicken");
         SetAnimalSpritesFromPath(so, "cow");
@@ -124,7 +104,7 @@ public static class AnimalVoiceSetup
         SetAnimalSpritesFromPath(so, "dragon");
         SetAnimalSpritesFromPath(so, "unicorn");
         SetAnimalSpritesFromPath(so, "panda");
-        
+
         // 鳴き声（仮SE）
         so.FindProperty("chickenVoice").objectReferenceValue = workSfx[0];
         so.FindProperty("cowVoice").objectReferenceValue = workSfx[1];
@@ -132,24 +112,24 @@ public static class AnimalVoiceSetup
         so.FindProperty("pigVoice").objectReferenceValue = workSfx[3];
         so.FindProperty("sheepVoice").objectReferenceValue = workSfx[4];
         so.FindProperty("goatVoice").objectReferenceValue = workSfx[5];
-        
+
         so.FindProperty("dogVoice").objectReferenceValue = workSfx[0];
         so.FindProperty("catVoice").objectReferenceValue = workSfx[1];
         so.FindProperty("elephantVoice").objectReferenceValue = workSfx[2];
         so.FindProperty("lionVoice").objectReferenceValue = workSfx[3];
         so.FindProperty("frogVoice").objectReferenceValue = workSfx[4];
         so.FindProperty("chickVoice").objectReferenceValue = workSfx[5];
-        
+
         so.FindProperty("owlVoice").objectReferenceValue = workSfx[0];
         so.FindProperty("wolfVoice").objectReferenceValue = workSfx[1];
         so.FindProperty("batVoice").objectReferenceValue = workSfx[2];
         so.FindProperty("hedgehogVoice").objectReferenceValue = workSfx[3];
-        
+
         so.FindProperty("dinosaurVoice").objectReferenceValue = workSfx[6];
         so.FindProperty("dragonVoice").objectReferenceValue = workSfx[6];
         so.FindProperty("unicornVoice").objectReferenceValue = workSfx[7];
         so.FindProperty("pandaVoice").objectReferenceValue = workSfx[7];
-        
+
         // 共通SE
         so.FindProperty("tapSound").objectReferenceValue = workSfx[0];
         so.FindProperty("timeChangeSound").objectReferenceValue = workSfx[7];
@@ -160,91 +140,61 @@ public static class AnimalVoiceSetup
         so.FindProperty("noteParticlePrefab").objectReferenceValue = noteParticle;
 
         so.ApplyModifiedProperties();
+
+        // 既存のスポーンポイントのプレビュースプライトを更新
+        UpdateSpawnPointPreviews(initializer);
+
+        // ログ出力
+        Debug.Log($"[AnimalVoiceApplyAssets] 背景スプライト設定: Morning={bgMorning != null}, Day={bgDaytime != null}, Night={bgNight != null}");
+        Debug.Log($"[AnimalVoiceApplyAssets] パーティクル設定: Heart={heartParticle != null}, Note={noteParticle != null}");
     }
 
     private static void SetAnimalSpritesFromPath(SerializedObject so, string animalName)
     {
         Sprite normal = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/{animalName}_normal.png");
         Sprite reaction = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/{animalName}_reaction.png");
+
         so.FindProperty($"{animalName}Normal").objectReferenceValue = normal;
         so.FindProperty($"{animalName}Reaction").objectReferenceValue = reaction;
-    }
-    
-    /// <summary>
-    /// スポーンポイントをシーンに配置
-    /// </summary>
-    private static void CreateSpawnPoints(AnimalVoiceInitializer initializer)
-    {
-        // 6箇所のデフォルト配置（2行×3列）
-        Vector3[] defaultPositions = new Vector3[]
+
+        if (normal == null || reaction == null)
         {
-            new Vector3(-3f,  1.5f, 0),
-            new Vector3( 0f,  1.5f, 0),
-            new Vector3( 3f,  1.5f, 0),
-            new Vector3(-3f, -1.5f, 0),
-            new Vector3( 0f, -1.5f, 0),
-            new Vector3( 3f, -1.5f, 0),
-        };
-        
-        // プレビュー用のスプライトをロード（朝の動物をデフォルトプレビューとして使用）
+            Debug.LogWarning($"[AnimalVoiceApplyAssets] {animalName}のスプライトが見つかりません: normal={normal != null}, reaction={reaction != null}");
+        }
+    }
+
+    /// <summary>
+    /// 既存のスポーンポイントのプレビュースプライトを更新
+    /// </summary>
+    private static void UpdateSpawnPointPreviews(AnimalVoiceInitializer initializer)
+    {
         string[] previewAnimals = { "chicken", "cow", "horse", "pig", "sheep", "goat" };
-        
-        SerializedObject so = new SerializedObject(initializer);
-        SerializedProperty spawnPointsProp = so.FindProperty("spawnPoints");
-        spawnPointsProp.ClearArray();
-        
-        for (int i = 0; i < defaultPositions.Length; i++)
+
+        var spawnPoints = Object.FindObjectsByType<AnimalSpawnPoint>(FindObjectsSortMode.None);
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
             string animalName = previewAnimals[i % previewAnimals.Length];
             Sprite previewSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/{animalName}_normal.png");
-            
-            GameObject spObj = new GameObject($"SpawnPoint_{i:D2}");
-            spObj.transform.position = defaultPositions[i];
-            
-            AnimalSpawnPoint sp = spObj.AddComponent<AnimalSpawnPoint>();
-            
-            // プレビュースプライトをSerializedObjectで設定
-            SerializedObject spSO = new SerializedObject(sp);
+
+            SerializedObject spSO = new SerializedObject(spawnPoints[i]);
             spSO.FindProperty("previewSprite").objectReferenceValue = previewSprite;
             spSO.ApplyModifiedProperties();
-            
-            // リストに追加
+        }
+
+        // Initializerのスポーンポイントリストも更新
+        SerializedObject initSO = new SerializedObject(initializer);
+        SerializedProperty spawnPointsProp = initSO.FindProperty("spawnPoints");
+        spawnPointsProp.ClearArray();
+
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
             spawnPointsProp.InsertArrayElementAtIndex(i);
-            spawnPointsProp.GetArrayElementAtIndex(i).objectReferenceValue = sp;
+            spawnPointsProp.GetArrayElementAtIndex(i).objectReferenceValue = spawnPoints[i];
         }
-        
-        so.ApplyModifiedProperties();
-        Debug.Log($"[AnimalVoiceSetup] {defaultPositions.Length}個のスポーンポイントを配置しました");
-    }
-    
-    /// <summary>
-    /// Build Settingsにシーンを追加
-    /// </summary>
-    private static void AddSceneToBuildSettings()
-    {
-        string scenePath = $"{GAME_PATH}/Scenes/{SCENE_NAME}.unity";
-        
-        // 既に追加されているかチェック
-        var scenes = EditorBuildSettings.scenes;
-        foreach (var scene in scenes)
-        {
-            if (scene.path == scenePath)
-            {
-                Debug.Log("[AnimalVoiceSetup] シーンは既にBuild Settingsに追加されています");
-                return;
-            }
-        }
-        
-        // シーンを追加
-        var newScenes = new EditorBuildSettingsScene[scenes.Length + 1];
-        for (int i = 0; i < scenes.Length; i++)
-        {
-            newScenes[i] = scenes[i];
-        }
-        newScenes[scenes.Length] = new EditorBuildSettingsScene(scenePath, true);
-        EditorBuildSettings.scenes = newScenes;
-        
-        Debug.Log($"[AnimalVoiceSetup] Build Settingsにシーンを追加しました: {scenePath}");
+
+        initSO.ApplyModifiedProperties();
+
+        Debug.Log($"[AnimalVoiceApplyAssets] {spawnPoints.Length}個のスポーンポイントを更新しました");
     }
 }
 #endif

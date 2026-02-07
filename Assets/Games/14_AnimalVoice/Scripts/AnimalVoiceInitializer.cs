@@ -98,6 +98,28 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private GameObject heartParticlePrefab;
     [SerializeField] private GameObject noteParticlePrefab;
     
+    [Header("=== スポーン設定（Inspectorで調整可能）===")]
+    [SerializeField, Range(1, 12)] private int spawnCount = 6;
+    [SerializeField, Range(0f, 1f)] private float rareSpawnChance = 0.1f;
+    
+    [Header("=== スポーン範囲 ===")]
+    [SerializeField] private float spawnMinX = -4f;
+    [SerializeField] private float spawnMaxX = 4f;
+    [SerializeField] private float spawnMinY = -3f;
+    [SerializeField] private float spawnMaxY = 2f;
+    [SerializeField, Range(0.5f, 5f)] private float minDistanceBetweenAnimals = 1.5f;
+    
+    [Header("=== 動物の大きさ ===")]
+    [SerializeField, Range(0.1f, 5f)] private float animalBaseScale = 1f;
+    [SerializeField, Range(0.1f, 5f)] private float rareAnimalScale = 1.3f;
+    [SerializeField, Range(0.5f, 3f)] private float colliderRadius = 1.0f;
+    
+    [Header("=== 時間帯設定 ===")]
+    [SerializeField, Range(5f, 120f)] private float timeChangeInterval = 30f;
+    
+    [Header("=== スポーンポイント（シーン上に配置。空ならランダム配置）===")]
+    [SerializeField] private List<AnimalSpawnPoint> spawnPoints = new List<AnimalSpawnPoint>();
+    
     void Awake()
     {
         InitializeGame();
@@ -124,8 +146,21 @@ public class AnimalVoiceInitializer : MonoBehaviour
         
         // BackgroundTimeManagerの作成
         CreateBackgroundTimeManager();
-        
+
+        // デバッグキャプチャーを追加
+        CreateDebugCapture();
+
         Debug.Log("[AnimalVoiceInitializer] ゲームの初期化が完了しました！");
+    }
+
+    /// <summary>
+    /// デバッグキャプチャーコンポーネントを追加
+    /// </summary>
+    private void CreateDebugCapture()
+    {
+        GameObject debugObj = new GameObject("DebugCapture");
+        debugObj.AddComponent<AnimalVoiceDebugCapture>();
+        Debug.Log("[AnimalVoiceInitializer] AnimalVoiceDebugCaptureを作成しました");
     }
     
     /// <summary>
@@ -209,6 +244,25 @@ public class AnimalVoiceInitializer : MonoBehaviour
         
         spawner.SetAnimalData(morningAnimals, daytimeAnimals, nightAnimals, rareAnimals);
         
+        // スポーン設定を反映
+        spawner.SetSpawnConfig(spawnCount, rareSpawnChance, spawnMinX, spawnMaxX, spawnMinY, spawnMaxY, minDistanceBetweenAnimals, animalBaseScale, rareAnimalScale, colliderRadius);
+        
+        // スポーンポイントを設定（空でない場合はシーン上のポイントを利用）
+        if (spawnPoints == null || spawnPoints.Count == 0)
+        {
+            // 自動検索
+            var foundPoints = new List<AnimalSpawnPoint>(FindObjectsByType<AnimalSpawnPoint>(FindObjectsSortMode.None));
+            if (foundPoints.Count > 0)
+            {
+                spawnPoints = foundPoints;
+            }
+        }
+        if (spawnPoints != null && spawnPoints.Count > 0)
+        {
+            spawner.SetSpawnPoints(spawnPoints);
+            Debug.Log($"[AnimalVoiceInitializer] {spawnPoints.Count}個のスポーンポイントを検出");
+        }
+        
         // 動物Prefabを作成
         GameObject animalPrefab = CreateAnimalPrefab();
         spawner.SetPrefabs(animalPrefab, heartParticlePrefab, noteParticlePrefab);
@@ -222,11 +276,18 @@ public class AnimalVoiceInitializer : MonoBehaviour
     private GameObject CreateAnimalPrefab()
     {
         GameObject prefab = new GameObject("AnimalPrefab");
-        prefab.AddComponent<SpriteRenderer>();
-        prefab.AddComponent<CircleCollider2D>();
-        prefab.AddComponent<AnimalController>();
-        prefab.SetActive(false);
+        SpriteRenderer sr = prefab.AddComponent<SpriteRenderer>();
+        sr.sortingOrder = 10;  // 背景(-100)より前、フェードオーバーレイ(100)より後ろ
         
+        CircleCollider2D col = prefab.AddComponent<CircleCollider2D>();
+        col.radius = colliderRadius;
+        
+        AnimalController controller = prefab.AddComponent<AnimalController>();
+        controller.SetColliderRadius(colliderRadius);
+        
+        prefab.transform.localScale = Vector3.one * animalBaseScale;
+        prefab.SetActive(false);
+
         return prefab;
     }
     
@@ -321,6 +382,7 @@ public class AnimalVoiceInitializer : MonoBehaviour
         
         GameObject managerObj = new GameObject("BackgroundTimeManager");
         BackgroundTimeManager manager = managerObj.AddComponent<BackgroundTimeManager>();
+        manager.SetChangeInterval(timeChangeInterval);
         
         // 背景のRendererを検索して設定
         GameObject bgObj = GameObject.Find("Background");

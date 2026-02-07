@@ -20,6 +20,11 @@ public class AnimalSpawner : MonoBehaviour
     [SerializeField] private float maxY = 2f;
     [SerializeField] private float minDistance = 1.5f;              // 動物間の最小距離
     
+    [Header("動物サイズ")]
+    [SerializeField] private float animalBaseScale = 1f;
+    [SerializeField] private float rareAnimalScale = 1.3f;
+    [SerializeField] private float colliderRadius = 1.0f;
+    
     [Header("動物データ")]
     [SerializeField] private List<AnimalVoiceData> morningAnimals;       // 朝の動物
     [SerializeField] private List<AnimalVoiceData> daytimeAnimals;       // 昼の動物
@@ -32,6 +37,9 @@ public class AnimalSpawner : MonoBehaviour
     [Header("パーティクル")]
     [SerializeField] private GameObject heartParticlePrefab;
     [SerializeField] private GameObject noteParticlePrefab;
+    
+    [Header("スポーンポイント")]
+    [SerializeField] private List<AnimalSpawnPoint> spawnPoints = new List<AnimalSpawnPoint>();
     
     private List<AnimalController> activeAnimals = new List<AnimalController>();
     private AnimalVoiceTimeOfDay currentTimeOfDay = AnimalVoiceTimeOfDay.Morning;
@@ -70,6 +78,31 @@ public class AnimalSpawner : MonoBehaviour
     }
     
     /// <summary>
+    /// スポーンポイントを設定（Initializerから呼び出し）
+    /// </summary>
+    public void SetSpawnPoints(List<AnimalSpawnPoint> points)
+    {
+        spawnPoints = points;
+    }
+    
+    /// <summary>
+    /// スポーン設定を一括で反映（Initializerから呼び出し）
+    /// </summary>
+    public void SetSpawnConfig(int count, float rareChance, float xMin, float xMax, float yMin, float yMax, float minDist, float baseScale, float rareScale, float colRadius)
+    {
+        spawnCount = count;
+        rareSpawnChance = rareChance;
+        minX = xMin;
+        maxX = xMax;
+        minY = yMin;
+        maxY = yMax;
+        minDistance = minDist;
+        animalBaseScale = baseScale;
+        rareAnimalScale = rareScale;
+        colliderRadius = colRadius;
+    }
+    
+    /// <summary>
     /// 指定した時間帯の動物をスポーン
     /// </summary>
     public void SpawnAnimalsForTimeOfDay(AnimalVoiceTimeOfDay timeOfDay)
@@ -88,9 +121,13 @@ public class AnimalSpawner : MonoBehaviour
             return;
         }
         
+        // スポーンポイントがあればその位置を使用、なければランダム配置
+        bool useSpawnPoints = spawnPoints != null && spawnPoints.Count > 0;
+        int count = useSpawnPoints ? spawnPoints.Count : spawnCount;
+        
         List<Vector3> usedPositions = new List<Vector3>();
         
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < count; i++)
         {
             // レア動物の判定
             bool spawnRare = Random.value < rareSpawnChance && rareAnimals != null && rareAnimals.Count > 0;
@@ -106,14 +143,26 @@ public class AnimalSpawner : MonoBehaviour
             }
             
             // スポーン位置を決定
-            Vector3 spawnPos = GetValidSpawnPosition(usedPositions);
-            usedPositions.Add(spawnPos);
+            Vector3 spawnPos;
+            float scaleOverride = 0f;
+            if (useSpawnPoints)
+            {
+                var sp = spawnPoints[i];
+                spawnPos = sp.transform.position;
+                scaleOverride = sp.OverrideScale;
+                sp.HidePreview(); // Play時プレビュー非表示
+            }
+            else
+            {
+                spawnPos = GetValidSpawnPosition(usedPositions);
+                usedPositions.Add(spawnPos);
+            }
             
             // 動物を生成
-            SpawnAnimal(dataToSpawn, spawnPos);
+            SpawnAnimal(dataToSpawn, spawnPos, scaleOverride);
         }
         
-        Debug.Log($"[AnimalSpawner] {timeOfDay}の動物を{spawnCount}匹スポーン");
+        Debug.Log($"[AnimalSpawner] {timeOfDay}の動物を{count}匹スポーン");
     }
     
     /// <summary>
@@ -176,7 +225,7 @@ public class AnimalSpawner : MonoBehaviour
     /// <summary>
     /// 動物を生成
     /// </summary>
-    private void SpawnAnimal(AnimalVoiceData data, Vector3 position)
+    private void SpawnAnimal(AnimalVoiceData data, Vector3 position, float scaleOverride = 0f)
     {
         if (animalPrefab == null)
         {
@@ -185,6 +234,10 @@ public class AnimalSpawner : MonoBehaviour
         }
         
         GameObject animalObj = Instantiate(animalPrefab, position, Quaternion.identity);
+        
+        // Prefabが非アクティブのため、クローンをアクティブにしてAwake()を呼ばせる
+        animalObj.SetActive(true);
+        
         AnimalController controller = animalObj.GetComponent<AnimalController>();
         
         if (controller == null)
@@ -192,7 +245,17 @@ public class AnimalSpawner : MonoBehaviour
             controller = animalObj.AddComponent<AnimalController>();
         }
         
-        controller.Initialize(data, position, heartParticlePrefab, noteParticlePrefab);
+        // スケールの決定: スポーンポイントのオーバーライド > レア/通常デフォルト
+        float scale;
+        if (scaleOverride > 0f)
+        {
+            scale = scaleOverride;
+        }
+        else
+        {
+            scale = data.isRare ? rareAnimalScale : animalBaseScale;
+        }
+        controller.Initialize(data, position, heartParticlePrefab, noteParticlePrefab, scale, colliderRadius);
         controller.OnDestroyed += () => activeAnimals.Remove(controller);
         
         activeAnimals.Add(controller);

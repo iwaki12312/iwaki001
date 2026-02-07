@@ -55,6 +55,14 @@ public class BackgroundTimeManager : MonoBehaviour
     }
     
     /// <summary>
+    /// 時間帯切り替え間隔を設定（Initializerから呼び出し）
+    /// </summary>
+    public void SetChangeInterval(float interval)
+    {
+        changeInterval = interval;
+    }
+    
+    /// <summary>
     /// レンダラーを設定（Initializerから呼び出し）
     /// </summary>
     public void SetRenderers(SpriteRenderer main, SpriteRenderer fade)
