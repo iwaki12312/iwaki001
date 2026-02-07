@@ -16,6 +16,9 @@
 - Fishing: 魚をタップして釣り上げる
 - VegetableDig: 土の中の野菜をタップして引き抜く（時々レア野菜が出現）
 - EggHatch: たまごをタップしてヒビを入れて孵化（時々レア動物が出現）
+- Fireworks: 花火を打ち上げる
+- FossilDigging: 化石を発掘する
+- AnimalVoice: 動物をタップすると鳴き声が聞こえる（背景が朝→昼→夜と変化、レア動物も出現）
 
 ### 新規ゲーム実装時の前提
 - 指示がある場合を除き、既存ゲームのソースコードを参考にしない（ゲーム間の結合度を下げる）
@@ -52,6 +55,9 @@
 	- Fishing
 	- VegetableDig
 	- EggHatch
+	- Fireworks
+	- FossilDigging
+	- AnimalVoice
 
 ## 全体構造（どこを触るか）
 - 各ゲームは [Assets/Games](Assets/Games) 配下の `NN_ゲーム名` フォルダ（例: [Assets/Games/05_TouchTheStar](Assets/Games/05_TouchTheStar)）。
@@ -82,4 +88,5 @@
 
 ## テスト
 - 現状、自動テスト運用はなし（Test Runner/CIの前提なし）。変更確認はUnity EditorのPlayで行い、ログ（例: `MenuController`/`IAPManager` の `Debug.Log`）で初期化やロック状態を確認する。
+- **新規実装時や大きく実装を直した後は、必ずコマンドでビルド確認を行う**。コンパイルエラーがないことを確認してから、作業を完了すること。
 
