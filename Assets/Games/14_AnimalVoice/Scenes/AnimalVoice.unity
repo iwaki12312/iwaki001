@@ -341,7 +341,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208821454}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -565,7 +565,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
+  previewSprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
   overrideScale: 0
 --- !u!4 &524063115
 Transform:
@@ -808,7 +808,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
+  previewSprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
   overrideScale: 0
 --- !u!4 &770684603
 Transform:
@@ -1170,7 +1170,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
+  previewSprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
   overrideScale: 0
 --- !u!4 &1084466593
 Transform:
@@ -1276,7 +1276,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
+  previewSprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
   overrideScale: 0
 --- !u!4 &1453645112
 Transform:
@@ -1384,26 +1384,26 @@ MonoBehaviour:
   unicornReaction: {fileID: 21300000, guid: a103553b34824aa484e2fbdb5c52230e, type: 3}
   monkeyNormal: {fileID: 21300000, guid: e6d33b0a8e9c440598e6e220b042b5ba, type: 3}
   monkeyReaction: {fileID: 21300000, guid: 82db64b9083d4a3a80205957d7555ea5, type: 3}
-  chickenVoice: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
-  cowVoice: {fileID: 8300000, guid: bdc685da400b0814aa7581d8bcf8afa5, type: 3}
-  horseVoice: {fileID: 8300000, guid: cb2f965779c89664cbeeb0a73b13d0c6, type: 3}
-  pigVoice: {fileID: 8300000, guid: 14018940e9b6ff042824d949e8bd5641, type: 3}
-  sheepVoice: {fileID: 8300000, guid: 9a7517af091943f49b597fbb468df131, type: 3}
-  goatVoice: {fileID: 8300000, guid: 5d22f635f2dacb24b9cc8c80d7920ae9, type: 3}
-  dogVoice: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
-  catVoice: {fileID: 8300000, guid: bdc685da400b0814aa7581d8bcf8afa5, type: 3}
-  elephantVoice: {fileID: 8300000, guid: cb2f965779c89664cbeeb0a73b13d0c6, type: 3}
-  lionVoice: {fileID: 8300000, guid: 14018940e9b6ff042824d949e8bd5641, type: 3}
-  frogVoice: {fileID: 8300000, guid: 9a7517af091943f49b597fbb468df131, type: 3}
-  chickVoice: {fileID: 8300000, guid: 5d22f635f2dacb24b9cc8c80d7920ae9, type: 3}
-  owlVoice: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
-  wolfVoice: {fileID: 8300000, guid: bdc685da400b0814aa7581d8bcf8afa5, type: 3}
-  batVoice: {fileID: 8300000, guid: cb2f965779c89664cbeeb0a73b13d0c6, type: 3}
-  mouseVoice: {fileID: 8300000, guid: 14018940e9b6ff042824d949e8bd5641, type: 3}
-  dinosaurVoice: {fileID: 8300000, guid: 2d842506e910d354f984f24455172eff, type: 3}
-  dragonVoice: {fileID: 8300000, guid: 2d842506e910d354f984f24455172eff, type: 3}
-  unicornVoice: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
-  monkeyVoice: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
+  chickenVoice: {fileID: 8300000, guid: 11262d09e1f041cda5fa07c777e770b9, type: 3}
+  cowVoice: {fileID: 8300000, guid: 92c0bb24071e40cca453f9700b431d1e, type: 3}
+  horseVoice: {fileID: 8300000, guid: 96549d1030934d0eadae1181d07f4b9e, type: 3}
+  pigVoice: {fileID: 8300000, guid: 007bdde13ec8405fb36ced35f74fc866, type: 3}
+  sheepVoice: {fileID: 8300000, guid: 890e3614f68b474f9878acec0db6593a, type: 3}
+  goatVoice: {fileID: 8300000, guid: 0c4a50e1a625434e873db91c09c11ea7, type: 3}
+  dogVoice: {fileID: 8300000, guid: 7b30c16ecae344888a27543a3140750f, type: 3}
+  catVoice: {fileID: 8300000, guid: b70293a983e344d2b590a1bd4bac8e5b, type: 3}
+  elephantVoice: {fileID: 8300000, guid: eb85691dcb7b4157a7342a035c39393c, type: 3}
+  lionVoice: {fileID: 8300000, guid: fe905cc1cd88473a95dabcd425f96b3e, type: 3}
+  frogVoice: {fileID: 8300000, guid: 4529b865c2de4fb29428c7e1fc283c0d, type: 3}
+  chickVoice: {fileID: 8300000, guid: fb6826519917416896dfbe7b14b61342, type: 3}
+  owlVoice: {fileID: 8300000, guid: fd6d8f09c6924225850fc63e54b3895f, type: 3}
+  wolfVoice: {fileID: 8300000, guid: af9c8e66212440c0bc298b84b9e123dc, type: 3}
+  batVoice: {fileID: 8300000, guid: 1c17779cd7dd4018889cf673cfe905dc, type: 3}
+  mouseVoice: {fileID: 8300000, guid: 562b2e7cd4e74af0aadcf74bd744ac6c, type: 3}
+  dinosaurVoice: {fileID: 8300000, guid: 2a84f56f29fa4cd9963c8132357083bb, type: 3}
+  dragonVoice: {fileID: 8300000, guid: 77520c366479419aa4d4c0b19b44162e, type: 3}
+  unicornVoice: {fileID: 8300000, guid: 47d8be16aabb4f4d8fca64fe962a673b, type: 3}
+  monkeyVoice: {fileID: 8300000, guid: 6bb6b40d638343b6808f270de2484cef, type: 3}
   tapSound: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
   timeChangeSound: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
   rareAppearSound: {fileID: 8300000, guid: 2d842506e910d354f984f24455172eff, type: 3}
@@ -1421,12 +1421,12 @@ MonoBehaviour:
   colliderRadius: 1
   timeChangeInterval: 15
   spawnPoints:
+  - {fileID: 1883077072}
+  - {fileID: 524063114}
+  - {fileID: 266659480}
   - {fileID: 1453645111}
   - {fileID: 1084466592}
-  - {fileID: 266659480}
-  - {fileID: 524063114}
   - {fileID: 770684602}
-  - {fileID: 1883077072}
 --- !u!4 &1489363211
 Transform:
   m_ObjectHideFlags: 0
@@ -1544,7 +1544,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -1566,7 +1566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
+  previewSprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
   overrideScale: 0
 --- !u!4 &1883077073
 Transform:
@@ -1623,7 +1623,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949190402}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
