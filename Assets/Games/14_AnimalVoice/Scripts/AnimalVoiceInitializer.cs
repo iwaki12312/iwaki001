@@ -8,11 +8,6 @@ using UnityEngine.InputSystem.UI;
 /// </summary>
 public class AnimalVoiceInitializer : MonoBehaviour
 {
-    [Header("=== 背景スプライト（必須）===")]
-    [SerializeField] private Sprite morningBackground;
-    [SerializeField] private Sprite daytimeBackground;
-    [SerializeField] private Sprite nightBackground;
-    
     [Header("=== 動物スプライト - 朝の動物 ===")]
     [SerializeField] private Sprite chickenNormal;
     [SerializeField] private Sprite chickenReaction;
@@ -138,8 +133,8 @@ public class AnimalVoiceInitializer : MonoBehaviour
         // SFXPlayerの作成
         CreateSFXPlayer();
         
-        // 背景の作成
-        CreateBackground();
+        // 背景オブジェクトを検索（既にScene内に配置されている前提）
+        FindAndSetupBackground();
         
         // AnimalSpawnerの作成
         CreateAnimalSpawner();
@@ -192,38 +187,31 @@ public class AnimalVoiceInitializer : MonoBehaviour
     }
     
     /// <summary>
-    /// 背景を作成
+    /// 既存の背景オブジェクトを検索して設定
     /// </summary>
-    private void CreateBackground()
+    private void FindAndSetupBackground()
     {
-        // メイン背景
-        GameObject bgObj = new GameObject("Background");
-        SpriteRenderer bgRenderer = bgObj.AddComponent<SpriteRenderer>();
-        bgRenderer.sortingOrder = -100;
-        
-        // フェード用オーバーレイ
-        GameObject fadeObj = new GameObject("FadeOverlay");
-        fadeObj.transform.SetParent(bgObj.transform);
-        SpriteRenderer fadeRenderer = fadeObj.AddComponent<SpriteRenderer>();
-        fadeRenderer.sortingOrder = 100;
-        fadeRenderer.color = new Color(0, 0, 0, 0);
-        
-        // 1x1の黒いスプライトを作成
-        Texture2D blackTex = new Texture2D(1, 1);
-        blackTex.SetPixel(0, 0, Color.black);
-        blackTex.Apply();
-        Sprite blackSprite = Sprite.Create(blackTex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1);
-        fadeRenderer.sprite = blackSprite;
-        fadeObj.transform.localScale = new Vector3(20, 20, 1);
-        
-        // BackgroundTimeManagerに渡す
-        if (BackgroundTimeManager.Instance != null)
+        GameObject bgRoot = GameObject.Find("Background");
+        if (bgRoot == null)
         {
-            BackgroundTimeManager.Instance.SetRenderers(bgRenderer, fadeRenderer);
-            BackgroundTimeManager.Instance.SetBackgrounds(morningBackground, daytimeBackground, nightBackground);
+            Debug.LogError("[AnimalVoiceInitializer] Scene内にBackgroundオブジェクトが見つかりません");
+            return;
         }
         
-        Debug.Log("[AnimalVoiceInitializer] 背景を作成しました");
+        // 3つの子オブジェクトを検索
+        Transform morningObj = bgRoot.transform.Find("Background_Morning");
+        Transform daytimeObj = bgRoot.transform.Find("Background_Daytime");
+        Transform nightObj = bgRoot.transform.Find("Background_Night");
+        Transform fadeObj = bgRoot.transform.Find("FadeOverlay");
+        
+        if (morningObj == null || daytimeObj == null || nightObj == null || fadeObj == null)
+        {
+            Debug.LogError("[AnimalVoiceInitializer] 背景の子オブジェクトが不足しています");
+            return;
+        }
+        
+        // BackgroundTimeManagerに参照を渡す（後で作成されるため、CreateBackgroundTimeManager()で再設定）
+        Debug.Log("[AnimalVoiceInitializer] 背景オブジェクトを検出しました");
     }
     
     /// <summary>
@@ -384,16 +372,28 @@ public class AnimalVoiceInitializer : MonoBehaviour
         BackgroundTimeManager manager = managerObj.AddComponent<BackgroundTimeManager>();
         manager.SetChangeInterval(timeChangeInterval);
         
-        // 背景のRendererを検索して設定
-        GameObject bgObj = GameObject.Find("Background");
-        if (bgObj != null)
+        // 背景のSpriteRendererを検索して設定
+        GameObject bgRoot = GameObject.Find("Background");
+        if (bgRoot != null)
         {
-            SpriteRenderer bgRenderer = bgObj.GetComponent<SpriteRenderer>();
-            Transform fadeTransform = bgObj.transform.Find("FadeOverlay");
+            Transform morningTransform = bgRoot.transform.Find("Background_Morning");
+            Transform daytimeTransform = bgRoot.transform.Find("Background_Daytime");
+            Transform nightTransform = bgRoot.transform.Find("Background_Night");
+            Transform fadeTransform = bgRoot.transform.Find("FadeOverlay");
+            
+            SpriteRenderer morningRenderer = morningTransform?.GetComponent<SpriteRenderer>();
+            SpriteRenderer daytimeRenderer = daytimeTransform?.GetComponent<SpriteRenderer>();
+            SpriteRenderer nightRenderer = nightTransform?.GetComponent<SpriteRenderer>();
             SpriteRenderer fadeRenderer = fadeTransform?.GetComponent<SpriteRenderer>();
             
-            manager.SetRenderers(bgRenderer, fadeRenderer);
-            manager.SetBackgrounds(morningBackground, daytimeBackground, nightBackground);
+            if (morningRenderer != null && daytimeRenderer != null && nightRenderer != null && fadeRenderer != null)
+            {
+                manager.SetRenderers(morningRenderer, daytimeRenderer, nightRenderer, fadeRenderer);
+            }
+            else
+            {
+                Debug.LogError("[AnimalVoiceInitializer] 背景のSpriteRendererが見つかりません");
+            }
         }
         
         Debug.Log("[AnimalVoiceInitializer] BackgroundTimeManagerを作成しました");

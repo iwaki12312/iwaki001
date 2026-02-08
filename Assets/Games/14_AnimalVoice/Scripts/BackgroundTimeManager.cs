@@ -4,23 +4,24 @@ using DG.Tweening;
 /// <summary>
 /// 背景の時間変化を管理するクラス
 /// 朝→昼→夜のループで背景と動物を切り替える
+/// Scene Viewで各背景の位置・スケールを調整可能
 /// </summary>
+[ExecuteAlways]
 public class BackgroundTimeManager : MonoBehaviour
 {
     public static BackgroundTimeManager Instance { get; private set; }
     
-    [Header("背景スプライト")]
-    [SerializeField] private Sprite morningBackground;    // 朝の背景
-    [SerializeField] private Sprite daytimeBackground;    // 昼の背景
-    [SerializeField] private Sprite nightBackground;      // 夜の背景
+    [Header("背景SpriteRenderer（Scene内で配置）")]
+    [SerializeField] private SpriteRenderer morningRenderer;    // 朝の背景
+    [SerializeField] private SpriteRenderer daytimeRenderer;    // 昼の背景
+    [SerializeField] private SpriteRenderer nightRenderer;      // 夜の背景
+    
+    [Header("フェードオーバーレイ")]
+    [SerializeField] private SpriteRenderer fadeRenderer;  // フェード用レンダラー
     
     [Header("設定")]
     [SerializeField] private float changeInterval = 30f;  // 切り替え間隔（秒）
     [SerializeField] private float fadeDuration = 1f;     // フェード時間
-    
-    [Header("参照")]
-    [SerializeField] private SpriteRenderer backgroundRenderer;
-    [SerializeField] private SpriteRenderer fadeRenderer;  // フェード用の追加レンダラー
     
     private AnimalVoiceTimeOfDay currentTime = AnimalVoiceTimeOfDay.Morning;
     private float timer = 0f;
@@ -45,16 +46,6 @@ public class BackgroundTimeManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 背景スプライトを設定（Initializerから呼び出し）
-    /// </summary>
-    public void SetBackgrounds(Sprite morning, Sprite daytime, Sprite night)
-    {
-        morningBackground = morning;
-        daytimeBackground = daytime;
-        nightBackground = night;
-    }
-    
-    /// <summary>
     /// 時間帯切り替え間隔を設定（Initializerから呼び出し）
     /// </summary>
     public void SetChangeInterval(float interval)
@@ -63,16 +54,19 @@ public class BackgroundTimeManager : MonoBehaviour
     }
     
     /// <summary>
-    /// レンダラーを設定（Initializerから呼び出し）
+    /// SpriteRendererを設定（Initializerから呼び出し）
     /// </summary>
-    public void SetRenderers(SpriteRenderer main, SpriteRenderer fade)
+    public void SetRenderers(SpriteRenderer morning, SpriteRenderer daytime, SpriteRenderer night, SpriteRenderer fade)
     {
-        backgroundRenderer = main;
+        morningRenderer = morning;
+        daytimeRenderer = daytime;
+        nightRenderer = night;
         fadeRenderer = fade;
     }
     
     void Update()
     {
+        if (!Application.isPlaying) return; // Edit modeでは時間経過なし
         if (isTransitioning) return;
         
         timer += Time.deltaTime;
@@ -180,33 +174,32 @@ public class BackgroundTimeManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 背景スプライトを設定
+    /// 背景の表示を切り替え（3つのSpriteRendererを切り替え）
     /// </summary>
     private void SetBackgroundSprite(AnimalVoiceTimeOfDay time)
     {
-        if (backgroundRenderer == null) return;
+        if (morningRenderer == null || daytimeRenderer == null || nightRenderer == null)
+        {
+            Debug.LogWarning("[BackgroundTimeManager] 背景SpriteRendererが設定されていません");
+            return;
+        }
         
-        Sprite targetSprite = null;
+        // すべて非表示にしてから、対象のみ表示
+        morningRenderer.enabled = false;
+        daytimeRenderer.enabled = false;
+        nightRenderer.enabled = false;
+        
         switch (time)
         {
             case AnimalVoiceTimeOfDay.Morning:
-                targetSprite = morningBackground;
+                morningRenderer.enabled = true;
                 break;
             case AnimalVoiceTimeOfDay.Daytime:
-                targetSprite = daytimeBackground;
+                daytimeRenderer.enabled = true;
                 break;
             case AnimalVoiceTimeOfDay.Night:
-                targetSprite = nightBackground;
+                nightRenderer.enabled = true;
                 break;
-        }
-        
-        if (targetSprite != null)
-        {
-            backgroundRenderer.sprite = targetSprite;
-        }
-        else
-        {
-            Debug.LogWarning($"[BackgroundTimeManager] {time}の背景スプライトが設定されていません");
         }
     }
     

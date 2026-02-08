@@ -33,6 +33,9 @@ public static class AnimalVoiceSetup
         GameObject initializerObj = new GameObject("AnimalVoiceInitializer");
         AnimalVoiceInitializer initializer = initializerObj.AddComponent<AnimalVoiceInitializer>();
         
+        // 背景オブジェクトを作成
+        CreateBackgroundObjects();
+        
         // 仮アセットを自動設定
         SetupPlaceholderAssets(initializer);
         
@@ -89,13 +92,11 @@ public static class AnimalVoiceSetup
         GameObject heartParticle = AssetDatabase.LoadAssetAtPath<GameObject>($"{GAME_PATH}/Prefabs/ParticleHeart.prefab");
         GameObject noteParticle = AssetDatabase.LoadAssetAtPath<GameObject>($"{GAME_PATH}/Prefabs/ParticleNote.prefab");
 
+        // 背景オブジェクトにスプライトを設定
+        ApplyBackgroundSprites(bgMorning, bgDaytime, bgNight);
+
         // SerializedObjectで設定
         SerializedObject so = new SerializedObject(initializer);
-
-        // 背景
-        so.FindProperty("morningBackground").objectReferenceValue = bgMorning;
-        so.FindProperty("daytimeBackground").objectReferenceValue = bgDaytime;
-        so.FindProperty("nightBackground").objectReferenceValue = bgNight;
         
         // 朝の動物
         SetAnimalSpritesFromPath(so, "chicken");
@@ -215,6 +216,96 @@ public static class AnimalVoiceSetup
         
         so.ApplyModifiedProperties();
         Debug.Log($"[AnimalVoiceSetup] {defaultPositions.Length}個のスポーンポイントを配置しました");
+    }
+    
+    /// <summary>
+    /// 背景オブジェクトを作成（3つの子オブジェクト + フェードオーバーレイ）
+    /// </summary>
+    private static void CreateBackgroundObjects()
+    {
+        // ルートオブジェクト
+        GameObject bgRoot = new GameObject("Background");
+        
+        // 朝の背景
+        GameObject morningObj = new GameObject("Background_Morning");
+        morningObj.transform.SetParent(bgRoot.transform);
+        morningObj.transform.localPosition = Vector3.zero;
+        morningObj.transform.localScale = new Vector3(10, 10, 1);
+        SpriteRenderer morningRenderer = morningObj.AddComponent<SpriteRenderer>();
+        morningRenderer.sortingOrder = -100;
+        
+        // 昼の背景
+        GameObject daytimeObj = new GameObject("Background_Daytime");
+        daytimeObj.transform.SetParent(bgRoot.transform);
+        daytimeObj.transform.localPosition = Vector3.zero;
+        daytimeObj.transform.localScale = new Vector3(10, 10, 1);
+        SpriteRenderer daytimeRenderer = daytimeObj.AddComponent<SpriteRenderer>();
+        daytimeRenderer.sortingOrder = -100;
+        daytimeRenderer.enabled = false; // 初期は非表示
+        
+        // 夜の背景
+        GameObject nightObj = new GameObject("Background_Night");
+        nightObj.transform.SetParent(bgRoot.transform);
+        nightObj.transform.localPosition = Vector3.zero;
+        nightObj.transform.localScale = new Vector3(10, 10, 1);
+        SpriteRenderer nightRenderer = nightObj.AddComponent<SpriteRenderer>();
+        nightRenderer.sortingOrder = -100;
+        nightRenderer.enabled = false; // 初期は非表示
+        
+        // フェードオーバーレイ
+        GameObject fadeObj = new GameObject("FadeOverlay");
+        fadeObj.transform.SetParent(bgRoot.transform);
+        fadeObj.transform.localPosition = Vector3.zero;
+        fadeObj.transform.localScale = new Vector3(20, 20, 1);
+        SpriteRenderer fadeRenderer = fadeObj.AddComponent<SpriteRenderer>();
+        fadeRenderer.sortingOrder = 100;
+        fadeRenderer.color = new Color(0, 0, 0, 0);
+        
+        // 1x1の黒いスプライトを作成
+        Texture2D blackTex = new Texture2D(1, 1);
+        blackTex.SetPixel(0, 0, Color.black);
+        blackTex.Apply();
+        Sprite blackSprite = Sprite.Create(blackTex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1);
+        fadeRenderer.sprite = blackSprite;
+        
+        Debug.Log("[AnimalVoiceSetup] 背景オブジェクトを作成しました");
+    }
+    
+    /// <summary>
+    /// 背景オブジェクトのSpriteRendererにスプライトを設定
+    /// </summary>
+    private static void ApplyBackgroundSprites(Sprite morning, Sprite daytime, Sprite night)
+    {
+        GameObject bgRoot = GameObject.Find("Background");
+        if (bgRoot == null)
+        {
+            Debug.LogWarning("[AnimalVoiceSetup] 背景オブジェクトが見つかりません");
+            return;
+        }
+        
+        Transform morningTransform = bgRoot.transform.Find("Background_Morning");
+        Transform daytimeTransform = bgRoot.transform.Find("Background_Daytime");
+        Transform nightTransform = bgRoot.transform.Find("Background_Night");
+        
+        if (morningTransform != null)
+        {
+            SpriteRenderer sr = morningTransform.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.sprite = morning;
+        }
+        
+        if (daytimeTransform != null)
+        {
+            SpriteRenderer sr = daytimeTransform.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.sprite = daytime;
+        }
+        
+        if (nightTransform != null)
+        {
+            SpriteRenderer sr = nightTransform.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.sprite = night;
+        }
+        
+        Debug.Log("[AnimalVoiceSetup] 背景スプライトを設定しました");
     }
     
     /// <summary>
