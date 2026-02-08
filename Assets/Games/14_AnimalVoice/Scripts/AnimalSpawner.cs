@@ -256,9 +256,49 @@ public class AnimalSpawner : MonoBehaviour
             scale = data.isRare ? rareAnimalScale : animalBaseScale;
         }
         controller.Initialize(data, position, heartParticlePrefab, noteParticlePrefab, scale, colliderRadius);
-        controller.OnDestroyed += () => activeAnimals.Remove(controller);
+        
+        // 削除時にリストから除外し、新しい動物を補充
+        controller.OnDestroyed += () =>
+        {
+            activeAnimals.Remove(controller);
+            RespawnAnimal(position, scaleOverride);
+        };
         
         activeAnimals.Add(controller);
+    }
+    
+    /// <summary>
+    /// 削除された動物を補充（同じ時間帯の別の動物）
+    /// </summary>
+    private void RespawnAnimal(Vector3 position, float scaleOverride)
+    {
+        // 時間帯切り替え中は補充しない
+        if (activeAnimals.Count == 0) return;
+        
+        // 現在の時間帯の動物リストを取得
+        List<AnimalVoiceData> availableAnimals = GetAnimalsForTimeOfDay(currentTimeOfDay);
+        
+        if (availableAnimals == null || availableAnimals.Count == 0)
+        {
+            Debug.LogWarning($"[AnimalSpawner] {currentTimeOfDay}の動物データがありません");
+            return;
+        }
+        
+        // レア動物の判定
+        bool spawnRare = Random.value < rareSpawnChance && rareAnimals != null && rareAnimals.Count > 0;
+        
+        AnimalVoiceData dataToSpawn;
+        if (spawnRare)
+        {
+            dataToSpawn = rareAnimals[Random.Range(0, rareAnimals.Count)];
+        }
+        else
+        {
+            dataToSpawn = availableAnimals[Random.Range(0, availableAnimals.Count)];
+        }
+        
+        // 同じ位置に新しい動物を生成
+        SpawnAnimal(dataToSpawn, position, scaleOverride);
     }
     
     /// <summary>
@@ -266,14 +306,18 @@ public class AnimalSpawner : MonoBehaviour
     /// </summary>
     public void ClearAllAnimals()
     {
-        foreach (var animal in activeAnimals)
+        // OnDestroyedイベントで補充されないように、先にリストをクリア
+        var animalsToRemove = new List<AnimalController>(activeAnimals);
+        activeAnimals.Clear();
+        
+        foreach (var animal in animalsToRemove)
         {
             if (animal != null)
             {
+                animal.OnDestroyed = null; // 時間帯切替時は補充を抑制
                 animal.FadeOutAndDestroy();
             }
         }
-        activeAnimals.Clear();
     }
     
     /// <summary>

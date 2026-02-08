@@ -233,20 +233,11 @@ public class AnimalController : MonoBehaviour
             PlayRareEffect();
         }
         
-        // 元に戻す
+        // リアクション後にフェードアウトして削除
         float duration = animalData.reactionDuration;
         DOVirtual.DelayedCall(duration, () =>
         {
-            // 元のスプライトに戻す
-            if (animalData.normalSprite != null)
-            {
-                spriteRenderer.sprite = animalData.normalSprite;
-            }
-            
-            // スケールを戻す
-            transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutQuad);
-            
-            isReacting = false;
+            FadeOutAndDestroy();
         });
     }
     
