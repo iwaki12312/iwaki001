@@ -117,18 +117,12 @@ public static class FruitSliceSetup
         SetFruitSpritesFromPath(so, "rainbowMango", "rainbow_mango");
         SetFruitSpritesFromPath(so, "diamondOrange", "diamond_orange");
 
-        // 効果音（仮SE）
-        AudioClip[] workSfx = new AudioClip[8];
-        for (int i = 1; i <= 8; i++)
-        {
-            workSfx[i - 1] = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/work_sfx{i}.mp3");
-        }
-
-        so.FindProperty("cutSound").objectReferenceValue = workSfx[0];
-        so.FindProperty("plateSound").objectReferenceValue = workSfx[1];
-        so.FindProperty("completeSound").objectReferenceValue = workSfx[2];
-        so.FindProperty("rareSound").objectReferenceValue = workSfx[3];
-        so.FindProperty("spawnSound").objectReferenceValue = workSfx[4];
+        // 効果音
+        so.FindProperty("cutSound").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/cut_sfx.mp3");
+        so.FindProperty("plateSound").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/plate_sfx.mp3");
+        so.FindProperty("completeSound").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/complete_sfx.mp3");
+        so.FindProperty("rareSound").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/rare_sfx.mp3");
+        so.FindProperty("spawnSound").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/spawn_sfx.mp3");
 
         so.ApplyModifiedProperties();
 

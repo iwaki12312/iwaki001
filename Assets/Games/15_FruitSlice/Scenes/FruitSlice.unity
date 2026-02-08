@@ -278,7 +278,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6747e5d1cc2d428db44948efd02e298c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd20c1e696de4156bebda2161279e450, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebca40dce68fd14d9c564f67c91296e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FruitSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 6747e5d1cc2d428db44948efd02e298c, type: 3}
+  previewSprite: {fileID: 21300000, guid: dd20c1e696de4156bebda2161279e450, type: 3}
   overrideScale: 0
   overrideColliderRadius: 0
 --- !u!4 &423884446
@@ -476,7 +476,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 5606b46fd369492eaf741f0a0e15814c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6747e5d1cc2d428db44948efd02e298c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebca40dce68fd14d9c564f67c91296e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FruitSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 5606b46fd369492eaf741f0a0e15814c, type: 3}
+  previewSprite: {fileID: 21300000, guid: 6747e5d1cc2d428db44948efd02e298c, type: 3}
   overrideScale: 0
   overrideColliderRadius: 0
 --- !u!4 &572913611
@@ -583,7 +583,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 5392051832e84abfb1fa53517fb05607, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0488402946843c7bb66f4d937c8b03c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebca40dce68fd14d9c564f67c91296e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FruitSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 5392051832e84abfb1fa53517fb05607, type: 3}
+  previewSprite: {fileID: 21300000, guid: e0488402946843c7bb66f4d937c8b03c, type: 3}
   overrideScale: 0
   overrideColliderRadius: 0
 --- !u!4 &1520281866
@@ -686,20 +686,20 @@ MonoBehaviour:
   diamondOrangeCut: {fileID: 21300000, guid: 73d8127f44d2479da95a6042362d79b7, type: 3}
   diamondOrangePlated: {fileID: 21300000, guid: 3681a9ab01454efa942bbbb7484d3f3c, type: 3}
   cuttingBoardSprite: {fileID: 21300000, guid: 3aee414e18644467b2bde5ae8a2b03f0, type: 3}
-  cutSound: {fileID: 8300000, guid: 99d60c1e347b57c4587b508de7e41a86, type: 3}
-  plateSound: {fileID: 8300000, guid: 7eae9ca833b7ab2479ebc317be9897c6, type: 3}
-  completeSound: {fileID: 8300000, guid: 17be7f32996f83f49bebf1dd4f31e58d, type: 3}
-  rareSound: {fileID: 8300000, guid: 96e1ecff26ad36e42adc4f23125d680e, type: 3}
-  spawnSound: {fileID: 8300000, guid: 22d83aa460cbb6945bbc8a9449d57255, type: 3}
+  cutSound: {fileID: 8300000, guid: a6bce6791f9e499ab4a794382cef0b9f, type: 3}
+  plateSound: {fileID: 8300000, guid: fdab7fc4ab094fbebf3d9b6e473214bb, type: 3}
+  completeSound: {fileID: 8300000, guid: 3ec17ef6ba094864a6f8054285d18006, type: 3}
+  rareSound: {fileID: 8300000, guid: 667d0510a19740f1a967ef756630540f, type: 3}
+  spawnSound: {fileID: 8300000, guid: a2f1e561fa4f4eb1a30887d69f0be1c6, type: 3}
   rareSpawnChance: 0.1
   defaultColliderRadius: 1
   defaultFruitScale: 1.2
   spawnPoints:
-  - {fileID: 2018513427}
   - {fileID: 1520281865}
-  - {fileID: 572913610}
+  - {fileID: 2018513427}
   - {fileID: 1770347190}
   - {fileID: 423884445}
+  - {fileID: 572913610}
 --- !u!4 &1559002083
 Transform:
   m_ObjectHideFlags: 0
@@ -782,7 +782,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: dd20c1e696de4156bebda2161279e450, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5606b46fd369492eaf741f0a0e15814c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebca40dce68fd14d9c564f67c91296e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FruitSpawnPoint
-  previewSprite: {fileID: 21300000, guid: dd20c1e696de4156bebda2161279e450, type: 3}
+  previewSprite: {fileID: 21300000, guid: 5606b46fd369492eaf741f0a0e15814c, type: 3}
   overrideScale: 0
   overrideColliderRadius: 0
 --- !u!4 &1770347191
@@ -889,7 +889,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e0488402946843c7bb66f4d937c8b03c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5392051832e84abfb1fa53517fb05607, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebca40dce68fd14d9c564f67c91296e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FruitSpawnPoint
-  previewSprite: {fileID: 21300000, guid: e0488402946843c7bb66f4d937c8b03c, type: 3}
+  previewSprite: {fileID: 21300000, guid: 5392051832e84abfb1fa53517fb05607, type: 3}
   overrideScale: 0
   overrideColliderRadius: 0
 --- !u!4 &2018513428
