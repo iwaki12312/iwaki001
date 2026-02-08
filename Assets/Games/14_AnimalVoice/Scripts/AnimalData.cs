@@ -25,13 +25,13 @@ public enum AnimalVoiceAnimalType
     Owl,        // フクロウ
     Wolf,       // オオカミ
     Bat,        // コウモリ
-    Hedgehog,   // ハリネズミ
+    Mouse,      // ネズミ
     
     // レア動物
     Dinosaur,   // 恐竜
     Dragon,     // ドラゴン
     Unicorn,    // ユニコーン
-    Panda       // パンダ
+    Monkey      // サル
 }
 
 /// <summary>

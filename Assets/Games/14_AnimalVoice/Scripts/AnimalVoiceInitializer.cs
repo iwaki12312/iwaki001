@@ -48,8 +48,8 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private Sprite wolfReaction;
     [SerializeField] private Sprite batNormal;
     [SerializeField] private Sprite batReaction;
-    [SerializeField] private Sprite hedgehogNormal;
-    [SerializeField] private Sprite hedgehogReaction;
+    [SerializeField] private Sprite mouseNormal;
+    [SerializeField] private Sprite mouseReaction;
     
     [Header("=== 動物スプライト - レア動物 ===")]
     [SerializeField] private Sprite dinosaurNormal;
@@ -58,8 +58,8 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private Sprite dragonReaction;
     [SerializeField] private Sprite unicornNormal;
     [SerializeField] private Sprite unicornReaction;
-    [SerializeField] private Sprite pandaNormal;
-    [SerializeField] private Sprite pandaReaction;
+    [SerializeField] private Sprite monkeyNormal;
+    [SerializeField] private Sprite monkeyReaction;
     
     [Header("=== 鳴き声 - 朝の動物 ===")]
     [SerializeField] private AudioClip chickenVoice;
@@ -81,13 +81,13 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private AudioClip owlVoice;
     [SerializeField] private AudioClip wolfVoice;
     [SerializeField] private AudioClip batVoice;
-    [SerializeField] private AudioClip hedgehogVoice;
+    [SerializeField] private AudioClip mouseVoice;
     
     [Header("=== 鳴き声 - レア動物 ===")]
     [SerializeField] private AudioClip dinosaurVoice;
     [SerializeField] private AudioClip dragonVoice;
     [SerializeField] private AudioClip unicornVoice;
-    [SerializeField] private AudioClip pandaVoice;
+    [SerializeField] private AudioClip monkeyVoice;
     
     [Header("=== 共通効果音 ===")]
     [SerializeField] private AudioClip tapSound;
@@ -335,7 +335,7 @@ public class AnimalVoiceInitializer : MonoBehaviour
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Owl, "フクロウ", owlNormal, owlReaction, owlVoice, false));
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Wolf, "オオカミ", wolfNormal, wolfReaction, wolfVoice, false));
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Bat, "コウモリ", batNormal, batReaction, batVoice, false));
-        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Hedgehog, "ハリネズミ", hedgehogNormal, hedgehogReaction, hedgehogVoice, false));
+        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Mouse, "ネズミ", mouseNormal, mouseReaction, mouseVoice, false));
         
         return list;
     }
@@ -350,7 +350,7 @@ public class AnimalVoiceInitializer : MonoBehaviour
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Dinosaur, "恐竜", dinosaurNormal, dinosaurReaction, dinosaurVoice, true));
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Dragon, "ドラゴン", dragonNormal, dragonReaction, dragonVoice, true));
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Unicorn, "ユニコーン", unicornNormal, unicornReaction, unicornVoice, true));
-        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Panda, "パンダ", pandaNormal, pandaReaction, pandaVoice, true));
+        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Monkey, "サル", monkeyNormal, monkeyReaction, monkeyVoice, true));
         
         return list;
     }

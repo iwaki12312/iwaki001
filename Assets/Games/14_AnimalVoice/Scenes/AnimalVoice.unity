@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 687391316}
   - component: {fileID: 687391315}
   - component: {fileID: 687391314}
+  - component: {fileID: 687391317}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -423,6 +424,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &687391317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687391313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &770684600
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,16 +848,16 @@ MonoBehaviour:
   wolfReaction: {fileID: 21300000, guid: 8e482b3d29674f32b1819e2c5f076c72, type: 3}
   batNormal: {fileID: 21300000, guid: 601010aacede49199e59fa7b50ad9995, type: 3}
   batReaction: {fileID: 21300000, guid: 6bce9120487a4943abca471f3330a0f0, type: 3}
-  hedgehogNormal: {fileID: 21300000, guid: 96b4dd6919ec4c858f57c9873b3bbd03, type: 3}
-  hedgehogReaction: {fileID: 21300000, guid: 0af30779d5b344f98ccdef0a1ef1493a, type: 3}
+  mouseNormal: {fileID: 21300000, guid: c0f25a61bc684b54a8308d4a0f377231, type: 3}
+  mouseReaction: {fileID: 21300000, guid: 324f72d362b74068b2d1d23403d65090, type: 3}
   dinosaurNormal: {fileID: 21300000, guid: 900167381ff449cea0f557eaea8f12cf, type: 3}
   dinosaurReaction: {fileID: 21300000, guid: 93f3c11ec64c418e8c65960edc1b6de5, type: 3}
   dragonNormal: {fileID: 21300000, guid: 682f33ac79684d13ab2ca980a491a877, type: 3}
   dragonReaction: {fileID: 21300000, guid: 04d3e5e8231a4d3ca9c268037dec4f99, type: 3}
   unicornNormal: {fileID: 21300000, guid: ba6d48464128422da0e8e115fce12e9e, type: 3}
   unicornReaction: {fileID: 21300000, guid: a103553b34824aa484e2fbdb5c52230e, type: 3}
-  pandaNormal: {fileID: 21300000, guid: f8d5f7ad1e534e49a6371c7c48335747, type: 3}
-  pandaReaction: {fileID: 21300000, guid: 6ca48d2205a44cec8bea0e6d99efe99c, type: 3}
+  monkeyNormal: {fileID: 21300000, guid: e6d33b0a8e9c440598e6e220b042b5ba, type: 3}
+  monkeyReaction: {fileID: 21300000, guid: 82db64b9083d4a3a80205957d7555ea5, type: 3}
   chickenVoice: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
   cowVoice: {fileID: 8300000, guid: bdc685da400b0814aa7581d8bcf8afa5, type: 3}
   horseVoice: {fileID: 8300000, guid: cb2f965779c89664cbeeb0a73b13d0c6, type: 3}
@@ -828,11 +873,11 @@ MonoBehaviour:
   owlVoice: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
   wolfVoice: {fileID: 8300000, guid: bdc685da400b0814aa7581d8bcf8afa5, type: 3}
   batVoice: {fileID: 8300000, guid: cb2f965779c89664cbeeb0a73b13d0c6, type: 3}
-  hedgehogVoice: {fileID: 8300000, guid: 14018940e9b6ff042824d949e8bd5641, type: 3}
+  mouseVoice: {fileID: 8300000, guid: 14018940e9b6ff042824d949e8bd5641, type: 3}
   dinosaurVoice: {fileID: 8300000, guid: 2d842506e910d354f984f24455172eff, type: 3}
   dragonVoice: {fileID: 8300000, guid: 2d842506e910d354f984f24455172eff, type: 3}
   unicornVoice: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
-  pandaVoice: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
+  monkeyVoice: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
   tapSound: {fileID: 8300000, guid: a2fe3eb4a36eb2943bff27afae192dfa, type: 3}
   timeChangeSound: {fileID: 8300000, guid: fe991bf7a8a9a2b4bb15e950f49921a2, type: 3}
   rareAppearSound: {fileID: 8300000, guid: 2d842506e910d354f984f24455172eff, type: 3}
@@ -848,7 +893,7 @@ MonoBehaviour:
   animalBaseScale: 0.4
   rareAnimalScale: 0.4
   colliderRadius: 1
-  timeChangeInterval: 20
+  timeChangeInterval: 15
   spawnPoints:
   - {fileID: 1453645111}
   - {fileID: 1084466592}

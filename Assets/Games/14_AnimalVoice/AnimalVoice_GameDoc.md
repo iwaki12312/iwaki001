@@ -46,8 +46,8 @@ Assets/Games/14_AnimalVoice/
 |--------|------|---------------------|
 | 朝 (6種) | ニワトリ、牛、馬、豚、羊、ヤギ | chicken, cow, horse, pig, sheep, goat |
 | 昼 (6種) | 犬、猫、ゾウ、ライオン、カエル、ひよこ | dog, cat, elephant, lion, frog, chick |
-| 夜 (4種) | フクロウ、オオカミ、コウモリ、ハリネズミ | owl, wolf, bat, hedgehog |
-| レア (4種) | 恐竜、ドラゴン、ユニコーン、パンダ | dinosaur, dragon, unicorn, panda |
+| 夜 (4種) | フクロウ、オオカミ、コウモリ、ネズミ | owl, wolf, bat, mouse |
+| レア (4種) | 恐竜、ドラゴン、ユニコーン、サル | dinosaur, dragon, unicorn, monkey |
 
 各動物につき `{name}_normal.png`（通常）と `{name}_reaction.png`（口を開けた状態）の2枚。
 

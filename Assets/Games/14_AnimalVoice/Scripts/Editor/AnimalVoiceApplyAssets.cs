@@ -120,13 +120,13 @@ public static class AnimalVoiceApplyAssets
         SetAnimalSpritesFromPath(so, "owl");
         SetAnimalSpritesFromPath(so, "wolf");
         SetAnimalSpritesFromPath(so, "bat");
-        SetAnimalSpritesFromPath(so, "hedgehog");
+        SetAnimalSpritesFromPath(so, "mouse");
 
         // レア動物
         SetAnimalSpritesFromPath(so, "dinosaur");
         SetAnimalSpritesFromPath(so, "dragon");
         SetAnimalSpritesFromPath(so, "unicorn");
-        SetAnimalSpritesFromPath(so, "panda");
+        SetAnimalSpritesFromPath(so, "monkey");
 
         // 鳴き声（仮SE）
         so.FindProperty("chickenVoice").objectReferenceValue = workSfx[0];
