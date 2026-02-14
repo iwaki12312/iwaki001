@@ -146,7 +146,6 @@ sr.sortingOrder = 10;  // 背景より前面に表示
 
 - **AnimalVoice** (`Assets/Games/14_AnimalVoice`) - 最新の実装パターン、自動化スクリプト完備
 - **TouchTheStar** (`Assets/Games/05_TouchTheStar`) - シンプルなタップゲームの好例
-- **CatchInsects** (`Assets/Games/07_CatchInsects`) - マルチタッチの実装例
 
 ### 参照禁止
 
