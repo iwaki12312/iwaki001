@@ -6,7 +6,17 @@
       "Bash(tasklist:*)",
       "Bash(taskkill:*)",
       "Bash(cmd.exe /c \"taskkill /IM Unity.exe /F\")",
-      "Bash(powershell.exe:*)"
+      "Bash(powershell.exe:*)",
+      "WebFetch(domain:zenn.dev)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "Bash(for skill in new-game generate-images generate-sfx unity-debug iap-system)",
+      "Bash(do cmd //c \"mklink /D \"\"c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\$skill\"\" \"\"c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\$skill\"\"\")",
+      "Bash(done)",
+      "Bash(do cmd //c \"mklink /J \"\"c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\$skill\"\" \"\"c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\$skill\"\"\")",
+      "Bash(cmd //c \"mklink /J \"\"c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\new-game\"\" \"\"c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\new-game\"\"\")",
+      "Bash(cmd.exe /c \"mklink /J c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\new-game c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\new-game\")",
+      "Bash(powershell -Command:*)"
     ]
   }
 }
