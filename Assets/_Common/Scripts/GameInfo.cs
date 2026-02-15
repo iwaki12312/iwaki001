@@ -12,6 +12,7 @@ public class GameInfo : MonoBehaviour
 
     // すべてのゲーム情報を格納するリスト
     // ゲームを追加する場合はここに追加して一元管理する
+    // 現状ビルドに含めないゲームはコメントアウトしないとページネーションがうまく動かないので注意（改善したい）
     public static List<GameData> allGames = new List<GameData>
     {
         new GameData("MakeBubbles", 1, "pack_free"),       // 01_MakeBubbles
@@ -27,8 +28,8 @@ public class GameInfo : MonoBehaviour
         new GameData("EggHatch", 11, "pack_01"),           // 11_EggHatch
         new GameData("Fireworks", 12, "pack_01"),          // 12_Fireworks
         new GameData("FossilDigging", 13, "pack_01"),      // 13_FossilDigging
-        new GameData("FruitSlice", 15, "pack_01"),          // 15_FruitSlice
-        new GameData("MushroomPicking", 17, "pack_01")     // 17_MushroomPicking
+        // new GameData("FruitSlice", 15, "pack_01"),          // 15_FruitSlice
+        // new GameData("MushroomPicking", 17, "pack_01")     // 17_MushroomPicking
     };
 
     // 総ページ数を取得
