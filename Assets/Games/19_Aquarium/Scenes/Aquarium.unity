@@ -153,9 +153,9 @@ MonoBehaviour:
   octopusSprite: {fileID: 21300000, guid: f94be6512d90454e8bcf5469a2cd8ebc, type: 3}
   seaTurtleSprite: {fileID: 21300000, guid: 668e803ac64840b286b699c2d2d17cbe, type: 3}
   pufferfishSprite: {fileID: 21300000, guid: 567d05fff60e42408f0cba86cbac9fca, type: 3}
-  jellyfishSprite: {fileID: 21300000, guid: e1f63e00361c4caf95b5c6595f91d76d, type: 3}
+  dolphinSprite: {fileID: 21300000, guid: a37253adc3ba4243993ac6247918547f, type: 3}
   seahorseSprite: {fileID: 21300000, guid: e1bc929dc08b476b86f654c5b9933f4b, type: 3}
-  stingraySprite: {fileID: 21300000, guid: 303419bcaa0d4791a71fac816cdd46d6, type: 3}
+  sharkSprite: {fileID: 21300000, guid: 2a77feaa89a04e26b72f48446d08e571, type: 3}
   whaleSharkSprite: {fileID: 21300000, guid: ac605fd16d844344a02396ea4f6d1cfb, type: 3}
   mantaSprite: {fileID: 21300000, guid: 6414b6b3d9c54d0598e4c35049362da4, type: 3}
   bubbleSound: {fileID: 8300000, guid: bf508acc37aa2ca48bd4225cf661e5fa, type: 3}

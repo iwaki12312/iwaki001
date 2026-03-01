@@ -111,10 +111,9 @@ public class CakeDecorationController : MonoBehaviour
             return;
         }
 
-        // タップ位置のX座標を利用してケーキ上の横位置を決定
+        // タップ位置のワールド座標をそのままデコレーション位置に使用
         float decoX = worldPos.x;
-        // Y座標はケーキ上面の範囲内でランダム
-        float decoY = Random.Range(cakeMinY, cakeMaxY);
+        float decoY = worldPos.y;
 
         // レア判定
         bool isRare = Random.value < rareChance;

@@ -76,9 +76,9 @@ public static class AnimalVoiceSetup
     /// </summary>
     private static void SetupPlaceholderAssets(AnimalVoiceInitializer initializer)
     {
-        // 背景スプライトをロード（jpg）
-        Sprite bgMorning = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_morning.jpg");
-        Sprite bgDaytime = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_daytime.jpg");
+        // 背景スプライトをロード（jpg）※朝と昼の画像を入れ替えて使用
+        Sprite bgMorning = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_daytime.jpg");
+        Sprite bgDaytime = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_morning.jpg");
         Sprite bgNight = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_night.jpg");
 
         // 仮効果音をロード

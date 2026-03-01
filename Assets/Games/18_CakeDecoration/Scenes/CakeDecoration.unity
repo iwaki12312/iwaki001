@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 264847892}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.37, y: -0.31, z: 0}
+  m_LocalPosition: {x: -0.37, y: -0.93, z: 0}
   m_LocalScale: {x: 2.190183, y: 2.190183, z: 2.190183}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -266,7 +266,7 @@ MonoBehaviour:
   rareDecorationScale: 0.7
   cakeMinX: -2.5
   cakeMaxX: 2.5
-  cakeMinY: -2
+  cakeMinY: -1.5
   cakeMaxY: 4
 --- !u!4 &1196081465
 Transform:
