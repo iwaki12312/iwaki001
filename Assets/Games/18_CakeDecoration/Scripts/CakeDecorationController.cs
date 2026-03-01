@@ -104,9 +104,15 @@ public class CakeDecorationController : MonoBehaviour
         Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0));
         worldPos.z = 0;
 
+        // ケーキ範囲外をタップした場合は何もしない
+        if (worldPos.x < cakeMinX || worldPos.x > cakeMaxX ||
+            worldPos.y < cakeMinY || worldPos.y > cakeMaxY)
+        {
+            return;
+        }
+
         // タップ位置のX座標を利用してケーキ上の横位置を決定
-        // ケーキ範囲にクランプ
-        float decoX = Mathf.Clamp(worldPos.x, cakeMinX, cakeMaxX);
+        float decoX = worldPos.x;
         // Y座標はケーキ上面の範囲内でランダム
         float decoY = Random.Range(cakeMinY, cakeMaxY);
 
