@@ -89,10 +89,6 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private AudioClip timeChangeSound;
     [SerializeField] private AudioClip rareAppearSound;
     
-    [Header("=== パーティクル ===")]
-    [SerializeField] private GameObject heartParticlePrefab;
-    [SerializeField] private GameObject noteParticlePrefab;
-    
     [Header("=== スポーン設定（Inspectorで調整可能）===")]
     [SerializeField, Range(1, 12)] private int spawnCount = 6;
     [SerializeField, Range(0f, 1f)] private float rareSpawnChance = 0.1f;
@@ -253,7 +249,7 @@ public class AnimalVoiceInitializer : MonoBehaviour
         
         // 動物Prefabを作成
         GameObject animalPrefab = CreateAnimalPrefab();
-        spawner.SetPrefabs(animalPrefab, heartParticlePrefab, noteParticlePrefab);
+        spawner.SetPrefabs(animalPrefab);
         
         Debug.Log("[AnimalVoiceInitializer] AnimalSpawnerを作成しました");
     }

@@ -105,6 +105,8 @@ public class AquariumController : MonoBehaviour
     /// </summary>
     private void HandleMultiTouch()
     {
+        bool touchProcessed = false;
+
         // タッチスクリーン入力
         if (Touchscreen.current != null)
         {
@@ -118,6 +120,7 @@ public class AquariumController : MonoBehaviour
                         processedTouchIds.Add(touchId);
                         Vector2 screenPos = touch.position.ReadValue();
                         ProcessTap(screenPos);
+                        touchProcessed = true;
                     }
                 }
                 if (touch.press.wasReleasedThisFrame)
@@ -129,7 +132,8 @@ public class AquariumController : MonoBehaviour
         }
 
         // マウス入力（エディタ用）
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        // タッチが処理されたフレームではスキップ（タッチからのマウスシミュレーションで二重発火を防止）
+        if (!touchProcessed && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             Vector2 screenPos = Mouse.current.position.ReadValue();
             ProcessTap(screenPos);
@@ -288,6 +292,13 @@ public class AquariumController : MonoBehaviour
     /// </summary>
     private void SpawnCreature(Vector3 position, Sprite sprite, SeaCreatureType type, bool isRare, float scale)
     {
+        // 最大数ガード（並行コルーチンからの超過防止）
+        if (currentCreatureCount >= maxCreatures)
+        {
+            Debug.Log("[Aquarium] 最大数超過をガード");
+            return;
+        }
+
         // SE: 登場
         if (AquariumSFXPlayer.Instance != null)
         {
@@ -304,7 +315,6 @@ public class AquariumController : MonoBehaviour
 
         GameObject creatureObj = new GameObject($"Creature_{type}_{currentCreatureCount:D2}");
         creatureObj.transform.position = new Vector3(x, y, 0);
-        creatureObj.transform.localScale = Vector3.zero; // アニメーション用
 
         SpriteRenderer sr = creatureObj.AddComponent<SpriteRenderer>();
         sr.sortingOrder = isRare ? 25 : 15;
@@ -315,10 +325,9 @@ public class AquariumController : MonoBehaviour
         SeaCreatureController creature = creatureObj.AddComponent<SeaCreatureController>();
         creature.Initialize(type, sprite, isRare, colliderRadius);
 
-        // ポップイン アニメーション（完了までUpdate無効）
+        // ポップインアニメーション（生き物自身のコルーチンで管理、DOTween不使用）
         Vector3 targetScale = Vector3.one * scale;
-        creatureObj.transform.DOScale(targetScale, 0.4f).SetEase(Ease.OutBack)
-            .OnComplete(() => creature.OnSpawnComplete());
+        creature.StartSpawnAnimation(targetScale);
 
         // レア出現時の特別演出
         if (isRare)
@@ -331,11 +340,22 @@ public class AquariumController : MonoBehaviour
 
         Debug.Log($"[Aquarium] 生き物スポーン: {type} (レア={isRare}), 合計: {currentCreatureCount}/{maxCreatures}");
 
-        // 完成チェック
+        // 完成チェック（スポーンアニメ完了を待ってからお祝い開始）
         if (currentCreatureCount >= maxCreatures && !isCelebrating)
         {
-            StartCoroutine(CelebrationSequence());
+            StartCoroutine(DelayedCelebration());
         }
+    }
+
+    /// <summary>
+    /// スポーンアニメーション完了待ちでお祝い開始
+    /// </summary>
+    private IEnumerator DelayedCelebration()
+    {
+        isCelebrating = true;
+        // スポーンアニメーション（0.4s）が完了するのを待つ
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(CelebrationSequence());
     }
 
     /// <summary>
@@ -414,7 +434,7 @@ public class AquariumController : MonoBehaviour
     /// </summary>
     private IEnumerator CelebrationSequence()
     {
-        isCelebrating = true;
+        // isCelebratingはDelayedCelebrationで設定済み
         Debug.Log("[Aquarium] 水槽完成！お祝い演出開始！");
 
         // ファンファーレ
@@ -423,7 +443,7 @@ public class AquariumController : MonoBehaviour
             AquariumSFXPlayer.Instance.PlayCompleteSound();
         }
 
-        // 全生き物をジャンプアニメーション
+        // 全生き物をジャンプアニメーション（スポーン完了済みのみ）
         foreach (var creature in spawnedCreatures)
         {
             if (creature != null)

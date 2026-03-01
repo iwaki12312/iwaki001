@@ -14,10 +14,6 @@ public class AnimalController : MonoBehaviour
     [Header("設定")]
     [SerializeField] private float colliderRadius = 1.0f;  // タップ判定の範囲
     
-    [Header("パーティクル")]
-    [SerializeField] private GameObject heartParticlePrefab;
-    [SerializeField] private GameObject noteParticlePrefab;
-    
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
     private Camera mainCamera;
@@ -57,10 +53,10 @@ public class AnimalController : MonoBehaviour
     /// <summary>
     /// 動物を初期化（スケール・コライダー指定あり）
     /// </summary>
-    public void Initialize(AnimalVoiceData data, Vector3 position, GameObject heartPrefab, GameObject notePrefab, float baseScale, float colRadius)
+    public void Initialize(AnimalVoiceData data, Vector3 position, float baseScale, float colRadius)
     {
         colliderRadius = colRadius;
-        Initialize(data, position, heartPrefab, notePrefab);
+        Initialize(data, position);
         
         // ベーススケールを適用
         transform.localScale = Vector3.one * baseScale;
@@ -76,7 +72,7 @@ public class AnimalController : MonoBehaviour
     /// <summary>
     /// 動物を初期化
     /// </summary>
-    public void Initialize(AnimalVoiceData data, Vector3 position, GameObject heartPrefab, GameObject notePrefab)
+    public void Initialize(AnimalVoiceData data, Vector3 position)
     {
         // コンポーネントが未初期化の場合は初期化
         if (spriteRenderer == null)
@@ -105,8 +101,6 @@ public class AnimalController : MonoBehaviour
         
         animalData = data;
         transform.position = position;
-        heartParticlePrefab = heartPrefab;
-        noteParticlePrefab = notePrefab;
         
         // スプライトを設定
         if (animalData != null && animalData.normalSprite != null)
@@ -224,9 +218,6 @@ public class AnimalController : MonoBehaviour
             spriteRenderer.sprite = animalData.reactionSprite;
         }
         
-        // パーティクル生成
-        SpawnParticle();
-        
         // レア動物は特別なエフェクト
         if (animalData.isRare)
         {
@@ -242,22 +233,6 @@ public class AnimalController : MonoBehaviour
     }
     
     /// <summary>
-    /// パーティクルを生成
-    /// </summary>
-    private void SpawnParticle()
-    {
-        // ランダムでハートか音符を生成
-        GameObject prefab = Random.value > 0.5f ? heartParticlePrefab : noteParticlePrefab;
-        
-        if (prefab != null)
-        {
-            Vector3 particlePos = transform.position + new Vector3(0, 0.5f, 0);
-            GameObject particle = Instantiate(prefab, particlePos, Quaternion.identity);
-            Destroy(particle, 2f);
-        }
-    }
-    
-    /// <summary>
     /// レア動物の特別エフェクト
     /// </summary>
     private void PlayRareEffect()
@@ -267,6 +242,10 @@ public class AnimalController : MonoBehaviour
         {
             mainCamera.transform.DOShakePosition(0.3f, 0.1f, 10, 90, false, true);
         }
+        
+        // レア専用の派手なパーティクル
+        Vector3 particlePos = transform.position + new Vector3(0, 0.3f, 0);
+        AnimalVoiceParticleHelper.SpawnRareTapParticle(particlePos);
         
         // 色を虹色に変化させる
         Sequence colorSeq = DOTween.Sequence();

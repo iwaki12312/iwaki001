@@ -34,10 +34,6 @@ public class AnimalSpawner : MonoBehaviour
     [Header("Prefab")]
     [SerializeField] private GameObject animalPrefab;
     
-    [Header("パーティクル")]
-    [SerializeField] private GameObject heartParticlePrefab;
-    [SerializeField] private GameObject noteParticlePrefab;
-    
     [Header("スポーンポイント")]
     [SerializeField] private List<AnimalSpawnPoint> spawnPoints = new List<AnimalSpawnPoint>();
     
@@ -70,11 +66,9 @@ public class AnimalSpawner : MonoBehaviour
     /// <summary>
     /// Prefabを設定（Initializerから呼び出し）
     /// </summary>
-    public void SetPrefabs(GameObject animal, GameObject heart, GameObject note)
+    public void SetPrefabs(GameObject animal)
     {
         animalPrefab = animal;
-        heartParticlePrefab = heart;
-        noteParticlePrefab = note;
     }
     
     /// <summary>
@@ -255,7 +249,7 @@ public class AnimalSpawner : MonoBehaviour
         {
             scale = data.isRare ? rareAnimalScale : animalBaseScale;
         }
-        controller.Initialize(data, position, heartParticlePrefab, noteParticlePrefab, scale, colliderRadius);
+        controller.Initialize(data, position, scale, colliderRadius);
         
         // 削除時にリストから除外し、新しい動物を補充
         controller.OnDestroyed += () =>

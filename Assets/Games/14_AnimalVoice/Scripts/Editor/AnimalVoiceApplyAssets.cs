@@ -91,10 +91,6 @@ public static class AnimalVoiceApplyAssets
             workSfx[i - 1] = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/work_sfx{i}.mp3");
         }
 
-        // パーティクルプレハブをロード
-        GameObject heartParticle = AssetDatabase.LoadAssetAtPath<GameObject>($"{GAME_PATH}/Prefabs/ParticleHeart.prefab");
-        GameObject noteParticle = AssetDatabase.LoadAssetAtPath<GameObject>($"{GAME_PATH}/Prefabs/ParticleNote.prefab");
-
         // SerializedObjectで設定
         SerializedObject so = new SerializedObject(initializer);
 
@@ -160,10 +156,6 @@ public static class AnimalVoiceApplyAssets
         so.FindProperty("timeChangeSound").objectReferenceValue = workSfx[7];
         so.FindProperty("rareAppearSound").objectReferenceValue = workSfx[6];
 
-        // パーティクルプレハブ
-        so.FindProperty("heartParticlePrefab").objectReferenceValue = heartParticle;
-        so.FindProperty("noteParticlePrefab").objectReferenceValue = noteParticle;
-
         so.ApplyModifiedProperties();
 
         // 既存のスポーンポイントのプレビュースプライトを更新
@@ -171,7 +163,6 @@ public static class AnimalVoiceApplyAssets
 
         // ログ出力
         Debug.Log($"[AnimalVoiceApplyAssets] 背景スプライト設定: Morning={bgMorning != null}, Day={bgDaytime != null}, Night={bgNight != null}");
-        Debug.Log($"[AnimalVoiceApplyAssets] パーティクル設定: Heart={heartParticle != null}, Note={noteParticle != null}");
     }
 
     private static void SetAnimalSpritesFromPath(SerializedObject so, string animalName)

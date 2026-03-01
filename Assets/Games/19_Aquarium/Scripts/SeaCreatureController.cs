@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +30,7 @@ public class SeaCreatureController : MonoBehaviour
     private bool isTapReacting = false;
     private bool isSwimmingAway = false;
     private bool isSpawning = true;
+    private Vector3 targetScale;
     private Camera mainCamera;
 
     // 泳ぎ範囲
@@ -127,17 +129,52 @@ public class SeaCreatureController : MonoBehaviour
                 break;
         }
 
-        // スプライトの向き（左向きに泳ぐ場合は反転）
-        if (swimDirection.x < 0)
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        // スプライトの向き設定は StartSpawnAnimation で targetScale 反転時に行う
     }
 
     /// <summary>
-    /// スポーンアニメーション完了時に呼ばれる
+    /// スポーンアニメーション開始（DOTween不使用、自己管理コルーチン）
+    /// </summary>
+    public void StartSpawnAnimation(Vector3 scale)
+    {
+        targetScale = scale;
+        isSpawning = true;
+        // SetSwimParametersで向きが決まった後にtargetScaleを反映
+        if (swimDirection.x < 0)
+            targetScale = new Vector3(-Mathf.Abs(targetScale.x), targetScale.y, targetScale.z);
+        transform.localScale = Vector3.zero;
+        StartCoroutine(SpawnAnimationCoroutine());
+    }
+
+    private IEnumerator SpawnAnimationCoroutine()
+    {
+        float duration = 0.4f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            // OutBack easing: overshoots then settles
+            float c1 = 1.70158f;
+            float c3 = c1 + 1f;
+            float easedT = 1f + c3 * Mathf.Pow(t - 1f, 3) + c1 * Mathf.Pow(t - 1f, 2);
+            transform.localScale = Vector3.LerpUnclamped(Vector3.zero, targetScale, easedT);
+            yield return null;
+        }
+
+        // 最終スケールを確実に設定
+        transform.localScale = targetScale;
+        isSpawning = false;
+    }
+
+    /// <summary>
+    /// スポーンアニメーション完了時に呼ばれる（後方互換用）
     /// </summary>
     public void OnSpawnComplete()
     {
         isSpawning = false;
+        transform.localScale = targetScale;
     }
 
     void Update()

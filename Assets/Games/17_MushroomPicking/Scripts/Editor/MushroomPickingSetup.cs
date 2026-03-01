@@ -83,8 +83,9 @@ public static class MushroomPickingSetup
         SpriteRenderer sr = bgObj.AddComponent<SpriteRenderer>();
         sr.sortingOrder = -100;
 
-        // 背景スプライトをロード（本番→仮の順でフォールバック）
+        // 背景スプライトをロード（本番→JPG→仮の順でフォールバック）
         Sprite bgSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_forest.png");
+        if (bgSprite == null) bgSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/bg_forest.jpg");
         if (bgSprite == null) bgSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{GAME_PATH}/Sprites/work_bg.png");
         if (bgSprite != null)
         {

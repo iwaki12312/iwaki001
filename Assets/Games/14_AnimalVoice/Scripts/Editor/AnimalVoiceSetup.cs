@@ -88,10 +88,6 @@ public static class AnimalVoiceSetup
             workSfx[i - 1] = AssetDatabase.LoadAssetAtPath<AudioClip>($"{GAME_PATH}/Audios/work_sfx{i}.mp3");
         }
 
-        // パーティクルプレハブをロード
-        GameObject heartParticle = AssetDatabase.LoadAssetAtPath<GameObject>($"{GAME_PATH}/Prefabs/ParticleHeart.prefab");
-        GameObject noteParticle = AssetDatabase.LoadAssetAtPath<GameObject>($"{GAME_PATH}/Prefabs/ParticleNote.prefab");
-
         // 背景オブジェクトにスプライトを設定
         ApplyBackgroundSprites(bgMorning, bgDaytime, bgNight);
 
@@ -155,10 +151,6 @@ public static class AnimalVoiceSetup
         so.FindProperty("tapSound").objectReferenceValue = workSfx[0];
         so.FindProperty("timeChangeSound").objectReferenceValue = workSfx[7];
         so.FindProperty("rareAppearSound").objectReferenceValue = workSfx[6];
-
-        // パーティクルプレハブ
-        so.FindProperty("heartParticlePrefab").objectReferenceValue = heartParticle;
-        so.FindProperty("noteParticlePrefab").objectReferenceValue = noteParticle;
 
         so.ApplyModifiedProperties();
     }
