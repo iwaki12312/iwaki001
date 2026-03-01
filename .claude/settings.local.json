@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.3.0f1/Editor/Unity.exe\" -batchmode -projectPath \"C:/dev/iwaki001\" -executeMethod AnimalVoiceApplyAssets.ApplyAssets -quit -logFile \"apply_assets_log.txt\")",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd.exe /c \"taskkill /IM Unity.exe /F\")",
+      "Bash(powershell.exe:*)",
+      "WebFetch(domain:zenn.dev)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "Bash(for skill in new-game generate-images generate-sfx unity-debug iap-system)",
+      "Bash(do cmd //c \"mklink /D \"\"c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\$skill\"\" \"\"c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\$skill\"\"\")",
+      "Bash(done)",
+      "Bash(do cmd //c \"mklink /J \"\"c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\$skill\"\" \"\"c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\$skill\"\"\")",
+      "Bash(cmd //c \"mklink /J \"\"c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\new-game\"\" \"\"c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\new-game\"\"\")",
+      "Bash(cmd.exe /c \"mklink /J c:\\\\dev\\\\iwaki001\\\\.claude\\\\skills\\\\new-game c:\\\\dev\\\\iwaki001\\\\.github\\\\skills\\\\new-game\")",
+      "Bash(powershell -Command:*)",
+      "Bash(du:*)",
+      "Read(//c/dev/iwaki001/**)",
+      "Bash(grep:*)"
+    ]
+  }
+}

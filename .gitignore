@@ -61,3 +61,7 @@ makeImage/
 
 # Local debug artifacts
 playerprefs*.xml
+
+.env.*
+
+work/
