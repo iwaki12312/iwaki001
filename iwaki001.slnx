@@ -11,11 +11,11 @@
   <Project Path="Unity.InferenceEngine.Microsoft.Msagl.csproj" />
   <Project Path="Unity.VisualScripting.Core.Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.Editor.csproj" />
-  <Project Path="Unity.PerformanceTesting.Editor.csproj" />
   <Project Path="Unity.AI.Assistant.Runtime.csproj" />
+  <Project Path="Unity.PerformanceTesting.Editor.csproj" />
   <Project Path="Unity.Purchasing.csproj" />
-  <Project Path="Unity.AI.Assistant.UI.Editor.csproj" />
   <Project Path="Unity.AI.MCP.Editor.csproj" />
+  <Project Path="Unity.AI.Assistant.UI.Editor.csproj" />
   <Project Path="Unity.Burst.csproj" />
   <Project Path="Unity.VisualScripting.Flow.Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Core.Editor.csproj" />
@@ -112,8 +112,8 @@
   <Project Path="Unity.AI.Assistant.AssetGenerators.Editor.csproj" />
   <Project Path="Unity.Notifications.iOS.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
-  <Project Path="Unity.AdaptivePerformance.Google.Android.csproj" />
   <Project Path="Unity.AI.Generators.UI.csproj" />
+  <Project Path="Unity.AdaptivePerformance.Google.Android.csproj" />
   <Project Path="Unity.AI.Toolkit.GenerationContextMenu.csproj" />
   <Project Path="Unity.2D.IK.Runtime.csproj" />
   <Project Path="Unity.Services.Core.Configuration.csproj" />
@@ -121,8 +121,8 @@
   <Project Path="Unity.AppUI.Editor.csproj" />
   <Project Path="Unity.Purchasing.Utilities.csproj" />
   <Project Path="Unity.Services.Core.Telemetry.csproj" />
-  <Project Path="Unity.AI.Assistant.API.Editor.csproj" />
   <Project Path="Unity.Settings.Editor.csproj" />
+  <Project Path="Unity.AI.Assistant.API.Editor.csproj" />
   <Project Path="Unity.InputSystem.TestFramework.csproj" />
   <Project Path="Unity.CollabProxy.Editor.csproj" />
   <Project Path="Unity.AdaptivePerformance.Google.Android.Editor.csproj" />

@@ -19,7 +19,10 @@
       "Bash(powershell -Command:*)",
       "Bash(du:*)",
       "Read(//c/dev/iwaki001/**)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "mcp__unity-mcp__Unity_GetConsoleLogs",
+      "mcp__unity-mcp__Unity_RunCommand",
+      "mcp__unity-mcp__Unity_EditorWindow_CaptureScreenshot"
     ]
   }
 }
