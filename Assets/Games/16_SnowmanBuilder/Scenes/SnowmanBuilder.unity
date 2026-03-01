@@ -258,6 +258,7 @@ MonoBehaviour:
   maxSnowmen: 5
   groundMinY: -4
   groundMaxY: -1
+  snowmanScale: 2
 --- !u!4 &654969700
 Transform:
   m_ObjectHideFlags: 0

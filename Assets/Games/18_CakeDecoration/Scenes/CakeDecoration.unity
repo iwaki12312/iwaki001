@@ -264,10 +264,10 @@ MonoBehaviour:
   rareChance: 0.1
   decorationScale: 0.5
   rareDecorationScale: 0.7
-  cakeMinX: -2.5
+  cakeMinX: -4
   cakeMaxX: 2.5
   cakeMinY: -1.5
-  cakeMaxY: 4
+  cakeMaxY: 3.5
 --- !u!4 &1196081465
 Transform:
   m_ObjectHideFlags: 0

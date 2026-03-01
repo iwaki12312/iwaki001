@@ -241,33 +241,39 @@ public class SeaCreatureController : MonoBehaviour
 
     private System.Collections.IEnumerator TapReactionCoroutine()
     {
-        float duration = 0.4f;
+        float duration = 0.35f;
         float elapsed = 0f;
+        Vector3 originalPos = transform.position;
         Vector3 originalScale = transform.localScale;
+        float jumpHeight = 0.4f;
 
-        // スクイッシュ + 回転
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
+            float t = Mathf.Clamp01(elapsed / duration);
 
-            // バウンス的なスケール変化
-            float scaleMultiplier = 1f + 0.3f * Mathf.Sin(t * Mathf.PI);
+            // ピョンと跳ね上がり（放物線）
+            float jumpT = 1f - (2f * t - 1f) * (2f * t - 1f); // 0→1→0
+            transform.position = originalPos + Vector3.up * jumpHeight * jumpT;
+
+            // 軽いスクイッシュ（着地で潰れる感じ）
+            float squash;
+            if (t < 0.5f)
+                squash = 1f + 0.15f * (t / 0.5f); // 伸びる
+            else
+                squash = 1.15f - 0.25f * ((t - 0.5f) / 0.5f); // 潰れる→戻る
+            
             transform.localScale = new Vector3(
-                originalScale.x * scaleMultiplier,
-                originalScale.y * (2f - scaleMultiplier),
+                originalScale.x * (2f - squash),
+                originalScale.y * squash,
                 originalScale.z
             );
-
-            // 回転
-            float angle = t * 360f;
-            transform.rotation = Quaternion.Euler(0, 0, angle * (originalScale.x > 0 ? 1 : -1));
 
             yield return null;
         }
 
+        transform.position = originalPos;
         transform.localScale = originalScale;
-        transform.rotation = Quaternion.identity;
         isTapReacting = false;
     }
 

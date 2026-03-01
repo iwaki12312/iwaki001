@@ -246,7 +246,7 @@ public static class AnimalVoiceSetup
         GameObject fadeObj = new GameObject("FadeOverlay");
         fadeObj.transform.SetParent(bgRoot.transform);
         fadeObj.transform.localPosition = Vector3.zero;
-        fadeObj.transform.localScale = new Vector3(20, 20, 1);
+        fadeObj.transform.localScale = new Vector3(50, 50, 1);
         SpriteRenderer fadeRenderer = fadeObj.AddComponent<SpriteRenderer>();
         fadeRenderer.sortingOrder = 100;
         fadeRenderer.color = new Color(0, 0, 0, 0);

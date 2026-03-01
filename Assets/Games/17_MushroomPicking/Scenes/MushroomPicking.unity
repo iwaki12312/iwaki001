@@ -1071,6 +1071,7 @@ MonoBehaviour:
   greenMushroomSprite: {fileID: 21300000, guid: a2ede22eaaa9450f9e56fa2614e826a8, type: 3}
   goldMushroomSprite: {fileID: 21300000, guid: c52d68a59fea41e481c51e4d7ba0057c, type: 3}
   rainbowMushroomSprite: {fileID: 21300000, guid: 4fef88266ea44e0ea4f1656c480cf32f, type: 3}
+  starMushroomSprite: {fileID: 21300000, guid: 3323069f46d64979b5aa294ed837992d, type: 3}
   basketSprite: {fileID: 21300000, guid: 692cb970ae214dff9d6a35a09ea8ed7b, type: 3}
   growSound: {fileID: 8300000, guid: dd785bb539434e1e85e5192c71f69c57, type: 3}
   pickSound: {fileID: 8300000, guid: 679e2c83864848a992058fe56c73853d, type: 3}
@@ -1089,12 +1090,12 @@ MonoBehaviour:
   basketPosition: {x: 6, y: -4, z: 0}
   basketScale: 0.5
   spawnPoints:
-  - {fileID: 1458860508}
   - {fileID: 1408668355}
-  - {fileID: 582420013}
+  - {fileID: 1458860508}
+  - {fileID: 645483895}
   - {fileID: 1240092876}
   - {fileID: 713834411}
-  - {fileID: 645483895}
+  - {fileID: 582420013}
 --- !u!4 &1848551653
 Transform:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class AquariumController : MonoBehaviour
 
     [Header("=== アニメーション設定 ===")]
     [SerializeField] private float bubbleDuration = 0.6f;
-    [SerializeField] private float celebrationDelay = 3f;
+    [SerializeField] private float celebrationDelay = 1.5f;
 
     private List<SeaCreatureController> spawnedCreatures = new List<SeaCreatureController>();
     private int currentCreatureCount = 0;

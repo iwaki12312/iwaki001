@@ -168,8 +168,8 @@ MonoBehaviour:
   ambientSound: {fileID: 8300000, guid: ba9445f40c0fe5d4aa04e103c035f79c, type: 3}
   maxCreatures: 12
   rareChance: 0.1
-  creatureScale: 0.8
-  rareCreatureScale: 1.2
+  creatureScale: 1.2
+  rareCreatureScale: 1.5
   colliderRadius: 0.8
 --- !u!4 &115413818
 Transform:

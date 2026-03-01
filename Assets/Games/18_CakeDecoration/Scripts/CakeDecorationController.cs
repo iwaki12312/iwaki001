@@ -30,6 +30,10 @@ public class CakeDecorationController : MonoBehaviour
     [SerializeField] private float cakeMinY = -0.5f;
     [SerializeField] private float cakeMaxY = 3.0f;
 
+    [Header("=== スタッキング設定 ===")]
+    [SerializeField] private float stackCheckRadius = 0.8f;  // この距離以内に既存デコがあれば積み上げる
+    [SerializeField] private float stackOffsetY = 0.5f;      // 積み上げ時のY方向オフセット
+
     [Header("=== アニメーション設定 ===")]
     [SerializeField] private float dropHeight = 6f;      // 落下開始の高さ（ケーキ上面からの相対）
     [SerializeField] private float dropDuration = 0.5f;   // 落下時間
@@ -111,9 +115,32 @@ public class CakeDecorationController : MonoBehaviour
             return;
         }
 
-        // タップ位置のワールド座標をそのままデコレーション位置に使用
+        // タップ位置のワールド座標をデコレーション位置に使用
         float decoX = worldPos.x;
         float decoY = worldPos.y;
+
+        // タップ位置付近に既存デコレーションがあれば上に積み上げる
+        // X・Y両方が近いデコのみ対象（遠く離れたデコは無視）
+        float highestY = float.MinValue;
+        bool hasNearby = false;
+        foreach (var deco in placedDecorations)
+        {
+            if (deco == null) continue;
+            float dx = Mathf.Abs(deco.transform.position.x - decoX);
+            float dy = Mathf.Abs(deco.transform.position.y - decoY);
+            if (dx < stackCheckRadius && dy < stackCheckRadius)
+            {
+                if (deco.transform.position.y > highestY)
+                {
+                    highestY = deco.transform.position.y;
+                    hasNearby = true;
+                }
+            }
+        }
+        if (hasNearby)
+        {
+            decoY = highestY + stackOffsetY;
+        }
 
         // レア判定
         bool isRare = Random.value < rareChance;
