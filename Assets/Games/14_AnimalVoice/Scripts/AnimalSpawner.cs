@@ -29,7 +29,9 @@ public class AnimalSpawner : MonoBehaviour
     [SerializeField] private List<AnimalVoiceData> morningAnimals;       // 朝の動物
     [SerializeField] private List<AnimalVoiceData> daytimeAnimals;       // 昼の動物
     [SerializeField] private List<AnimalVoiceData> nightAnimals;         // 夜の動物
-    [SerializeField] private List<AnimalVoiceData> rareAnimals;          // レア動物
+    [SerializeField] private List<AnimalVoiceData> morningRareAnimals;   // 朝のレア動物
+    [SerializeField] private List<AnimalVoiceData> daytimeRareAnimals;   // 昼のレア動物
+    [SerializeField] private List<AnimalVoiceData> nightRareAnimals;     // 夜のレア動物
     
     [Header("Prefab")]
     [SerializeField] private GameObject animalPrefab;
@@ -55,12 +57,15 @@ public class AnimalSpawner : MonoBehaviour
     /// <summary>
     /// 動物データリストを設定（Initializerから呼び出し）
     /// </summary>
-    public void SetAnimalData(List<AnimalVoiceData> morning, List<AnimalVoiceData> daytime, List<AnimalVoiceData> night, List<AnimalVoiceData> rare)
+    public void SetAnimalData(List<AnimalVoiceData> morning, List<AnimalVoiceData> daytime, List<AnimalVoiceData> night,
+        List<AnimalVoiceData> morningRare, List<AnimalVoiceData> daytimeRare, List<AnimalVoiceData> nightRare)
     {
         morningAnimals = morning;
         daytimeAnimals = daytime;
         nightAnimals = night;
-        rareAnimals = rare;
+        morningRareAnimals = morningRare;
+        daytimeRareAnimals = daytimeRare;
+        nightRareAnimals = nightRare;
     }
     
     /// <summary>
@@ -124,12 +129,13 @@ public class AnimalSpawner : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             // レア動物の判定
-            bool spawnRare = Random.value < rareSpawnChance && rareAnimals != null && rareAnimals.Count > 0;
+            List<AnimalVoiceData> rareList = GetRareAnimalsForTimeOfDay(timeOfDay);
+            bool spawnRare = Random.value < rareSpawnChance && rareList != null && rareList.Count > 0;
             
             AnimalVoiceData dataToSpawn;
             if (spawnRare)
             {
-                dataToSpawn = rareAnimals[Random.Range(0, rareAnimals.Count)];
+                dataToSpawn = rareList[Random.Range(0, rareList.Count)];
             }
             else
             {
@@ -160,7 +166,7 @@ public class AnimalSpawner : MonoBehaviour
     }
     
     /// <summary>
-    /// 時間帯に対応した動物リストを取得
+    /// 時間帯に対応した通常動物リストを取得
     /// </summary>
     private List<AnimalVoiceData> GetAnimalsForTimeOfDay(AnimalVoiceTimeOfDay timeOfDay)
     {
@@ -174,6 +180,24 @@ public class AnimalSpawner : MonoBehaviour
                 return nightAnimals;
             default:
                 return daytimeAnimals;
+        }
+    }
+    
+    /// <summary>
+    /// 時間帯に対応したレア動物リストを取得
+    /// </summary>
+    private List<AnimalVoiceData> GetRareAnimalsForTimeOfDay(AnimalVoiceTimeOfDay timeOfDay)
+    {
+        switch (timeOfDay)
+        {
+            case AnimalVoiceTimeOfDay.Morning:
+                return morningRareAnimals;
+            case AnimalVoiceTimeOfDay.Daytime:
+                return daytimeRareAnimals;
+            case AnimalVoiceTimeOfDay.Night:
+                return nightRareAnimals;
+            default:
+                return daytimeRareAnimals;
         }
     }
     
@@ -279,12 +303,13 @@ public class AnimalSpawner : MonoBehaviour
         }
         
         // レア動物の判定
-        bool spawnRare = Random.value < rareSpawnChance && rareAnimals != null && rareAnimals.Count > 0;
+        List<AnimalVoiceData> rareList = GetRareAnimalsForTimeOfDay(currentTimeOfDay);
+        bool spawnRare = Random.value < rareSpawnChance && rareList != null && rareList.Count > 0;
         
         AnimalVoiceData dataToSpawn;
         if (spawnRare)
         {
-            dataToSpawn = rareAnimals[Random.Range(0, rareAnimals.Count)];
+            dataToSpawn = rareList[Random.Range(0, rareList.Count)];
         }
         else
         {

@@ -120,7 +120,6 @@ public static class AnimalVoiceApplyAssets
         SetAnimalSpritesFromPath(so, "dinosaur");
         SetAnimalSpritesFromPath(so, "dragon");
         SetAnimalSpritesFromPath(so, "unicorn");
-        SetAnimalSpritesFromPath(so, "monkey");
 
         // 鳴き声（本番があれば使用、なければ仮SE）
         // 朝の動物
@@ -149,7 +148,6 @@ public static class AnimalVoiceApplyAssets
         so.FindProperty("dinosaurVoice").objectReferenceValue = LoadVoiceOrFallback("dinosaur_voice", workSfx[6]);
         so.FindProperty("dragonVoice").objectReferenceValue = LoadVoiceOrFallback("dragon_voice", workSfx[6]);
         so.FindProperty("unicornVoice").objectReferenceValue = LoadVoiceOrFallback("unicorn_voice", workSfx[7]);
-        so.FindProperty("monkeyVoice").objectReferenceValue = LoadVoiceOrFallback("monkey_voice", workSfx[7]);
 
         // 共通SE
         so.FindProperty("tapSound").objectReferenceValue = workSfx[0];

@@ -35,14 +35,14 @@ public class MushroomPickingInitializer : MonoBehaviour
     [SerializeField] private GameObject rareParticlePrefab;
 
     [Header("=== スポーン設定 ===")]
-    [SerializeField, Range(1, 6)] private int maxSimultaneous = 3;
+    [SerializeField, Range(1, 6)] private int maxSimultaneous = 6;
     [SerializeField, Range(0.5f, 10f)] private float spawnInterval = 2f;
     [SerializeField, Range(0f, 1f)] private float rareSpawnChance = 0.1f;
     [SerializeField, Range(3f, 15f)] private float hideTimeout = 7f;
 
     [Header("=== キノコの大きさ ===")]
     [SerializeField, Range(0.1f, 5f)] private float mushroomBaseScale = 1f;
-    [SerializeField, Range(0.3f, 3f)] private float colliderRadius = 0.8f;
+    [SerializeField, Range(0.3f, 5f)] private float colliderRadius = 1.2f;
 
     [Header("=== カゴ位置 ===")]
     [SerializeField] private Vector3 basketPosition = new Vector3(0f, -4f, 0f);

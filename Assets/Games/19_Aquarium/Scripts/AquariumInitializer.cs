@@ -15,7 +15,7 @@ public class AquariumInitializer : MonoBehaviour
     [SerializeField] private Sprite pufferfishSprite;
     [SerializeField] private Sprite jellyfishSprite;
     [SerializeField] private Sprite seahorseSprite;
-    [SerializeField] private Sprite starfishSprite;
+    [SerializeField] private Sprite stingraySprite;
 
     [Header("=== 生き物スプライト（レア）===")]
     [SerializeField] private Sprite whaleSharkSprite;
@@ -117,7 +117,7 @@ public class AquariumInitializer : MonoBehaviour
         type.GetField("pufferfishSprite", flags)?.SetValue(controller, pufferfishSprite);
         type.GetField("jellyfishSprite", flags)?.SetValue(controller, jellyfishSprite);
         type.GetField("seahorseSprite", flags)?.SetValue(controller, seahorseSprite);
-        type.GetField("starfishSprite", flags)?.SetValue(controller, starfishSprite);
+        type.GetField("stingraySprite", flags)?.SetValue(controller, stingraySprite);
 
         // レア生き物スプライト
         type.GetField("whaleSharkSprite", flags)?.SetValue(controller, whaleSharkSprite);

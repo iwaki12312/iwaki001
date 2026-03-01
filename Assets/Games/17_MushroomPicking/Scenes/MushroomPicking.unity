@@ -185,7 +185,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 7e8835e917a94de998730e9517df2b3b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3215bfcfc6d14876a2604f2295da360a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -369,12 +369,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.741564, y: 4.74}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ce0d4daa9914d4f9a7c38467d4b4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomSpawnPoint
-  previewSprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  previewSprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   overrideScale: 0
 --- !u!4 &582420014
 Transform:
@@ -475,12 +475,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.741564, y: 4.74}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ce0d4daa9914d4f9a7c38467d4b4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomSpawnPoint
-  previewSprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  previewSprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   overrideScale: 0
 --- !u!4 &645483896
 Transform:
@@ -581,12 +581,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.741564, y: 4.74}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ce0d4daa9914d4f9a7c38467d4b4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomSpawnPoint
-  previewSprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  previewSprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   overrideScale: 0
 --- !u!4 &713834412
 Transform:
@@ -687,12 +687,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.741564, y: 4.74}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ce0d4daa9914d4f9a7c38467d4b4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomSpawnPoint
-  previewSprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  previewSprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   overrideScale: 0
 --- !u!4 &1240092877
 Transform:
@@ -793,12 +793,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.741564, y: 4.74}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ce0d4daa9914d4f9a7c38467d4b4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomSpawnPoint
-  previewSprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  previewSprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   overrideScale: 0
 --- !u!4 &1408668356
 Transform:
@@ -899,12 +899,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.741564, y: 4.74}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ce0d4daa9914d4f9a7c38467d4b4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomSpawnPoint
-  previewSprite: {fileID: -7490982025059118367, guid: 85a9a813f8a2d0341afecc7415cab1f9, type: 3}
+  previewSprite: {fileID: 21300000, guid: 60a10048f2374cfc8d018dca2e7ae129, type: 3}
   overrideScale: 0
 --- !u!4 &1458860509
 Transform:
@@ -1085,16 +1085,16 @@ MonoBehaviour:
   rareSpawnChance: 0.1
   hideTimeout: 7
   mushroomBaseScale: 0.4
-  colliderRadius: 0.8
+  colliderRadius: 4
   basketPosition: {x: 6, y: -4, z: 0}
   basketScale: 0.5
   spawnPoints:
-  - {fileID: 1240092876}
-  - {fileID: 1408668355}
-  - {fileID: 645483895}
-  - {fileID: 713834411}
-  - {fileID: 582420013}
   - {fileID: 1458860508}
+  - {fileID: 1408668355}
+  - {fileID: 582420013}
+  - {fileID: 1240092876}
+  - {fileID: 713834411}
+  - {fileID: 645483895}
 --- !u!4 &1848551653
 Transform:
   m_ObjectHideFlags: 0

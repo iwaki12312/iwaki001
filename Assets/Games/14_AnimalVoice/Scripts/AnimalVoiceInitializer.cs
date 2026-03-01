@@ -53,8 +53,6 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private Sprite dragonReaction;
     [SerializeField] private Sprite unicornNormal;
     [SerializeField] private Sprite unicornReaction;
-    [SerializeField] private Sprite monkeyNormal;
-    [SerializeField] private Sprite monkeyReaction;
     
     [Header("=== 鳴き声 - 朝の動物 ===")]
     [SerializeField] private AudioClip chickenVoice;
@@ -82,7 +80,6 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private AudioClip dinosaurVoice;
     [SerializeField] private AudioClip dragonVoice;
     [SerializeField] private AudioClip unicornVoice;
-    [SerializeField] private AudioClip monkeyVoice;
     
     [Header("=== 共通効果音 ===")]
     [SerializeField] private AudioClip tapSound;
@@ -224,9 +221,11 @@ public class AnimalVoiceInitializer : MonoBehaviour
         List<AnimalVoiceData> morningAnimals = CreateMorningAnimalData();
         List<AnimalVoiceData> daytimeAnimals = CreateDaytimeAnimalData();
         List<AnimalVoiceData> nightAnimals = CreateNightAnimalData();
-        List<AnimalVoiceData> rareAnimals = CreateRareAnimalData();
+        List<AnimalVoiceData> morningRare = CreateMorningRareAnimalData();
+        List<AnimalVoiceData> daytimeRare = CreateDaytimeRareAnimalData();
+        List<AnimalVoiceData> nightRare = CreateNightRareAnimalData();
         
-        spawner.SetAnimalData(morningAnimals, daytimeAnimals, nightAnimals, rareAnimals);
+        spawner.SetAnimalData(morningAnimals, daytimeAnimals, nightAnimals, morningRare, daytimeRare, nightRare);
         
         // スポーン設定を反映
         spawner.SetSpawnConfig(spawnCount, rareSpawnChance, spawnMinX, spawnMaxX, spawnMinY, spawnMaxY, minDistanceBetweenAnimals, animalBaseScale, rareAnimalScale, colliderRadius);
@@ -325,17 +324,32 @@ public class AnimalVoiceInitializer : MonoBehaviour
     }
     
     /// <summary>
-    /// レア動物データを作成
+    /// 朝のレア動物データを作成（ドラゴン）
     /// </summary>
-    private List<AnimalVoiceData> CreateRareAnimalData()
+    private List<AnimalVoiceData> CreateMorningRareAnimalData()
     {
         List<AnimalVoiceData> list = new List<AnimalVoiceData>();
-        
-        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Dinosaur, "恐竜", dinosaurNormal, dinosaurReaction, dinosaurVoice, true));
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Dragon, "ドラゴン", dragonNormal, dragonReaction, dragonVoice, true));
+        return list;
+    }
+    
+    /// <summary>
+    /// 昼のレア動物データを作成（恐竜）
+    /// </summary>
+    private List<AnimalVoiceData> CreateDaytimeRareAnimalData()
+    {
+        List<AnimalVoiceData> list = new List<AnimalVoiceData>();
+        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Dinosaur, "恐竜", dinosaurNormal, dinosaurReaction, dinosaurVoice, true));
+        return list;
+    }
+    
+    /// <summary>
+    /// 夜のレア動物データを作成（ユニコーン）
+    /// </summary>
+    private List<AnimalVoiceData> CreateNightRareAnimalData()
+    {
+        List<AnimalVoiceData> list = new List<AnimalVoiceData>();
         list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Unicorn, "ユニコーン", unicornNormal, unicornReaction, unicornVoice, true));
-        list.Add(CreateAnimalDataInstance(AnimalVoiceAnimalType.Monkey, "サル", monkeyNormal, monkeyReaction, monkeyVoice, true));
-        
         return list;
     }
     

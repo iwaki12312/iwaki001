@@ -120,7 +120,6 @@ public static class AnimalVoiceSetup
         SetAnimalSpritesFromPath(so, "dinosaur");
         SetAnimalSpritesFromPath(so, "dragon");
         SetAnimalSpritesFromPath(so, "unicorn");
-        SetAnimalSpritesFromPath(so, "monkey");
         
         // 鳴き声（仮SE）
         so.FindProperty("chickenVoice").objectReferenceValue = workSfx[0];
@@ -145,7 +144,6 @@ public static class AnimalVoiceSetup
         so.FindProperty("dinosaurVoice").objectReferenceValue = workSfx[6];
         so.FindProperty("dragonVoice").objectReferenceValue = workSfx[6];
         so.FindProperty("unicornVoice").objectReferenceValue = workSfx[7];
-        so.FindProperty("monkeyVoice").objectReferenceValue = workSfx[7];
         
         // 共通SE
         so.FindProperty("tapSound").objectReferenceValue = workSfx[0];

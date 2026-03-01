@@ -65,7 +65,7 @@ public static class AquariumApplyAssets
         ApplySprite(so, "pufferfishSprite", "pufferfish", "work_sprite_b");
         ApplySprite(so, "jellyfishSprite", "jellyfish", "work_sprite_b");
         ApplySprite(so, "seahorseSprite", "seahorse", "work_sprite_b");
-        ApplySprite(so, "starfishSprite", "starfish", "work_sprite_b");
+        ApplySprite(so, "stingraySprite", "stingray", "work_sprite_b");
 
         // レア生き物
         ApplySprite(so, "whaleSharkSprite", "whale_shark", "work_sprite_a");

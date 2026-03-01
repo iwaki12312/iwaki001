@@ -12,7 +12,7 @@ public class MushroomController : MonoBehaviour
     [SerializeField] private MushroomPickingData mushroomData;
 
     [Header("設定")]
-    [SerializeField] private float colliderRadius = 0.8f;
+    [SerializeField] private float colliderRadius = 1.2f;
     [SerializeField] private float hideTimeout = 7f;        // タップしないと引っ込むまでの時間
     [SerializeField] private float growDuration = 0.5f;      // にょきっと生える時間
 

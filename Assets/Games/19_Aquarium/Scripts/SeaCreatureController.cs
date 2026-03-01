@@ -7,7 +7,7 @@ using UnityEngine;
 public enum SeaCreatureType
 {
     Clownfish, Angelfish, Octopus, SeaTurtle,
-    Pufferfish, Jellyfish, Seahorse, Starfish,
+    Pufferfish, Jellyfish, Seahorse, Stingray,
     WhaleShark, Manta
 }
 
@@ -109,10 +109,10 @@ public class SeaCreatureController : MonoBehaviour
                 swimFrequency = 1.2f;
                 swimDirection = Vector2.zero;
                 break;
-            case SeaCreatureType.Starfish:
-                swimSpeed = Random.Range(0.05f, 0.15f);
-                swimAmplitude = 0.1f;
-                swimFrequency = 0.3f;
+            case SeaCreatureType.Stingray:
+                swimSpeed = Random.Range(0.5f, 0.8f);
+                swimAmplitude = 0.3f;
+                swimFrequency = 0.6f;
                 swimDirection = Random.value < 0.5f ? Vector2.right : Vector2.left;
                 break;
             case SeaCreatureType.WhaleShark:

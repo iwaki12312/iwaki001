@@ -10,14 +10,14 @@ public class MushroomSpawner : MonoBehaviour
     public static MushroomSpawner Instance { get; private set; }
 
     [Header("スポーン設定")]
-    [SerializeField] private int maxSimultaneous = 3;           // 同時表示の最大数
+    [SerializeField] private int maxSimultaneous = 6;           // 同時表示の最大数
     [SerializeField] private float spawnInterval = 2f;          // スポーン間隔（秒）
     [SerializeField] private float rareSpawnChance = 0.1f;      // レア出現確率（10%）
     [SerializeField] private float hideTimeout = 7f;            // タップしないと引っ込むまでの時間
 
     [Header("キノコサイズ")]
     [SerializeField] private float mushroomBaseScale = 1f;
-    [SerializeField] private float colliderRadius = 0.8f;
+    [SerializeField] private float colliderRadius = 1.2f;
 
     [Header("キノコデータ")]
     [SerializeField] private List<MushroomPickingData> normalMushrooms;
