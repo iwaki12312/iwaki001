@@ -31,6 +31,9 @@ public class AquariumInitializer : MonoBehaviour
     [SerializeField] private AudioClip resetSound;
     [SerializeField] private AudioClip ambientSound;
 
+    [Header("=== エフェクト ===")]
+    [SerializeField] private GameObject rareEffectPrefab;
+
     [Header("=== ゲーム設定 ===")]
     [SerializeField, Range(5, 20)] private int maxCreatures = 12;
     [SerializeField, Range(0f, 1f)] private float rareChance = 0.1f;
@@ -122,6 +125,9 @@ public class AquariumInitializer : MonoBehaviour
         // レア生き物スプライト
         type.GetField("whaleSharkSprite", flags)?.SetValue(controller, whaleSharkSprite);
         type.GetField("mantaSprite", flags)?.SetValue(controller, mantaSprite);
+
+        // エフェクト
+        type.GetField("rareEffectPrefab", flags)?.SetValue(controller, rareEffectPrefab);
 
         // ゲーム設定
         type.GetField("maxCreatures", flags)?.SetValue(controller, maxCreatures);

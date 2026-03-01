@@ -109,6 +109,11 @@ public static class AquariumSetup
         so.FindProperty("whaleSharkSprite").objectReferenceValue = spriteA;
         so.FindProperty("mantaSprite").objectReferenceValue = spriteB;
 
+        // エフェクトPrefab
+        string cfxrPath = "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs";
+        GameObject rareEffect = AssetDatabase.LoadAssetAtPath<GameObject>(cfxrPath + "/Misc/CFXR Magic Poof.prefab");
+        so.FindProperty("rareEffectPrefab").objectReferenceValue = rareEffect;
+
         // 効果音
         so.FindProperty("bubbleSound").objectReferenceValue = workSfx[0];
         so.FindProperty("spawnSound").objectReferenceValue = workSfx[1];

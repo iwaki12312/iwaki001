@@ -71,6 +71,11 @@ public static class AquariumApplyAssets
         ApplySprite(so, "whaleSharkSprite", "whale_shark", "work_sprite_a");
         ApplySprite(so, "mantaSprite", "manta", "work_sprite_b");
 
+        // === エフェクトPrefabの適用 ===
+        string cfxrPath = "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs";
+        GameObject rareEffect = AssetDatabase.LoadAssetAtPath<GameObject>(cfxrPath + "/Misc/CFXR Magic Poof.prefab");
+        so.FindProperty("rareEffectPrefab").objectReferenceValue = rareEffect;
+
         // === 効果音の適用 ===
         ApplyAudio(so, "bubbleSound", "bubble", "work_sfx1");
         ApplyAudio(so, "spawnSound", "spawn", "work_sfx2");

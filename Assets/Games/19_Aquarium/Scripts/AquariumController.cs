@@ -25,6 +25,9 @@ public class AquariumController : MonoBehaviour
     [SerializeField] private Sprite whaleSharkSprite;
     [SerializeField] private Sprite mantaSprite;
 
+    [Header("=== エフェクト ===")]
+    [SerializeField] private GameObject rareEffectPrefab;
+
     [Header("=== ゲーム設定 ===")]
     [SerializeField, Range(5, 20)] private int maxCreatures = 12;
     [SerializeField, Range(0f, 1f)] private float rareChance = 0.1f;
@@ -363,27 +366,115 @@ public class AquariumController : MonoBehaviour
     /// </summary>
     private void PlayRareSpawnEffect(GameObject creatureObj)
     {
-        // カメラシェイク
+        Vector3 pos = creatureObj.transform.position;
+
+        // 1. CFXRパーティクルエフェクト
+        if (rareEffectPrefab != null)
+        {
+            GameObject fx = Instantiate(rareEffectPrefab, pos, Quaternion.identity);
+            Destroy(fx, 3f);
+        }
+
+        // 2. カメラシェイク（軽め）
         if (mainCamera != null)
         {
-            mainCamera.transform.DOShakePosition(0.4f, 0.15f, 12, 90, false, true);
+            mainCamera.transform.DOShakePosition(0.3f, 0.1f, 10, 90, false, true);
         }
 
-        // レインボーフラッシュ
-        SpriteRenderer sr = creatureObj.GetComponent<SpriteRenderer>();
-        if (sr != null)
+        // 3. 画面フラッシュ（薄い金色）
+        StartCoroutine(ScreenFlashCoroutine());
+
+        // 4. 星パーティクルを放射状に飛ばす
+        SpawnStarBurst(pos, 12);
+
+        // 5. キラキラパーティクル
+        SpawnSparkles(pos, 10);
+    }
+
+    /// <summary>
+    /// 画面フラッシュ（薄い金色が一瞬光る）
+    /// </summary>
+    private IEnumerator ScreenFlashCoroutine()
+    {
+        GameObject flashObj = new GameObject("RareFlash");
+        SpriteRenderer flashSr = flashObj.AddComponent<SpriteRenderer>();
+        flashSr.sortingOrder = 90;
+
+        // 画面全体をカバーするスプライト
+        int texSize = 4;
+        Texture2D tex = new Texture2D(texSize, texSize);
+        Color flashColor = new Color(1f, 0.95f, 0.6f, 0.5f);
+        for (int x = 0; x < texSize; x++)
+            for (int y = 0; y < texSize; y++)
+                tex.SetPixel(x, y, flashColor);
+        tex.Apply();
+        flashSr.sprite = Sprite.Create(tex, new Rect(0, 0, texSize, texSize), new Vector2(0.5f, 0.5f), 1);
+        flashObj.transform.position = new Vector3(0, 0, 0);
+        flashObj.transform.localScale = new Vector3(20, 15, 1);
+
+        // フェードアウト
+        float duration = 0.4f;
+        float elapsed = 0f;
+        while (elapsed < duration)
         {
-            Sequence colorSeq = DOTween.Sequence();
-            colorSeq.Append(sr.DOColor(new Color(1f, 0.8f, 0.8f), 0.08f));
-            colorSeq.Append(sr.DOColor(new Color(1f, 1f, 0.8f), 0.08f));
-            colorSeq.Append(sr.DOColor(new Color(0.8f, 1f, 0.8f), 0.08f));
-            colorSeq.Append(sr.DOColor(new Color(0.8f, 1f, 1f), 0.08f));
-            colorSeq.Append(sr.DOColor(new Color(0.8f, 0.8f, 1f), 0.08f));
-            colorSeq.Append(sr.DOColor(Color.white, 0.08f));
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            flashSr.color = new Color(flashColor.r, flashColor.g, flashColor.b, flashColor.a * (1f - t));
+            yield return null;
         }
+        Destroy(flashObj);
+    }
 
-        // キラキラパーティクル
-        SpawnSparkles(creatureObj.transform.position, 8);
+    /// <summary>
+    /// 星型パーティクルを放射状に飛ばす
+    /// </summary>
+    private void SpawnStarBurst(Vector3 center, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject star = new GameObject("Star");
+            SpriteRenderer sr = star.AddComponent<SpriteRenderer>();
+            sr.sortingOrder = 85;
+
+            // 星型テクスチャ（シンプルな5角形）
+            int texSize = 16;
+            Texture2D tex = new Texture2D(texSize, texSize);
+            Color starColor = Color.HSVToRGB(Random.Range(0.08f, 0.18f), 0.7f, 1f); // 金〜黄色
+            for (int px = 0; px < texSize; px++)
+                for (int py = 0; py < texSize; py++)
+                {
+                    float cx = px - texSize / 2f;
+                    float cy = py - texSize / 2f;
+                    float angle = Mathf.Atan2(cy, cx);
+                    float dist = Mathf.Sqrt(cx * cx + cy * cy);
+                    // 星型の距離関数
+                    float starRadius = 5f + 3f * Mathf.Cos(5f * angle);
+                    if (dist < starRadius)
+                        tex.SetPixel(px, py, new Color(starColor.r, starColor.g, starColor.b, 1f));
+                    else
+                        tex.SetPixel(px, py, Color.clear);
+                }
+            tex.Apply();
+            sr.sprite = Sprite.Create(tex, new Rect(0, 0, texSize, texSize), new Vector2(0.5f, 0.5f), texSize);
+
+            star.transform.position = center;
+            float scale = Random.Range(0.3f, 0.7f);
+            star.transform.localScale = Vector3.one * scale;
+
+            // 放射状の方向
+            float a = (360f / count) * i + Random.Range(-15f, 15f);
+            float rad = a * Mathf.Deg2Rad;
+            float dist2 = Random.Range(1.5f, 3f);
+            Vector3 targetPos = center + new Vector3(Mathf.Cos(rad) * dist2, Mathf.Sin(rad) * dist2, 0);
+
+            // 回転しながら飛んでいく
+            Sequence seq = DOTween.Sequence();
+            seq.Append(star.transform.DOMove(targetPos, 0.7f).SetEase(Ease.OutQuad));
+            seq.Join(star.transform.DOScale(0f, 0.7f).SetEase(Ease.InQuad).SetDelay(0.3f));
+            seq.Join(star.transform.DORotate(new Vector3(0, 0, Random.Range(180f, 540f)), 0.7f, RotateMode.FastBeyond360));
+            seq.AppendCallback(() => Destroy(star));
+            Destroy(star, 3f);
+        }
     }
 
     /// <summary>
