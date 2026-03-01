@@ -32,6 +32,8 @@ public class GameInfo : MonoBehaviour
         new GameData("FruitSlice", 15, "pack_02"),         // 15_FruitSlice
         new GameData("SnowmanBuilder", 16, "pack_02"),     // 16_SnowmanBuilder
         new GameData("MushroomPicking", 17, "pack_02"),    // 17_MushroomPicking
+        new GameData("CakeDecoration", 18, "pack_02"),     // 18_CakeDecoration
+        new GameData("Aquarium", 19, "pack_03"),           // 19_Aquarium
     };
 
     // 総ページ数を取得
