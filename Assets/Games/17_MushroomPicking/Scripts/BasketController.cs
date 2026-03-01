@@ -13,11 +13,13 @@ public class BasketController : MonoBehaviour
     [SerializeField] private int shakeVibrato = 10;
 
     private Vector3 originalPosition;
+    private Vector3 originalScale;
     private bool isShaking = false;
 
     void Awake()
     {
         originalPosition = transform.position;
+        originalScale = transform.localScale;
     }
 
     /// <summary>
@@ -38,8 +40,8 @@ public class BasketController : MonoBehaviour
 
         // 少し跳ねる
         Sequence bounceSeq = DOTween.Sequence();
-        bounceSeq.Append(transform.DOScaleY(1.1f, 0.1f).SetEase(Ease.OutQuad));
-        bounceSeq.Append(transform.DOScaleY(1f, 0.15f).SetEase(Ease.InBounce));
+        bounceSeq.Append(transform.DOScaleY(originalScale.y * 1.1f, 0.1f).SetEase(Ease.OutQuad));
+        bounceSeq.Append(transform.DOScaleY(originalScale.y, 0.15f).SetEase(Ease.InBounce));
     }
 
     void OnDestroy()

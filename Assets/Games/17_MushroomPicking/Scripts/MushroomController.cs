@@ -249,8 +249,10 @@ public class MushroomController : MonoBehaviour
         pickSeq.Join(transform.DOScale(originalScale * 1.3f, revealDuration * 0.3f)
             .SetEase(Ease.OutBack));
 
-        // 回転（Z軸）
-        pickSeq.Join(transform.DORotate(new Vector3(0, 0, spinSpeed * revealDuration), revealDuration,
+        // 回転（Z軸）- 360°の倍数にして元の角度に戻す
+        int fullRotations = Mathf.Max(1, Mathf.RoundToInt(spinSpeed * revealDuration / 360f));
+        float targetRotation = fullRotations * 360f;
+        pickSeq.Join(transform.DORotate(new Vector3(0, 0, targetRotation), revealDuration,
             RotateMode.FastBeyond360).SetEase(Ease.OutQuad));
 
         // フェーズ2: シルエット解除（色を元に戻す）
