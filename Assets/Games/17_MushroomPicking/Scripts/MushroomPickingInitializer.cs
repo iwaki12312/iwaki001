@@ -18,6 +18,7 @@ public class MushroomPickingInitializer : MonoBehaviour
     [Header("=== キノコスプライト - レアキノコ ===")]
     [SerializeField] private Sprite goldMushroomSprite;
     [SerializeField] private Sprite rainbowMushroomSprite;
+    [SerializeField] private Sprite starMushroomSprite;
 
     [Header("=== カゴスプライト ===")]
     [SerializeField] private Sprite basketSprite;
@@ -250,6 +251,8 @@ public class MushroomPickingInitializer : MonoBehaviour
             goldMushroomSprite, rarePickSound, true));
         list.Add(CreateMushroomDataInstance(MushroomType.RainbowMushroom, "虹キノコ",
             rainbowMushroomSprite, rarePickSound, true));
+        list.Add(CreateMushroomDataInstance(MushroomType.StarMushroom, "星キノコ",
+            starMushroomSprite, rarePickSound, true));
 
         return list;
     }

@@ -28,6 +28,9 @@ public class SnowmanController : MonoBehaviour
     [SerializeField] private float wobbleAngle = 5f;
     [SerializeField] private float colliderRadius = 0.8f;
 
+    /// <summary>雪だるま全体の基本スケール</summary>
+    private float baseScale = 1f;
+
     private Phase currentPhase = Phase.BottomBall;
     private SpriteRenderer bottomBallRenderer;
     private GameObject topBallObj;
@@ -49,12 +52,13 @@ public class SnowmanController : MonoBehaviour
     /// 外部から雪玉スプライト等を設定して初期化
     /// </summary>
     public void Initialize(Sprite snowball, Sprite[] decoSets, Sprite[] rareDecoSets,
-                           float rare, Vector3 position)
+                           float rare, Vector3 position, float scale = 1f)
     {
         snowballSprite = snowball;
         decorationSets = decoSets;
         rareDecorationSets = rareDecoSets;
         rareChance = rare;
+        baseScale = scale;
 
         transform.position = position;
 
@@ -74,7 +78,7 @@ public class SnowmanController : MonoBehaviour
 
         // 出現アニメーション
         transform.localScale = Vector3.zero;
-        transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+        transform.DOScale(Vector3.one * baseScale, 0.3f).SetEase(Ease.OutBack);
 
         // 雪エフェクト
         SpawnSnowPuff(position);
@@ -160,6 +164,7 @@ public class SnowmanController : MonoBehaviour
         // ポンッとアニメーション
         topBallObj.transform.localScale = Vector3.zero;
         topBallObj.transform.DOScale(Vector3.one * topBallScale, 0.25f).SetEase(Ease.OutBack);
+        // Note: topBallScale is relative to parent, so baseScale is inherited automatically
 
         // コライダーを広げる（上の雪玉も含む）
         circleCollider.offset = new Vector2(0, topBallOffsetY * 0.5f);
@@ -202,8 +207,8 @@ public class SnowmanController : MonoBehaviour
         }
 
         // ポンッとスケールアニメーション
-        transform.DOScale(Vector3.one * 1.15f, 0.15f).SetEase(Ease.OutBack)
-            .OnComplete(() => transform.DOScale(Vector3.one, 0.1f));
+        transform.DOScale(Vector3.one * baseScale * 1.15f, 0.15f).SetEase(Ease.OutBack)
+            .OnComplete(() => transform.DOScale(Vector3.one * baseScale, 0.1f));
 
         // キラキラパーティクル
         SpawnSparkle(transform.position + Vector3.up * topBallOffsetY);

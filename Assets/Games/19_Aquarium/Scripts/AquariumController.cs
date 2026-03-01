@@ -17,9 +17,9 @@ public class AquariumController : MonoBehaviour
     [SerializeField] private Sprite octopusSprite;
     [SerializeField] private Sprite seaTurtleSprite;
     [SerializeField] private Sprite pufferfishSprite;
-    [SerializeField] private Sprite jellyfishSprite;
+    [SerializeField] private Sprite dolphinSprite;
     [SerializeField] private Sprite seahorseSprite;
-    [SerializeField] private Sprite stingraySprite;
+    [SerializeField] private Sprite sharkSprite;
 
     [Header("=== 生き物スプライト（レア）===")]
     [SerializeField] private Sprite whaleSharkSprite;
@@ -81,9 +81,9 @@ public class AquariumController : MonoBehaviour
         AddToPool(octopusSprite, SeaCreatureType.Octopus);
         AddToPool(seaTurtleSprite, SeaCreatureType.SeaTurtle);
         AddToPool(pufferfishSprite, SeaCreatureType.Pufferfish);
-        AddToPool(jellyfishSprite, SeaCreatureType.Jellyfish);
+        AddToPool(dolphinSprite, SeaCreatureType.Dolphin);
         AddToPool(seahorseSprite, SeaCreatureType.Seahorse);
-        AddToPool(stingraySprite, SeaCreatureType.Stingray);
+        AddToPool(sharkSprite, SeaCreatureType.Shark);
     }
 
     private void AddToPool(Sprite sprite, SeaCreatureType type)

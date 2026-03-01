@@ -23,6 +23,9 @@ public class SnowmanBuilderController : MonoBehaviour
     [Header("レア確率")]
     [SerializeField, Range(0f, 1f)] private float rareChance = 0.1f;
 
+    [Header("サイズ設定")]
+    [SerializeField] private float snowmanScale = 1f;
+
     [Header("雪パーティクル")]
     [SerializeField] private bool enableSnowfall = true;
 
@@ -109,7 +112,7 @@ public class SnowmanBuilderController : MonoBehaviour
         GameObject snowmanObj = new GameObject("Snowman");
         SnowmanController controller = snowmanObj.AddComponent<SnowmanController>();
 
-        controller.Initialize(snowballSprite, decorationSets, rareDecorationSets, rareChance, position);
+        controller.Initialize(snowballSprite, decorationSets, rareDecorationSets, rareChance, position, snowmanScale);
 
         controller.OnSnowmanDestroyed = () =>
         {

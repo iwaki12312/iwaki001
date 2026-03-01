@@ -112,6 +112,7 @@ public static class MushroomPickingApplyAssets
         // レアキノコスプライト
         SetSpriteWithFallback(so, "goldMushroomSprite", "mushroom_gold", spriteB);
         SetSpriteWithFallback(so, "rainbowMushroomSprite", "mushroom_rainbow", spriteB);
+        SetSpriteWithFallback(so, "starMushroomSprite", "mushroom_star", spriteB);
 
         // カゴスプライト
         SetSpriteWithFallback(so, "basketSprite", "basket", spriteB);

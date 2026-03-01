@@ -123,6 +123,7 @@ public static class MushroomPickingSetup
         // レアキノコスプライト
         so.FindProperty("goldMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_gold", fallbackB);
         so.FindProperty("rainbowMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_rainbow", fallbackB);
+        so.FindProperty("starMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_star", fallbackB);
 
         // カゴスプライト
         so.FindProperty("basketSprite").objectReferenceValue = LoadSpriteOrFallback("basket", fallbackB);

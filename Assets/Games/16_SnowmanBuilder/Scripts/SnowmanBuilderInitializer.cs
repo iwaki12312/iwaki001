@@ -37,6 +37,7 @@ public class SnowmanBuilderInitializer : MonoBehaviour
     [SerializeField] private int maxSnowmen = 5;
     [SerializeField] private float groundMinY = -4f;
     [SerializeField] private float groundMaxY = -1f;
+    [SerializeField] private float snowmanScale = 1f;
 
     void Awake()
     {
@@ -140,6 +141,7 @@ public class SnowmanBuilderInitializer : MonoBehaviour
         SetFieldValue(controller, "maxSnowmen", maxSnowmen);
         SetFieldValue(controller, "groundMinY", groundMinY);
         SetFieldValue(controller, "groundMaxY", groundMaxY);
+        SetFieldValue(controller, "snowmanScale", snowmanScale);
 
         Debug.Log("[SnowmanBuilderInitializer] Controllerを作成しました");
     }

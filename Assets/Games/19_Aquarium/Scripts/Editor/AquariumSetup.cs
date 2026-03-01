@@ -101,9 +101,9 @@ public static class AquariumSetup
         so.FindProperty("octopusSprite").objectReferenceValue = spriteA;
         so.FindProperty("seaTurtleSprite").objectReferenceValue = spriteA;
         so.FindProperty("pufferfishSprite").objectReferenceValue = spriteB;
-        so.FindProperty("jellyfishSprite").objectReferenceValue = spriteB;
+        so.FindProperty("dolphinSprite").objectReferenceValue = spriteB;
         so.FindProperty("seahorseSprite").objectReferenceValue = spriteB;
-        so.FindProperty("stingraySprite").objectReferenceValue = spriteB;
+        so.FindProperty("sharkSprite").objectReferenceValue = spriteB;
 
         // レア生き物
         so.FindProperty("whaleSharkSprite").objectReferenceValue = spriteA;

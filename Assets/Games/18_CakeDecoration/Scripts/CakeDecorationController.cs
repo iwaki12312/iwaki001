@@ -28,7 +28,7 @@ public class CakeDecorationController : MonoBehaviour
     [SerializeField] private float cakeMinX = -2.5f;
     [SerializeField] private float cakeMaxX = 2.5f;
     [SerializeField] private float cakeMinY = -0.5f;
-    [SerializeField] private float cakeMaxY = 2.2f;
+    [SerializeField] private float cakeMaxY = 3.0f;
 
     [Header("=== アニメーション設定 ===")]
     [SerializeField] private float dropHeight = 6f;      // 落下開始の高さ（ケーキ上面からの相対）

@@ -14,7 +14,8 @@ public enum MushroomType
 
     // レアキノコ
     GoldMushroom,       // 金キノコ
-    RainbowMushroom     // 虹キノコ
+    RainbowMushroom,    // 虹キノコ
+    StarMushroom        // 星キノコ
 }
 
 /// <summary>
