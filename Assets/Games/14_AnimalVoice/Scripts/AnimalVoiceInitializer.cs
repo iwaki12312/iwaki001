@@ -105,6 +105,10 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [Header("=== 時間帯設定 ===")]
     [SerializeField, Range(5f, 120f)] private float timeChangeInterval = 30f;
     
+    [Header("=== パーティクルスケール ===")]
+    [SerializeField, Range(0.1f, 3f)] private float normalParticleScale = 1.0f;
+    [SerializeField, Range(0.1f, 3f)] private float rareParticleScale = 1.0f;
+    
     [Header("=== スポーンポイント（シーン上に配置。空ならランダム配置）===")]
     [SerializeField] private List<AnimalSpawnPoint> spawnPoints = new List<AnimalSpawnPoint>();
     
@@ -125,6 +129,9 @@ public class AnimalVoiceInitializer : MonoBehaviour
         
         // SFXPlayerの作成
         CreateSFXPlayer();
+        
+        // パーティクル設定の作成
+        CreateParticleSettings();
         
         // 背景オブジェクトを検索（既にScene内に配置されている前提）
         FindAndSetupBackground();
@@ -177,6 +184,20 @@ public class AnimalVoiceInitializer : MonoBehaviour
         sfxPlayer.SetSoundClips(tapSound, timeChangeSound, rareAppearSound);
         
         Debug.Log("[AnimalVoiceInitializer] AnimalVoiceSFXPlayerを作成しました");
+    }
+    
+    /// <summary>
+    /// パーティクル設定コンポーネントを作成
+    /// </summary>
+    private void CreateParticleSettings()
+    {
+        if (AnimalVoiceParticleSettings.Instance != null) return;
+        
+        GameObject obj = new GameObject("AnimalVoiceParticleSettings");
+        var settings = obj.AddComponent<AnimalVoiceParticleSettings>();
+        settings.SetScales(normalParticleScale, rareParticleScale);
+        
+        Debug.Log("[AnimalVoiceInitializer] AnimalVoiceParticleSettingsを作成しました");
     }
     
     /// <summary>

@@ -218,10 +218,15 @@ public class AnimalController : MonoBehaviour
             spriteRenderer.sprite = animalData.reactionSprite;
         }
         
-        // レア動物は特別なエフェクト
+        // レア動物は特別なエフェクト、通常動物は控えめパーティクル
         if (animalData.isRare)
         {
             PlayRareEffect();
+        }
+        else
+        {
+            Vector3 particlePos = transform.position + new Vector3(0, 0.2f, 0);
+            AnimalVoiceParticleHelper.SpawnNormalTapParticle(particlePos);
         }
         
         // リアクション後にフェードアウトして削除

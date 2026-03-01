@@ -172,37 +172,40 @@ public static class AnimalVoiceParticleHelper
     }
 
     // ──────────────────────────────────────
-    //  通常タップ パーティクル
+    //  通常タップ パーティクル（レア版の控えめ縮小版）
     // ──────────────────────────────────────
 
     /// <summary>
     /// 通常動物タップ時のパーティクル:
-    /// ① ソフトグロー粒子のバースト（カラフル、ふわっと広がって消える）
-    /// ② 小さなキラキラ星がパラパラと舞い落ちる
+    /// レア版と同ょ3層構成だが、粒子数・サイズ・速度を縮小して控えめに
     /// </summary>
     public static void SpawnNormalTapParticle(Vector3 position)
     {
+        float scale = AnimalVoiceParticleSettings.Instance != null
+            ? AnimalVoiceParticleSettings.Instance.NormalParticleScale : 1f;
+
         Material glowMat = GetAdditiveMaterial(GetSoftCircleTexture());
         Material starMat = GetAdditiveMaterial(GetStarTexture());
 
         GameObject root = new GameObject("NormalTapParticle");
         root.transform.position = position;
+        root.transform.localScale = Vector3.one * scale;
 
-        // ── ① メインのグローバースト ──
+        // ── ① カラフルグローバースト（小さめ） ──
         ParticleSystem ps = root.AddComponent<ParticleSystem>();
         var main = ps.main;
-        main.duration = 1.4f;
+        main.duration = 1.2f;
         main.loop = false;
         main.playOnAwake = true;
         main.stopAction = ParticleSystemStopAction.Destroy;
-        main.startLifetime = new ParticleSystem.MinMaxCurve(0.5f, 0.9f);
-        main.startSpeed = new ParticleSystem.MinMaxCurve(2.0f, 4.5f);
-        main.startSize = new ParticleSystem.MinMaxCurve(0.25f, 0.55f);
-        main.gravityModifier = -0.3f; // ふわっと浮き上がる
-        main.maxParticles = 20;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 0.8f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(1.5f, 3.5f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.15f, 0.35f);
+        main.gravityModifier = -0.1f;
+        main.maxParticles = 16;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
 
-        // ランダムに3色を選ぶ
+        // ランダムに2色選んでグラデーション
         Color c1 = normalColors[Random.Range(0, normalColors.Length)];
         Color c2 = normalColors[Random.Range(0, normalColors.Length)];
         main.startColor = new ParticleSystem.MinMaxGradient(c1, c2);
@@ -210,87 +213,133 @@ public static class AnimalVoiceParticleHelper
         var emission = ps.emission;
         emission.rateOverTime = 0;
         emission.SetBursts(new ParticleSystem.Burst[] {
-            new ParticleSystem.Burst(0f, 10, 14)
+            new ParticleSystem.Burst(0f, 8, 12),
+            new ParticleSystem.Burst(0.06f, 4, 6)
         });
 
         var shape = ps.shape;
         shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.25f;
+        shape.radius = 0.2f;
 
-        // サイズ: ポンと膨らんで縮む
         var sol = ps.sizeOverLifetime;
         sol.enabled = true;
         AnimationCurve sc = new AnimationCurve();
         sc.AddKey(new Keyframe(0f, 0.2f));
-        sc.AddKey(new Keyframe(0.12f, 1.0f));
-        sc.AddKey(new Keyframe(0.5f, 0.6f));
+        sc.AddKey(new Keyframe(0.1f, 1.0f));
+        sc.AddKey(new Keyframe(0.4f, 0.65f));
         sc.AddKey(new Keyframe(1f, 0f));
         sol.size = new ParticleSystem.MinMaxCurve(1f, sc);
 
-        // フェードアウト
         var col = ps.colorOverLifetime;
         col.enabled = true;
         col.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.4f));
 
+        var noise = ps.noise;
+        noise.enabled = true;
+        noise.strength = 0.3f;
+        noise.frequency = 2f;
+        noise.scrollSpeed = 1f;
+
         SetupRenderer(root, glowMat, 60);
 
-        // ── ② キラキラ星 ──
+        // ── ② リングスパーク（控えめ） ──
+        GameObject ringObj = new GameObject("Ring");
+        ringObj.transform.SetParent(root.transform);
+        ringObj.transform.localPosition = Vector3.zero;
+
+        ParticleSystem ringPs = ringObj.AddComponent<ParticleSystem>();
+        var ringMain = ringPs.main;
+        ringMain.duration = 0.6f;
+        ringMain.loop = false;
+        ringMain.playOnAwake = true;
+        ringMain.startLifetime = new ParticleSystem.MinMaxCurve(0.2f, 0.4f);
+        ringMain.startSpeed = new ParticleSystem.MinMaxCurve(3f, 5f);
+        ringMain.startSize = new ParticleSystem.MinMaxCurve(0.08f, 0.18f);
+        ringMain.gravityModifier = 0f;
+        ringMain.maxParticles = 14;
+        ringMain.simulationSpace = ParticleSystemSimulationSpace.World;
+
+        ringMain.startColor = new ParticleSystem.MinMaxGradient(c1, c2);
+
+        var ringEmission = ringPs.emission;
+        ringEmission.rateOverTime = 0;
+        ringEmission.SetBursts(new ParticleSystem.Burst[] {
+            new ParticleSystem.Burst(0.02f, 8, 12)
+        });
+
+        var ringShape = ringPs.shape;
+        ringShape.shapeType = ParticleSystemShapeType.Circle;
+        ringShape.radius = 0.1f;
+        ringShape.radiusThickness = 0f;
+
+        var ringSol = ringPs.sizeOverLifetime;
+        ringSol.enabled = true;
+        AnimationCurve rsc = new AnimationCurve();
+        rsc.AddKey(new Keyframe(0f, 1f));
+        rsc.AddKey(new Keyframe(0.3f, 0.6f));
+        rsc.AddKey(new Keyframe(1f, 0f));
+        ringSol.size = new ParticleSystem.MinMaxCurve(1f, rsc);
+
+        var ringCol = ringPs.colorOverLifetime;
+        ringCol.enabled = true;
+        ringCol.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.2f));
+
+        SetupRenderer(ringObj, glowMat, 59);
+
+        // ── ③ キラキラ星（少なめ） ──
         GameObject starObj = new GameObject("Sparkles");
         starObj.transform.SetParent(root.transform);
         starObj.transform.localPosition = Vector3.zero;
 
         ParticleSystem starPs = starObj.AddComponent<ParticleSystem>();
         var starMain = starPs.main;
-        starMain.duration = 1.2f;
+        starMain.duration = 1.0f;
         starMain.loop = false;
         starMain.playOnAwake = true;
-        starMain.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 0.8f);
-        starMain.startSpeed = new ParticleSystem.MinMaxCurve(1.0f, 3.0f);
-        starMain.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.28f);
+        starMain.startDelay = 0.03f;
+        starMain.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 0.7f);
+        starMain.startSpeed = new ParticleSystem.MinMaxCurve(1.0f, 2.5f);
+        starMain.startSize = new ParticleSystem.MinMaxCurve(0.1f, 0.22f);
         starMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-        starMain.gravityModifier = 0.4f; // ちょっと落ちる
-        starMain.maxParticles = 12;
+        starMain.gravityModifier = 0.3f;
+        starMain.maxParticles = 10;
         starMain.simulationSpace = ParticleSystemSimulationSpace.World;
 
-        // 白〜淡い黄色でキラッと
         starMain.startColor = new ParticleSystem.MinMaxGradient(
             new Color(1f, 1f, 0.85f),
-            new Color(1f, 0.95f, 0.6f)
+            new Color(1f, 0.95f, 0.7f)
         );
 
         var starEmission = starPs.emission;
         starEmission.rateOverTime = 0;
         starEmission.SetBursts(new ParticleSystem.Burst[] {
-            new ParticleSystem.Burst(0.05f, 6, 10)
+            new ParticleSystem.Burst(0.03f, 5, 8)
         });
 
         var starShape = starPs.shape;
         starShape.shapeType = ParticleSystemShapeType.Sphere;
         starShape.radius = 0.3f;
 
-        // 回転アニメーション
         var starRot = starPs.rotationOverLifetime;
         starRot.enabled = true;
         starRot.z = new ParticleSystem.MinMaxCurve(-2f, 2f);
 
-        // サイズ: キラッと光ってすーっと消える
         var starSol = starPs.sizeOverLifetime;
         starSol.enabled = true;
-        AnimationCurve starSC = new AnimationCurve();
-        starSC.AddKey(new Keyframe(0f, 0.3f));
-        starSC.AddKey(new Keyframe(0.15f, 1.0f));
-        starSC.AddKey(new Keyframe(0.4f, 0.5f));
-        starSC.AddKey(new Keyframe(1f, 0f));
-        starSol.size = new ParticleSystem.MinMaxCurve(1f, starSC);
+        AnimationCurve ssc = new AnimationCurve();
+        ssc.AddKey(new Keyframe(0f, 0.2f));
+        ssc.AddKey(new Keyframe(0.12f, 1.0f));
+        ssc.AddKey(new Keyframe(0.5f, 0.4f));
+        ssc.AddKey(new Keyframe(1f, 0f));
+        starSol.size = new ParticleSystem.MinMaxCurve(1f, ssc);
 
-        // フェードアウト
         var starCol = starPs.colorOverLifetime;
         starCol.enabled = true;
         starCol.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.3f));
 
-        SetupRenderer(starObj, starMat, 62);
+        SetupRenderer(starObj, starMat, 61);
 
-        Object.Destroy(root, 2f);
+        Object.Destroy(root, 1.8f);
     }
 
     // ──────────────────────────────────────
@@ -305,11 +354,15 @@ public static class AnimalVoiceParticleHelper
     /// </summary>
     public static void SpawnRareTapParticle(Vector3 position)
     {
+        float scale = AnimalVoiceParticleSettings.Instance != null
+            ? AnimalVoiceParticleSettings.Instance.RareParticleScale : 1f;
+
         Material glowMat = GetAdditiveMaterial(GetSoftCircleTexture());
         Material starMat = GetAdditiveMaterial(GetStarTexture());
 
         GameObject root = new GameObject("RareTapParticle");
         root.transform.position = position;
+        root.transform.localScale = Vector3.one * scale;
 
         // ── ① メインのレインボーバースト ──
         ParticleSystem ps = root.AddComponent<ParticleSystem>();
