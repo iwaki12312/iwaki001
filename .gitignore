@@ -62,6 +62,12 @@ makeImage/
 # Local debug artifacts
 playerprefs*.xml
 
+# API key files (never commit these)
+.env
 .env.*
 
-work/
+# work/ 生成物・ローカル設定（Pythonスクリプトは除く）
+# .env.yaml は上の .env.* パターンで除外済み
+work/**/out/
+work/**/__pycache__/
+work/**/*.pyc
