@@ -159,13 +159,14 @@ MonoBehaviour:
   whaleSharkSprite: {fileID: 21300000, guid: ac605fd16d844344a02396ea4f6d1cfb, type: 3}
   mantaSprite: {fileID: 21300000, guid: 6414b6b3d9c54d0598e4c35049362da4, type: 3}
   bubbleSound: {fileID: 8300000, guid: bf508acc37aa2ca48bd4225cf661e5fa, type: 3}
-  spawnSound: {fileID: 8300000, guid: 1b381f0962901fb48afa5fc1f60698ec, type: 3}
+  spawnSound: {fileID: 8300000, guid: 3d3dcf0bc6cbeef46a3ab13cbd132c6f, type: 3}
   tapSound1: {fileID: 8300000, guid: 43f963dc6e6eaf949b99e9d3dfde46de, type: 3}
-  tapSound2: {fileID: 8300000, guid: 3d3dcf0bc6cbeef46a3ab13cbd132c6f, type: 3}
+  tapSound2: {fileID: 8300000, guid: 43f963dc6e6eaf949b99e9d3dfde46de, type: 3}
   rareSound: {fileID: 8300000, guid: 38932c5c23adc594ab247c4fcd63018e, type: 3}
   completeSound: {fileID: 8300000, guid: 38ec718a88d52be4680fed3c6d11e882, type: 3}
   resetSound: {fileID: 8300000, guid: c90bc723e867e35498bb35ad02430231, type: 3}
   ambientSound: {fileID: 8300000, guid: ba9445f40c0fe5d4aa04e103c035f79c, type: 3}
+  rareEffectPrefab: {fileID: 0}
   maxCreatures: 12
   rareChance: 0.1
   creatureScale: 1.2
@@ -288,6 +289,7 @@ GameObject:
   - component: {fileID: 1926544027}
   - component: {fileID: 1926544026}
   - component: {fileID: 1926544025}
+  - component: {fileID: 1926544028}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -369,6 +371,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1926544028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926544024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
