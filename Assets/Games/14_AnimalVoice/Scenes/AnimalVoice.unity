@@ -1416,8 +1416,8 @@ MonoBehaviour:
   rareAnimalScale: 2.1
   colliderRadius: 1
   timeChangeInterval: 15
-  normalParticleScale: 1
-  rareParticleScale: 1
+  normalParticleScale: 2
+  rareParticleScale: 2.1
   spawnPoints:
   - {fileID: 1084466592}
   - {fileID: 1883077072}

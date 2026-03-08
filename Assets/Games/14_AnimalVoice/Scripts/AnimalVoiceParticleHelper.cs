@@ -240,7 +240,7 @@ public static class AnimalVoiceParticleHelper
         noise.frequency = 2f;
         noise.scrollSpeed = 1f;
 
-        SetupRenderer(root, glowMat, 60);
+        SetupRenderer(root, glowMat, 5);
 
         // ── ② リングスパーク（控えめ） ──
         GameObject ringObj = new GameObject("Ring");
@@ -284,7 +284,7 @@ public static class AnimalVoiceParticleHelper
         ringCol.enabled = true;
         ringCol.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.2f));
 
-        SetupRenderer(ringObj, glowMat, 59);
+        SetupRenderer(ringObj, glowMat, 4);
 
         // ── ③ キラキラ星（少なめ） ──
         GameObject starObj = new GameObject("Sparkles");
@@ -337,7 +337,7 @@ public static class AnimalVoiceParticleHelper
         starCol.enabled = true;
         starCol.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.3f));
 
-        SetupRenderer(starObj, starMat, 61);
+        SetupRenderer(starObj, starMat, 6);
 
         Object.Destroy(root, 1.8f);
     }
@@ -427,7 +427,7 @@ public static class AnimalVoiceParticleHelper
         noise.frequency = 2.5f;
         noise.scrollSpeed = 1.5f;
 
-        SetupRenderer(root, glowMat, 65);
+        SetupRenderer(root, glowMat, 5);
 
         // ── ② ゴールドのリングスパーク ──
         GameObject ringObj = new GameObject("GoldRing");
@@ -476,7 +476,7 @@ public static class AnimalVoiceParticleHelper
         ringCol.enabled = true;
         ringCol.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.2f));
 
-        SetupRenderer(ringObj, glowMat, 64);
+        SetupRenderer(ringObj, glowMat, 4);
 
         // ── ③ キラキラ星の雨 ──
         GameObject starObj = new GameObject("StarShower");
@@ -533,7 +533,7 @@ public static class AnimalVoiceParticleHelper
         starCol.enabled = true;
         starCol.color = new ParticleSystem.MinMaxGradient(MakeFadeGradient(0.35f));
 
-        SetupRenderer(starObj, starMat, 66);
+        SetupRenderer(starObj, starMat, 6);
 
         Object.Destroy(root, 2.5f);
     }
