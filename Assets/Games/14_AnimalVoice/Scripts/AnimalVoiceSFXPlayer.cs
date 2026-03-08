@@ -15,11 +15,13 @@ public class AnimalVoiceSFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip tapSound;                // タップ時のポップ音
     [SerializeField] private AudioClip timeChangeSound;         // 背景切り替え音
     [SerializeField] private AudioClip rareAppearSound;         // レア出現音
+    [SerializeField] private AudioClip specialSfx;              // レア動物専用スペシャルSFX
     
     [Header("ボリューム設定")]
     [SerializeField, Range(0f, 1f)] private float voiceVolume = 1f;
     [SerializeField, Range(0f, 1f)] private float sfxVolume = 0.8f;
     [SerializeField, Range(0f, 1f)] private float rareVoiceVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float specialSfxVolume = 0.8f;
     
     void Awake()
     {
@@ -57,11 +59,12 @@ public class AnimalVoiceSFXPlayer : MonoBehaviour
     /// <summary>
     /// 効果音を設定（Initializerから呼び出し）
     /// </summary>
-    public void SetSoundClips(AudioClip tap, AudioClip timeChange, AudioClip rareAppear)
+    public void SetSoundClips(AudioClip tap, AudioClip timeChange, AudioClip rareAppear, AudioClip special = null)
     {
         tapSound = tap;
         timeChangeSound = timeChange;
         rareAppearSound = rareAppear;
+        specialSfx = special;
     }
     
     /// <summary>
@@ -80,9 +83,16 @@ public class AnimalVoiceSFXPlayer : MonoBehaviour
         PlayTapSound();
         
         // レアの場合は特別な音も再生
-        if (isRare && rareAppearSound != null)
+        if (isRare)
         {
-            sfxAudioSource.PlayOneShot(rareAppearSound, sfxVolume);
+            if (rareAppearSound != null)
+            {
+                sfxAudioSource.PlayOneShot(rareAppearSound, sfxVolume);
+            }
+            if (specialSfx != null)
+            {
+                sfxAudioSource.PlayOneShot(specialSfx, specialSfxVolume);
+            }
         }
     }
     

@@ -459,7 +459,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
+  previewSprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
   overrideScale: 0
 --- !u!4 &266659481
 Transform:
@@ -565,7 +565,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
+  previewSprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
   overrideScale: 0
 --- !u!4 &524063115
 Transform:
@@ -808,7 +808,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: a93f86d0da7f486290885bc38622a24f, type: 3}
+  previewSprite: {fileID: 21300000, guid: 4b2ceb37cf4444beab647eb9f453d736, type: 3}
   overrideScale: 0
 --- !u!4 &770684603
 Transform:
@@ -1170,7 +1170,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 2043b54551eb4b3f854d338a6280f0eb, type: 3}
+  previewSprite: {fileID: 21300000, guid: 70c2661fd67144a39397cea69262274c, type: 3}
   overrideScale: 0
 --- !u!4 &1084466593
 Transform:
@@ -1276,7 +1276,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
+  previewSprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
   overrideScale: 0
 --- !u!4 &1453645112
 Transform:
@@ -1385,7 +1385,7 @@ MonoBehaviour:
   chickenVoice: {fileID: 8300000, guid: 11262d09e1f041cda5fa07c777e770b9, type: 3}
   cowVoice: {fileID: 8300000, guid: 92c0bb24071e40cca453f9700b431d1e, type: 3}
   horseVoice: {fileID: 8300000, guid: 96549d1030934d0eadae1181d07f4b9e, type: 3}
-  pigVoice: {fileID: 8300000, guid: 007bdde13ec8405fb36ced35f74fc866, type: 3}
+  pigVoice: {fileID: 8300000, guid: 2940475629bf19148a264f2c1c866a87, type: 3}
   sheepVoice: {fileID: 8300000, guid: 890e3614f68b474f9878acec0db6593a, type: 3}
   goatVoice: {fileID: 8300000, guid: 0c4a50e1a625434e873db91c09c11ea7, type: 3}
   dogVoice: {fileID: 8300000, guid: 7b30c16ecae344888a27543a3140750f, type: 3}
@@ -1397,13 +1397,14 @@ MonoBehaviour:
   owlVoice: {fileID: 8300000, guid: fd6d8f09c6924225850fc63e54b3895f, type: 3}
   wolfVoice: {fileID: 8300000, guid: af9c8e66212440c0bc298b84b9e123dc, type: 3}
   batVoice: {fileID: 8300000, guid: 1c17779cd7dd4018889cf673cfe905dc, type: 3}
-  mouseVoice: {fileID: 8300000, guid: 562b2e7cd4e74af0aadcf74bd744ac6c, type: 3}
-  dinosaurVoice: {fileID: 8300000, guid: 2a84f56f29fa4cd9963c8132357083bb, type: 3}
-  dragonVoice: {fileID: 8300000, guid: 77520c366479419aa4d4c0b19b44162e, type: 3}
-  unicornVoice: {fileID: 8300000, guid: 47d8be16aabb4f4d8fca64fe962a673b, type: 3}
+  mouseVoice: {fileID: 8300000, guid: 065a2020b8ef0f14c87850ec9d2b3073, type: 3}
+  dinosaurVoice: {fileID: 8300000, guid: af804810affbb1c41a6f28ff38caafb5, type: 3}
+  dragonVoice: {fileID: 8300000, guid: 796c8a7ffd5deb444b76b0e44bfb2595, type: 3}
+  unicornVoice: {fileID: 8300000, guid: 96549d1030934d0eadae1181d07f4b9e, type: 3}
   tapSound: {fileID: 0}
   timeChangeSound: {fileID: 0}
   rareAppearSound: {fileID: 0}
+  specialSfx: {fileID: 8300000, guid: 45a65096141fb3d42a1fb1efddabcef0, type: 3}
   spawnCount: 6
   rareSpawnChance: 0.1
   spawnMinX: -4
@@ -1411,17 +1412,19 @@ MonoBehaviour:
   spawnMinY: -3
   spawnMaxY: 2
   minDistanceBetweenAnimals: 1.5
-  animalBaseScale: 2
-  rareAnimalScale: 2
+  animalBaseScale: 2.1
+  rareAnimalScale: 2.1
   colliderRadius: 1
   timeChangeInterval: 15
+  normalParticleScale: 1
+  rareParticleScale: 1
   spawnPoints:
-  - {fileID: 524063114}
-  - {fileID: 1453645111}
-  - {fileID: 770684602}
-  - {fileID: 266659480}
-  - {fileID: 1883077072}
   - {fileID: 1084466592}
+  - {fileID: 1883077072}
+  - {fileID: 524063114}
+  - {fileID: 770684602}
+  - {fileID: 1453645111}
+  - {fileID: 266659480}
 --- !u!4 &1489363211
 Transform:
   m_ObjectHideFlags: 0
@@ -1539,7 +1542,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7}
   m_FlipX: 0
   m_FlipY: 0
@@ -1561,7 +1564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6de4d424ecd6094c82f57476975f334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSpawnPoint
-  previewSprite: {fileID: 21300000, guid: 917baaf6c2564d87a1baf363dccd2421, type: 3}
+  previewSprite: {fileID: 21300000, guid: e293a7bd14504a0180fb7b029cc1c27b, type: 3}
   overrideScale: 0
 --- !u!4 &1883077073
 Transform:

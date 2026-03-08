@@ -149,6 +149,7 @@ public static class AnimalVoiceSetup
         so.FindProperty("tapSound").objectReferenceValue = workSfx[0];
         so.FindProperty("timeChangeSound").objectReferenceValue = workSfx[7];
         so.FindProperty("rareAppearSound").objectReferenceValue = workSfx[6];
+        so.FindProperty("specialSfx").objectReferenceValue = workSfx[6];
 
         so.ApplyModifiedProperties();
     }

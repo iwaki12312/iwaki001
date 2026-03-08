@@ -85,6 +85,7 @@ public class AnimalVoiceInitializer : MonoBehaviour
     [SerializeField] private AudioClip tapSound;
     [SerializeField] private AudioClip timeChangeSound;
     [SerializeField] private AudioClip rareAppearSound;
+    [SerializeField] private AudioClip specialSfx;
     
     [Header("=== スポーン設定（Inspectorで調整可能）===")]
     [SerializeField, Range(1, 12)] private int spawnCount = 6;
@@ -181,7 +182,7 @@ public class AnimalVoiceInitializer : MonoBehaviour
         
         GameObject sfxObj = new GameObject("AnimalVoiceSFXPlayer");
         AnimalVoiceSFXPlayer sfxPlayer = sfxObj.AddComponent<AnimalVoiceSFXPlayer>();
-        sfxPlayer.SetSoundClips(tapSound, timeChangeSound, rareAppearSound);
+        sfxPlayer.SetSoundClips(tapSound, timeChangeSound, rareAppearSound, specialSfx);
         
         Debug.Log("[AnimalVoiceInitializer] AnimalVoiceSFXPlayerを作成しました");
     }

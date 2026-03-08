@@ -147,12 +147,13 @@ public static class AnimalVoiceApplyAssets
         // レア動物
         so.FindProperty("dinosaurVoice").objectReferenceValue = LoadVoiceOrFallback("dinosaur_voice", workSfx[6]);
         so.FindProperty("dragonVoice").objectReferenceValue = LoadVoiceOrFallback("dragon_voice", workSfx[6]);
-        so.FindProperty("unicornVoice").objectReferenceValue = LoadVoiceOrFallback("unicorn_voice", workSfx[7]);
+        so.FindProperty("unicornVoice").objectReferenceValue = LoadVoiceOrFallback("horse_voice", workSfx[7]);
 
         // 共通SE
         so.FindProperty("tapSound").objectReferenceValue = workSfx[0];
         so.FindProperty("timeChangeSound").objectReferenceValue = workSfx[7];
         so.FindProperty("rareAppearSound").objectReferenceValue = workSfx[6];
+        so.FindProperty("specialSfx").objectReferenceValue = LoadVoiceOrFallback("special_sfx", workSfx[6]);
 
         so.ApplyModifiedProperties();
 
