@@ -108,11 +108,23 @@ public static class MushroomPickingApplyAssets
         SetSpriteWithFallback(so, "blueMushroomSprite", "mushroom_blue", spriteA);
         SetSpriteWithFallback(so, "whiteMushroomSprite", "mushroom_white", spriteA);
         SetSpriteWithFallback(so, "greenMushroomSprite", "mushroom_green", spriteA);
+        SetSpriteWithFallback(so, "pinkMushroomSprite", "mushroom_pink", spriteA);
+        SetSpriteWithFallback(so, "orangeMushroomSprite", "mushroom_orange", spriteA);
+        SetSpriteWithFallback(so, "purpleMushroomSprite", "mushroom_purple", spriteA);
+        SetSpriteWithFallback(so, "brownMushroomSprite", "mushroom_brown", spriteA);
+        SetSpriteWithFallback(so, "skyblueMushroomSprite", "mushroom_skyblue", spriteA);
 
         // レアキノコスプライト
         SetSpriteWithFallback(so, "goldMushroomSprite", "mushroom_gold", spriteB);
         SetSpriteWithFallback(so, "rainbowMushroomSprite", "mushroom_rainbow", spriteB);
         SetSpriteWithFallback(so, "starMushroomSprite", "mushroom_star", spriteB);
+        SetSpriteWithFallback(so, "crystalMushroomSprite", "mushroom_crystal", spriteB);
+        SetSpriteWithFallback(so, "cosmicMushroomSprite", "mushroom_cosmic", spriteB);
+
+        // スーパーレアキノコスプライト
+        SetSpriteWithFallback(so, "rabbitMushroomSprite", "mushroom_rabbit", spriteB);
+        SetSpriteWithFallback(so, "mouseMushroomSprite", "mushroom_mouse", spriteB);
+        SetSpriteWithFallback(so, "squirrelMushroomSprite", "mushroom_squirrel", spriteB);
 
         // カゴスプライト
         SetSpriteWithFallback(so, "basketSprite", "basket", spriteB);
@@ -126,6 +138,15 @@ public static class MushroomPickingApplyAssets
         so.FindProperty("basketSound").objectReferenceValue = LoadAudioOrFallback("sfx_basket", workSfx[3]);
         so.FindProperty("hideSound").objectReferenceValue = LoadAudioOrFallback("sfx_hide", workSfx[4]);
         so.FindProperty("rareAppearSound").objectReferenceValue = LoadAudioOrFallback("sfx_rare_appear", workSfx[5]);
+        so.FindProperty("superRareRevealSound").objectReferenceValue = LoadAudioOrFallback("sfx_super_rare_reveal", null);
+
+        // スーパーレア用パーティクルprefab
+        GameObject superRareParticle = AssetDatabase.LoadAssetAtPath<GameObject>(
+            "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR Magical Source.prefab");
+        if (superRareParticle != null)
+        {
+            so.FindProperty("superRareParticlePrefab").objectReferenceValue = superRareParticle;
+        }
 
         so.ApplyModifiedProperties();
 

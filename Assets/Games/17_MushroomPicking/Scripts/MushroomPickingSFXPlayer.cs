@@ -19,6 +19,7 @@ public class MushroomPickingSFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip basketSound;         // カゴに入る音
     [SerializeField] private AudioClip hideSound;           // キノコが引っ込む音
     [SerializeField] private AudioClip rareAppearSound;     // レア出現予告音
+    [SerializeField] private AudioClip superRareRevealSound; // スーパーレアシルエット解除音
 
     [Header("ボリューム設定")]
     [SerializeField, Range(0f, 1f)] private float growVolume = 0.6f;
@@ -29,6 +30,7 @@ public class MushroomPickingSFXPlayer : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float basketVolume = 0.7f;
     [SerializeField, Range(0f, 1f)] private float hideVolume = 0.4f;
     [SerializeField, Range(0f, 1f)] private float rareAppearVolume = 0.8f;
+    [SerializeField, Range(0f, 1f)] private float superRareRevealVolume = 1f;
 
     void Awake()
     {
@@ -57,7 +59,8 @@ public class MushroomPickingSFXPlayer : MonoBehaviour
     /// </summary>
     public void SetSoundClips(AudioClip grow, AudioClip pick, AudioClip reveal,
                               AudioClip rarePick, AudioClip rareReveal,
-                              AudioClip basket, AudioClip hide, AudioClip rareAppear)
+                              AudioClip basket, AudioClip hide, AudioClip rareAppear,
+                              AudioClip superRareReveal = null)
     {
         growSound = grow;
         pickSound = pick;
@@ -67,6 +70,7 @@ public class MushroomPickingSFXPlayer : MonoBehaviour
         basketSound = basket;
         hideSound = hide;
         rareAppearSound = rareAppear;
+        superRareRevealSound = superRareReveal;
     }
 
     /// <summary>
@@ -102,9 +106,13 @@ public class MushroomPickingSFXPlayer : MonoBehaviour
     /// <summary>
     /// シルエット解除音を再生（イラストが見えた瞬間）
     /// </summary>
-    public void PlayRevealSound(bool isRare = false)
+    public void PlayRevealSound(bool isRare = false, bool isSuperRare = false)
     {
-        if (isRare && rareRevealSound != null)
+        if (isSuperRare && superRareRevealSound != null)
+        {
+            sfxAudioSource.PlayOneShot(superRareRevealSound, superRareRevealVolume);
+        }
+        else if (isRare && rareRevealSound != null)
         {
             sfxAudioSource.PlayOneShot(rareRevealSound, rareRevealVolume);
         }

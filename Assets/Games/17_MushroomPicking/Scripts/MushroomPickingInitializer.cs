@@ -14,11 +14,23 @@ public class MushroomPickingInitializer : MonoBehaviour
     [SerializeField] private Sprite blueMushroomSprite;
     [SerializeField] private Sprite whiteMushroomSprite;
     [SerializeField] private Sprite greenMushroomSprite;
+    [SerializeField] private Sprite pinkMushroomSprite;
+    [SerializeField] private Sprite orangeMushroomSprite;
+    [SerializeField] private Sprite purpleMushroomSprite;
+    [SerializeField] private Sprite brownMushroomSprite;
+    [SerializeField] private Sprite skyblueMushroomSprite;
 
     [Header("=== キノコスプライト - レアキノコ ===")]
     [SerializeField] private Sprite goldMushroomSprite;
     [SerializeField] private Sprite rainbowMushroomSprite;
     [SerializeField] private Sprite starMushroomSprite;
+    [SerializeField] private Sprite crystalMushroomSprite;
+    [SerializeField] private Sprite cosmicMushroomSprite;
+
+    [Header("=== キノコスプライト - スーパーレアキノコ ===")]
+    [SerializeField] private Sprite rabbitMushroomSprite;
+    [SerializeField] private Sprite mouseMushroomSprite;
+    [SerializeField] private Sprite squirrelMushroomSprite;
 
     [Header("=== カゴスプライト ===")]
     [SerializeField] private Sprite basketSprite;
@@ -32,15 +44,18 @@ public class MushroomPickingInitializer : MonoBehaviour
     [SerializeField] private AudioClip basketSound;
     [SerializeField] private AudioClip hideSound;
     [SerializeField] private AudioClip rareAppearSound;
+    [SerializeField] private AudioClip superRareRevealSound;
 
     [Header("=== パーティクル ===")]
     [SerializeField] private GameObject sparkleParticlePrefab;
     [SerializeField] private GameObject rareParticlePrefab;
+    [SerializeField] private GameObject superRareParticlePrefab;
 
     [Header("=== スポーン設定 ===")]
     [SerializeField, Range(1, 6)] private int maxSimultaneous = 6;
     [SerializeField, Range(0.5f, 10f)] private float spawnInterval = 2f;
     [SerializeField, Range(0f, 1f)] private float rareSpawnChance = 0.1f;
+    [SerializeField, Range(0f, 0.2f)] private float superRareSpawnChance = 0.03f;
     [SerializeField, Range(3f, 15f)] private float hideTimeout = 7f;
 
     [Header("=== キノコの大きさ ===")]
@@ -95,7 +110,7 @@ public class MushroomPickingInitializer : MonoBehaviour
 
         GameObject sfxObj = new GameObject("MushroomPickingSFXPlayer");
         MushroomPickingSFXPlayer sfxPlayer = sfxObj.AddComponent<MushroomPickingSFXPlayer>();
-        sfxPlayer.SetSoundClips(growSound, pickSound, revealSound, rarePickSound, rareRevealSound, basketSound, hideSound, rareAppearSound);
+        sfxPlayer.SetSoundClips(growSound, pickSound, revealSound, rarePickSound, rareRevealSound, basketSound, hideSound, rareAppearSound, superRareRevealSound);
 
         Debug.Log("[MushroomPickingInitializer] MushroomPickingSFXPlayerを作成しました");
     }
@@ -158,12 +173,14 @@ public class MushroomPickingInitializer : MonoBehaviour
         // キノコデータを作成
         List<MushroomPickingData> normalMushrooms = CreateNormalMushroomData();
         List<MushroomPickingData> rareMushrooms = CreateRareMushroomData();
+        List<MushroomPickingData> superRareMushrooms = CreateSuperRareMushroomData();
 
-        spawner.SetMushroomData(normalMushrooms, rareMushrooms);
+        spawner.SetMushroomData(normalMushrooms, rareMushrooms, superRareMushrooms);
 
         // スポーン設定を反映
         spawner.SetSpawnConfig(maxSimultaneous, spawnInterval, rareSpawnChance,
-                                mushroomBaseScale, colliderRadius, hideTimeout);
+                                mushroomBaseScale, colliderRadius, hideTimeout,
+                                superRareSpawnChance);
 
         // スポーンポイントを設定
         if (spawnPoints == null || spawnPoints.Count == 0)
@@ -196,7 +213,7 @@ public class MushroomPickingInitializer : MonoBehaviour
 
         // キノコPrefabを作成
         GameObject mushroomPrefab = CreateMushroomPrefab();
-        spawner.SetPrefabs(mushroomPrefab, sparkleParticlePrefab, rareParticlePrefab);
+        spawner.SetPrefabs(mushroomPrefab, sparkleParticlePrefab, rareParticlePrefab, superRareParticlePrefab);
 
         Debug.Log("[MushroomPickingInitializer] MushroomSpawnerを作成しました");
     }
@@ -238,6 +255,16 @@ public class MushroomPickingInitializer : MonoBehaviour
             whiteMushroomSprite, pickSound, false));
         list.Add(CreateMushroomDataInstance(MushroomType.GreenMushroom, "緑キノコ",
             greenMushroomSprite, pickSound, false));
+        list.Add(CreateMushroomDataInstance(MushroomType.PinkMushroom, "ピンクキノコ",
+            pinkMushroomSprite, pickSound, false));
+        list.Add(CreateMushroomDataInstance(MushroomType.OrangeMushroom, "オレンジキノコ",
+            orangeMushroomSprite, pickSound, false));
+        list.Add(CreateMushroomDataInstance(MushroomType.PurpleMushroom, "紫キノコ",
+            purpleMushroomSprite, pickSound, false));
+        list.Add(CreateMushroomDataInstance(MushroomType.BrownMushroom, "茶キノコ",
+            brownMushroomSprite, pickSound, false));
+        list.Add(CreateMushroomDataInstance(MushroomType.SkyBlueMushroom, "水色キノコ",
+            skyblueMushroomSprite, pickSound, false));
 
         return list;
     }
@@ -255,6 +282,27 @@ public class MushroomPickingInitializer : MonoBehaviour
             rainbowMushroomSprite, rarePickSound, true));
         list.Add(CreateMushroomDataInstance(MushroomType.StarMushroom, "星キノコ",
             starMushroomSprite, rarePickSound, true));
+        list.Add(CreateMushroomDataInstance(MushroomType.CrystalMushroom, "クリスタルキノコ",
+            crystalMushroomSprite, rarePickSound, true));
+        list.Add(CreateMushroomDataInstance(MushroomType.CosmicMushroom, "宇宙キノコ",
+            cosmicMushroomSprite, rarePickSound, true));
+
+        return list;
+    }
+
+    /// <summary>
+    /// スーパーレアキノコデータを作成
+    /// </summary>
+    private List<MushroomPickingData> CreateSuperRareMushroomData()
+    {
+        List<MushroomPickingData> list = new List<MushroomPickingData>();
+
+        list.Add(CreateMushroomDataInstance(MushroomType.RabbitMushroom, "うさぎキノコ",
+            rabbitMushroomSprite, rarePickSound, false, true));
+        list.Add(CreateMushroomDataInstance(MushroomType.MouseMushroom, "ネズミキノコ",
+            mouseMushroomSprite, rarePickSound, false, true));
+        list.Add(CreateMushroomDataInstance(MushroomType.SquirrelMushroom, "リスキノコ",
+            squirrelMushroomSprite, rarePickSound, false, true));
 
         return list;
     }
@@ -263,7 +311,7 @@ public class MushroomPickingInitializer : MonoBehaviour
     /// MushroomPickingDataインスタンスを作成
     /// </summary>
     private MushroomPickingData CreateMushroomDataInstance(MushroomType type, string name,
-        Sprite sprite, AudioClip sound, bool isRare)
+        Sprite sprite, AudioClip sound, bool isRare, bool isSuperRare = false)
     {
         MushroomPickingData data = ScriptableObject.CreateInstance<MushroomPickingData>();
         data.mushroomType = type;
@@ -271,10 +319,29 @@ public class MushroomPickingInitializer : MonoBehaviour
         data.mushroomSprite = sprite;
         data.pickSound = sound;
         data.isRare = isRare;
-        data.jumpHeight = isRare ? 2f : 1.5f;
-        data.spinSpeed = isRare ? 1080f : 720f;
-        data.revealDuration = isRare ? 0.8f : 0.6f;
-        data.flyToBasketDuration = isRare ? 1f : 0.8f;
+        data.isSuperRare = isSuperRare;
+
+        if (isSuperRare)
+        {
+            data.jumpHeight = 2.5f;
+            data.spinSpeed = 1440f;
+            data.revealDuration = 1f;
+            data.flyToBasketDuration = 1.2f;
+        }
+        else if (isRare)
+        {
+            data.jumpHeight = 2f;
+            data.spinSpeed = 1080f;
+            data.revealDuration = 0.8f;
+            data.flyToBasketDuration = 1f;
+        }
+        else
+        {
+            data.jumpHeight = 1.5f;
+            data.spinSpeed = 720f;
+            data.revealDuration = 0.6f;
+            data.flyToBasketDuration = 0.8f;
+        }
 
         return data;
     }

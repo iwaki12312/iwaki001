@@ -1114,35 +1114,48 @@ MonoBehaviour:
   blueMushroomSprite: {fileID: 21300000, guid: 667fa4e235464a4f9453099ef7be75bf, type: 3}
   whiteMushroomSprite: {fileID: 21300000, guid: 9db5d3ce5ba148fa87d56fb5af212a90, type: 3}
   greenMushroomSprite: {fileID: 21300000, guid: a2ede22eaaa9450f9e56fa2614e826a8, type: 3}
+  pinkMushroomSprite: {fileID: 21300000, guid: 5c6b00badef24b6aa06f0cbc6b2e9f75, type: 3}
+  orangeMushroomSprite: {fileID: 21300000, guid: 8a41ed54755649d7a28bd3c4340a58b1, type: 3}
+  purpleMushroomSprite: {fileID: 21300000, guid: 5078ad9dd65b421093979bbd52af81a6, type: 3}
+  brownMushroomSprite: {fileID: 21300000, guid: 3a06cd5ab3c44309be1653ea4cd51e68, type: 3}
+  skyblueMushroomSprite: {fileID: 21300000, guid: 3f4fdc5cba0245efbd481ad0dc90e62f, type: 3}
   goldMushroomSprite: {fileID: 21300000, guid: c52d68a59fea41e481c51e4d7ba0057c, type: 3}
   rainbowMushroomSprite: {fileID: 21300000, guid: 4fef88266ea44e0ea4f1656c480cf32f, type: 3}
   starMushroomSprite: {fileID: 21300000, guid: 3323069f46d64979b5aa294ed837992d, type: 3}
+  crystalMushroomSprite: {fileID: 21300000, guid: a6a85d0e579b40a7aecda398d868c3ad, type: 3}
+  cosmicMushroomSprite: {fileID: 21300000, guid: 6706e370fe074c8ebccdf33f66da2a1a, type: 3}
+  rabbitMushroomSprite: {fileID: 21300000, guid: 51eea78d1136483ba022cc9c5965e70a, type: 3}
+  mouseMushroomSprite: {fileID: 21300000, guid: b1b10fa7350840a2bf241c3c7f8dc8b2, type: 3}
+  squirrelMushroomSprite: {fileID: 21300000, guid: a245db0244d6485688f7d8d0b0b7cdd6, type: 3}
   basketSprite: {fileID: 21300000, guid: 692cb970ae214dff9d6a35a09ea8ed7b, type: 3}
   growSound: {fileID: 8300000, guid: dd785bb539434e1e85e5192c71f69c57, type: 3}
   pickSound: {fileID: 8300000, guid: 679e2c83864848a992058fe56c73853d, type: 3}
-  revealSound: {fileID: 8300000, guid: 7c910cf71d6f97b41a4b802ff900fc20, type: 3}
+  revealSound: {fileID: 0}
   rarePickSound: {fileID: 8300000, guid: b2da5542569bea84d96818f4ada318b9, type: 3}
-  rareRevealSound: {fileID: 8300000, guid: 5dab80b1a5af0714caf7c804176e19e4, type: 3}
+  rareRevealSound: {fileID: 0}
   basketSound: {fileID: 8300000, guid: 4c01181595a34e5f8bfc475ffad8933f, type: 3}
   hideSound: {fileID: 8300000, guid: bc4c52581af04718a91b84f8d0140f9b, type: 3}
   rareAppearSound: {fileID: 8300000, guid: 952c58756ab64e5899c001b2a79a36f6, type: 3}
+  superRareRevealSound: {fileID: 0}
   sparkleParticlePrefab: {fileID: 0}
   rareParticlePrefab: {fileID: 0}
-  maxSimultaneous: 3
-  spawnInterval: 2
-  rareSpawnChance: 0.1
+  superRareParticlePrefab: {fileID: 3031766928850544864, guid: a8cb176ac2d6504459d1fb8e59257cda, type: 3}
+  maxSimultaneous: 5
+  spawnInterval: 1
+  rareSpawnChance: 0.4
+  superRareSpawnChance: 0.2
   hideTimeout: 7
   mushroomBaseScale: 0.4
   colliderRadius: 4
   basketPosition: {x: 6, y: -4, z: 0}
   basketScale: 0.5
   spawnPoints:
-  - {fileID: 582420013}
+  - {fileID: 645483895}
   - {fileID: 1408668355}
   - {fileID: 713834411}
-  - {fileID: 1240092876}
   - {fileID: 1458860508}
-  - {fileID: 645483895}
+  - {fileID: 582420013}
+  - {fileID: 1240092876}
 --- !u!4 &1848551653
 Transform:
   m_ObjectHideFlags: 0

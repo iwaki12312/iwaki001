@@ -119,11 +119,23 @@ public static class MushroomPickingSetup
         so.FindProperty("blueMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_blue", fallbackA);
         so.FindProperty("whiteMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_white", fallbackA);
         so.FindProperty("greenMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_green", fallbackA);
+        so.FindProperty("pinkMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_pink", fallbackA);
+        so.FindProperty("orangeMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_orange", fallbackA);
+        so.FindProperty("purpleMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_purple", fallbackA);
+        so.FindProperty("brownMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_brown", fallbackA);
+        so.FindProperty("skyblueMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_skyblue", fallbackA);
 
         // レアキノコスプライト
         so.FindProperty("goldMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_gold", fallbackB);
         so.FindProperty("rainbowMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_rainbow", fallbackB);
         so.FindProperty("starMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_star", fallbackB);
+        so.FindProperty("crystalMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_crystal", fallbackB);
+        so.FindProperty("cosmicMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_cosmic", fallbackB);
+
+        // スーパーレアキノコスプライト
+        so.FindProperty("rabbitMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_rabbit", fallbackB);
+        so.FindProperty("mouseMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_mouse", fallbackB);
+        so.FindProperty("squirrelMushroomSprite").objectReferenceValue = LoadSpriteOrFallback("mushroom_squirrel", fallbackB);
 
         // カゴスプライト
         so.FindProperty("basketSprite").objectReferenceValue = LoadSpriteOrFallback("basket", fallbackB);
@@ -137,6 +149,15 @@ public static class MushroomPickingSetup
         so.FindProperty("basketSound").objectReferenceValue = LoadAudioOrFallback("sfx_basket", workSfx[3]);
         so.FindProperty("hideSound").objectReferenceValue = LoadAudioOrFallback("sfx_hide", workSfx[4]);
         so.FindProperty("rareAppearSound").objectReferenceValue = LoadAudioOrFallback("sfx_rare_appear", workSfx[5]);
+        so.FindProperty("superRareRevealSound").objectReferenceValue = LoadAudioOrFallback("sfx_super_rare_reveal", null);
+
+        // スーパーレア用パーティクルprefab
+        GameObject superRareParticle = AssetDatabase.LoadAssetAtPath<GameObject>(
+            "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR Magical Source.prefab");
+        if (superRareParticle != null)
+        {
+            so.FindProperty("superRareParticlePrefab").objectReferenceValue = superRareParticle;
+        }
 
         so.ApplyModifiedProperties();
 

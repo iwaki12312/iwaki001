@@ -13,6 +13,7 @@ public class MushroomSpawner : MonoBehaviour
     [SerializeField] private int maxSimultaneous = 6;           // 同時表示の最大数
     [SerializeField] private float spawnInterval = 2f;          // スポーン間隔（秒）
     [SerializeField] private float rareSpawnChance = 0.1f;      // レア出現確率（10%）
+    [SerializeField] private float superRareSpawnChance = 0.03f; // スーパーレア出現確率（3%）
     [SerializeField] private float hideTimeout = 7f;            // タップしないと引っ込むまでの時間
 
     [Header("キノコサイズ")]
@@ -22,6 +23,7 @@ public class MushroomSpawner : MonoBehaviour
     [Header("キノコデータ")]
     [SerializeField] private List<MushroomPickingData> normalMushrooms;
     [SerializeField] private List<MushroomPickingData> rareMushrooms;
+    [SerializeField] private List<MushroomPickingData> superRareMushrooms;
 
     [Header("Prefab")]
     [SerializeField] private GameObject mushroomPrefab;
@@ -29,6 +31,7 @@ public class MushroomSpawner : MonoBehaviour
     [Header("パーティクル")]
     [SerializeField] private GameObject sparkleParticlePrefab;
     [SerializeField] private GameObject rareParticlePrefab;
+    [SerializeField] private GameObject superRareParticlePrefab;
 
     [Header("カゴ")]
     [SerializeField] private Transform basketTransform;
@@ -77,20 +80,24 @@ public class MushroomSpawner : MonoBehaviour
     /// <summary>
     /// キノコデータを設定
     /// </summary>
-    public void SetMushroomData(List<MushroomPickingData> normal, List<MushroomPickingData> rare)
+    public void SetMushroomData(List<MushroomPickingData> normal, List<MushroomPickingData> rare,
+                                List<MushroomPickingData> superRare = null)
     {
         normalMushrooms = normal;
         rareMushrooms = rare;
+        superRareMushrooms = superRare ?? new List<MushroomPickingData>();
     }
 
     /// <summary>
     /// Prefabを設定
     /// </summary>
-    public void SetPrefabs(GameObject mushroom, GameObject sparkle, GameObject rareParticle)
+    public void SetPrefabs(GameObject mushroom, GameObject sparkle, GameObject rareParticle,
+                           GameObject superRareParticle = null)
     {
         mushroomPrefab = mushroom;
         sparkleParticlePrefab = sparkle;
         rareParticlePrefab = rareParticle;
+        superRareParticlePrefab = superRareParticle;
     }
 
     /// <summary>
@@ -118,11 +125,13 @@ public class MushroomSpawner : MonoBehaviour
     /// スポーン設定を一括反映
     /// </summary>
     public void SetSpawnConfig(int maxSim, float interval, float rareChance,
-                                float baseScale, float colRadius, float timeout)
+                                float baseScale, float colRadius, float timeout,
+                                float superRareChance = 0.03f)
     {
         maxSimultaneous = maxSim;
         spawnInterval = interval;
         rareSpawnChance = rareChance;
+        superRareSpawnChance = superRareChance;
         mushroomBaseScale = baseScale;
         colliderRadius = colRadius;
         hideTimeout = timeout;
@@ -149,11 +158,17 @@ public class MushroomSpawner : MonoBehaviour
         // ランダムにスポーンポイントを選択
         MushroomSpawnPoint selectedPoint = availablePoints[Random.Range(0, availablePoints.Count)];
 
-        // レア判定
-        bool spawnRare = Random.value < rareSpawnChance && rareMushrooms != null && rareMushrooms.Count > 0;
+        // スーパーレア → レア → 通常 の優先判定
+        float roll = Random.value;
+        bool spawnSuperRare = roll < superRareSpawnChance && superRareMushrooms != null && superRareMushrooms.Count > 0;
+        bool spawnRare = !spawnSuperRare && roll < rareSpawnChance && rareMushrooms != null && rareMushrooms.Count > 0;
 
         MushroomPickingData dataToSpawn;
-        if (spawnRare)
+        if (spawnSuperRare)
+        {
+            dataToSpawn = superRareMushrooms[Random.Range(0, superRareMushrooms.Count)];
+        }
+        else if (spawnRare)
         {
             dataToSpawn = rareMushrooms[Random.Range(0, rareMushrooms.Count)];
         }
@@ -201,7 +216,7 @@ public class MushroomSpawner : MonoBehaviour
         spawnPointOccupied[point] = true;
 
         // パーティクル生成
-        SpawnParticle(position, data.isRare);
+        SpawnParticle(position, data.isRare || data.isSuperRare);
 
         // 収穫時のコールバック
         controller.OnPickedUp += () =>
@@ -219,6 +234,14 @@ public class MushroomSpawner : MonoBehaviour
         };
 
         activeMushrooms.Add(controller);
+    }
+
+    /// <summary>
+    /// スーパーレア用パーティクルprefabを取得（MushroomControllerから参照）
+    /// </summary>
+    public GameObject GetSuperRareParticlePrefab()
+    {
+        return superRareParticlePrefab;
     }
 
     /// <summary>

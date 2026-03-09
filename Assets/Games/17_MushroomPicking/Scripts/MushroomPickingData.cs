@@ -11,11 +11,23 @@ public enum MushroomType
     BlueMushroom,       // 青キノコ
     WhiteMushroom,      // 白キノコ
     GreenMushroom,      // 緑キノコ
+    PinkMushroom,       // ピンクキノコ
+    OrangeMushroom,     // オレンジキノコ
+    PurpleMushroom,     // 紫キノコ
+    BrownMushroom,      // 茶キノコ
+    SkyBlueMushroom,    // 水色キノコ
 
     // レアキノコ
     GoldMushroom,       // 金キノコ
     RainbowMushroom,    // 虹キノコ
-    StarMushroom        // 星キノコ
+    StarMushroom,       // 星キノコ
+    CrystalMushroom,    // クリスタルキノコ
+    CosmicMushroom,     // 宇宙キノコ
+
+    // スーパーレアキノコ（動物がかじりついている）
+    RabbitMushroom,     // うさぎキノコ
+    MouseMushroom,      // ネズミキノコ
+    SquirrelMushroom    // リスキノコ
 }
 
 /// <summary>
@@ -37,6 +49,7 @@ public class MushroomPickingData : ScriptableObject
 
     [Header("レア設定")]
     public bool isRare = false;
+    public bool isSuperRare = false;
 
     [Header("アニメーション設定")]
     public float jumpHeight = 1.5f;         // 跳ね上がる高さ

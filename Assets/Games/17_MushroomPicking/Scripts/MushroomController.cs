@@ -30,6 +30,9 @@ public class MushroomController : MonoBehaviour
     // カゴ参照
     private Transform basketTransform;
 
+    // スーパーレア用パーティクル
+    private GameObject superRareParticleInstance;
+
     // 削除時のイベント（Spawnerに通知）
     public System.Action OnPickedUp;
     public System.Action OnHidden;
@@ -80,7 +83,11 @@ public class MushroomController : MonoBehaviour
 
         // スケール設定
         float scale = baseScale;
-        if (mushroomData != null && mushroomData.isRare)
+        if (mushroomData != null && mushroomData.isSuperRare)
+        {
+            scale *= 1.4f;
+        }
+        else if (mushroomData != null && mushroomData.isRare)
         {
             scale *= 1.2f;
         }
@@ -101,8 +108,13 @@ public class MushroomController : MonoBehaviour
         // シルエット表示（黒色で表示）
         spriteRenderer.color = new Color(0.1f, 0.1f, 0.1f, 1f);
 
+        // スーパーレアの場合はシルエットが金色に光る
+        if (mushroomData != null && mushroomData.isSuperRare)
+        {
+            spriteRenderer.color = new Color(0.3f, 0.25f, 0.05f, 1f);
+        }
         // レアの場合はシルエットが少し光る
-        if (mushroomData != null && mushroomData.isRare)
+        else if (mushroomData != null && mushroomData.isRare)
         {
             spriteRenderer.color = new Color(0.2f, 0.15f, 0.05f, 1f);
         }
@@ -140,8 +152,8 @@ public class MushroomController : MonoBehaviour
             MushroomPickingSFXPlayer.Instance.PlayGrowSound();
         }
 
-        // レア出現予告エフェクト
-        if (mushroomData != null && mushroomData.isRare)
+        // レア/スーパーレア出現予告エフェクト
+        if (mushroomData != null && (mushroomData.isRare || mushroomData.isSuperRare))
         {
             if (MushroomPickingSFXPlayer.Instance != null)
             {
@@ -216,7 +228,7 @@ public class MushroomController : MonoBehaviour
         if (MushroomPickingSFXPlayer.Instance != null)
         {
             AudioClip clip = mushroomData?.pickSound;
-            bool isRare = mushroomData != null && mushroomData.isRare;
+            bool isRare = mushroomData != null && (mushroomData.isRare || mushroomData.isSuperRare);
             MushroomPickingSFXPlayer.Instance.PlayPickSound(clip, isRare);
         }
 
@@ -237,6 +249,7 @@ public class MushroomController : MonoBehaviour
         float flyDuration = mushroomData != null ? mushroomData.flyToBasketDuration : 0.8f;
         float spinSpeed = mushroomData != null ? mushroomData.spinSpeed : 720f;
         bool isRare = mushroomData != null && mushroomData.isRare;
+        bool isSuperRare = mushroomData != null && mushroomData.isSuperRare;
 
         Sequence pickSeq = DOTween.Sequence();
 
@@ -264,15 +277,21 @@ public class MushroomController : MonoBehaviour
         {
             if (MushroomPickingSFXPlayer.Instance != null)
             {
-                MushroomPickingSFXPlayer.Instance.PlayRevealSound(isRare);
+                MushroomPickingSFXPlayer.Instance.PlayRevealSound(isRare, isSuperRare);
             }
         });
 
         // スケールを戻す
         pickSeq.Append(transform.DOScale(originalScale, revealDuration * 0.3f).SetEase(Ease.InOutQuad));
 
+        // スーパーレアの場合、特別エフェクト + パーティクル
+        if (isSuperRare)
+        {
+            pickSeq.AppendCallback(() => PlaySuperRareRevealEffect());
+            pickSeq.AppendInterval(0.5f);
+        }
         // レアの場合、特別エフェクト
-        if (isRare)
+        else if (isRare)
         {
             pickSeq.AppendCallback(() => PlayRareRevealEffect());
             pickSeq.AppendInterval(0.3f);
@@ -338,6 +357,49 @@ public class MushroomController : MonoBehaviour
     }
 
     /// <summary>
+    /// スーパーレアキノコの特別な明かし演出
+    /// </summary>
+    private void PlaySuperRareRevealEffect()
+    {
+        // 強めのカメラシェイク
+        if (mainCamera != null)
+        {
+            mainCamera.transform.DOShakePosition(0.5f, 0.15f, 15, 90, false, true);
+        }
+
+        // 虹色フラッシュ（2周回す）
+        Sequence colorSeq = DOTween.Sequence();
+        for (int i = 0; i < 2; i++)
+        {
+            colorSeq.Append(spriteRenderer.DOColor(new Color(1f, 0.8f, 0.8f), 0.04f));
+            colorSeq.Append(spriteRenderer.DOColor(new Color(1f, 1f, 0.5f), 0.04f));
+            colorSeq.Append(spriteRenderer.DOColor(new Color(0.5f, 1f, 0.5f), 0.04f));
+            colorSeq.Append(spriteRenderer.DOColor(new Color(0.5f, 0.8f, 1f), 0.04f));
+            colorSeq.Append(spriteRenderer.DOColor(new Color(0.8f, 0.5f, 1f), 0.04f));
+        }
+        colorSeq.Append(spriteRenderer.DOColor(Color.white, 0.05f));
+
+        // スーパーレア用キラキラパーティクルを表示
+        SpawnSuperRareParticle();
+    }
+
+    /// <summary>
+    /// スーパーレア用パーティクルを背後に表示（キノコに追従）
+    /// </summary>
+    private void SpawnSuperRareParticle()
+    {
+        if (MushroomSpawner.Instance == null) return;
+
+        GameObject prefab = MushroomSpawner.Instance.GetSuperRareParticlePrefab();
+        if (prefab == null) return;
+
+        Vector3 particlePos = transform.position;
+        particlePos.z = 1f; // キノコの後ろに表示
+        superRareParticleInstance = Instantiate(prefab, particlePos, Quaternion.identity, transform);
+        superRareParticleInstance.transform.localScale = Vector3.one * 0.7f;
+    }
+
+    /// <summary>
     /// タップされずに引っ込むアニメーション
     /// </summary>
     private void HideBack()
@@ -366,5 +428,6 @@ public class MushroomController : MonoBehaviour
     {
         DOTween.Kill(transform);
         if (spriteRenderer != null) DOTween.Kill(spriteRenderer);
+        if (superRareParticleInstance != null) Destroy(superRareParticleInstance);
     }
 }
