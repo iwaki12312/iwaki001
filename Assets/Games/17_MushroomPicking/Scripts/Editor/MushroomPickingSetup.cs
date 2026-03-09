@@ -131,7 +131,9 @@ public static class MushroomPickingSetup
         // 効果音（本番→仮の順でフォールバック）
         so.FindProperty("growSound").objectReferenceValue = LoadAudioOrFallback("sfx_grow", workSfx[0]);
         so.FindProperty("pickSound").objectReferenceValue = LoadAudioOrFallback("sfx_pick", workSfx[1]);
+        so.FindProperty("revealSound").objectReferenceValue = LoadAudioOrFallback("sfx_reveal", workSfx[6]);
         so.FindProperty("rarePickSound").objectReferenceValue = LoadAudioOrFallback("sfx_rare_pick", workSfx[2]);
+        so.FindProperty("rareRevealSound").objectReferenceValue = LoadAudioOrFallback("sfx_rare_reveal", workSfx[7]);
         so.FindProperty("basketSound").objectReferenceValue = LoadAudioOrFallback("sfx_basket", workSfx[3]);
         so.FindProperty("hideSound").objectReferenceValue = LoadAudioOrFallback("sfx_hide", workSfx[4]);
         so.FindProperty("rareAppearSound").objectReferenceValue = LoadAudioOrFallback("sfx_rare_appear", workSfx[5]);

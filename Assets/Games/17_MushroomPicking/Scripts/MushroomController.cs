@@ -259,6 +259,15 @@ public class MushroomController : MonoBehaviour
         pickSeq.Join(spriteRenderer.DOColor(Color.white, revealDuration * 0.5f)
             .SetDelay(revealDuration * 0.2f));
 
+        // シルエット解除完了時にリビール効果音を再生
+        pickSeq.InsertCallback(revealDuration * 0.7f, () =>
+        {
+            if (MushroomPickingSFXPlayer.Instance != null)
+            {
+                MushroomPickingSFXPlayer.Instance.PlayRevealSound(isRare);
+            }
+        });
+
         // スケールを戻す
         pickSeq.Append(transform.DOScale(originalScale, revealDuration * 0.3f).SetEase(Ease.InOutQuad));
 

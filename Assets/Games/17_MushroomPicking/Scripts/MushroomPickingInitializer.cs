@@ -26,7 +26,9 @@ public class MushroomPickingInitializer : MonoBehaviour
     [Header("=== 効果音 ===")]
     [SerializeField] private AudioClip growSound;
     [SerializeField] private AudioClip pickSound;
+    [SerializeField] private AudioClip revealSound;
     [SerializeField] private AudioClip rarePickSound;
+    [SerializeField] private AudioClip rareRevealSound;
     [SerializeField] private AudioClip basketSound;
     [SerializeField] private AudioClip hideSound;
     [SerializeField] private AudioClip rareAppearSound;
@@ -93,7 +95,7 @@ public class MushroomPickingInitializer : MonoBehaviour
 
         GameObject sfxObj = new GameObject("MushroomPickingSFXPlayer");
         MushroomPickingSFXPlayer sfxPlayer = sfxObj.AddComponent<MushroomPickingSFXPlayer>();
-        sfxPlayer.SetSoundClips(growSound, pickSound, rarePickSound, basketSound, hideSound, rareAppearSound);
+        sfxPlayer.SetSoundClips(growSound, pickSound, revealSound, rarePickSound, rareRevealSound, basketSound, hideSound, rareAppearSound);
 
         Debug.Log("[MushroomPickingInitializer] MushroomPickingSFXPlayerを作成しました");
     }
