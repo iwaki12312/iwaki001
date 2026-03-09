@@ -1137,8 +1137,8 @@ MonoBehaviour:
   hideSound: {fileID: 8300000, guid: bc4c52581af04718a91b84f8d0140f9b, type: 3}
   rareAppearSound: {fileID: 8300000, guid: 952c58756ab64e5899c001b2a79a36f6, type: 3}
   superRareRevealSound: {fileID: 0}
-  sparkleParticlePrefab: {fileID: 0}
-  rareParticlePrefab: {fileID: 0}
+  sparkleParticlePrefab: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
+  rareParticlePrefab: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
   superRareParticlePrefab: {fileID: 3031766928850544864, guid: a8cb176ac2d6504459d1fb8e59257cda, type: 3}
   maxSimultaneous: 5
   spawnInterval: 1
@@ -1150,12 +1150,12 @@ MonoBehaviour:
   basketPosition: {x: 6, y: -4, z: 0}
   basketScale: 0.5
   spawnPoints:
-  - {fileID: 645483895}
   - {fileID: 1408668355}
-  - {fileID: 713834411}
   - {fileID: 1458860508}
   - {fileID: 582420013}
+  - {fileID: 645483895}
   - {fileID: 1240092876}
+  - {fileID: 713834411}
 --- !u!4 &1848551653
 Transform:
   m_ObjectHideFlags: 0

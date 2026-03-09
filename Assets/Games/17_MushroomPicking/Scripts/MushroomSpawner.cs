@@ -254,6 +254,13 @@ public class MushroomSpawner : MonoBehaviour
         {
             Vector3 particlePos = position + new Vector3(0, 0.3f, 0);
             GameObject particle = Instantiate(prefab, particlePos, Quaternion.identity);
+
+            // sortingOrderを設定して確実に表示
+            foreach (var psr in particle.GetComponentsInChildren<ParticleSystemRenderer>())
+            {
+                psr.sortingOrder = 55;
+            }
+
             Destroy(particle, 2f);
         }
     }

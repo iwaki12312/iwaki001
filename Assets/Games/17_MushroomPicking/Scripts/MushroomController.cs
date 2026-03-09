@@ -346,14 +346,6 @@ public class MushroomController : MonoBehaviour
         {
             mainCamera.transform.DOShakePosition(0.3f, 0.1f, 10, 90, false, true);
         }
-
-        // 虹色フラッシュ
-        Sequence colorSeq = DOTween.Sequence();
-        colorSeq.Append(spriteRenderer.DOColor(new Color(1f, 0.8f, 0.8f), 0.05f));
-        colorSeq.Append(spriteRenderer.DOColor(new Color(1f, 1f, 0.5f), 0.05f));
-        colorSeq.Append(spriteRenderer.DOColor(new Color(0.5f, 1f, 0.5f), 0.05f));
-        colorSeq.Append(spriteRenderer.DOColor(new Color(0.5f, 0.8f, 1f), 0.05f));
-        colorSeq.Append(spriteRenderer.DOColor(Color.white, 0.05f));
     }
 
     /// <summary>
@@ -366,18 +358,6 @@ public class MushroomController : MonoBehaviour
         {
             mainCamera.transform.DOShakePosition(0.5f, 0.15f, 15, 90, false, true);
         }
-
-        // 虹色フラッシュ（2周回す）
-        Sequence colorSeq = DOTween.Sequence();
-        for (int i = 0; i < 2; i++)
-        {
-            colorSeq.Append(spriteRenderer.DOColor(new Color(1f, 0.8f, 0.8f), 0.04f));
-            colorSeq.Append(spriteRenderer.DOColor(new Color(1f, 1f, 0.5f), 0.04f));
-            colorSeq.Append(spriteRenderer.DOColor(new Color(0.5f, 1f, 0.5f), 0.04f));
-            colorSeq.Append(spriteRenderer.DOColor(new Color(0.5f, 0.8f, 1f), 0.04f));
-            colorSeq.Append(spriteRenderer.DOColor(new Color(0.8f, 0.5f, 1f), 0.04f));
-        }
-        colorSeq.Append(spriteRenderer.DOColor(Color.white, 0.05f));
 
         // スーパーレア用キラキラパーティクルを表示
         SpawnSuperRareParticle();
@@ -394,9 +374,17 @@ public class MushroomController : MonoBehaviour
         if (prefab == null) return;
 
         Vector3 particlePos = transform.position;
-        particlePos.z = 1f; // キノコの後ろに表示
-        superRareParticleInstance = Instantiate(prefab, particlePos, Quaternion.identity, transform);
+        particlePos.z = 0f;
+        superRareParticleInstance = Instantiate(prefab, particlePos, Quaternion.identity);
         superRareParticleInstance.transform.localScale = Vector3.one * 0.7f;
+
+        // sortingOrderを設定して確実に表示
+        foreach (var psr in superRareParticleInstance.GetComponentsInChildren<ParticleSystemRenderer>())
+        {
+            psr.sortingOrder = 55;
+        }
+
+        Destroy(superRareParticleInstance, 3f);
     }
 
     /// <summary>

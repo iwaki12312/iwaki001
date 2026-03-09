@@ -151,7 +151,21 @@ public static class MushroomPickingSetup
         so.FindProperty("rareAppearSound").objectReferenceValue = LoadAudioOrFallback("sfx_rare_appear", workSfx[5]);
         so.FindProperty("superRareRevealSound").objectReferenceValue = LoadAudioOrFallback("sfx_super_rare_reveal", null);
 
-        // スーパーレア用パーティクルprefab
+        // パーティクルprefab
+        GameObject sparkleParticle = AssetDatabase.LoadAssetAtPath<GameObject>(
+            "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR Magic Poof.prefab");
+        if (sparkleParticle != null)
+        {
+            so.FindProperty("sparkleParticlePrefab").objectReferenceValue = sparkleParticle;
+        }
+
+        GameObject rareParticle = AssetDatabase.LoadAssetAtPath<GameObject>(
+            "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR Magic Poof.prefab");
+        if (rareParticle != null)
+        {
+            so.FindProperty("rareParticlePrefab").objectReferenceValue = rareParticle;
+        }
+
         GameObject superRareParticle = AssetDatabase.LoadAssetAtPath<GameObject>(
             "Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR Magical Source.prefab");
         if (superRareParticle != null)
